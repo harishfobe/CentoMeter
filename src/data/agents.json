@@ -1,0 +1,238 @@
+[
+  {
+    "id": "a1",
+    "handle": "ananya.rao",
+    "name": "Ananya Rao",
+    "avatar": "/agent-ananya.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Bengaluru. Full details, clear communication and visits at your pace.",
+    "city": "Bengaluru",
+    "serviceAreas": [
+      "Indiranagar",
+      "Whitefield",
+      "Jayanagar"
+    ],
+    "languages": [
+      "English",
+      "Kannada"
+    ],
+    "specialties": [
+      "Apartments",
+      "Rentals"
+    ],
+    "experienceYears": 2,
+    "verified": true,
+    "verifiedAt": "2026-10-20",
+    "whatsapp": "9000000000",
+    "responseTimeMins": 15,
+    "joinedAt": "2026-01-01",
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a2",
+    "handle": "rahul.reddy",
+    "name": "Rahul Reddy",
+    "avatar": "/agent-rahul.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Hyderabad. Full details, clear communication and visits at your pace.",
+    "city": "Hyderabad",
+    "serviceAreas": [
+      "Gachibowli",
+      "Kondapur",
+      "Kokapet"
+    ],
+    "languages": [
+      "English",
+      "Hindi"
+    ],
+    "specialties": [
+      "Villas",
+      "Commercial"
+    ],
+    "experienceYears": 3,
+    "verified": true,
+    "verifiedAt": "2026-10-20",
+    "whatsapp": "9000000000",
+    "responseTimeMins": 120,
+    "joinedAt": "2026-02-01",
+    "closedDeals": 13,
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a3",
+    "handle": "meera.kulkarni",
+    "name": "Meera Kulkarni",
+    "avatar": "/agent-meera.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Pune. Full details, clear communication and visits at your pace.",
+    "city": "Pune",
+    "serviceAreas": [
+      "Baner",
+      "Wakad",
+      "Balewadi"
+    ],
+    "languages": [
+      "English",
+      "Marathi"
+    ],
+    "specialties": [
+      "Plots",
+      "PG"
+    ],
+    "experienceYears": 4,
+    "verified": false,
+    "verifiedAt": null,
+    "whatsapp": "9000000000",
+    "responseTimeMins": 240,
+    "joinedAt": "2026-03-01",
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a4",
+    "handle": "riya.menon",
+    "name": "Riya Menon",
+    "avatar": "/agent-ananya.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Bengaluru. Full details, clear communication and visits at your pace.",
+    "city": "Bengaluru",
+    "serviceAreas": [
+      "Indiranagar",
+      "Whitefield",
+      "Jayanagar"
+    ],
+    "languages": [
+      "English",
+      "Hindi"
+    ],
+    "specialties": [
+      "Apartments",
+      "Rentals"
+    ],
+    "experienceYears": 5,
+    "verified": true,
+    "verifiedAt": "2026-10-20",
+    "whatsapp": "9000000000",
+    "responseTimeMins": 60,
+    "joinedAt": "2026-04-01",
+    "closedDeals": 15,
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a5",
+    "handle": "arjun.desai",
+    "name": "Arjun Desai",
+    "avatar": "/agent-rahul.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Hyderabad. Full details, clear communication and visits at your pace.",
+    "city": "Hyderabad",
+    "serviceAreas": [
+      "Gachibowli",
+      "Kondapur",
+      "Kokapet"
+    ],
+    "languages": [
+      "English",
+      "Telugu"
+    ],
+    "specialties": [
+      "Villas",
+      "Commercial"
+    ],
+    "experienceYears": 6,
+    "verified": true,
+    "verifiedAt": "2026-10-20",
+    "whatsapp": "9000000000",
+    "responseTimeMins": 1440,
+    "joinedAt": "2026-05-01",
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a6",
+    "handle": "sneha.patil",
+    "name": "Sneha Patil",
+    "avatar": "/agent-meera.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Pune. Full details, clear communication and visits at your pace.",
+    "city": "Pune",
+    "serviceAreas": [
+      "Baner",
+      "Wakad",
+      "Balewadi"
+    ],
+    "languages": [
+      "English",
+      "Hindi"
+    ],
+    "specialties": [
+      "Plots",
+      "PG"
+    ],
+    "experienceYears": 7,
+    "verified": false,
+    "verifiedAt": null,
+    "whatsapp": "9000000000",
+    "responseTimeMins": null,
+    "joinedAt": "2026-06-01",
+    "closedDeals": 17,
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a7",
+    "handle": "vikram.shah",
+    "name": "Vikram Shah",
+    "avatar": "/agent-ananya.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Bengaluru. Full details, clear communication and visits at your pace.",
+    "city": "Bengaluru",
+    "serviceAreas": [
+      "Indiranagar",
+      "Whitefield",
+      "Jayanagar"
+    ],
+    "languages": [
+      "English",
+      "Kannada"
+    ],
+    "specialties": [
+      "Apartments",
+      "Rentals"
+    ],
+    "experienceYears": 8,
+    "verified": true,
+    "verifiedAt": "2026-10-20",
+    "whatsapp": "9000000000",
+    "responseTimeMins": 30,
+    "joinedAt": "2026-07-01",
+    "coverTone": "zinc"
+  },
+  {
+    "id": "a8",
+    "handle": "kavya.nair",
+    "name": "Kavya Nair",
+    "avatar": "/agent-rahul.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local property guidance in Hyderabad. Full details, clear communication and visits at your pace.",
+    "city": "Hyderabad",
+    "serviceAreas": [
+      "Gachibowli",
+      "Kondapur",
+      "Kokapet"
+    ],
+    "languages": [
+      "English",
+      "Hindi"
+    ],
+    "specialties": [
+      "Villas",
+      "Commercial"
+    ],
+    "experienceYears": 9,
+    "verified": true,
+    "verifiedAt": "2026-10-20",
+    "whatsapp": "9000000000",
+    "responseTimeMins": 180,
+    "joinedAt": "2026-08-01",
+    "closedDeals": 19,
+    "coverTone": "zinc"
+  }
+]

@@ -1,0 +1,22 @@
+import React from 'react';
+import {describe,it,expect} from 'vitest';
+import {renderToStaticMarkup} from 'react-dom/server';
+import properties from '../properties.json';
+import {accessStatus,exactLocation,isLocationLocked,mapPoint,publicBoundary,safeSearchArea,publicShare,leadSourceFromSearch} from '../lib/locationAccess';
+import {propertyHotspots} from '../PropertyContact';
+import {LocationGate,LocationRequests} from '../AgentUI';
+import {qrMatrix} from '../lib/qr';
+const p=properties.find(p=>p.agentId&&p.privacy.mode==='radius');const now=Date.parse('2026-11-01T12:00:00Z');const request=status=>({id:'r1',propertyId:p.id,agentId:p.agentId,status,createdAt:'2026-11-01T11:00:00Z'});
+describe('agent location access',()=>{
+ it('never publishes exact coordinates in agent listing data',()=>{for(const item of properties.filter(p=>p.agentId)){expect(item).not.toHaveProperty('lat');expect(item).not.toHaveProperty('lng');expect(item).not.toHaveProperty('location');expect(item).not.toHaveProperty('boundary');expect(item.approx).toHaveLength(2)}});
+ it('stays locked before approval, even if raw coordinates are injected',()=>{for(const status of [null,'requested','declined','expired']){const requests=status?[request(status)]:[];expect(exactLocation({...p,lat:1,lng:2},requests,now)).toBeNull();expect(isLocationLocked(p,requests,now)).toBe(true);expect(publicBoundary(p,requests,now)).toBeNull()}});
+ it('uses only approx for a radius and no marker for hidden or unapproved exact',()=>{expect(mapPoint(p,[],now)).toEqual(p.approx);expect(mapPoint({...p,privacy:{mode:'hidden'}},[],now)).toBeNull();expect(mapPoint({...p,privacy:{mode:'exact'}},[],now)).toBeNull()});
+ it('releases a precise point only for this approved listing',()=>{const requests=[request('approved')];const point=exactLocation(p,requests,now);expect(point).toHaveLength(2);expect(point).not.toEqual(p.approx);expect(exactLocation({...p,id:'other'},requests,now)).toBeNull();expect(mapPoint(p,requests,now)).toEqual(point)});
+ it('expires at the exact deadline and keeps declined requests locked',()=>{const r={...request('approved'),expiresAt:'2026-11-01T12:00:00Z'};expect(accessStatus(r,now-1)).toBe('approved');expect(accessStatus(r,now)).toBe('expired');expect(exactLocation(p,[r],now)).toBeNull();expect(exactLocation(p,[request('declined')],now)).toBeNull()});
+ it('fails closed on invalid expiry or a different agent approval',()=>{expect(exactLocation(p,[{...request('approved'),expiresAt:'invalid'}],now)).toBeNull();expect(exactLocation(p,[{...request('approved'),agentId:'another-agent'}],now)).toBeNull()});
+ it('never creates hotspots from a locked agent listing',()=>{expect(propertyHotspots(p,[])).toEqual([]);expect(propertyHotspots(p,[request('approved')])).toHaveLength(4)});
+ it('strips location areas from saved searches and location details from share text',()=>{expect(safeSearchArea({query:'Land',nearPlace:{point:[1,2]},viewport:{center:[1,2]},bounds:[[1,2],[3,4]]},true)).toEqual({query:'Land',nearPlace:null,viewport:null,bounds:null});const text=publicShare(p,'https://example.com/#property/'+p.id);expect(text).not.toContain(p.approx.join(','));expect(text).not.toContain('destination=')});
+ it('renders a locked gate and pending activity status',()=>{const html=renderToStaticMarkup(<LocationGate p={p} requests={[]} onRequest={()=>{}}/>);expect(html).toContain('Request location');expect(html).not.toContain('directions');expect(renderToStaticMarkup(<LocationRequests requests={[request('requested')]} items={[p]} onOpen={()=>{}}/>)).toContain('requested')});
+ it('attributes Instagram links without accepting arbitrary source values',()=>{expect(leadSourceFromSearch('?src=ig')).toBe('ig');expect(leadSourceFromSearch('?src=other')).toBe('direct');expect(leadSourceFromSearch('')).toBe('direct')});
+ it('generates a deterministic local QR matrix',()=>{const link='https://centometer.example/?src=ig#agent/ananya-bengaluru';const qr=qrMatrix(link);expect(qr).toHaveLength(37);expect(qr.every(row=>row.length===37)).toBe(true);expect(qr[0].slice(0,7)).toEqual(Array(7).fill(true));expect(qrMatrix(link)).toEqual(qr);expect(()=>qrMatrix('a'.repeat(107))).toThrow()});
+});

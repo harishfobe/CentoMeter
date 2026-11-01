@@ -1,0 +1,1669 @@
+[
+  {
+    "id": "al1",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "mode": "BUY",
+    "type": "Apartment",
+    "title": "Garden City Palm Residences 1",
+    "price": 12800000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1680,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Ananya Rao",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North",
+    "possessionStatus": "Ready to move",
+    "propertyAge": 2,
+    "totalFloors": 8,
+    "parking": "1 covered space",
+    "ownershipType": "Freehold",
+    "postedAt": "2026-10-20",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a1",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      12.9787,
+      77.6393
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [],
+    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 7619.047619047619,
+    "sample": true
+  },
+  {
+    "id": "al2",
+    "city": "Hyderabad",
+    "locality": "Kondapur",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Deccan Cedar Grove 1",
+    "price": 21181000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3220,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 3000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Rahul Reddy",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South-East",
+    "postedAt": "2026-10-13",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a2",
+    "status": "under-offer",
+    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      17.4607,
+      78.3663
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 6577.9503105590065,
+    "sample": true
+  },
+  {
+    "id": "al3",
+    "city": "Pune",
+    "locality": "Kothrud",
+    "mode": "BUY",
+    "type": "Land",
+    "title": "Sahyadri Greenfield Plot 1",
+    "price": 6972000,
+    "area": 2460,
+    "image": "land",
+    "tag": "Corner plot",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
+    "subtype": "Agricultural",
+    "contactName": "Meera Kulkarni",
+    "freshness": "Availability not recently confirmed",
+    "roadWidth": "40 ft",
+    "facing": "North-West",
+    "postedAt": "2026-10-10",
+    "photos": [
+      "/land.jpg"
+    ],
+    "landType": "Agricultural",
+    "agentId": "a3",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      18.5077,
+      73.8063
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 2834.1463414634145,
+    "sample": true
+  },
+  {
+    "id": "al4",
+    "city": "Bengaluru",
+    "locality": "Hebbal",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Garden City Grove Villas 1",
+    "price": 25128000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "South-West",
+    "postedAt": "2026-10-15",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a4",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      13.0357,
+      77.5963
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [],
+    "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 7614.545454545455,
+    "sample": true
+  },
+  {
+    "id": "al5",
+    "city": "Hyderabad",
+    "locality": "Narsingi",
+    "mode": "BUY",
+    "type": "Independent House",
+    "title": "Deccan Aaranya Villa 1",
+    "price": 16559000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2520,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Arjun Desai",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "North",
+    "postedAt": "2026-10-18",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a5",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      17.3917,
+      78.3543
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 6571.0317460317465,
+    "sample": true
+  },
+  {
+    "id": "al6",
+    "city": "Pune",
+    "locality": "Bavdhan",
+    "mode": "BUY",
+    "type": "Land",
+    "title": "Sahyadri Orchard Enclave 1",
+    "price": 7435000,
+    "area": 2540,
+    "image": "land",
+    "tag": "Corner plot",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
+    "subtype": "Residential",
+    "contactName": "Sneha Patil",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "roadWidth": "20 ft",
+    "facing": "South-East",
+    "postedAt": "2026-10-14",
+    "photos": [
+      "/land.jpg"
+    ],
+    "landType": "Residential",
+    "agentId": "a6",
+    "status": "available",
+    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      18.5147,
+      73.7733
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 2927.165354330709,
+    "sample": true
+  },
+  {
+    "id": "al7",
+    "city": "Bengaluru",
+    "locality": "Bellandur",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Garden City Lakeview Retreat 1",
+    "price": 25631000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3380,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Vikram Shah",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a7",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      12.9277,
+      77.6763
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [],
+    "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 7583.136094674556,
+    "sample": true
+  },
+  {
+    "id": "al8",
+    "city": "Hyderabad",
+    "locality": "Jubilee Hills",
+    "mode": "RENT",
+    "type": "Independent House",
+    "title": "Deccan Courtyard Villa — Rental 1",
+    "price": 64000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2440,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 198000,
+    "brokerage": 0,
+    "contactName": "Kavya Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South",
+    "postedAt": "2026-10-22",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      17.4347,
+      78.4093
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected independent house in Jubilee Hills. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 26.229508196721312,
+    "sample": true
+  },
+  {
+    "id": "al9",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "mode": "RENT",
+    "type": "Apartment",
+    "title": "Garden City Palm Residences — Rental 2",
+    "price": 50000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1680,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 126000,
+    "brokerage": 0,
+    "contactName": "Ananya Rao",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South",
+    "propertyAge": 2,
+    "totalFloors": 8,
+    "parking": "1 covered space",
+    "postedAt": "2026-10-21",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a1",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      12.9817,
+      77.6393
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 29.761904761904763,
+    "sample": true
+  },
+  {
+    "id": "al10",
+    "city": "Hyderabad",
+    "locality": "Kokapet",
+    "mode": "RENT",
+    "type": "Villa",
+    "title": "Deccan Grove Villas — Rental 2",
+    "price": 93000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 3000,
+    "deposit": 292500,
+    "brokerage": 0,
+    "contactName": "Rahul Reddy",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-West",
+    "postedAt": "2026-10-24",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a2",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      17.4007,
+      78.3363
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [],
+    "description": "A well-connected villa in Kokapet. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 28.181818181818183,
+    "sample": true
+  },
+  {
+    "id": "al11",
+    "city": "Pune",
+    "locality": "Baner",
+    "mode": "BUY",
+    "type": "Commercial",
+    "title": "Sahyadri Central Square Workspace 2",
+    "price": 15190000,
+    "baths": 1,
+    "area": 1250,
+    "image": "interior",
+    "tag": "Office space",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Office",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Meera Kulkarni",
+    "freshness": "Availability not recently confirmed",
+    "floor": "4+",
+    "ac": "Not specified",
+    "postedAt": "2026-10-27",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a3",
+    "status": "available",
+    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      18.5727,
+      73.7733
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected commercial in Baner. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 12152,
+    "sample": true
+  },
+  {
+    "id": "al12",
+    "city": "Bengaluru",
+    "locality": "JP Nagar",
+    "mode": "RENT",
+    "type": "Independent House",
+    "title": "Garden City Aaranya Villa — Rental 2",
+    "price": 79000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2520,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 2500,
+    "deposit": 204000,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "East",
+    "postedAt": "2026-10-27",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a4",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      12.9107,
+      77.5873
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 31.349206349206348,
+    "sample": true
+  },
+  {
+    "id": "al13",
+    "city": "Hyderabad",
+    "locality": "Gachibowli",
+    "mode": "RENT",
+    "type": "PG",
+    "title": "Private room in Gachibowli",
+    "price": 18000,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1000,
+    "deposit": 24000,
+    "brokerage": 0,
+    "contactName": "Arjun Desai",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "East",
+    "postedAt": "2026-10-12",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a5",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      17.4407,
+      78.3473
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [],
+    "description": "A well-connected apartment in Gachibowli. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 100,
+    "sample": true,
+    "occupancy": "Private room",
+    "meals": "Not included",
+    "bathroom": "Attached",
+    "ac": "No"
+  },
+  {
+    "id": "al14",
+    "city": "Pune",
+    "locality": "Balewadi",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Sahyadri Cedar Grove 2",
+    "price": 22668000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3220,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Sneha Patil",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South-West",
+    "postedAt": "2026-10-27",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a6",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      18.5747,
+      73.7733
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 7039.751552795031,
+    "sample": true
+  },
+  {
+    "id": "al15",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "mode": "BUY",
+    "type": "Commercial",
+    "title": "Garden City Central Square Workspace 2",
+    "price": 16514000,
+    "baths": 1,
+    "area": 1250,
+    "image": "interior",
+    "tag": "Office space",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Office",
+    "maintenance": 2500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Vikram Shah",
+    "freshness": "Availability not recently confirmed",
+    "floor": "4+",
+    "ac": "Not specified",
+    "postedAt": "2026-10-21",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a7",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      12.9907,
+      77.6273
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected commercial in Indiranagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 13211.2,
+    "sample": true
+  },
+  {
+    "id": "al16",
+    "city": "Hyderabad",
+    "locality": "Madhapur",
+    "mode": "BUY",
+    "type": "Apartment",
+    "title": "Deccan Parkside Living 2",
+    "price": 11455000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1760,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 2500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Kavya Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "West",
+    "postedAt": "2026-10-16",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      17.4487,
+      78.3903
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [],
+    "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 6508.522727272727,
+    "sample": true
+  },
+  {
+    "id": "al17",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "mode": "BUY",
+    "type": "Apartment",
+    "title": "Garden City Palm Residences 3",
+    "price": 12816000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1680,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Ananya Rao",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North",
+    "possessionStatus": "Ready to move",
+    "propertyAge": 2,
+    "totalFloors": 8,
+    "parking": "1 covered space",
+    "ownershipType": "Freehold",
+    "postedAt": "2026-10-20",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a1",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      12.9787,
+      77.6393
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 7628.571428571428,
+    "sample": true
+  },
+  {
+    "id": "al18",
+    "city": "Hyderabad",
+    "locality": "Manikonda",
+    "mode": "BUY",
+    "type": "Land",
+    "title": "Deccan Orchard Enclave 3",
+    "price": 6962000,
+    "area": 2540,
+    "image": "land",
+    "tag": "Corner plot",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
+    "subtype": "Residential",
+    "contactName": "Rahul Reddy",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "roadWidth": "20 ft",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/land.jpg"
+    ],
+    "landType": "Residential",
+    "agentId": "a2",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      17.4027,
+      78.3843
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected land in Manikonda. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 2740.9448818897636,
+    "sample": true
+  },
+  {
+    "id": "al19",
+    "city": "Pune",
+    "locality": "Balewadi",
+    "mode": "RENT",
+    "type": "Villa",
+    "title": "Sahyadri Cedar Grove — Rental 3",
+    "price": 106000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3220,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 286500,
+    "brokerage": 0,
+    "contactName": "Meera Kulkarni",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "South-West",
+    "postedAt": "2026-10-16",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a3",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      18.5777,
+      73.7733
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [],
+    "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 32.91925465838509,
+    "sample": true
+  },
+  {
+    "id": "al20",
+    "city": "Bengaluru",
+    "locality": "Hebbal",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Garden City Grove Villas 3",
+    "price": 25144000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "South-West",
+    "postedAt": "2026-10-15",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a4",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      13.0357,
+      77.5963
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 7619.393939393939,
+    "sample": true
+  },
+  {
+    "id": "al21",
+    "city": "Hyderabad",
+    "locality": "Madhapur",
+    "mode": "RENT",
+    "type": "Apartment",
+    "title": "Deccan Parkside Living — Rental 3",
+    "price": 58000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1760,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 2500,
+    "deposit": 132000,
+    "brokerage": 0,
+    "contactName": "Arjun Desai",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "West",
+    "postedAt": "2026-10-23",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a5",
+    "status": "available",
+    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      17.4517,
+      78.3903
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 32.95454545454545,
+    "sample": true
+  },
+  {
+    "id": "al22",
+    "city": "Pune",
+    "locality": "Shivajinagar",
+    "mode": "RENT",
+    "type": "Villa",
+    "title": "Sahyadri Grove Villas — Rental 3",
+    "price": 110500,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 292500,
+    "brokerage": 0,
+    "contactName": "Sneha Patil",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a6",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      18.5347,
+      73.8433
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [],
+    "description": "A well-connected villa in Shivajinagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 33.484848484848484,
+    "sample": true
+  },
+  {
+    "id": "al23",
+    "city": "Bengaluru",
+    "locality": "Bellandur",
+    "mode": "RENT",
+    "type": "PG",
+    "title": "Private room in Bellandur",
+    "price": 23000,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 1000,
+    "deposit": 24000,
+    "brokerage": 0,
+    "contactName": "Vikram Shah",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a7",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      12.9277,
+      77.6763
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 127.77777777777777,
+    "sample": true,
+    "occupancy": "Private room",
+    "meals": "Not included",
+    "bathroom": "Attached",
+    "ac": "No"
+  },
+  {
+    "id": "al24",
+    "city": "Hyderabad",
+    "locality": "Gachibowli",
+    "mode": "RENT",
+    "type": "Commercial",
+    "title": "Deccan Central Square Workspace — Rental 3",
+    "price": 70500,
+    "baths": 1,
+    "area": 1250,
+    "image": "interior",
+    "tag": "Office space",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Office",
+    "maintenance": 2500,
+    "deposit": 165000,
+    "brokerage": 0,
+    "contactName": "Kavya Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "floor": "Ground",
+    "ac": "Yes",
+    "postedAt": "2026-10-25",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      17.4287,
+      78.3353
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected commercial in Gachibowli. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 56.4,
+    "sample": true
+  },
+  {
+    "id": "al25",
+    "city": "Bengaluru",
+    "locality": "Indiranagar",
+    "mode": "RENT",
+    "type": "Apartment",
+    "title": "Garden City Palm Residences — Rental 4",
+    "price": 66000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1680,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 126000,
+    "brokerage": 0,
+    "contactName": "Ananya Rao",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South",
+    "propertyAge": 2,
+    "totalFloors": 8,
+    "parking": "1 covered space",
+    "postedAt": "2026-10-21",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg"
+    ],
+    "agentId": "a1",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      12.9817,
+      77.6393
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [],
+    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 39.285714285714285,
+    "sample": true
+  },
+  {
+    "id": "al26",
+    "city": "Hyderabad",
+    "locality": "Kondapur",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Deccan Cedar Grove 4",
+    "price": 21205000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3220,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 3000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Rahul Reddy",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South-East",
+    "postedAt": "2026-10-13",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a2",
+    "status": "available",
+    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      17.4607,
+      78.3663
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 6585.403726708075,
+    "sample": true
+  },
+  {
+    "id": "al27",
+    "city": "Pune",
+    "locality": "Kothrud",
+    "mode": "BUY",
+    "type": "Land",
+    "title": "Sahyadri Greenfield Plot 4",
+    "price": 6996000,
+    "area": 2460,
+    "image": "land",
+    "tag": "Corner plot",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
+    "subtype": "Agricultural",
+    "contactName": "Meera Kulkarni",
+    "freshness": "Availability not recently confirmed",
+    "roadWidth": "40 ft",
+    "facing": "North-West",
+    "postedAt": "2026-10-10",
+    "photos": [
+      "/land.jpg"
+    ],
+    "landType": "Agricultural",
+    "agentId": "a3",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      18.5077,
+      73.8063
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 2843.9024390243903,
+    "sample": true
+  },
+  {
+    "id": "al28",
+    "city": "Bengaluru",
+    "locality": "JP Nagar",
+    "mode": "RENT",
+    "type": "Independent House",
+    "title": "Garden City Aaranya Villa — Rental 4",
+    "price": 95000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2520,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 2500,
+    "deposit": 204000,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "East",
+    "postedAt": "2026-10-27",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a4",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 300
+    },
+    "approx": [
+      12.9107,
+      77.5873
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [],
+    "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 37.698412698412696,
+    "sample": true
+  },
+  {
+    "id": "al29",
+    "city": "Hyderabad",
+    "locality": "Narsingi",
+    "mode": "BUY",
+    "type": "Independent House",
+    "title": "Deccan Aaranya Villa 4",
+    "price": 16583000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2520,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Arjun Desai",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "North",
+    "postedAt": "2026-10-18",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a5",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 500
+    },
+    "approx": [
+      17.3917,
+      78.3543
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 6580.555555555556,
+    "sample": true
+  },
+  {
+    "id": "al30",
+    "city": "Pune",
+    "locality": "Bavdhan",
+    "mode": "BUY",
+    "type": "Land",
+    "title": "Sahyadri Orchard Enclave 4",
+    "price": 7459000,
+    "area": 2540,
+    "image": "land",
+    "tag": "Corner plot",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
+    "subtype": "Residential",
+    "contactName": "Sneha Patil",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "roadWidth": "20 ft",
+    "facing": "South-East",
+    "postedAt": "2026-10-14",
+    "photos": [
+      "/land.jpg"
+    ],
+    "landType": "Residential",
+    "agentId": "a6",
+    "status": "available",
+    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "privacy": {
+      "mode": "exact",
+      "radiusM": 1000
+    },
+    "approx": [
+      18.5147,
+      73.7733
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
+    "pricePerSqft": 2936.6141732283463,
+    "sample": true
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "a1",
+    "handle": "ananya-bengaluru",
+    "name": "Ananya Rao",
+    "avatar": "/agent-ananya.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Thoughtful homes and land across Bengaluru. Ask for a location before planning your visit.",
+    "city": "Bengaluru"
+  },
+  {
+    "id": "a2",
+    "handle": "rahul-hyderabad",
+    "name": "Rahul Reddy",
+    "avatar": "/agent-rahul.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Local guidance for your next Hyderabad property.",
+    "city": "Hyderabad"
+  },
+  {
+    "id": "a3",
+    "handle": "meera-pune",
+    "name": "Meera Kulkarni",
+    "avatar": "/agent-meera.svg",
+    "instagramUrl": "https://www.instagram.com/",
+    "bio": "Discover homes and plots with a Pune local.",
+    "city": "Pune"
+  }
+]

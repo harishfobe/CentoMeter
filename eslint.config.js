@@ -1,0 +1,4 @@
+import js from '@eslint/js';
+import globals from 'globals';
+const jsxUsage={meta:{schema:[]},create(context){return {JSXElement(node){context.sourceCode.markVariableAsUsed('React',node)},JSXFragment(node){context.sourceCode.markVariableAsUsed('React',node)},JSXOpeningElement(node){let name=node.name;while(name.type==='JSXMemberExpression')name=name.object;if(name.type==='JSXIdentifier'&&/^[A-Z]/.test(name.name))context.sourceCode.markVariableAsUsed(name.name,node)}}}};
+export default [{ignores:['dist/**','node_modules/**']},js.configs.recommended,{files:['src/**/*.{js,jsx}','eslint.config.js'],languageOptions:{ecmaVersion:'latest',sourceType:'module',parserOptions:{ecmaFeatures:{jsx:true}},globals:{...globals.browser,...globals.node}},plugins:{local:{rules:{'jsx-usage':jsxUsage}}},rules:{'local/jsx-usage':'error','no-unused-vars':['error',{argsIgnorePattern:'^_',caughtErrorsIgnorePattern:'^_'}]}}];
