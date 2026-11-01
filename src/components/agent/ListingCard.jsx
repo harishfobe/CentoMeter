@@ -1,30 +1,36 @@
-import React, { useRef, useState } from "react";
+import { useCardEntrance, revealGalleryImage } from "../../lib/agentMotion";
+import React, { useRef, useState, useEffect, memo } from "react";
 import { Heart } from "lucide-react";
 import { money } from "../../PropertyModel";
 import { landPrice } from "../../JourneyUX";
 import { recentlyConfirmed, statusLabel } from "../../lib/agents";
-import { getExactLocation, accessStatus } from "../../lib/locationAccess";
-import { viewerId, useAgentStore } from "../../lib/agentStore";
+import { accessStatus } from "../../lib/locationAccess";
+
 import LocationPrivacyChip from "./LocationPrivacyChip";
-export default function ListingCard({
+function ListingCard({
   p,
   onOpen,
   onSave,
   saved,
   unit = "total",
   compared,
+  request,
+  unlocked = false,
+  entranceIndex = 0,
   onCompare,
 }) {
+  const entrance = useCardEntrance(entranceIndex);
   const photos = Array.isArray(p.photos) ? p.photos : [];
-  const strip = useRef(null);
+  const strip = useRef(null),
+    imageStops = useRef([]);
+  useEffect(() => () => imageStops.current.forEach((stop) => stop()), []);
   const [index, setIndex] = useState(0);
-  const access = useAgentStore();
-  const request = access.requests.find(
-    (r) => r.propertyId === p.id && r.viewerId === viewerId,
-  );
   const price = landPrice(p, unit);
   return (
     <article
+      ref={entrance}
+      data-listing-id={p.id}
+      data-below-fold={entranceIndex >= 3}
       className={
         "property-card agent-listing " +
         (["sold", "rented"].includes(p.status) ? "listing-inactive" : "")
@@ -33,6 +39,22 @@ export default function ListingCard({
       <div
         className="agent-photo-strip"
         ref={strip}
+        tabIndex={0}
+        role="group"
+        aria-label={"Photos of " + p.title}
+        onKeyDown={(e) => {
+          if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
+            e.preventDefault();
+            strip.current?.scrollBy({
+              left:
+                (e.key === "ArrowRight" ? 1 : -1) * strip.current.clientWidth,
+              behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)")
+                .matches
+                ? "instant"
+                : "smooth",
+            });
+          }
+        }}
         onScroll={(e) =>
           setIndex(
             Math.round(
@@ -58,39 +80,29 @@ export default function ListingCard({
             width="600"
             height="400"
             src={url}
+            onLoad={(e) => {
+              e.currentTarget.dataset.loaded = "true";
+              imageStops.current.push(revealGalleryImage(e.currentTarget));
+            }}
             alt={p.title + " photo " + (i + 1)}
           />
         ))}
       </div>
-      <div className="agent-photo-dots">
+      <div className="agent-photo-dots" aria-hidden="true">
         {photos.map((_, i) => (
-          <button
-            key={i}
-            aria-label={"Photo " + (i + 1)}
-            aria-pressed={index === i}
-            onClick={() =>
-              strip.current?.scrollTo({
-                left: i * strip.current.clientWidth,
-                behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-                  .matches
-                  ? "auto"
-                  : "smooth",
-              })
-            }
-          >
-            ●
-          </button>
+          <span key={i} data-active={index === i} />
         ))}
       </div>
       <button
         className="save-button"
         aria-label={(saved ? "Unsave " : "Save ") + p.title}
         aria-pressed={saved}
-        onClick={onSave}
+        onClick={() => onSave(p.id)}
       >
+        <span className="agent-heart-burst" aria-hidden="true" />
         <Heart size={20} fill={saved ? "currentColor" : "none"} />
       </button>
-      <button className="property-copy" onClick={onOpen}>
+      <button className="property-copy" onClick={() => onOpen(p.id)}>
         <div className="price">
           {money(price.amount)}
           <small>{p.mode === "RENT" ? "/mo" : price.suffix}</small>
@@ -110,14 +122,15 @@ export default function ListingCard({
         ) : (
           <small>Not recently confirmed</small>
         )}
-        <LocationPrivacyChip
-          p={p}
-          unlocked={!!getExactLocation(p.id, viewerId)}
-        />
+        <LocationPrivacyChip p={p} unlocked={unlocked} />
         {request && <small role="status">{accessStatus(request)}</small>}
         {onCompare && (
           <label>
-            <input type="checkbox" checked={compared} onChange={onCompare} />
+            <input
+              type="checkbox"
+              checked={compared}
+              onChange={() => onCompare(p.id)}
+            />
             Compare
           </label>
         )}
@@ -125,3 +138,5 @@ export default function ListingCard({
     </article>
   );
 }
+
+export default memo(ListingCard);

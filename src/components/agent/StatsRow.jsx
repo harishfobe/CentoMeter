@@ -1,4 +1,33 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { observeOnce, reducedMotion } from "../../lib/agentMotion";
+function Counter({ value }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (typeof value !== "number" || reducedMotion()) return;
+    let frame = 0;
+    const stop = observeOnce(ref.current, () => {
+      const start = performance.now();
+      const tick = (now) => {
+        const t = reducedMotion() ? 1 : Math.min(1, (now - start) / 700);
+        if (ref.current)
+          ref.current.textContent = String(
+            Math.round(value * (1 - Math.pow(1 - t, 3))),
+          );
+        if (t < 1) frame = requestAnimationFrame(tick);
+      };
+      frame = requestAnimationFrame(tick);
+    });
+    return () => {
+      stop();
+      cancelAnimationFrame(frame);
+    };
+  }, [value]);
+  return (
+    <dd ref={ref} aria-label={String(value)}>
+      {value}
+    </dd>
+  );
+}
 export default function StatsRow({ agent: a, count }) {
   return (
     <dl className="agent-stats">
@@ -9,10 +38,10 @@ export default function StatsRow({ agent: a, count }) {
         ["RERA agent no.", a.reraAgentNo],
       ]
         .filter(([, v]) => v != null)
-        .map(([k, v]) => (
-          <div key={k}>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
+        .map(([label, value]) => (
+          <div key={label}>
+            <dt>{label}</dt>
+            <Counter value={value} />
           </div>
         ))}
     </dl>

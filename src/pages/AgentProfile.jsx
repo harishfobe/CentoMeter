@@ -1,6 +1,25 @@
+import useExpiryTick from '../lib/useExpiryTick';
+import useDebouncedValue from "../lib/useDebouncedValue";
+import ListingPresence from "../components/agent/ListingPresence";
+import ListingGrid from "../components/agent/ListingGrid";
+import AgentTabs from "../components/agent/AgentTabs";
+import MotionSkeleton from "../components/agent/MotionSkeleton";
+import {
+  useMinimumSkeleton,
+  useScrollPolish,
+  reducedMotion,
+} from "../lib/agentMotion";
+import { getExactLocation } from "../lib/locationAccess";
 import CompareTable from "../components/agent/CompareTable";
 import { useAgentNavigation } from "../lib/agentNavigation";
-import React, { useState, useEffect, useMemo, useDeferredValue } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useDeferredValue,
+  useCallback,
+  useRef,
+} from "react";
 import {
   agents,
   listings,
@@ -15,6 +34,7 @@ import {
 import { readLocal, writeLocal } from "../Discovery";
 import {
   useAgentStore,
+  viewerId,
   toggleStore,
   recordEvent,
   updateStore,
@@ -48,7 +68,22 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
   } = useAgentNavigation(route);
   const { handle } = parseAgentRoute(route),
     a = agents.find((a) => a.handle === handle);
+  const host = useRef(null);
+  useScrollPolish(host);
+  const ready = useMinimumSkeleton(handle, !!a);
+  const tabScroll = useRef({ listings: null, about: null });
   const store = useAgentStore();
+  const expiryNow=useExpiryTick(store.requests.filter(r=>r.viewerId===viewerId));
+  const requestMap = useMemo(
+    () =>
+      new Map(
+        store.requests
+          .filter((r) => r.viewerId === viewerId)
+          .map((r) => [r.propertyId, r]),
+      ),
+    [store.requests],
+  );
+
   const [reportAgent, setReportAgent] = useState(false),
     [more, setMore] = useState(false),
     [compare, setCompare] = useState([]);
@@ -64,11 +99,52 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       ...readLocal("agent-filters:" + handle, {}),
     };
   };
-  const f =
+  const [f, setF] = useState(() =>
     query.has("mode") ||
     [...query.keys()].some((k) => Object.hasOwn(defaults, k))
       ? filtersFromQuery(query)
-      : initial();
+      : initial(),
+  );
+  const compareAck = useRef(compare),
+    compareChanged = useRef(false);
+  useEffect(() => {
+    if (!compareChanged.current) return;
+    const timer = setTimeout(() => {
+      if (writeLocal("agent-compare:" + handle, compare)) {
+        compareAck.current = compare;
+      } else {
+        compareChanged.current = false;
+        setCompare(compareAck.current);
+        notifyAgent("Could not save comparison. Your selection was restored.");
+      }
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [compare, handle]);
+  const changed = useRef(false);
+  const navigation = useRef({ query, replace });
+  navigation.current = { query, replace };
+  useEffect(() => {
+    if (!changed.current) return;
+    const timer = setTimeout(() => {
+      const q = filtersQuery(f);
+      q.set("mode", f.mode);
+      for (const key of ["src", "tab", "l"]) {
+        const value = navigation.current.query.get(key);
+        if (value) q.set(key, value);
+      }
+      if (!writeLocal("agent-filters:" + handle, f))
+        notifyAgent("Filters applied. Device storage is unavailable.");
+      navigation.current.replace(q);
+    }, 200);
+    return () => clearTimeout(timer);
+  }, [f, handle]);
+  useEffect(() => {
+    const q = parseAgentRoute(route).query;
+    if ([...q.keys()].some((k) => Object.hasOwn(defaults, k))) {
+      changed.current = false;
+      setF(filtersFromQuery(q));
+    }
+  }, [route]);
   const items = useMemo(
     () =>
       [...listings, ...(store.customListings || [])]
@@ -76,21 +152,48 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
         .map((p) => ({ ...p, ...store.overrides[p.id] })),
     [a, store.overrides, store.customListings],
   );
-  const deferredFilters = useDeferredValue(JSON.stringify(f));
+  const unlocked = useMemo(
+    () =>
+      new Set(
+        items
+          .filter((p) => !!getExactLocation(p.id, viewerId))
+          .map((p) => p.id),
+      ),
+    [items, store.requests, expiryNow],
+  );
+  const settledFilters = useDebouncedValue(JSON.stringify(f));
+  const deferredFilters = useDeferredValue(settledFilters);
   const loading = deferredFilters !== JSON.stringify(f);
   const rows = useMemo(
     () => filterListings(items, JSON.parse(deferredFilters)),
     [items, deferredFilters],
   );
-  const change = (next) => {
-    writeLocal("agent-filters:" + handle, next);
-    const q = filtersQuery(next);
-    q.set("mode", next.mode);
-    if (query.get("src")) q.set("src", query.get("src"));
-    if (query.get("tab")) q.set("tab", query.get("tab"));
-    if (next.locality) q.set("tab", "listings");
-    replace(q);
-  };
+  const change = useCallback((next) => {
+    changed.current = true;
+    setF(next);
+    if (next.locality) {
+      const q = new URLSearchParams(navigation.current.query);
+      q.set("tab", "listings");
+      navigation.current.replace(q);
+    }
+  }, []);
+  const onSave = useCallback(
+    (id) => {
+      toggleStore("saved", id);
+      recordEvent("saves", a.id);
+    },
+    [a?.id],
+  );
+  const onCompare = useCallback((id) => {
+    compareChanged.current = true;
+    setCompare((xs) =>
+      xs.includes(id)
+        ? xs.filter((x) => x !== id)
+        : xs.length < 3
+          ? [...xs, id]
+          : xs,
+    );
+  }, []);
   const link =
     location.origin +
     location.pathname +
@@ -112,32 +215,33 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       </section>
     );
   const tab = query.get("tab") || "listings";
-  const open = (p) => openListing(p.id);
+  const changeTab = (next) => {
+    tabScroll.current[tab] = window.scrollY;
+    const q = new URLSearchParams(query);
+    q.set("tab", next);
+    replace(q);
+    requestAnimationFrame(() => {
+      const y = tabScroll.current[next];
+      if (y !== null && y !== undefined)
+        window.scrollTo({ top: y, behavior: "instant" });
+    });
+  };
   const card = (p) => (
     <ListingCard
       key={p.id}
       p={p}
-      unit={f.unit}
+      unit={JSON.parse(deferredFilters).unit}
       saved={store.saved.includes(p.id)}
-      onSave={() => {
-        toggleStore("saved", p.id);
-        recordEvent("saves", a.id);
-      }}
-      onOpen={() => open(p)}
+      request={requestMap.get(p.id)}
+      unlocked={unlocked.has(p.id)}
+      onSave={onSave}
+      onOpen={openListing}
       compared={compare.includes(p.id)}
-      onCompare={() =>
-        setCompare((xs) =>
-          xs.includes(p.id)
-            ? xs.filter((id) => id !== p.id)
-            : xs.length < 3
-              ? [...xs, p.id]
-              : xs,
-        )
-      }
+      onCompare={onCompare}
     />
   );
   return (
-    <section className="page agent-feature agent-public">
+    <section ref={host} className="page agent-feature agent-public">
       <nav className="agent-slim-bar">
         <button onClick={() => onNavigate("home")}>← CentoMeter</button>
         <button onClick={() => shareAgentLink(link, a.name)}>
@@ -145,32 +249,23 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
         </button>
       </nav>
       <p className="fine-print">Demo: location gating is simulated</p>
-      <AgentHeader
-        agent={a}
-        count={activeListings(items, a.id).length}
-        onShare={() => shareAgentLink(link, a.name)}
-      />
-      <div
-        className="agent-profile-tabs"
-        role="tablist"
-        aria-label="Agent sections"
-      >
-        {["listings", "about"].map((t) => (
-          <button
-            key={t}
-            role="tab"
-            aria-selected={tab === t}
-            onClick={() => {
-              const q = new URLSearchParams(query);
-              q.set("tab", t);
-              replace(q);
-            }}
-          >
-            {t === "listings" ? "Listings" : "About"}
-          </button>
-        ))}
+      <div className="agent-skeleton-shell">
+        {" "}
+        <AgentHeader
+          agent={a}
+          count={activeListings(items, a.id).length}
+          onShare={() => shareAgentLink(link, a.name)}
+        />
+        <MotionSkeleton ready={ready} kind="header" />
       </div>
-      {tab === "about" ? (
+      <AgentTabs tab={tab} onChange={changeTab} />
+      <section
+        data-agent-panel
+        id="agent-panel-about"
+        role="tabpanel"
+        aria-labelledby="agent-tab-about"
+        hidden={tab !== "about"}
+      >
         <section>
           <h2>About {a.name}</h2>
           <p>{a.bio}</p>
@@ -195,7 +290,14 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           </p>
           <p>Response time is an illustrative median, not a promise.</p>
         </section>
-      ) : (
+      </section>
+      <section
+        data-agent-panel
+        id="agent-panel-listings"
+        role="tabpanel"
+        aria-labelledby="agent-tab-listings"
+        hidden={tab !== "listings"}
+      >
         <>
           <FilterBar f={f} onChange={change} onMore={() => setMore(true)} />
           <p aria-live="polite">
@@ -214,16 +316,27 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
                 </button>
               ))}
           </div>
-          <div className="property-grid" aria-busy={loading}>
-            {loading
-              ? Array.from({ length: 3 }, (_, i) => (
-                  <div
-                    className="agent-skeleton"
-                    key={i}
-                    aria-label="Loading properties"
-                  />
-                ))
-              : rows.map(card)}
+          <div
+            className="agent-results agent-skeleton-shell"
+            aria-busy={loading}
+          >
+            <div
+              className="agent-list-progress"
+              data-pending={loading}
+              aria-hidden="true"
+            />
+            <ListingGrid
+              rows={rows}
+              unit={JSON.parse(deferredFilters).unit}
+              saved={store.saved}
+              requests={requestMap}
+              unlocked={unlocked}
+              compared={compare}
+              onSave={onSave}
+              onOpen={openListing}
+              onCompare={onCompare}
+            />
+            <MotionSkeleton ready={ready} />
           </div>
           {!rows.length && (
             <div className="empty">
@@ -239,11 +352,26 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
             </div>
           )}
         </>
-      )}
+      </section>
+      <button
+        className="agent-back-top secondary"
+        aria-label="Back to top"
+        onClick={() =>
+          window.scrollTo({
+            top: 0,
+            behavior: reducedMotion() ? "instant" : "smooth",
+          })
+        }
+      >
+        ↑ Back to top
+      </button>
       {compare.length > 0 && (
         <CompareTable
           items={items.filter((p) => compare.includes(p.id))}
-          onClear={() => setCompare([])}
+          onClear={() => {
+            compareChanged.current = true;
+            setCompare([]);
+          }}
         />
       )}
       {more && (
@@ -296,24 +424,29 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       <p className="fine-print">
         Demo: location gating is simulated · Sample agents and listings
       </p>
-      {Detail && items.find((p) => p.id === query.get("l")) && (
-        <Detail
-          p={items.find((p) => p.id === query.get("l"))}
-          agent={a}
-          Modal={Modal}
-          source={query.get("src") || "direct"}
-          onRelated={(p) =>
-            p.agentId === a.id
-              ? openListing(p.id)
-              : onNavigate(
-                  "agent/" +
-                    agents.find((a) => a.id === p.agentId)?.handle +
-                    "?l=" +
-                    p.id,
-                )
-          }
-          onClose={closeListing}
-        />
+      {Detail && (
+        <ListingPresence item={items.find((p) => p.id === query.get("l"))}>
+          {(shown, exiting) => (
+            <Detail
+              p={shown}
+              exiting={exiting}
+              agent={a}
+              Modal={Modal}
+              source={query.get("src") || "direct"}
+              onRelated={(p) =>
+                p.agentId === a.id
+                  ? openListing(p.id)
+                  : onNavigate(
+                      "agent/" +
+                        agents.find((a) => a.id === p.agentId)?.handle +
+                        "?l=" +
+                        p.id,
+                    )
+              }
+              onClose={closeListing}
+            />
+          )}
+        </ListingPresence>
       )}
     </section>
   );

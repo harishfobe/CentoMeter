@@ -1,10 +1,12 @@
-import React from "react";
+import { useCardEntrance } from "../../lib/agentMotion";
+import React, { memo } from "react";
 import { responseLabel, activeListings } from "../../lib/agents";
 import { toggleStore, useAgentStore } from "../../lib/agentStore";
-export default function AgentCard({ agent: a, items, onNavigate }) {
+function AgentCard({ agent: a, items, onNavigate }) {
+  const entrance = useCardEntrance();
   const s = useAgentStore();
   return (
-    <article className="agent-card">
+    <article ref={entrance} className="agent-card">
       <img width="64" height="64" src={a.avatar} alt="" />
       <h2>
         {a.name}
@@ -60,3 +62,5 @@ export default function AgentCard({ agent: a, items, onNavigate }) {
     </article>
   );
 }
+
+export default memo(AgentCard);

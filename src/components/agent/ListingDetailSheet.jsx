@@ -1,3 +1,12 @@
+import useSheetDrag from "../../lib/useSheetDrag";
+import MotionSkeleton from "./MotionSkeleton";
+import {
+  useMinimumSkeleton,
+  animateMotion,
+  reducedMotion,
+  revealGalleryImage,
+} from "../../lib/agentMotion";
+import useExpiryTick from "../../lib/useExpiryTick";
 import React, { useState, useEffect } from "react";
 import L from "leaflet";
 import { useRef } from "react";
@@ -33,7 +42,9 @@ export function UnlockedMap({ point }) {
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "© OpenStreetMap contributors",
     }).addTo(map);
-    L.marker(point).addTo(map);
+    const marker = L.marker(point).addTo(map);
+    marker.getElement()?.classList.add("agent-pin-drop");
+
     const resize = new ResizeObserver(() => map.invalidateSize());
     resize.observe(host.current);
     return () => {
@@ -56,27 +67,57 @@ export default function ListingDetailSheet({
   onClose,
   source,
   onRelated,
+  exiting = false,
 }) {
+  const ready = useMinimumSkeleton(p.id);
+  const drag = useSheetDrag(onClose);
+  const gallery = useRef(null),
+    imageStops = useRef([]);
+  useEffect(() => () => imageStops.current.forEach((stop) => stop()), []);
+  const gesture = useRef(null);
   const s = useAgentStore();
   const [request, setRequest] = useState(false),
     [report, setReport] = useState(false),
     [visit, setVisit] = useState(false),
     [emi, setEmi] = useState(false);
-  const [, tick] = useState(0);
+
   const [visitError, setVisitError] = useState("");
   const photos = Array.isArray(p.photos) ? p.photos : [];
   const [photo, setPhoto] = useState(0);
   const [zoom, setZoom] = useState(false);
   useEffect(() => setPhoto(0), [p.id]);
-  useEffect(() => {
-    const t = setInterval(() => tick((n) => n + 1), 60000);
-    return () => clearInterval(t);
-  }, []);
   const point = getExactLocation(p.id, viewerId);
   const req = s.requests.find(
     (r) => r.propertyId === p.id && r.viewerId === viewerId,
   );
-  const state = accessStatus(req);
+  const now = useExpiryTick(req ? [req] : []);
+  const state = accessStatus(req, now);
+  const wasUnlocked = useRef(false);
+  useEffect(() => {
+    if (point && !wasUnlocked.current) notifyAgent("Location unlocked");
+    wasUnlocked.current = !!point;
+  }, [!!point]);
+  useEffect(() => {
+    if (!zoom) return;
+    const image = document.querySelector(".agent-full-photo");
+    const source = gallery.current?.querySelectorAll("img")[photo];
+    if (!image || !source) return;
+    const from = source.getBoundingClientRect(),
+      to = image.getBoundingClientRect();
+    animateMotion(
+      image,
+      [
+        {
+          translate: `${from.x - to.x}px ${from.y - to.y}px`,
+          scale: from.width / Math.max(1, to.width),
+          opacity: 0.5,
+        },
+        { translate: "0 0", scale: 1, opacity: 1 },
+      ],
+      { duration: 280 },
+    );
+  }, [zoom]);
+
   const link =
     location.origin +
     location.pathname +
@@ -118,10 +159,51 @@ export default function ListingDetailSheet({
     ["Status", statusLabel(p.status)],
   ].filter(([, v]) => hasValue(v));
   return (
-    <Modal title={p.title} onClose={onClose} historyManaged>
-      <article className="agent-detail">
+    <Modal
+      title={p.title}
+      onClose={onClose}
+      historyManaged
+      motionKind="listing"
+      exiting={exiting}
+    >
+      <button
+        className="agent-drag-handle"
+        aria-label="Drag to dismiss"
+        {...drag}
+        onKeyDown={(e) => {
+          if (["Escape", "ArrowDown", "Enter", " "].includes(e.key)) {
+            e.preventDefault();
+            onClose();
+          }
+        }}
+      >
+        <span />
+      </button>
+      <article className="agent-detail agent-skeleton-shell">
+        <MotionSkeleton ready={ready} kind="detail" />
+
         <div
           className="agent-photo-strip"
+          ref={gallery}
+          onPointerDown={(e) => {
+            gesture.current = { x: e.clientX, y: e.clientY };
+            e.currentTarget.setPointerCapture?.(e.pointerId);
+          }}
+          onPointerCancel={() => {
+            gesture.current = null;
+          }}
+          onPointerUp={(e) => {
+            if (
+              gesture.current &&
+              Math.abs(e.clientY - gesture.current.y) > 60 &&
+              Math.abs(e.clientX - gesture.current.x) < 40 &&
+              photos.length
+            ) {
+              setZoom(true);
+            }
+            gesture.current = null;
+          }}
+
           onScroll={(e) =>
             setPhoto(
               Math.round(
@@ -137,7 +219,7 @@ export default function ListingDetailSheet({
                 left:
                   e.currentTarget.clientWidth *
                   (e.key === "ArrowRight" ? 1 : -1),
-                behavior: "smooth",
+                behavior: reducedMotion() ? "instant" : "smooth",
               });
             }
           }}
@@ -157,6 +239,11 @@ export default function ListingDetailSheet({
               src={url}
               width="800"
               height="500"
+              onLoad={(e) => {
+                e.currentTarget.dataset.loaded = "true";
+                imageStops.current.push(revealGalleryImage(e.currentTarget));
+              }}
+              draggable={false}
               decoding="async"
               alt={p.title + " photo " + (i + 1)}
             />
@@ -265,9 +352,11 @@ export default function ListingDetailSheet({
               ? "Request the exact location"
               : statusLabel(state)}
           </p>
+          <div className="agent-map-reveal" data-open={!!point}>
+            <div>{point && <UnlockedMap point={point} />}</div>
+          </div>
           {point ? (
             <>
-              <UnlockedMap point={point} />
               <p>
                 {p.locality}, {p.city}
               </p>
@@ -383,7 +472,13 @@ export default function ListingDetailSheet({
       </article>
       {zoom && (
         <Modal title="Photo viewer" onClose={() => setZoom(false)}>
-          <img className="agent-full-photo" src={photos[photo]} alt={p.title} />
+          <img
+            className="agent-full-photo"
+            width="800"
+            height="500"
+            src={photos[photo]}
+            alt={p.title}
+          />
         </Modal>
       )}
       {request && (

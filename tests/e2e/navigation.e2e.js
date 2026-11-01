@@ -6,6 +6,20 @@ for (const close of ["X", "Escape", "Back"])
     await page.goto("/#agent/ananya.rao?mode=BUY&available=false");
     const card = page.locator(".property-copy").last();
     await card.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        card.evaluate((el) => el.closest(".agent-listing").dataset.entered),
+      )
+      .toBe("true");
+    await card.evaluate((el) =>
+      Promise.all(
+        el
+          .closest(".agent-listing")
+          .getAnimations()
+          .map((a) => a.finished.catch(() => {})),
+      ),
+    );
+    await card.scrollIntoViewIfNeeded();
     const before = await page.evaluate(() => {
       history.replaceState({ ...history.state, sentinel: 42 }, "");
       return { hash: location.hash, y: scrollY, length: history.length };

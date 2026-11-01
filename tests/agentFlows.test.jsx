@@ -44,7 +44,7 @@ it("replaces profile filters without scrolling or dispatching hash changes", asy
   fireEvent.change(screen.getByLabelText("Sort listings"), {
     target: { value: "low" },
   });
-  expect(location.hash).toContain("sort=low");
+  await waitFor(() => expect(location.hash).toContain("sort=low"));
   expect(window.scrollTo).not.toHaveBeenCalled();
   expect(hash).not.toHaveBeenCalled();
   expect(history.state.sentinel).toBe(42);

@@ -47,9 +47,23 @@ setAccessRequests(state.requests);
 export const LIMITS = { daily: 5, declineCooldownMs: 86400000 };
 export const snapshot = () => state;
 let writeTimer;
+const pendingToggles = new Map();
 export function flushStore() {
   clearTimeout(writeTimer);
-  writeLocal(key, state);
+  if (writeLocal(key, state)) {
+    pendingToggles.clear();
+    return true;
+  }
+  if (pendingToggles.size) {
+    for (const { field, id, had } of pendingToggles.values()) {
+      const values = state[field].filter((value) => value !== id);
+      state = { ...state, [field]: had ? [...values, id] : values };
+    }
+    pendingToggles.clear();
+    listeners.forEach((fn) => fn());
+    notifyAgent("Could not save this change. Your selection was restored.");
+  }
+  return false;
 }
 if (typeof window !== "undefined")
   window.addEventListener("pagehide", flushStore);
@@ -101,13 +115,18 @@ export function useAgentStore() {
     snapshot,
   );
 }
-export const toggleStore = (field, id) =>
+export function toggleStore(field, id) {
+  const token = field + ":" + id;
+  if (!pendingToggles.has(token))
+    pendingToggles.set(token, { field, id, had: state[field].includes(id) });
   updateStore((s) => ({
     ...s,
     [field]: s[field].includes(id)
       ? s[field].filter((x) => x !== id)
       : [...s[field], id],
   }));
+  if (typeof navigator !== "undefined") navigator.vibrate?.(8);
+}
 export function canRequest(requests, id, buyer = viewerId, now = Date.now()) {
   const own = requests.filter((r) => r.viewerId === buyer);
   const last = own.find((r) => r.propertyId === id);

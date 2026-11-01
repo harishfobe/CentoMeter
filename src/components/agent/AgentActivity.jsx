@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import useExpiryTick from "../../lib/useExpiryTick";
+import React from "react";
 import { agents, listings } from "../../lib/agents";
 import {
   useAgentStore,
@@ -9,11 +10,7 @@ import {
 import { accessStatus } from "../../lib/locationAccess";
 export function AgentRequests({ onNavigate }) {
   const s = useAgentStore();
-  const [, tick] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => tick((n) => n + 1), 60000);
-    return () => clearInterval(timer);
-  }, []);
+  useExpiryTick(s.requests.filter((r) => r.viewerId === viewerId));
   return (
     <div>
       {s.visits

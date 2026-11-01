@@ -1,3 +1,4 @@
+import AgentToasts from "./components/agent/AgentToasts";
 import { sameAgentPage } from "./lib/agentNavigation";
 import { flushSync } from "react-dom";
 import { routeMotion } from "./lib/routeMotion";
@@ -335,7 +336,14 @@ function IconButton({ label, children, ...props }) {
     </button>
   );
 }
-export function Modal({ title, onClose, children, historyManaged = false }) {
+export function Modal({
+  title,
+  onClose,
+  children,
+  historyManaged = false,
+  motionKind,
+  exiting = false,
+}) {
   const ref = useRef(null);
   const close = useRef(onClose);
   const dirtyForm = useRef(false);
@@ -345,7 +353,7 @@ export function Modal({ title, onClose, children, historyManaged = false }) {
     const before = document.activeElement;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    ref.current?.querySelector("button")?.focus();
+    ref.current?.querySelector("button")?.focus({ preventScroll: true });
     const key = (e) => {
       const dialogs = document.querySelectorAll(".modal");
       if (ref.current !== dialogs[dialogs.length - 1]) return;
@@ -378,6 +386,8 @@ export function Modal({ title, onClose, children, historyManaged = false }) {
   return (
     <div
       className="modal-scrim"
+      data-motion-kind={motionKind}
+      data-exiting={exiting}
       onChangeCapture={(e) => {
         if (e.target.closest("form")) dirtyForm.current = true;
       }}
@@ -1713,11 +1723,6 @@ function PostFlow({ onExit, onComplete, city, initialDraft, agent }) {
 }
 
 export default function App() {
-  useEffect(() => {
-    const show = (e) => setToast(e.detail);
-    window.addEventListener("centometer-toast", show);
-    return () => window.removeEventListener("centometer-toast", show);
-  }, []);
   const agentState = useAgentStore();
   const intentFilters = useRef({ BUY: initialFilters, RENT: initialFilters });
   const [notes, setNotes] = useState(() => readLocal("centometer-notes", {}));
@@ -3511,6 +3516,7 @@ export default function App() {
           ))}
         </nav>
       )}
+      <AgentToasts />
       {toast && (
         <div className="toast" role="status">
           <CheckCircle2 size={17} />

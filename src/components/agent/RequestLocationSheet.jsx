@@ -13,7 +13,17 @@ export default function RequestLocationSheet({
   return (
     <Modal title="Request location" onClose={onClose}>
       {sent ? (
-        <div role="status">
+        <div role="status" className="agent-request-success">
+          <svg
+            className="agent-success-check"
+            viewBox="0 0 48 48"
+            width="48"
+            height="48"
+            aria-hidden="true"
+          >
+            <circle cx="24" cy="24" r="22" />
+            <path d="m13 24 8 8 15-17" />
+          </svg>
           <h3>Request sent</h3>
           <p>
             @{agent.handle} {responseLabel(agent).toLowerCase()}

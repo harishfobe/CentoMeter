@@ -1,4 +1,6 @@
-import React, { useState, useMemo, useEffect } from "react";
+import { useScrollPolish, useMinimumSkeleton } from "../lib/agentMotion";
+import MotionSkeleton from "../components/agent/MotionSkeleton";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { agents, listings, findAgents } from "../lib/agents";
 import { readLocal } from "../Discovery";
 import { cityForLocation } from "../PropertyModel";
@@ -49,6 +51,9 @@ const groups = [
   ],
 ];
 export default function AgentFinder({ onNavigate, Modal }) {
+  const host = useRef(null);
+  useScrollPolish(host);
+  const ready = useMinimumSkeleton("finder");
   const [filtersOpen, setFiltersOpen] = useState(false),
     [f, setF] = useState({ ...empty }),
     [input, setInput] = useState(""),
@@ -128,7 +133,7 @@ export default function AgentFinder({ onNavigate, Modal }) {
     ],
   ].filter(([, values]) => values.length);
   return (
-    <section className="page agent-finder agent-feature">
+    <section ref={host} className="page agent-finder agent-feature">
       <h1>Find your local expert</h1>
       <div className="agent-filter-bar">
         <input
@@ -270,7 +275,11 @@ export default function AgentFinder({ onNavigate, Modal }) {
       <p aria-live="polite">
         {rows.length} {rows.length === 1 ? "agent" : "agents"}
       </p>
-      <div className="agent-grid" aria-busy={input !== f.query}>
+      <div
+        className="agent-grid agent-skeleton-shell"
+        aria-busy={input !== f.query}
+      >
+        <MotionSkeleton ready={ready} />
         {input !== f.query
           ? Array.from({ length: 3 }, (_, i) => (
               <div

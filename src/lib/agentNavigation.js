@@ -1,4 +1,11 @@
-import { useEffect, useState } from "react";
+import { reducedMotion } from "./agentMotion";
+import {
+  startTransition,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 
 export function sameAgentPage(before, after) {
   return (
@@ -9,6 +16,8 @@ export function sameAgentPage(before, after) {
 // A listing owns one history entry. Filters/tabs only replace that entry.
 export function useAgentNavigation(route) {
   const [search, setSearch] = useState(() => route.split("?")[1] || "");
+  const searchRef = useRef(search);
+  searchRef.current = search;
   const path = route.split("?")[0];
   useEffect(() => {
     const q = new URLSearchParams(location.hash.split("?")[1] || "");
@@ -30,34 +39,54 @@ export function useAgentNavigation(route) {
     };
   }, []);
   useEffect(() => setSearch(route.split("?")[1] || ""), [route]);
-  const replace = (query) => {
-    const next = query.toString();
-    history.replaceState(
-      history.state,
-      "",
-      "#" + path + (next ? "?" + next : ""),
-    );
-    setSearch(next);
-  };
-  const open = (id) => {
-    const q = new URLSearchParams(search);
-    if (!q.has("l"))
-      history.pushState(
-        { ...history.state, centometerListing: true },
+  const replace = useCallback(
+    (query) => {
+      const next = query.toString();
+      history.replaceState(
+        history.state,
         "",
-        location.href,
+        "#" + path + (next ? "?" + next : ""),
       );
-    q.set("l", id);
-    replace(q);
-  };
-  const close = () => {
+      searchRef.current = next;
+      setSearch(next);
+    },
+    [path],
+  );
+  const open = useCallback(
+    (id) => {
+      const q = new URLSearchParams(searchRef.current);
+      if (!q.has("l"))
+        history.pushState(
+          { ...history.state, centometerListing: true },
+          "",
+          location.href,
+        );
+      q.set("l", id);
+      if (reducedMotion()) replace(q);
+      else startTransition(() => replace(q));
+    },
+    [replace],
+  );
+  const close = useCallback(() => {
     if (history.state?.centometerListing) {
       history.back();
       return;
     }
-    const q = new URLSearchParams(search);
+    const q = new URLSearchParams(searchRef.current);
     q.delete("l");
     replace(q);
-  };
+  }, [replace]);
+  useEffect(() => {
+    const key = (e) => {
+      if (
+        e.key === "Escape" &&
+        searchRef.current.includes("l=") &&
+        !document.querySelector(".modal")
+      )
+        close();
+    };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, [close]);
   return { query: new URLSearchParams(search), replace, open, close };
 }
