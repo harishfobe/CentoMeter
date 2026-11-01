@@ -189,7 +189,8 @@
 .agent-feature[data-scrolled="true"] .agent-slim-bar::after {
   opacity: 1;
 }
-.agent-feature[data-scroll-down="true"] .agent-filter-bar {
+.agent-feature:where(:not(.agent-public))[data-scroll-down="true"]
+  .agent-filter-bar {
   translate: 0 -110%;
   pointer-events: none;
 }
@@ -604,7 +605,8 @@
     scroll-behavior: auto !important;
     view-transition-name: none !important;
   }
-  .agent-feature[data-scroll-down="true"] .agent-filter-bar {
+  .agent-feature:where(:not(.agent-public))[data-scroll-down="true"]
+    .agent-filter-bar {
     translate: none;
     pointer-events: auto;
   }

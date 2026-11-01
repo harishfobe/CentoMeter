@@ -101,8 +101,8 @@
   background: white;
 }
 .agent-public .agent-filter-bar {
-  position: sticky;
-  top: 96px;
+  position: static;
+  top: auto;
   z-index: 540;
 }
 .agent-filter-bar > * {
@@ -517,8 +517,8 @@
   letter-spacing: -0.035em;
 }
 .finder-sticky {
-  position: sticky;
-  top: 64px;
+  position: static;
+  top: auto;
   z-index: 12;
   background: #fff;
 }
@@ -840,16 +840,6 @@
   }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .finder-quick {
-    transition:
-      translate 200ms,
-      opacity 200ms;
-  }
-  .finder-refined[data-scroll-down="true"] .finder-quick {
-    translate: 0 -8px;
-    opacity: 0;
-    pointer-events: none;
-  }
   .finder-refined .chip:active,
   .finder-sheet .chip:active {
     scale: 0.96;
