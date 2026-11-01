@@ -14,3 +14,5 @@ The map uses [OpenStreetMap](https://www.openstreetmap.org/copyright) tiles and 
 `public/centometer-logo.png`: supplied by the user as `IMG_2103.PNG` on 31 October 2026. The PNG is copied unchanged. The current header uses the requested HTML wordmark with an orange lowercase o; `public/centometer-favicon.svg` frames its orange pin using the same embedded PNG. Neither asset redraws the supplied artwork.
 
 `public/fonts/InterVariable.woff2`: Inter variable font from the official rsms/inter repository (https://github.com/rsms/inter), downloaded 31 October 2026. Distributed under the SIL Open Font License; the bundled license is `public/fonts/Inter-LICENSE.txt`. No font-service request is needed at runtime.
+
+`public/demo-floor-plan.svg`: original schematic created for this demo. It is explicitly illustrative and not to scale. Listings reuse the licensed photos above; photo counts do not represent distinct verified property photography.

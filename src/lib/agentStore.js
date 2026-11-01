@@ -23,6 +23,7 @@ const empty = {
   followed: [],
   saved: [],
   requests: [],
+  visits: [],
   overrides: {},
   reports: [],
   events: [],
@@ -30,7 +31,14 @@ const empty = {
 const stored = readLocal(key, null);
 let state =
   stored && typeof stored === "object" ? { ...empty, ...stored } : empty;
-for (const field of ["followed", "saved", "requests", "reports", "events"])
+for (const field of [
+  "followed",
+  "saved",
+  "requests",
+  "visits",
+  "reports",
+  "events",
+])
   if (!Array.isArray(state[field])) state[field] = [];
 if (!state.overrides || typeof state.overrides !== "object")
   state.overrides = {};
@@ -38,10 +46,49 @@ const listeners = new Set();
 setAccessRequests(state.requests);
 export const LIMITS = { daily: 5, declineCooldownMs: 86400000 };
 export const snapshot = () => state;
+let writeTimer;
+export function flushStore() {
+  clearTimeout(writeTimer);
+  writeLocal(key, state);
+}
+if (typeof window !== "undefined")
+  window.addEventListener("pagehide", flushStore);
+export function notifyAgent(message) {
+  if (typeof window !== "undefined")
+    window.dispatchEvent(
+      new CustomEvent("centometer-toast", { detail: message }),
+    );
+}
+export function requestVisit(p, buyer, date) {
+  const phone = indianMobile(buyer.phone);
+  if (!buyer.name?.trim() || !phone || !/^\d{4}-\d{2}-\d{2}$/.test(date || ""))
+    throw Error("Enter your name, a valid Indian mobile and a visit date.");
+  const visit = {
+    id: crypto.randomUUID(),
+    propertyId: p.id,
+    agentId: p.agentId,
+    viewerId,
+    buyer: { name: buyer.name.trim(), phone },
+    date,
+    status: "requested",
+    createdAt: new Date().toISOString(),
+  };
+  updateStore((s) => ({ ...s, visits: [visit, ...s.visits] }));
+  notifyAgent("Site visit requested. This is a local demo.");
+  return visit;
+}
+export function decideVisit(id, status) {
+  updateStore((s) => ({
+    ...s,
+    visits: s.visits.map((v) => (v.id === id ? { ...v, status } : v)),
+  }));
+}
+const viewedAgents = new Set();
 export function updateStore(fn) {
   state = fn(state);
   setAccessRequests(state.requests);
-  writeLocal(key, state);
+  clearTimeout(writeTimer);
+  writeTimer = setTimeout(flushStore, 250);
   listeners.forEach((fn) => fn());
 }
 export function useAgentStore() {
@@ -68,11 +115,11 @@ export function canRequest(requests, id, buyer = viewerId, now = Date.now()) {
     return "A request is already active.";
   if (
     last &&
-    last.status === "declined" &&
+    ["declined", "revoked"].includes(last.status) &&
     now - Date.parse(last.repliedAt || last.createdAt) <
       LIMITS.declineCooldownMs
   )
-    return "Please wait 24 hours after a decline.";
+    return "Please wait 24 hours after a decline or revocation.";
   if (
     own.filter((r) => now - Date.parse(r.createdAt) < 86400000).length >=
     LIMITS.daily
@@ -117,7 +164,18 @@ export function decideRequest(id, status, hours = 24) {
     ),
   }));
 }
-export const recordEvent = (kind, agentId, source = "direct") =>
+export function recordEvent(kind, agentId, source = "direct") {
+  if (kind === "views") {
+    const sessionKey = "centometer-view:" + agentId;
+    if (viewedAgents.has(agentId)) return;
+    try {
+      if (sessionStorage.getItem(sessionKey)) return;
+      sessionStorage.setItem(sessionKey, "1");
+    } catch {
+      /* Memory fallback for this session. */
+    }
+    viewedAgents.add(agentId);
+  }
   updateStore((s) => ({
     ...s,
     events: [
@@ -125,3 +183,4 @@ export const recordEvent = (kind, agentId, source = "direct") =>
       { kind, agentId, source, at: new Date().toISOString() },
     ],
   }));
+}

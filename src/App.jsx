@@ -1,3 +1,4 @@
+import { sameAgentPage } from "./lib/agentNavigation";
 import { flushSync } from "react-dom";
 import { routeMotion } from "./lib/routeMotion";
 import React, {
@@ -334,12 +335,12 @@ function IconButton({ label, children, ...props }) {
     </button>
   );
 }
-function Modal({ title, onClose, children }) {
+export function Modal({ title, onClose, children, historyManaged = false }) {
   const ref = useRef(null);
   const close = useRef(onClose);
   const dirtyForm = useRef(false);
   close.current = onClose;
-  useOverlayBack(true, () => close.current());
+  useOverlayBack(!historyManaged, () => close.current());
   useEffect(() => {
     const before = document.activeElement;
     const prev = document.body.style.overflow;
@@ -371,7 +372,7 @@ function Modal({ title, onClose, children }) {
     return () => {
       document.body.style.overflow = prev;
       document.removeEventListener("keydown", key);
-      if (before?.isConnected) before.focus();
+      if (before?.isConnected) before.focus({ preventScroll: true });
     };
   }, []);
   return (
@@ -1450,7 +1451,6 @@ function PostFlow({ onExit, onComplete, city, initialDraft, agent }) {
                     >
                       <option value="hidden">Hidden</option>
                       <option value="radius">Approximate area</option>
-                      <option value="exact">Exact after approval</option>
                     </select>
                   </label>
                   {data.shareDefault?.mode === "radius" && (
@@ -1713,6 +1713,11 @@ function PostFlow({ onExit, onComplete, city, initialDraft, agent }) {
 }
 
 export default function App() {
+  useEffect(() => {
+    const show = (e) => setToast(e.detail);
+    window.addEventListener("centometer-toast", show);
+    return () => window.removeEventListener("centometer-toast", show);
+  }, []);
   const agentState = useAgentStore();
   const intentFilters = useRef({ BUY: initialFilters, RENT: initialFilters });
   const [notes, setNotes] = useState(() => readLocal("centometer-notes", {}));
@@ -1732,7 +1737,7 @@ export default function App() {
   const leadSource = useRef(leadSourceFromSearch(location.search));
   const locationRequests = useMemo(
     () => [
-      ...legacyLocationRequests,
+      ...legacyLocationRequests.filter((r) => r.viewerId === viewerId),
       ...agentState.requests.filter((r) => r.viewerId === viewerId),
     ],
     [legacyLocationRequests, agentState.requests],
@@ -1884,7 +1889,15 @@ export default function App() {
     }
   }, [focusSearch, route]);
   useEffect(() => {
+    let previous = location.hash.slice(1) || "home";
     const fn = () => {
+      const next = location.hash.slice(1) || "home";
+      if (sameAgentPage(previous, next)) {
+        previous = next;
+        setRoute(next);
+        return;
+      }
+      previous = next;
       routeMotion(() =>
         flushSync(() => {
           setRoute(location.hash.slice(1) || "home");
@@ -3116,7 +3129,11 @@ export default function App() {
                 : d.id || editing?.id || Date.now();
               let listing = { ...d, city: pinCity, id };
               if (postingAgent) {
-                await registerExactLocation(id, d.location);
+                const approx = await registerExactLocation(
+                  id,
+                  d.location,
+                  d.shareDefault?.radiusM || 500,
+                );
                 listing = {
                   ...normalizePostedListing(listing, postingAgent.name),
                   agentId: postingAgent.id,
@@ -3129,15 +3146,7 @@ export default function App() {
                   confirmedAt: new Date().toISOString(),
                   amenities: d.features || [],
                   highlights: d.highlights || [],
-                  approx: [
-                    Number(
-                      (
-                        d.location[0] +
-                        (d.shareDefault?.radiusM || 500) / 400000
-                      ).toFixed(5),
-                    ),
-                    Number(d.location[1].toFixed(5)),
-                  ],
+                  approx,
                   seller: "Agent",
                   contactName: postingAgent.name,
                 };
@@ -3193,9 +3202,11 @@ export default function App() {
                 ],
                 [
                   "locations",
-                  "Location requests",
+                  "Requests & visits",
                   MapPin,
-                  locationRequests.length,
+                  locationRequests.length +
+                    agentState.visits.filter((v) => v.viewerId === viewerId)
+                      .length,
                 ],
               ].map(([key, label, Icon, count]) => (
                 <button
@@ -3326,7 +3337,9 @@ export default function App() {
                 <>
                   <AgentRequests onNavigate={navigate} />
                   <LocationRequests
-                    requests={legacyLocationRequests}
+                    requests={legacyLocationRequests.filter(
+                      (r) => r.viewerId === viewerId,
+                    )}
                     items={allProperties}
                     onOpen={open}
                   />
@@ -3527,6 +3540,7 @@ export default function App() {
                   id: crypto.randomUUID(),
                   propertyId: p.id,
                   agentId: p.agentId,
+                  viewerId,
                   ...contact,
                   status: "requested",
                   createdAt: new Date().toISOString(),

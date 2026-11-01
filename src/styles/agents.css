@@ -371,3 +371,78 @@
 .modal .agent-filter-bar > * {
   max-width: 100%;
 }
+
+/* Keep the existing visual language while making comparisons and filters usable. */
+.agent-compare {
+  position: sticky;
+  bottom: calc(78px + env(safe-area-inset-bottom));
+  z-index: 450;
+  background: #fff;
+  border: 1px solid #e4e4e7;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #18181b24;
+  padding: 12px;
+  margin-top: 16px;
+  max-height: 60dvh;
+  overflow: auto;
+}
+.agent-compare summary {
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.agent-compare-scroll {
+  overflow-x: auto;
+}
+.agent-compare table {
+  border-collapse: collapse;
+  min-width: 100%;
+  text-align: left;
+}
+.agent-compare th,
+.agent-compare td {
+  padding: 12px;
+  border: 1px solid #e4e4e7;
+  min-width: 140px;
+  vertical-align: top;
+}
+.agent-compare caption {
+  text-align: left;
+  font-weight: 700;
+  padding: 8px;
+}
+.agent-filter-sheet .modal-scrim {
+  align-items: flex-end;
+}
+.agent-filter-sheet .modal {
+  border-radius: 24px 24px 0 0;
+  max-height: 85dvh;
+}
+.agent-filter-sheet fieldset {
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  padding: 12px;
+}
+.agent-filter-sheet legend {
+  padding: 0 6px;
+  font-weight: 650;
+}
+.agent-feature .chip[aria-pressed="true"] {
+  background: #18181b;
+  color: white;
+  border-color: #18181b;
+}
+.agent-photo-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 200px;
+  min-width: 100%;
+  color: #52525b;
+  background: #f4f4f5;
+}
+.agent-detail .secondary small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 4px;
+}

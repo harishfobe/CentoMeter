@@ -1,4 +1,5 @@
 import React from "react";
+import BudgetChips from "./BudgetChips";
 export default function FilterBar({ f, onChange, onMore }) {
   return (
     <div className="agent-filter-bar">
@@ -6,7 +7,7 @@ export default function FilterBar({ f, onChange, onMore }) {
         <button
           key={mode}
           aria-pressed={f.mode === mode}
-          onClick={() => onChange({ ...f, mode })}
+          onClick={() => onChange({ ...f, mode, min: 0, max: 0 })}
         >
           {mode === "BUY" ? "Buy" : "Rent"}
         </button>
@@ -37,6 +38,7 @@ export default function FilterBar({ f, onChange, onMore }) {
           </option>
         ))}
       </select>
+      <BudgetChips f={f} onChange={onChange} onCustom={onMore} />
       <button onClick={onMore}>More filters</button>
     </div>
   );

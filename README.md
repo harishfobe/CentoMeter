@@ -31,7 +31,7 @@ The production-ready static site is written to `dist/`. `npm run preview` serves
 
 ## Test and review
 
-There is no automated test script configured in `package.json`. Before publishing, build the app and follow the interaction checks in [docs/USABILITY-TEST-PLAN.md](./docs/USABILITY-TEST-PLAN.md). The earlier prototype test record and its scope are in [docs/VALIDATION.md](./docs/VALIDATION.md).
+Run `npm test` for unit and DOM interaction tests, and `npm run lint` for ESLint checks. Before publishing, build the app and follow the interaction checks in [docs/USABILITY-TEST-PLAN.md](./docs/USABILITY-TEST-PLAN.md). The earlier prototype test record and its scope are in [docs/VALIDATION.md](./docs/VALIDATION.md).
 
 Dependency advisories can be checked with:
 
@@ -39,7 +39,7 @@ Dependency advisories can be checked with:
 npm audit
 ```
 
-Review advisories and the release notes before changing pinned versions. The source dependency set reported a high-severity Vite advisory during this organization; no dependency upgrade was applied.
+Review advisories and the release notes before changing pinned versions. The source dependency set reported a high-severity Vite advisory during this organization; no dependency upgrade was applied during that earlier organization.
 
 ## Deployment
 
@@ -82,3 +82,13 @@ Public files remain at the `public/` root because the existing UI uses root-rela
 - Saved properties are stored in browser local storage; several other profile and posting flows are demonstrations and are not persisted to a service.
 - Photos are illustrative; their sources and attribution are documented in [docs/ASSETS.md](./docs/ASSETS.md).
 - The existing README and unique design, usability, and validation documents were consolidated from the earlier prototype. Original project folders were left unchanged.
+
+## Configuration and demo privacy
+
+Copy `.env.example` to `.env.local` to configure `VITE_GEOCODER_URL` at build time. The default is the OpenStreetMap Nominatim search endpoint. Vite exposes `VITE_` variables to the browser: never put secrets in them.
+
+Location gating is simulated. `private/demo-locations.json` contains synthetic dev/test fixtures and is excluded from production builds. Production sample approvals deliberately return the obviously fake point `[0, 0]` (Null Island). Posted listing locations stay in this device's IndexedDB; this is not server authorization. Only two modes are supported: **hidden** (no public pin) and **radius** (an approximate circle). Both require buyer-specific approval to show an exact demo point. Approximate centers use a random bearing and 20–60% of the radius, generated once and retained with the private record. Real location protection requires an authenticated server API.
+
+Agent WhatsApp values are distinct masked dummy values, not contact numbers. Demo floor plans and RERA identifiers are illustrative. GitHub Actions runs the build, lint, and tests on pushes and pull requests.
+
+For browser navigation checks, run `npx playwright install chromium` once, then `npm run test:e2e`. The suite runs Chromium at desktop and mobile viewport sizes. `npm run format` formats source and tests.

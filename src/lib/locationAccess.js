@@ -1,55 +1,21 @@
 // Prototype only. A production API must authorize every exact-location response.
 // Keep precise coordinates out of public listing records and public map projections.
-const exactLocations = {
-  al1: [12.978, 77.64],
-  al2: [17.46, 78.367],
-  al3: [18.507, 73.807],
-  al4: [13.035, 77.597],
-  al5: [17.391, 78.355],
-  al6: [18.514, 73.774],
-  al7: [12.927, 77.677],
-  al8: [17.434, 78.41],
-  al9: [12.981, 77.64],
-  al10: [17.4, 78.337],
-  al11: [18.572, 73.774],
-  al12: [12.91, 77.588],
-  al13: [17.44, 78.348],
-  al14: [18.574, 73.774],
-  al15: [12.99, 77.628],
-  al16: [17.448, 78.391],
-  al17: [12.978, 77.64],
-  al18: [17.402, 78.385],
-  al19: [18.577, 73.774],
-  al20: [13.035, 77.597],
-  al21: [17.451, 78.391],
-  al22: [18.534, 73.844],
-  al23: [12.927, 77.677],
-  al24: [17.428, 78.336],
-  al25: [12.981, 77.64],
-  al26: [17.46, 78.367],
-  al27: [18.507, 73.807],
-  al28: [12.91, 77.588],
-  al29: [17.391, 78.355],
-  al30: [18.514, 73.774],
-  p2: [12.934, 77.623],
-  p5: [12.912, 77.642],
-  p8: [12.913, 77.678],
-  p11: [13.09, 77.598],
-  p14: [12.937, 77.623],
-  p17: [12.915000000000001, 77.642],
-  p23: [13.093, 77.598],
-  p29: [17.431, 78.41],
-  p32: [17.397, 78.337],
-  p35: [17.443, 78.348],
-  p41: [17.394, 78.355],
-  p47: [18.599, 73.763],
-  p50: [18.531, 73.844],
-  p53: [18.563, 73.786],
-  p59: [18.543, 73.797],
-  "Bengaluru-RENT-PG": [12.966, 77.652],
-  "Hyderabad-RENT-PG": [17.428, 78.36],
-  "Pune-RENT-PG": [18.548, 73.798],
-};
+// Dev/test fixtures are excluded by Vite's production branch elimination.
+const exactLocations =
+  import.meta.env.DEV || import.meta.env.MODE === "test"
+    ? (await import("../../private/demo-locations.json")).default
+    : {};
+const privateApprox = new Map();
+export function approximatePoint(point, radiusM = 500) {
+  const angle = Math.random() * Math.PI * 2;
+  const distance = radiusM * (0.2 + Math.random() * 0.4);
+  return [
+    point[0] + (Math.cos(angle) * distance) / 111320,
+    point[1] +
+      (Math.sin(angle) * distance) /
+        (111320 * Math.cos((point[0] * Math.PI) / 180)),
+  ];
+}
 export function accessStatus(request, now = Date.now()) {
   if (!request) return "unrequested";
   if (
@@ -59,40 +25,44 @@ export function accessStatus(request, now = Date.now()) {
       Date.parse(request.expiresAt) <= now)
   )
     return "expired";
-  return ["requested", "approved", "declined", "expired"].includes(
+  return ["requested", "approved", "declined", "expired", "revoked"].includes(
     request.status,
   )
     ? request.status
     : "unrequested";
 }
-export function requestFor(requests, id) {
-  return requests.find((r) => String(r.propertyId) === String(id));
-}
-export function isLocationLocked(p, requests = [], now = Date.now()) {
-  if (p?.agentId && String(p.id).startsWith("al"))
-    return !getExactLocation(p.id, currentViewer);
-  return (
-    !!p?.agentId &&
-    (requestFor(requests, p.id)?.agentId !== p.agentId ||
-      accessStatus(requestFor(requests, p.id), now) !== "approved")
+export function requestFor(requests, id, viewerId = currentViewer) {
+  if (!viewerId) return undefined;
+  return requests.find(
+    (r) => String(r.propertyId) === String(id) && r.viewerId === viewerId,
   );
 }
-export function exactLocation(p, requests = [], now = Date.now()) {
+export function isLocationLocked(
+  p,
+  requests = currentAccess,
+  now = Date.now(),
+) {
+  if (!p?.agentId) return false;
+  const request = requestFor(requests, p.id);
+  return (
+    !request ||
+    request.agentId !== p.agentId ||
+    accessStatus(request, now) !== "approved"
+  );
+}
+export function exactLocation(p, requests = currentAccess, now = Date.now()) {
   if (!p) return null;
-  if (p.agentId && String(p.id).startsWith("al"))
-    return getExactLocation(p.id, currentViewer);
   if (!p.agentId)
     return Number.isFinite(p.lat) && Number.isFinite(p.lng)
       ? [p.lat, p.lng]
       : null;
   if (isLocationLocked(p, requests, now)) return null;
+  // Production samples deliberately point at Null Island: this is a local demo, not authorization.
   const entry = exactLocations[p.id];
-  const point = entry?.point || entry;
+  const point = entry?.point || entry || (import.meta.env.PROD ? [0, 0] : null);
   return Array.isArray(point) &&
     point.length === 2 &&
-    point.every(Number.isFinite) &&
-    Math.abs(point[0]) <= 90 &&
-    Math.abs(point[1]) <= 180
+    point.every(Number.isFinite)
     ? [...point]
     : null;
 }
@@ -130,6 +100,8 @@ export async function restoreExactLocations() {
         const record = cursor.result;
         if (record) {
           exactLocations[record.key] = record.value;
+          if (record.value.approx)
+            privateApprox.set(record.key, record.value.approx);
           record.continue();
         }
       };
@@ -141,8 +113,12 @@ export async function restoreExactLocations() {
     /* Seeded locations remain available; fail closed for missing private records. */
   }
 }
-export async function registerExactLocation(id, point) {
-  const value = point.map(Number);
+export async function registerExactLocation(id, point, radiusM = 500) {
+  const value = {
+    point: point.map(Number),
+    approx: privateApprox.get(id) || approximatePoint(point, radiusM),
+  };
+  privateApprox.set(id, value.approx);
   const db = await vault();
   try {
     await new Promise((resolve, reject) => {
@@ -152,6 +128,7 @@ export async function registerExactLocation(id, point) {
       tx.onerror = () => reject(tx.error);
     });
     exactLocations[id] = value;
+    return [...value.approx];
   } finally {
     db.close();
   }
@@ -174,7 +151,8 @@ export function getExactLocation(listingId, viewerId) {
     (r) => r.propertyId === listingId && r.viewerId === viewerId,
   );
   if (accessStatus(request) !== "approved") return null;
-  const value = exactLocations[listingId];
+  const value =
+    exactLocations[listingId] || (import.meta.env.PROD ? [0, 0] : null);
   return value?.point
     ? [...value.point]
     : Array.isArray(value)

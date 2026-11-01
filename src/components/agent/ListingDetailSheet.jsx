@@ -12,11 +12,14 @@ import {
   viewerId,
   toggleStore,
   updateStore,
+  requestVisit,
+  notifyAgent,
 } from "../../lib/agentStore";
 import RequestLocationSheet from "./RequestLocationSheet";
 import {
   listings as relatedListings,
   agents as relatedAgents,
+  statusLabel,
 } from "../../lib/agents";
 import { shareAgentLink } from "../../pages/AgentProfile";
 export function UnlockedMap({ point }) {
@@ -60,11 +63,13 @@ export default function ListingDetailSheet({
     [visit, setVisit] = useState(false),
     [emi, setEmi] = useState(false);
   const [, tick] = useState(0);
+  const [visitError, setVisitError] = useState("");
+  const photos = Array.isArray(p.photos) ? p.photos : [];
   const [photo, setPhoto] = useState(0);
   const [zoom, setZoom] = useState(false);
   useEffect(() => setPhoto(0), [p.id]);
   useEffect(() => {
-    const t = setInterval(() => tick((n) => n + 1), 1000);
+    const t = setInterval(() => tick((n) => n + 1), 60000);
     return () => clearInterval(t);
   }, []);
   const point = getExactLocation(p.id, viewerId);
@@ -87,23 +92,33 @@ export default function ListingDetailSheet({
     ["Area", p.type === "Land" ? landArea(p.area) : p.area + " sq ft"],
     ["Dimensions", p.type === "Land" ? landDimensions(p) : null],
     ...[
-      "carpetArea",
-      "superArea",
-      "roadWidth",
-      "frontage",
-      "floor",
-      "totalFloors",
-      "propertyAge",
-      "possessionStatus",
-      "furnishing",
-      "parking",
-      "ownershipType",
-      "facing",
-      "available",
-    ].map((k) => [k, p[k]]),
+      ["carpetArea", "Carpet area", " sq ft"],
+      ["superArea", "Super built-up area", " sq ft"],
+      ["roadWidth", "Road width", " ft"],
+      ["frontage", "Frontage", " ft"],
+      ["floor", "Floor", ""],
+      ["totalFloors", "Total floors", ""],
+      [
+        "propertyAge",
+        "Property age",
+        Number(p.propertyAge) === 1 ? " year" : " years",
+      ],
+      ["possessionStatus", "Possession", ""],
+      ["furnishing", "Furnishing", ""],
+      ["parking", "Parking", ""],
+      ["ownershipType", "Ownership", ""],
+      ["facing", "Facing", ""],
+      ["available", "Availability", ""],
+    ]
+      .filter(([key]) => hasValue(p[key]))
+      .map(([key, label, unit]) => [
+        label,
+        unit && /^\d+(\.\d+)?$/.test(String(p[key])) ? p[key] + unit : p[key],
+      ]),
+    ["Status", statusLabel(p.status)],
   ].filter(([, v]) => hasValue(v));
   return (
-    <Modal title={p.title} onClose={onClose}>
+    <Modal title={p.title} onClose={onClose} historyManaged>
       <article className="agent-detail">
         <div
           className="agent-photo-strip"
@@ -127,7 +142,16 @@ export default function ListingDetailSheet({
             }
           }}
         >
-          {p.photos.map((url, i) => (
+          {!photos.length && (
+            <div
+              className="agent-photo-placeholder"
+              role="img"
+              aria-label="No property photos"
+            >
+              No photos available
+            </div>
+          )}
+          {photos.map((url, i) => (
             <img
               key={url + i}
               src={url}
@@ -139,9 +163,15 @@ export default function ListingDetailSheet({
           ))}
         </div>
         <p>
-          {photo + 1}/{p.photos.length}
+          {photos.length
+            ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
+            : "No photos available"}
         </p>
-        <button className="secondary" onClick={() => setZoom(true)}>
+        <button
+          className="secondary"
+          disabled={!photos.length}
+          onClick={() => setZoom(true)}
+        >
           View photo full screen
         </button>
         <h2>
@@ -155,6 +185,7 @@ export default function ListingDetailSheet({
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
+              <small>20% down payment · 9% annual interest · 20 years</small>
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
@@ -174,7 +205,7 @@ export default function ListingDetailSheet({
         <dl className="agent-facts">
           {facts.map(([k, v]) => (
             <div key={k}>
-              <dt>{k.replace(/([A-Z])/g, " $1")}</dt>
+              <dt>{k}</dt>
               <dd>{v}</dd>
             </div>
           ))}
@@ -230,7 +261,9 @@ export default function ListingDetailSheet({
         <section className={"location-gate " + (point ? "is-unlocked" : "")}>
           <h3>{point ? "🔓 Location unlocked" : "🔒 Location on request"}</h3>
           <p role="status">
-            {state === "unrequested" ? "Request the exact location" : state}
+            {state === "unrequested"
+              ? "Request the exact location"
+              : statusLabel(state)}
           </p>
           {point ? (
             <>
@@ -238,17 +271,6 @@ export default function ListingDetailSheet({
               <p>
                 {p.locality}, {p.city}
               </p>
-              <a
-                className="primary"
-                href={
-                  "https://www.google.com/maps/dir/?api=1&destination=" +
-                  point.join(",")
-                }
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get directions
-              </a>
             </>
           ) : (
             <p>
@@ -321,6 +343,14 @@ export default function ListingDetailSheet({
           </>
           <a
             className="secondary"
+            onClick={(e) => {
+              if (!/^\d{10}$/.test(a.whatsapp)) {
+                e.preventDefault();
+                notifyAgent(
+                  "Demo WhatsApp: " + a.whatsapp + " is a fake number.",
+                );
+              }
+            }}
             href={
               "https://wa.me/91" +
               a.whatsapp +
@@ -353,12 +383,7 @@ export default function ListingDetailSheet({
       </article>
       {zoom && (
         <Modal title="Photo viewer" onClose={() => setZoom(false)}>
-          <img
-            className="agent-full-photo"
-            src={p.photos[photo]}
-            alt={p.title}
-          />
-          <p>Pinch to zoom on your phone.</p>
+          <img className="agent-full-photo" src={photos[photo]} alt={p.title} />
         </Modal>
       )}
       {request && (
@@ -387,6 +412,7 @@ export default function ListingDetailSheet({
                   },
                 ],
               }));
+              notifyAgent("Report saved locally.");
               setReport(false);
             }}
           >
@@ -408,21 +434,35 @@ export default function ListingDetailSheet({
             className="form-stack"
             onSubmit={(e) => {
               e.preventDefault();
-              updateStore((s) => ({
-                ...s,
-                events: [
-                  ...s.events,
-                  {
-                    kind: "visit",
-                    agentId: a.id,
-                    listingId: p.id,
-                    date: new FormData(e.currentTarget).get("date"),
-                  },
-                ],
-              }));
-              setVisit(false);
+              const form = new FormData(e.currentTarget);
+              try {
+                requestVisit(
+                  p,
+                  { name: form.get("name"), phone: form.get("phone") },
+                  form.get("date"),
+                );
+                setVisit(false);
+                setVisitError("");
+              } catch (error) {
+                setVisitError(error.message);
+              }
             }}
           >
+            <label>
+              Name
+              <input name="name" required autoComplete="name" maxLength="80" />
+            </label>
+            <label>
+              Indian mobile
+              <input
+                name="phone"
+                required
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+              />
+            </label>
+            {visitError && <p role="alert">{visitError}</p>}
             <label>
               Visit date
               <select name="date">

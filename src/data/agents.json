@@ -13,10 +13,12 @@
     "experienceYears": 2,
     "verified": true,
     "verifiedAt": "2026-10-20",
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx01",
     "responseTimeMins": 15,
     "joinedAt": "2026-01-01",
-    "coverTone": "zinc"
+    "coverTone": "zinc",
+    "closedDeals": 12,
+    "reraAgentNo": "DEMO-AGENT-001"
   },
   {
     "id": "a2",
@@ -32,11 +34,12 @@
     "experienceYears": 3,
     "verified": true,
     "verifiedAt": "2026-10-20",
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx02",
     "responseTimeMins": 120,
     "joinedAt": "2026-02-01",
-    "closedDeals": 13,
-    "coverTone": "zinc"
+    "closedDeals": 19,
+    "coverTone": "zinc",
+    "reraAgentNo": "DEMO-AGENT-002"
   },
   {
     "id": "a3",
@@ -52,10 +55,11 @@
     "experienceYears": 4,
     "verified": false,
     "verifiedAt": null,
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx03",
     "responseTimeMins": 240,
     "joinedAt": "2026-03-01",
-    "coverTone": "zinc"
+    "coverTone": "zinc",
+    "closedDeals": 26
   },
   {
     "id": "a4",
@@ -71,11 +75,12 @@
     "experienceYears": 5,
     "verified": true,
     "verifiedAt": "2026-10-20",
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx04",
     "responseTimeMins": 60,
     "joinedAt": "2026-04-01",
-    "closedDeals": 15,
-    "coverTone": "zinc"
+    "closedDeals": 33,
+    "coverTone": "zinc",
+    "reraAgentNo": "DEMO-AGENT-004"
   },
   {
     "id": "a5",
@@ -91,10 +96,12 @@
     "experienceYears": 6,
     "verified": true,
     "verifiedAt": "2026-10-20",
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx05",
     "responseTimeMins": 1440,
     "joinedAt": "2026-05-01",
-    "coverTone": "zinc"
+    "coverTone": "zinc",
+    "closedDeals": 40,
+    "reraAgentNo": "DEMO-AGENT-005"
   },
   {
     "id": "a6",
@@ -110,10 +117,10 @@
     "experienceYears": 7,
     "verified": false,
     "verifiedAt": null,
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx06",
     "responseTimeMins": null,
     "joinedAt": "2026-06-01",
-    "closedDeals": 17,
+    "closedDeals": 47,
     "coverTone": "zinc"
   },
   {
@@ -130,10 +137,12 @@
     "experienceYears": 8,
     "verified": true,
     "verifiedAt": "2026-10-20",
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx07",
     "responseTimeMins": 30,
     "joinedAt": "2026-07-01",
-    "coverTone": "zinc"
+    "coverTone": "zinc",
+    "closedDeals": 54,
+    "reraAgentNo": "DEMO-AGENT-007"
   },
   {
     "id": "a8",
@@ -149,10 +158,11 @@
     "experienceYears": 9,
     "verified": true,
     "verifiedAt": "2026-10-20",
-    "whatsapp": "9000000000",
+    "whatsapp": "98xxxxxx08",
     "responseTimeMins": 180,
     "joinedAt": "2026-08-01",
-    "closedDeals": 19,
-    "coverTone": "zinc"
+    "closedDeals": 61,
+    "coverTone": "zinc",
+    "reraAgentNo": "DEMO-AGENT-008"
   }
 ]

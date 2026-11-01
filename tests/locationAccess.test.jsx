@@ -1,9 +1,10 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import properties from "../properties.json";
+import properties from "../src/properties.json";
 import {
   accessStatus,
+  setAccessViewer,
   exactLocation,
   isLocationLocked,
   mapPoint,
@@ -11,14 +12,16 @@ import {
   safeSearchArea,
   publicShare,
   leadSourceFromSearch,
-} from "../lib/locationAccess";
-import { propertyHotspots } from "../PropertyContact";
-import { LocationGate, LocationRequests } from "../AgentUI";
-import { qrMatrix } from "../lib/qr";
+} from "../src/lib/locationAccess";
+import { propertyHotspots } from "../src/PropertyContact";
+import { LocationGate, LocationRequests } from "../src/AgentUI";
+import { qrMatrix } from "../src/lib/qr";
 const p = properties.find((p) => p.agentId && p.privacy.mode === "radius");
 const now = Date.parse("2026-11-01T12:00:00Z");
+setAccessViewer("fixture-buyer");
 const request = (status) => ({
   id: "r1",
+  viewerId: "fixture-buyer",
   propertyId: p.id,
   agentId: p.agentId,
   status,

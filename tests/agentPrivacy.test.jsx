@@ -35,8 +35,13 @@ it("renders every locked listing without precise coordinate payloads", () => {
       <ListingCard p={p} onOpen={() => {}} onSave={() => {}} />,
     );
     for (const coord of point) {
-      const token = String(coord).replaceAll(".", "\.");
-      expect(data).not.toMatch(new RegExp("[:,\[]" + token + "[,\]}]"));
+      const numbers = (value) =>
+        typeof value === "number"
+          ? [value]
+          : value && typeof value === "object"
+            ? Object.values(value).flatMap(numbers)
+            : [];
+      expect(numbers(JSON.parse(data))).not.toContain(coord);
       expect(html).not.toContain("destination=" + coord);
     }
     expect(publicShare(p, "https://example.test/#agent/a")).not.toContain(

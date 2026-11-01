@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import CompareTable from "../components/agent/CompareTable";
+import { useAgentNavigation } from "../lib/agentNavigation";
+import React, { useState, useEffect, useMemo, useDeferredValue } from "react";
 import {
   agents,
   listings,
@@ -8,6 +10,7 @@ import {
   filtersFromQuery,
   filtersQuery,
   filterListings,
+  filterLabel,
 } from "../lib/agents";
 import { readLocal, writeLocal } from "../Discovery";
 import {
@@ -15,6 +18,7 @@ import {
   toggleStore,
   recordEvent,
   updateStore,
+  notifyAgent,
 } from "../lib/agentStore";
 import AgentHeader from "../components/agent/AgentHeader";
 import FilterBar from "../components/agent/FilterBar";
@@ -36,7 +40,13 @@ export async function shareAgentLink(url, title) {
   }
 }
 export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
-  const { handle, query } = parseAgentRoute(route),
+  const {
+    query,
+    replace,
+    open: openListing,
+    close: closeListing,
+  } = useAgentNavigation(route);
+  const { handle } = parseAgentRoute(route),
     a = agents.find((a) => a.handle === handle);
   const store = useAgentStore();
   const [reportAgent, setReportAgent] = useState(false),
@@ -64,11 +74,13 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       [...listings, ...(store.customListings || [])]
         .filter((p) => p.agentId === a?.id)
         .map((p) => ({ ...p, ...store.overrides[p.id] })),
-    [a, store.overrides],
+    [a, store.overrides, store.customListings],
   );
+  const deferredFilters = useDeferredValue(JSON.stringify(f));
+  const loading = deferredFilters !== JSON.stringify(f);
   const rows = useMemo(
-    () => filterListings(items, f),
-    [items, JSON.stringify(f)],
+    () => filterListings(items, JSON.parse(deferredFilters)),
+    [items, deferredFilters],
   );
   const change = (next) => {
     writeLocal("agent-filters:" + handle, next);
@@ -77,12 +89,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
     if (query.get("src")) q.set("src", query.get("src"));
     if (query.get("tab")) q.set("tab", query.get("tab"));
     if (next.locality) q.set("tab", "listings");
-    history.replaceState(
-      history.state,
-      "",
-      "#agent/" + encodeURIComponent(handle) + "?" + q,
-    );
-    window.dispatchEvent(new HashChangeEvent("hashchange"));
+    replace(q);
   };
   const link =
     location.origin +
@@ -105,12 +112,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       </section>
     );
   const tab = query.get("tab") || "listings";
-  const open = (p) => {
-    const q = new URLSearchParams(query);
-    q.set("l", p.id);
-    history.replaceState(history.state, "", "#agent/" + handle + "?" + q);
-    window.dispatchEvent(new HashChangeEvent("hashchange"));
-  };
+  const open = (p) => openListing(p.id);
   const card = (p) => (
     <ListingCard
       key={p.id}
@@ -142,6 +144,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           Share profile
         </button>
       </nav>
+      <p className="fine-print">Demo: location gating is simulated</p>
       <AgentHeader
         agent={a}
         count={activeListings(items, a.id).length}
@@ -160,7 +163,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
             onClick={() => {
               const q = new URLSearchParams(query);
               q.set("tab", t);
-              onNavigate("agent/" + handle + "?" + q);
+              replace(q);
             }}
           >
             {t === "listings" ? "Listings" : "About"}
@@ -195,7 +198,9 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       ) : (
         <>
           <FilterBar f={f} onChange={change} onMore={() => setMore(true)} />
-          <p aria-live="polite">{rows.length} properties</p>
+          <p aria-live="polite">
+            {rows.length} {rows.length === 1 ? "property" : "properties"}
+          </p>
           <div className="chips">
             {Object.entries(f)
               .filter(([k, v]) => v !== defaults[k])
@@ -205,11 +210,21 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
                   className="secondary"
                   onClick={() => change({ ...f, [k]: defaults[k] })}
                 >
-                  {k}: {String(v)} ×
+                  {filterLabel(k, v)} ×
                 </button>
               ))}
           </div>
-          <div className="property-grid">{rows.map(card)}</div>
+          <div className="property-grid" aria-busy={loading}>
+            {loading
+              ? Array.from({ length: 3 }, (_, i) => (
+                  <div
+                    className="agent-skeleton"
+                    key={i}
+                    aria-label="Loading properties"
+                  />
+                ))
+              : rows.map(card)}
+          </div>
           {!rows.length && (
             <div className="empty">
               <h2>No match. Clear filters</h2>
@@ -226,16 +241,10 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
         </>
       )}
       {compare.length > 0 && (
-        <details className="agent-compare">
-          <summary>Compare {compare.length} / 3 properties</summary>
-          {items
-            .filter((p) => compare.includes(p.id))
-            .map((p) => (
-              <p key={p.id}>
-                {p.title} · {p.price.toLocaleString("en-IN")} · {p.area} sq ft
-              </p>
-            ))}
-        </details>
+        <CompareTable
+          items={items.filter((p) => compare.includes(p.id))}
+          onClear={() => setCompare([])}
+        />
       )}
       {more && (
         <FilterSheet
@@ -265,6 +274,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
                   },
                 ],
               }));
+              notifyAgent("Report saved locally.");
               setReportAgent(false);
             }}
           >
@@ -283,7 +293,9 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       <button className="secondary" onClick={() => onNavigate("agents")}>
         Explore more on CentoMeter
       </button>
-      <p className="fine-print">Sample agents and listings · Preview only</p>
+      <p className="fine-print">
+        Demo: location gating is simulated · Sample agents and listings
+      </p>
       {Detail && items.find((p) => p.id === query.get("l")) && (
         <Detail
           p={items.find((p) => p.id === query.get("l"))}
@@ -291,19 +303,16 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           Modal={Modal}
           source={query.get("src") || "direct"}
           onRelated={(p) =>
-            onNavigate(
-              "agent/" +
-                agents.find((a) => a.id === p.agentId)?.handle +
-                "?l=" +
-                p.id,
-            )
+            p.agentId === a.id
+              ? openListing(p.id)
+              : onNavigate(
+                  "agent/" +
+                    agents.find((a) => a.id === p.agentId)?.handle +
+                    "?l=" +
+                    p.id,
+                )
           }
-          onClose={() => {
-            const q = new URLSearchParams(query);
-            q.delete("l");
-            history.replaceState(null, "", "#agent/" + handle + "?" + q);
-            window.dispatchEvent(new HashChangeEvent("hashchange"));
-          }}
+          onClose={closeListing}
         />
       )}
     </section>

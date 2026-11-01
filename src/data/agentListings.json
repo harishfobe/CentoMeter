@@ -5,7 +5,7 @@
     "locality": "Indiranagar",
     "mode": "BUY",
     "type": "Apartment",
-    "title": "Garden City Palm Residences 1",
+    "title": "Garden City Palm Residences",
     "price": 12800000,
     "beds": 3,
     "baths": 2,
@@ -31,7 +31,7 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "status": "sold",
     "confirmedAt": "2026-10-09T18:51:43.679Z",
@@ -39,12 +39,18 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.9787, 77.6393],
+    "approx": [12.978444612193456, 77.63887363658311],
     "amenities": ["Parking", "Balcony"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7619.047619047619,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0001"
   },
   {
     "id": "al2",
@@ -52,7 +58,7 @@
     "locality": "Kondapur",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Deccan Cedar Grove 1",
+    "title": "Deccan Cedar Grove",
     "price": 21181000,
     "beds": 4,
     "baths": 4,
@@ -81,12 +87,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.4607, 78.3663],
+    "approx": [17.460168555383753, 78.36583607018588],
     "amenities": ["Parking", "Lift access"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6577.9503105590065,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0002"
   },
   {
     "id": "al3",
@@ -94,7 +107,7 @@
     "locality": "Kothrud",
     "mode": "BUY",
     "type": "Land",
-    "title": "Sahyadri Greenfield Plot 1",
+    "title": "Sahyadri Greenfield Plot",
     "price": 6972000,
     "area": 2460,
     "image": "land",
@@ -114,15 +127,22 @@
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.5077, 73.8063],
+    "approx": [18.509099614941285, 73.80517773516499],
     "amenities": ["Road access", "Corner plot"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2834.1463414634145,
-    "sample": true
+    "sample": true,
+    "reraNo": "DEMO-RERA-0003"
   },
   {
     "id": "al4",
@@ -130,7 +150,7 @@
     "locality": "Hebbal",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Garden City Grove Villas 1",
+    "title": "Garden City Grove Villas",
     "price": 25128000,
     "beds": 4,
     "baths": 4,
@@ -159,7 +179,7 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [13.0357, 77.5963],
+    "approx": [13.033557787838117, 77.59625173810404],
     "amenities": ["Parking", "Lift access"],
     "highlights": [],
     "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
@@ -172,7 +192,7 @@
     "locality": "Narsingi",
     "mode": "BUY",
     "type": "Independent House",
-    "title": "Deccan Aaranya Villa 1",
+    "title": "Deccan Aaranya Villa",
     "price": 16559000,
     "beds": 3,
     "baths": 3,
@@ -201,12 +221,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.3917, 78.3543],
+    "approx": [17.391323916977043, 78.35334068784078],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6571.0317460317465,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0005"
   },
   {
     "id": "al6",
@@ -214,7 +241,7 @@
     "locality": "Bavdhan",
     "mode": "BUY",
     "type": "Land",
-    "title": "Sahyadri Orchard Enclave 1",
+    "title": "Sahyadri Orchard Enclave",
     "price": 7435000,
     "area": 2540,
     "image": "land",
@@ -234,15 +261,22 @@
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.5147, 73.7733],
+    "approx": [18.512387959230615, 73.7786889400955],
     "amenities": ["Road access", "Corner plot"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2927.165354330709,
-    "sample": true
+    "sample": true,
+    "reraNo": "DEMO-RERA-0006"
   },
   {
     "id": "al7",
@@ -250,7 +284,7 @@
     "locality": "Bellandur",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Garden City Lakeview Retreat 1",
+    "title": "Garden City Lakeview Retreat",
     "price": 25631000,
     "beds": 4,
     "baths": 4,
@@ -279,12 +313,18 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.9277, 77.6763],
+    "approx": [12.926465051353372, 77.67672323370444],
     "amenities": ["Parking", "Lift access"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7583.136094674556,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0007"
   },
   {
     "id": "al8",
@@ -292,7 +332,7 @@
     "locality": "Jubilee Hills",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Deccan Courtyard Villa — Rental 1",
+    "title": "Deccan Courtyard Villa \u2014 Rental",
     "price": 64000,
     "beds": 3,
     "baths": 3,
@@ -321,7 +361,7 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.4347, 78.4093],
+    "approx": [17.432891624447443, 78.40768396526882],
     "amenities": ["Parking", "Balcony"],
     "highlights": ["Clear property details"],
     "description": "A well-connected independent house in Jubilee Hills. Ask the agent about documents and visit availability.",
@@ -334,7 +374,7 @@
     "locality": "Indiranagar",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences — Rental 2",
+    "title": "Garden City Palm Residences \u2014 Rental",
     "price": 50000,
     "beds": 3,
     "baths": 2,
@@ -358,20 +398,28 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [12.9817, 77.6393],
+    "approx": [12.979858379028027, 77.63803792567387],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 29.761904761904763,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0009"
   },
   {
     "id": "al10",
@@ -379,7 +427,7 @@
     "locality": "Kokapet",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Deccan Grove Villas — Rental 2",
+    "title": "Deccan Grove Villas \u2014 Rental",
     "price": 93000,
     "beds": 4,
     "baths": 4,
@@ -408,12 +456,18 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [17.4007, 78.3363],
+    "approx": [17.40110266533748, 78.33682896426235],
     "amenities": ["Parking", "Lift access"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Kokapet. Ask the agent about documents and visit availability.",
     "pricePerSqft": 28.181818181818183,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0010"
   },
   {
     "id": "al11",
@@ -421,7 +475,7 @@
     "locality": "Baner",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Sahyadri Central Square Workspace 2",
+    "title": "Sahyadri Central Square Workspace",
     "price": 15190000,
     "baths": 1,
     "area": 1250,
@@ -440,7 +494,7 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
-    "photos": ["/interior.jpg", "/apartment.jpg"],
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
     "agentId": "a3",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -448,12 +502,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [18.5727, 73.7733],
+    "approx": [18.573009781152518, 73.77380928359251],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected commercial in Baner. Ask the agent about documents and visit availability.",
     "pricePerSqft": 12152,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0011"
   },
   {
     "id": "al12",
@@ -461,7 +522,7 @@
     "locality": "JP Nagar",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Aaranya Villa — Rental 2",
+    "title": "Garden City Aaranya Villa \u2014 Rental",
     "price": 79000,
     "beds": 3,
     "baths": 3,
@@ -487,10 +548,10 @@
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [12.9107, 77.5873],
+    "approx": [12.90663651851404, 77.5907120423705],
     "amenities": ["Parking", "Balcony"],
     "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
@@ -524,7 +585,7 @@
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -532,16 +593,22 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [17.4407, 78.3473],
+    "approx": [17.438761863776943, 78.34800976468034],
     "amenities": ["Parking", "Balcony"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected apartment in Gachibowli. Ask the agent about documents and visit availability.",
     "pricePerSqft": 100,
     "sample": true,
     "occupancy": "Private room",
     "meals": "Not included",
     "bathroom": "Attached",
-    "ac": "No"
+    "ac": "No",
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0013"
   },
   {
     "id": "al14",
@@ -549,7 +616,7 @@
     "locality": "Balewadi",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Sahyadri Cedar Grove 2",
+    "title": "Sahyadri Cedar Grove",
     "price": 22668000,
     "beds": 4,
     "baths": 4,
@@ -578,12 +645,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [18.5747, 73.7733],
+    "approx": [18.572270803636815, 73.77233252238062],
     "amenities": ["Parking", "Lift access"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7039.751552795031,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0014"
   },
   {
     "id": "al15",
@@ -591,7 +665,7 @@
     "locality": "Indiranagar",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Garden City Central Square Workspace 2",
+    "title": "Garden City Central Square Workspace",
     "price": 16514000,
     "baths": 1,
     "area": 1250,
@@ -610,20 +684,28 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-21",
-    "photos": ["/interior.jpg", "/apartment.jpg"],
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [12.9907, 77.6273],
+    "approx": [12.986356986010742, 77.62722198196772],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected commercial in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 13211.2,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0015"
   },
   {
     "id": "al16",
@@ -631,7 +713,7 @@
     "locality": "Madhapur",
     "mode": "BUY",
     "type": "Apartment",
-    "title": "Deccan Parkside Living 2",
+    "title": "Deccan Parkside Living",
     "price": 11455000,
     "beds": 3,
     "baths": 2,
@@ -652,7 +734,7 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -660,7 +742,7 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [17.4487, 78.3903],
+    "approx": [17.44784306813277, 78.39179994319142],
     "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
@@ -673,7 +755,7 @@
     "locality": "Indiranagar",
     "mode": "BUY",
     "type": "Apartment",
-    "title": "Garden City Palm Residences 3",
+    "title": "Garden City Palm Residences",
     "price": 12816000,
     "beds": 3,
     "baths": 2,
@@ -699,7 +781,7 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -707,12 +789,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [12.9787, 77.6393],
+    "approx": [12.978702022356588, 77.63942463257142],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7628.571428571428,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0017"
   },
   {
     "id": "al18",
@@ -720,7 +809,7 @@
     "locality": "Manikonda",
     "mode": "BUY",
     "type": "Land",
-    "title": "Deccan Orchard Enclave 3",
+    "title": "Deccan Orchard Enclave",
     "price": 6962000,
     "area": 2540,
     "image": "land",
@@ -740,15 +829,22 @@
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [17.4027, 78.3843],
+    "approx": [17.400818475359234, 78.38666865315625],
     "amenities": ["Road access", "Corner plot"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected land in Manikonda. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2740.9448818897636,
-    "sample": true
+    "sample": true,
+    "reraNo": "DEMO-RERA-0018"
   },
   {
     "id": "al19",
@@ -756,7 +852,7 @@
     "locality": "Balewadi",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Cedar Grove — Rental 3",
+    "title": "Sahyadri Cedar Grove \u2014 Rental",
     "price": 106000,
     "beds": 4,
     "baths": 4,
@@ -785,12 +881,18 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [18.5777, 73.7733],
+    "approx": [18.57582541114821, 73.7730375694197],
     "amenities": ["Parking", "Lift access"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 32.91925465838509,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0019"
   },
   {
     "id": "al20",
@@ -798,7 +900,7 @@
     "locality": "Hebbal",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Garden City Grove Villas 3",
+    "title": "Garden City Grove Villas",
     "price": 25144000,
     "beds": 4,
     "baths": 4,
@@ -827,7 +929,7 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [13.0357, 77.5963],
+    "approx": [13.037557472013132, 77.59695709302993],
     "amenities": ["Parking", "Lift access"],
     "highlights": ["Clear property details"],
     "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
@@ -840,7 +942,7 @@
     "locality": "Madhapur",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Deccan Parkside Living — Rental 3",
+    "title": "Deccan Parkside Living \u2014 Rental",
     "price": 58000,
     "beds": 3,
     "baths": 2,
@@ -861,20 +963,28 @@
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-23",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [17.4517, 78.3903],
+    "approx": [17.450845076172737, 78.39644662757324],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 32.95454545454545,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0021"
   },
   {
     "id": "al22",
@@ -882,7 +992,7 @@
     "locality": "Shivajinagar",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Grove Villas — Rental 3",
+    "title": "Sahyadri Grove Villas \u2014 Rental",
     "price": 110500,
     "beds": 4,
     "baths": 4,
@@ -911,12 +1021,18 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [18.5347, 73.8433],
+    "approx": [18.533284111388095, 73.8448378399782],
     "amenities": ["Parking", "Lift access"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Shivajinagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 33.484848484848484,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0022"
   },
   {
     "id": "al23",
@@ -945,7 +1061,7 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -953,16 +1069,23 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [12.9277, 77.6763],
+    "approx": [12.925860776685669, 77.67649662539024],
     "amenities": ["Parking", "Lift access"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 127.77777777777777,
     "sample": true,
     "occupancy": "Private room",
     "meals": "Not included",
     "bathroom": "Attached",
-    "ac": "No"
+    "ac": "No",
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0023"
   },
   {
     "id": "al24",
@@ -970,7 +1093,7 @@
     "locality": "Gachibowli",
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Deccan Central Square Workspace — Rental 3",
+    "title": "Deccan Central Square Workspace \u2014 Rental",
     "price": 70500,
     "baths": 1,
     "area": 1250,
@@ -989,15 +1112,15 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-25",
-    "photos": ["/interior.jpg", "/apartment.jpg"],
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [17.4287, 78.3353],
+    "approx": [17.42371781679907, 78.33416820552968],
     "amenities": ["Parking", "Balcony"],
     "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected commercial in Gachibowli. Ask the agent about documents and visit availability.",
@@ -1010,7 +1133,7 @@
     "locality": "Indiranagar",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences — Rental 4",
+    "title": "Garden City Palm Residences \u2014 Rental",
     "price": 66000,
     "beds": 3,
     "baths": 2,
@@ -1034,7 +1157,7 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1042,12 +1165,18 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.9817, 77.6393],
+    "approx": [12.981288851279366, 77.6410841598026],
     "amenities": ["Parking", "Balcony"],
-    "highlights": [],
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 39.285714285714285,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0025"
   },
   {
     "id": "al26",
@@ -1055,7 +1184,7 @@
     "locality": "Kondapur",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Deccan Cedar Grove 4",
+    "title": "Deccan Cedar Grove",
     "price": 21205000,
     "beds": 4,
     "baths": 4,
@@ -1084,12 +1213,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.4607, 78.3663],
+    "approx": [17.460934297238982, 78.36645446313433],
     "amenities": ["Parking", "Lift access"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6585.403726708075,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0026"
   },
   {
     "id": "al27",
@@ -1097,7 +1233,7 @@
     "locality": "Kothrud",
     "mode": "BUY",
     "type": "Land",
-    "title": "Sahyadri Greenfield Plot 4",
+    "title": "Sahyadri Greenfield Plot",
     "price": 6996000,
     "area": 2460,
     "image": "land",
@@ -1117,15 +1253,22 @@
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.5077, 73.8063],
+    "approx": [18.502219907065452, 73.80588743837676],
     "amenities": ["Road access", "Corner plot"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2843.9024390243903,
-    "sample": true
+    "sample": true,
+    "reraNo": "DEMO-RERA-0027"
   },
   {
     "id": "al28",
@@ -1133,7 +1276,7 @@
     "locality": "JP Nagar",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Aaranya Villa — Rental 4",
+    "title": "Garden City Aaranya Villa \u2014 Rental",
     "price": 95000,
     "beds": 3,
     "baths": 3,
@@ -1162,7 +1305,7 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.9107, 77.5873],
+    "approx": [12.91003729018335, 77.5872763037861],
     "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
@@ -1175,7 +1318,7 @@
     "locality": "Narsingi",
     "mode": "BUY",
     "type": "Independent House",
-    "title": "Deccan Aaranya Villa 4",
+    "title": "Deccan Aaranya Villa",
     "price": 16583000,
     "beds": 3,
     "baths": 3,
@@ -1204,12 +1347,19 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.3917, 78.3543],
+    "approx": [17.390400054460912, 78.35418227158617],
     "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details"],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6580.555555555556,
-    "sample": true
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0029"
   },
   {
     "id": "al30",
@@ -1217,7 +1367,7 @@
     "locality": "Bavdhan",
     "mode": "BUY",
     "type": "Land",
-    "title": "Sahyadri Orchard Enclave 4",
+    "title": "Sahyadri Orchard Enclave",
     "price": 7459000,
     "area": 2540,
     "image": "land",
@@ -1237,14 +1387,21 @@
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.5147, 73.7733],
+    "approx": [18.514250874636463, 73.77193485296476],
     "amenities": ["Road access", "Corner plot"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment",
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
     "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2936.6141732283463,
-    "sample": true
+    "sample": true,
+    "reraNo": "DEMO-RERA-0030"
   }
 ]

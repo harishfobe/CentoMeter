@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { agents, listings, responseLabel } from "../lib/agents";
-import { useAgentStore, updateStore, decideRequest } from "../lib/agentStore";
+import {
+  useAgentStore,
+  updateStore,
+  decideRequest,
+  decideVisit,
+} from "../lib/agentStore";
 import { accessStatus } from "../lib/locationAccess";
 import QRCode from "../components/agent/QRCode";
 export default function AgentDashboard({ onPost, onNavigate }) {
@@ -35,7 +40,10 @@ export default function AgentDashboard({ onPost, onNavigate }) {
   return (
     <section className="page agent-feature">
       <h1>Agent dashboard</h1>
-      <p>Demo: approve as agent · This switcher is not authentication.</p>
+      <p>
+        Demo: location gating is simulated · Approve as agent · This switcher is
+        not authentication.
+      </p>
       <label>
         Act as this agent
         <select value={id} onChange={(e) => setId(e.target.value)}>
@@ -60,9 +68,7 @@ export default function AgentDashboard({ onPost, onNavigate }) {
           >
             {t}
             {t === "Requests"
-              ? " (" +
-                requests.filter((r) => accessStatus(r) === "requested").length +
-                ")"
+              ? ` (${requests.filter((r) => accessStatus(r) === "requested").length + s.visits.filter((v) => v.agentId === id && v.status === "requested").length})`
               : ""}
           </button>
         ))}
@@ -80,11 +86,16 @@ export default function AgentDashboard({ onPost, onNavigate }) {
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
-            {["requested", "approved", "declined", "expired", "revoked"].map(
-              (x) => (
-                <option key={x}>{x}</option>
-              ),
-            )}
+            {[
+              "requested",
+              "approved",
+              "accepted",
+              "declined",
+              "expired",
+              "revoked",
+            ].map((x) => (
+              <option key={x}>{x}</option>
+            ))}
           </select>
           <label>
             Approval validity
@@ -104,6 +115,40 @@ export default function AgentDashboard({ onPost, onNavigate }) {
               ))}
             </select>
           </label>
+          {s.visits
+            .filter(
+              (v) =>
+                v.agentId === id &&
+                v.status === filter &&
+                v.buyer.name.toLowerCase().includes(query.toLowerCase()),
+            )
+            .map((v) => (
+              <article className="request-card" key={v.id}>
+                <h2>
+                  Site visit · {own.find((p) => p.id === v.propertyId)?.title}
+                </h2>
+                <p>
+                  {v.buyer.name} · {v.buyer.phone}
+                </p>
+                <p>
+                  {v.date} · {v.status}
+                </p>
+                <div className="action-row">
+                  <button
+                    className="primary"
+                    onClick={() => decideVisit(v.id, "accepted")}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    className="secondary"
+                    onClick={() => decideVisit(v.id, "declined")}
+                  >
+                    Decline
+                  </button>
+                </div>
+              </article>
+            ))}
           {requests
             .filter(
               (r) =>

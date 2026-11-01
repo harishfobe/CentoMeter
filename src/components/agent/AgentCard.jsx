@@ -22,8 +22,11 @@ export default function AgentCard({ agent: a, items, onNavigate }) {
         ))}
       </div>
       <p>
-        {activeListings(items, a.id).length} active listings ·{" "}
-        {a.experienceYears} years
+        {activeListings(items, a.id).length}{" "}
+        {activeListings(items, a.id).length === 1
+          ? "active listing"
+          : "active listings"}{" "}
+        · {a.experienceYears} {a.experienceYears === 1 ? "year" : "years"}
       </p>
       <div className="agent-thumbnails">
         {items

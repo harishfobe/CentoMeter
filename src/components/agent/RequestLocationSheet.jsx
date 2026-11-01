@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { requestLocation } from "../../lib/agentStore";
+import { requestLocation, notifyAgent } from "../../lib/agentStore";
 import { responseLabel } from "../../lib/agents";
 export default function RequestLocationSheet({
   p,
@@ -42,6 +42,7 @@ export default function RequestLocationSheet({
                 source,
               );
               setSent(true);
+              notifyAgent("Location request sent. This is a local demo.");
               navigator.vibrate?.(8);
             } catch (err) {
               setError(err.message);

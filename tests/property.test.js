@@ -7,8 +7,8 @@ import {
   normalizePostedListing,
   sortProperties,
   emiPayment,
-} from "../PropertyModel";
-import { matches, filterDefaults, Costs } from "../Discovery";
+} from "../src/PropertyModel";
+import { matches, filterDefaults, Costs } from "../src/Discovery";
 const draft = {
   id: "new",
   title: "A posted home",

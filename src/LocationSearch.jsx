@@ -14,7 +14,7 @@ function geocode(term, city, signal) {
       if (signal.aborted) throw new DOMException("Aborted", "AbortError");
       lastRequest = Date.now();
       const endpoint =
-        window.CENTOMETER_CONFIG?.geocoderUrl ||
+        import.meta.env.VITE_GEOCODER_URL ||
         "https://nominatim.openstreetmap.org/search";
       const url = new URL(endpoint);
       url.search = new URLSearchParams({

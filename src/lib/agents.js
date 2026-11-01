@@ -155,3 +155,35 @@ export const publicListing = (p) => {
     delete result[k];
   return result;
 };
+
+export const statusLabel = (value) => {
+  const text = String(value || "Not supplied").replaceAll("-", " ");
+  return text.charAt(0).toUpperCase() + text.slice(1);
+};
+export function filterLabel(key, value) {
+  const price = (n) =>
+    n >= 10000000
+      ? `${n / 10000000} Cr`
+      : n >= 100000
+        ? `${n / 100000} L`
+        : `₹${Number(n).toLocaleString("en-IN")}`;
+  if (key === "max") return "Under " + price(value);
+  if (key === "min") return price(value) + "+";
+  if (key === "beds") return value + " BHK";
+  if (key === "available")
+    return value ? "Available only" : "Include sold / rented";
+  if (key === "recent") return "Recently confirmed";
+  if (key === "mode") return value === "RENT" ? "For rent" : "For sale";
+  if (key === "unit") return "Per " + (value === "sqft" ? "sq ft" : value);
+  if (key === "sort")
+    return (
+      {
+        newest: "Newest",
+        low: "Price low to high",
+        high: "Price high to low",
+        sqft: "Price per sq ft",
+        area: "Largest area",
+      }[value] || value
+    );
+  return String(value);
+}

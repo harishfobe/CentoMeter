@@ -33,7 +33,14 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0001",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p2",
@@ -59,7 +66,7 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "North-East",
     "postedAt": "2026-10-11",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -68,7 +75,14 @@
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [12.94, 77.618]
+    "approx": [12.936273111549975, 77.6239735797616],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0002",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p3",
@@ -93,13 +107,20 @@
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0003",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p4",
@@ -152,16 +173,23 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "South",
     "postedAt": "2026-10-14",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [12.918, 77.637]
+    "approx": [12.9145606718054, 77.64295645677434],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0005",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p6",
@@ -186,13 +214,20 @@
     "maintenance": 2000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0006",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p7",
@@ -223,7 +258,14 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0007",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p8",
@@ -252,7 +294,7 @@
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [12.919, 77.673]
+    "approx": [12.915685929181608, 77.67881192415639]
   },
   {
     "id": "p9",
@@ -277,13 +319,20 @@
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0009",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p10",
@@ -314,7 +363,14 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0010",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p11",
@@ -340,7 +396,7 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "East",
     "postedAt": "2026-10-20",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -349,7 +405,14 @@
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [13.096, 77.593]
+    "approx": [13.087391887172164, 77.59858200551585],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0011",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p12",
@@ -368,7 +431,7 @@
     "available": "Within 30 days",
     "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "South-East",
@@ -384,7 +447,7 @@
     "lng": 77.64,
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences — Rental",
+    "title": "Garden City Palm Residences \u2014 Rental",
     "price": 42000,
     "beds": 3,
     "baths": 2,
@@ -408,7 +471,14 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0013",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p14",
@@ -416,7 +486,7 @@
     "locality": "Koramangala",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Garden City Cedar Grove — Rental",
+    "title": "Garden City Cedar Grove \u2014 Rental",
     "price": 95500,
     "beds": 4,
     "baths": 4,
@@ -434,7 +504,7 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "South-West",
     "postedAt": "2026-10-23",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -443,7 +513,14 @@
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [12.943, 77.618]
+    "approx": [12.939720961673503, 77.6245695597427],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0014",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p15",
@@ -453,7 +530,7 @@
     "lng": 77.748,
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Courtyard Villa — Rental",
+    "title": "Garden City Courtyard Villa \u2014 Rental",
     "price": 66000,
     "beds": 3,
     "baths": 3,
@@ -468,13 +545,20 @@
     "maintenance": 2500,
     "deposit": 198000,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-24",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0015",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p17",
@@ -482,7 +566,7 @@
     "locality": "HSR Layout",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Parkside Living — Rental",
+    "title": "Garden City Parkside Living \u2014 Rental",
     "price": 44000,
     "beds": 3,
     "baths": 2,
@@ -500,16 +584,16 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "North",
     "postedAt": "2026-10-25",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [12.921, 77.637]
+    "approx": [12.914416130590284, 77.6450117233206]
   },
   {
     "id": "p18",
@@ -519,7 +603,7 @@
     "lng": 77.597,
     "mode": "RENT",
     "type": "Villa",
-    "title": "Garden City Grove Villas — Rental",
+    "title": "Garden City Grove Villas \u2014 Rental",
     "price": 97500,
     "beds": 4,
     "baths": 4,
@@ -534,13 +618,20 @@
     "maintenance": 2000,
     "deposit": 292500,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "North-East",
     "postedAt": "2026-10-26",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0017",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p19",
@@ -550,7 +641,7 @@
     "lng": 77.588,
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Aaranya Villa — Rental",
+    "title": "Garden City Aaranya Villa \u2014 Rental",
     "price": 68000,
     "beds": 3,
     "baths": 3,
@@ -571,7 +662,14 @@
     "floor": "Ground",
     "facing": "East",
     "postedAt": "2026-10-27",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0018",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p21",
@@ -581,7 +679,7 @@
     "lng": 77.601,
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Avenue — Rental",
+    "title": "Garden City Avenue \u2014 Rental",
     "price": 46000,
     "beds": 3,
     "baths": 2,
@@ -596,13 +694,20 @@
     "maintenance": 1500,
     "deposit": 138000,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "South",
     "postedAt": "2026-10-28",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0019",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p22",
@@ -612,7 +717,7 @@
     "lng": 77.677,
     "mode": "RENT",
     "type": "Villa",
-    "title": "Garden City Lakeview Retreat — Rental",
+    "title": "Garden City Lakeview Retreat \u2014 Rental",
     "price": 99500,
     "beds": 4,
     "baths": 4,
@@ -641,7 +746,7 @@
     "locality": "Yelahanka",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Terrace Villa — Rental",
+    "title": "Garden City Terrace Villa \u2014 Rental",
     "price": 70000,
     "beds": 3,
     "baths": 3,
@@ -659,7 +764,7 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "West",
     "postedAt": "2026-10-11",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -668,7 +773,14 @@
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [13.099, 77.593]
+    "approx": [13.094542958302192, 77.59941222501742],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0021",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p27",
@@ -693,13 +805,20 @@
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0022",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p28",
@@ -730,7 +849,14 @@
     "floor": "Ground",
     "facing": "South-East",
     "postedAt": "2026-10-13",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0023",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p29",
@@ -756,7 +882,7 @@
     "contactName": "Rahul Reddy",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "South",
     "postedAt": "2026-10-14",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -765,7 +891,7 @@
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [17.437, 78.405]
+    "approx": [17.426981032502777, 78.41078007042441]
   },
   {
     "id": "p30",
@@ -784,13 +910,19 @@
     "available": "Within 30 days",
     "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "South-West",
     "postedAt": "2026-10-15",
     "photos": ["/land.jpg"],
-    "landType": "Agricultural"
+    "landType": "Agricultural",
+    "reraNo": "DEMO-RERA-0025",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p31",
@@ -821,7 +953,14 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0026",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p32",
@@ -847,7 +986,7 @@
     "contactName": "Rahul Reddy",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "North-West",
     "postedAt": "2026-10-17",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -856,7 +995,14 @@
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [17.403, 78.332]
+    "approx": [17.396076021340413, 78.33467648568185],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0027",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p33",
@@ -881,7 +1027,7 @@
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
@@ -912,7 +1058,13 @@
     "facing": "North-East",
     "postedAt": "2026-10-19",
     "photos": ["/land.jpg"],
-    "landType": "Residential"
+    "landType": "Residential",
+    "reraNo": "DEMO-RERA-0029",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p35",
@@ -920,7 +1072,7 @@
     "locality": "Gachibowli",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Deccan Palm Residences — Rental",
+    "title": "Deccan Palm Residences \u2014 Rental",
     "price": 36000,
     "beds": 3,
     "baths": 2,
@@ -938,16 +1090,23 @@
     "contactName": "Rahul Reddy",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "East",
     "postedAt": "2026-10-20",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [17.449, 78.343]
+    "approx": [17.439799322752076, 78.35099480049226],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0030",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p36",
@@ -957,7 +1116,7 @@
     "lng": 78.367,
     "mode": "RENT",
     "type": "Villa",
-    "title": "Deccan Cedar Grove — Rental",
+    "title": "Deccan Cedar Grove \u2014 Rental",
     "price": 82000,
     "beds": 4,
     "baths": 4,
@@ -972,13 +1131,20 @@
     "maintenance": 3000,
     "deposit": 286500,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-21",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0031",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p37",
@@ -988,7 +1154,7 @@
     "lng": 78.41,
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Deccan Courtyard Villa — Rental",
+    "title": "Deccan Courtyard Villa \u2014 Rental",
     "price": 57000,
     "beds": 3,
     "baths": 3,
@@ -1019,7 +1185,7 @@
     "lng": 78.391,
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Deccan Parkside Living — Rental",
+    "title": "Deccan Parkside Living \u2014 Rental",
     "price": 38000,
     "beds": 3,
     "baths": 2,
@@ -1034,13 +1200,20 @@
     "maintenance": 2500,
     "deposit": 132000,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-23",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0033",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p40",
@@ -1050,7 +1223,7 @@
     "lng": 78.337,
     "mode": "RENT",
     "type": "Villa",
-    "title": "Deccan Grove Villas — Rental",
+    "title": "Deccan Grove Villas \u2014 Rental",
     "price": 84000,
     "beds": 4,
     "baths": 4,
@@ -1071,7 +1244,14 @@
     "floor": "Ground",
     "facing": "North-West",
     "postedAt": "2026-10-24",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0034",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p41",
@@ -1079,7 +1259,7 @@
     "locality": "Narsingi",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Deccan Aaranya Villa — Rental",
+    "title": "Deccan Aaranya Villa \u2014 Rental",
     "price": 58500,
     "beds": 3,
     "baths": 3,
@@ -1097,7 +1277,7 @@
     "contactName": "Rahul Reddy",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "North",
     "postedAt": "2026-10-25",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -1106,7 +1286,14 @@
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [17.4, 78.35]
+    "approx": [17.396985821040584, 78.35336942191283],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0035",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p45",
@@ -1131,13 +1318,13 @@
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "South",
     "postedAt": "2026-10-26",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"]
   },
   {
     "id": "p46",
@@ -1168,7 +1355,14 @@
     "floor": "Ground",
     "facing": "South-West",
     "postedAt": "2026-10-27",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0037",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p47",
@@ -1194,16 +1388,23 @@
     "contactName": "Meera Kulkarni",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "West",
     "postedAt": "2026-10-28",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a3",
     "privacy": {
-      "mode": "exact",
+      "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [18.605, 73.758]
+    "approx": [18.59788333407806, 73.76066840737332],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0038",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p48",
@@ -1222,13 +1423,19 @@
     "available": "Within 30 days",
     "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
     "postedAt": "2026-10-10",
     "photos": ["/land.jpg"],
-    "landType": "Agricultural"
+    "landType": "Agricultural",
+    "reraNo": "DEMO-RERA-0039",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p49",
@@ -1259,7 +1466,7 @@
     "floor": "Ground",
     "facing": "North",
     "postedAt": "2026-10-11",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"]
   },
   {
     "id": "p50",
@@ -1285,7 +1492,7 @@
     "contactName": "Meera Kulkarni",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "North-East",
     "postedAt": "2026-10-12",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -1294,7 +1501,14 @@
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [18.537, 73.839]
+    "approx": [18.5350147044543, 73.84257869798816],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0041",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p51",
@@ -1319,13 +1533,20 @@
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-13",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0042",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p52",
@@ -1350,7 +1571,13 @@
     "facing": "South-East",
     "postedAt": "2026-10-14",
     "photos": ["/land.jpg"],
-    "landType": "Residential"
+    "landType": "Residential",
+    "reraNo": "DEMO-RERA-0043",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p53",
@@ -1358,7 +1585,7 @@
     "locality": "Baner",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Sahyadri Palm Residences — Rental",
+    "title": "Sahyadri Palm Residences \u2014 Rental",
     "price": 38500,
     "beds": 3,
     "baths": 2,
@@ -1376,16 +1603,16 @@
     "contactName": "Meera Kulkarni",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "South",
     "postedAt": "2026-10-15",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [18.569, 73.781]
+    "approx": [18.560511008404866, 73.78840432141963]
   },
   {
     "id": "p54",
@@ -1395,7 +1622,7 @@
     "lng": 73.774,
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Cedar Grove — Rental",
+    "title": "Sahyadri Cedar Grove \u2014 Rental",
     "price": 88000,
     "beds": 4,
     "baths": 4,
@@ -1410,13 +1637,20 @@
     "maintenance": 2000,
     "deposit": 286500,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0045",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p55",
@@ -1426,7 +1660,7 @@
     "lng": 73.763,
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Sahyadri Courtyard Villa — Rental",
+    "title": "Sahyadri Courtyard Villa \u2014 Rental",
     "price": 60500,
     "beds": 3,
     "baths": 3,
@@ -1447,7 +1681,14 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-17",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0046",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p57",
@@ -1457,7 +1698,7 @@
     "lng": 73.807,
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Sahyadri Parkside Living — Rental",
+    "title": "Sahyadri Parkside Living \u2014 Rental",
     "price": 40500,
     "beds": 3,
     "baths": 2,
@@ -1472,13 +1713,20 @@
     "maintenance": 1500,
     "deposit": 132000,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": ["/apartment.jpg", "/interior.jpg"]
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0047",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "p58",
@@ -1488,7 +1736,7 @@
     "lng": 73.844,
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Grove Villas — Rental",
+    "title": "Sahyadri Grove Villas \u2014 Rental",
     "price": 89500,
     "beds": 4,
     "baths": 4,
@@ -1517,7 +1765,7 @@
     "locality": "Pashan",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Sahyadri Aaranya Villa — Rental",
+    "title": "Sahyadri Aaranya Villa \u2014 Rental",
     "price": 62500,
     "beds": 3,
     "baths": 3,
@@ -1535,7 +1783,7 @@
     "contactName": "Meera Kulkarni",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "facing": "East",
     "postedAt": "2026-10-20",
     "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
@@ -1544,7 +1792,14 @@
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [18.549, 73.792]
+    "approx": [18.546779826263595, 73.79756719725765],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0049",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Bengaluru-BUY-Commercial",
@@ -1568,12 +1823,19 @@
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-21",
-    "photos": ["/interior.jpg", "/apartment.jpg"]
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0050",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Bengaluru-RENT-Commercial",
@@ -1583,7 +1845,7 @@
     "lng": 77.628,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Garden City Central Square Workspace — Rental",
+    "title": "Garden City Central Square Workspace \u2014 Rental",
     "price": 55000,
     "baths": 1,
     "area": 1250,
@@ -1602,7 +1864,14 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-22",
-    "photos": ["/interior.jpg", "/apartment.jpg"]
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0051",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Bengaluru-RENT-PG",
@@ -1610,7 +1879,7 @@
     "locality": "Indiranagar",
     "mode": "RENT",
     "type": "PG",
-    "title": "Garden City Parkside PG · Private room — Rental",
+    "title": "Garden City Parkside PG \u00b7 Private room \u2014 Rental",
     "price": 12000,
     "beds": 1,
     "baths": 1,
@@ -1630,17 +1899,17 @@
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "bathroom": "Attached",
     "ac": "No",
     "postedAt": "2026-10-23",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [12.972, 77.647]
+    "approx": [12.963179356566656, 77.6523035475671]
   },
   {
     "id": "Hyderabad-BUY-Commercial",
@@ -1664,12 +1933,19 @@
     "maintenance": 2000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-24",
-    "photos": ["/interior.jpg", "/apartment.jpg"]
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0053",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Hyderabad-RENT-Commercial",
@@ -1679,7 +1955,7 @@
     "lng": 78.336,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Deccan Central Square Workspace — Rental",
+    "title": "Deccan Central Square Workspace \u2014 Rental",
     "price": 47500,
     "baths": 1,
     "area": 1250,
@@ -1698,7 +1974,14 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-25",
-    "photos": ["/interior.jpg", "/apartment.jpg"]
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0054",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Hyderabad-RENT-PG",
@@ -1706,7 +1989,7 @@
     "locality": "Gachibowli",
     "mode": "RENT",
     "type": "PG",
-    "title": "Deccan Parkside PG · Private room — Rental",
+    "title": "Deccan Parkside PG \u00b7 Private room \u2014 Rental",
     "price": 10500,
     "beds": 1,
     "baths": 1,
@@ -1726,17 +2009,24 @@
     "contactName": "Rahul Reddy",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "bathroom": "Shared",
     "ac": "No",
     "postedAt": "2026-10-26",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [17.434, 78.355]
+    "approx": [17.42636298262808, 78.36372160334045],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0055",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Pune-BUY-Commercial",
@@ -1760,12 +2050,12 @@
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Square Homes — sample builder",
+    "contactName": "Square Homes \u2014 sample builder",
     "freshness": "Availability not recently confirmed",
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
-    "photos": ["/interior.jpg", "/apartment.jpg"]
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"]
   },
   {
     "id": "Pune-RENT-Commercial",
@@ -1775,7 +2065,7 @@
     "lng": 73.774,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Sahyadri Central Square Workspace — Rental",
+    "title": "Sahyadri Central Square Workspace \u2014 Rental",
     "price": 50500,
     "baths": 1,
     "area": 1250,
@@ -1794,7 +2084,14 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-28",
-    "photos": ["/interior.jpg", "/apartment.jpg"]
+    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0057",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   },
   {
     "id": "Pune-RENT-PG",
@@ -1802,7 +2099,7 @@
     "locality": "Baner",
     "mode": "RENT",
     "type": "PG",
-    "title": "Sahyadri Parkside PG · Private room — Rental",
+    "title": "Sahyadri Parkside PG \u00b7 Private room \u2014 Rental",
     "price": 11000,
     "beds": 1,
     "baths": 1,
@@ -1822,16 +2119,23 @@
     "contactName": "Meera Kulkarni",
     "freshness": "Price updated: 10 Oct 2026",
     "pets": "Not allowed",
-    "floor": "1–3",
+    "floor": "1\u20133",
     "bathroom": "Attached",
     "ac": "No",
     "postedAt": "2026-10-10",
-    "photos": ["/apartment.jpg", "/interior.jpg"],
+    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [18.554, 73.793]
+    "approx": [18.545165433929874, 73.79710359284125],
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0058",
+    "highlights": [
+      "Illustrative listing \u2014 details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ]
   }
 ]

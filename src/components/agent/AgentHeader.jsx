@@ -1,7 +1,7 @@
 import React from "react";
 import { responseLabel } from "../../lib/agents";
 import StatsRow from "./StatsRow";
-import { toggleStore, useAgentStore } from "../../lib/agentStore";
+import { toggleStore, useAgentStore, notifyAgent } from "../../lib/agentStore";
 export default function AgentHeader({ agent: a, count, onShare }) {
   const s = useAgentStore();
   return (
@@ -29,6 +29,14 @@ export default function AgentHeader({ agent: a, count, onShare }) {
         <div className="action-row">
           <a
             className="primary"
+            onClick={(e) => {
+              if (!/^\d{10}$/.test(a.whatsapp)) {
+                e.preventDefault();
+                notifyAgent(
+                  "Demo WhatsApp: " + a.whatsapp + " is a fake number.",
+                );
+              }
+            }}
             href={
               "https://wa.me/91" +
               a.whatsapp +

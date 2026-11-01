@@ -65,9 +65,11 @@ export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
           Reset filters
         </button>
         <button className="primary" onClick={onClose}>
-          Show {count} properties
+          Show {count} {count === 1 ? "property" : "properties"}
         </button>
-        <p aria-live="polite">{count} properties</p>
+        <p aria-live="polite">
+          {count} {count === 1 ? "property" : "properties"}
+        </p>
       </div>
     </Modal>
   );

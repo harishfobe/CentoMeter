@@ -6,18 +6,18 @@ import {
   cityForLocation,
   normalizePostedListing,
   sortProperties,
-} from "../PropertyModel";
+} from "../src/PropertyModel";
 import {
   visitDates,
   compressPhotos,
   landPrice,
   MAX_PHOTO_BYTES,
-} from "../JourneyUX";
-import { pinPrice } from "../PlotUI";
-import { Costs } from "../Discovery";
-import { PropertyActionBar, SelectedPropertySheet } from "../MinimalUI";
-import { isBlankDraft, persistDraft } from "../PhotoStorage";
-import properties from "../properties.json";
+} from "../src/JourneyUX";
+import { pinPrice } from "../src/PlotUI";
+import { Costs } from "../src/Discovery";
+import { PropertyActionBar, SelectedPropertySheet } from "../src/MinimalUI";
+import { isBlankDraft, persistDraft } from "../src/PhotoStorage";
+import properties from "../src/properties.json";
 const draft = {
   id: "rent",
   title: "Posted apartment",
@@ -247,7 +247,7 @@ describe("draft and photo writes", () => {
         return req;
       },
     });
-    let storage = await import("../PhotoStorage");
+    let storage = await import("../src/PhotoStorage");
     const data = { photos: ["data:image/jpeg;base64,AAAA"] };
     const first = await storage.storePhotoData(data, "test");
     expect(first.photosSaved).toBe(true);
@@ -257,7 +257,7 @@ describe("draft and photo writes", () => {
     );
     expect(puts).toBe(1);
     vi.resetModules();
-    storage = await import("../PhotoStorage");
+    storage = await import("../src/PhotoStorage");
     const restored = await storage.restorePhotos(first.data);
     await storage.storePhotoData(restored, "test");
     expect(puts).toBe(1);

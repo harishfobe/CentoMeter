@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { agents, listings } from "../../lib/agents";
-import { useAgentStore, viewerId, canRequest } from "../../lib/agentStore";
+import {
+  useAgentStore,
+  viewerId,
+  canRequest,
+  notifyAgent,
+} from "../../lib/agentStore";
 import { accessStatus } from "../../lib/locationAccess";
 export function AgentRequests({ onNavigate }) {
   const s = useAgentStore();
   const [, tick] = useState(0);
   useEffect(() => {
-    const timer = setInterval(() => tick((n) => n + 1), 1000);
+    const timer = setInterval(() => tick((n) => n + 1), 60000);
     return () => clearInterval(timer);
   }, []);
   return (
     <div>
+      {s.visits
+        .filter((v) => v.viewerId === viewerId)
+        .map((v) => (
+          <article className="request-card" key={v.id}>
+            <h2>
+              Site visit ·{" "}
+              {
+                [...listings, ...(s.customListings || [])].find(
+                  (p) => p.id === v.propertyId,
+                )?.title
+              }
+            </h2>
+            <p>{v.date}</p>
+            <p role="status">{v.status}</p>
+          </article>
+        ))}
       {s.requests
         .filter((r) => r.viewerId === viewerId)
         .map((r) => {
@@ -83,6 +104,14 @@ export function AgentSaved({ onNavigate }) {
             ))}
             <a
               className="secondary"
+              onClick={(e) => {
+                if (!/^\d{10}$/.test(a.whatsapp)) {
+                  e.preventDefault();
+                  notifyAgent(
+                    "Demo WhatsApp: " + a.whatsapp + " is a fake number.",
+                  );
+                }
+              }}
               href={
                 "https://wa.me/91" +
                 a.whatsapp +
