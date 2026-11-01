@@ -1,1 +1,43 @@
-import React from 'react';export default function FilterBar({f,onChange,onMore}){return <div className="agent-filter-bar">{['BUY','RENT'].map(mode=><button key={mode} aria-pressed={f.mode===mode} onClick={()=>onChange({...f,mode})}>{mode==='BUY'?'Buy':'Rent'}</button>)}<select aria-label="Property type" value={f.type} onChange={e=>onChange({...f,type:e.target.value,beds:''})}>{['All','Apartment','House','Land','Commercial','PG'].map(x=><option key={x}>{x}</option>)}</select><select aria-label="Sort listings" value={f.sort} onChange={e=>onChange({...f,sort:e.target.value})}>{[['newest','Newest'],['low','Price low-high'],['high','Price high-low'],['sqft','Price per sq ft'],['area','Area']].map(([v,l])=><option key={v} value={v}>{l}</option>)}</select><button onClick={onMore}>More filters</button></div>}
+import React from "react";
+export default function FilterBar({ f, onChange, onMore }) {
+  return (
+    <div className="agent-filter-bar">
+      {["BUY", "RENT"].map((mode) => (
+        <button
+          key={mode}
+          aria-pressed={f.mode === mode}
+          onClick={() => onChange({ ...f, mode })}
+        >
+          {mode === "BUY" ? "Buy" : "Rent"}
+        </button>
+      ))}
+      <select
+        aria-label="Property type"
+        value={f.type}
+        onChange={(e) => onChange({ ...f, type: e.target.value, beds: "" })}
+      >
+        {["All", "Apartment", "House", "Land", "Commercial", "PG"].map((x) => (
+          <option key={x}>{x}</option>
+        ))}
+      </select>
+      <select
+        aria-label="Sort listings"
+        value={f.sort}
+        onChange={(e) => onChange({ ...f, sort: e.target.value })}
+      >
+        {[
+          ["newest", "Newest"],
+          ["low", "Price low-high"],
+          ["high", "Price high-low"],
+          ["sqft", "Price per sq ft"],
+          ["area", "Area"],
+        ].map(([v, l]) => (
+          <option key={v} value={v}>
+            {l}
+          </option>
+        ))}
+      </select>
+      <button onClick={onMore}>More filters</button>
+    </div>
+  );
+}

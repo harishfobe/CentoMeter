@@ -1,5 +1,88 @@
-import {SQFT_PER_CENT} from './LandMeasurements';
-export function visitDates(now=new Date()){const local=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');const seen=new Set();return [1,(6-now.getDay()+7)%7||7,(7-now.getDay())%7||7].sort((a,b)=>a-b).map(days=>{const date=new Date(now);date.setDate(date.getDate()+days);return {label:date.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'}),value:local(date)}}).filter(({value})=>!seen.has(value)&&seen.add(value))}
-export function landPrice(p,unit){if(p.type!=='Land'||p.mode!=='BUY'||unit==='total'||!(Number(p.area)>0))return {amount:p.price,suffix:''};return {amount:Number(p.price)/(unit==='cent'?Number(p.area)/SQFT_PER_CENT:Number(p.area)),suffix:unit==='cent'?' / cent':' / sq ft'}}
-export const MAX_PHOTO_BYTES=400*1024;
-export async function compressPhotos(files){const results=[];for(const file of files){if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw new Error('Choose JPG, PNG or WebP images.');const url=URL.createObjectURL(file);try{const image=new Image();image.src=url;await image.decode();const canvas=document.createElement('canvas');const context=canvas.getContext('2d');if(!context)throw new Error('Photo processing is unavailable.');let ratio=Math.min(1,1200/image.naturalWidth,1600/image.naturalHeight),quality=.78,encoded;for(;;){canvas.width=Math.max(1,Math.round(image.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(image.naturalHeight*ratio));context.fillStyle='#fff';context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(image,0,0,canvas.width,canvas.height);encoded=canvas.toDataURL('image/jpeg',quality);if((encoded.length-encoded.indexOf(',')-1)*.75<=MAX_PHOTO_BYTES)break;if(quality>.48)quality=Math.max(.48,Number((quality-.1).toFixed(2)));else if(canvas.width>1||canvas.height>1)ratio*=.8;else throw new Error('This photo could not be optimized. Try another image.')}results.push(encoded)}finally{URL.revokeObjectURL(url)}}return results}
+import { SQFT_PER_CENT } from "./LandMeasurements";
+export function visitDates(now = new Date()) {
+  const local = (d) =>
+    [
+      d.getFullYear(),
+      String(d.getMonth() + 1).padStart(2, "0"),
+      String(d.getDate()).padStart(2, "0"),
+    ].join("-");
+  const seen = new Set();
+  return [1, (6 - now.getDay() + 7) % 7 || 7, (7 - now.getDay()) % 7 || 7]
+    .sort((a, b) => a - b)
+    .map((days) => {
+      const date = new Date(now);
+      date.setDate(date.getDate() + days);
+      return {
+        label: date.toLocaleDateString("en-IN", {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        }),
+        value: local(date),
+      };
+    })
+    .filter(({ value }) => !seen.has(value) && seen.add(value));
+}
+export function landPrice(p, unit) {
+  if (
+    p.type !== "Land" ||
+    p.mode !== "BUY" ||
+    unit === "total" ||
+    !(Number(p.area) > 0)
+  )
+    return { amount: p.price, suffix: "" };
+  return {
+    amount:
+      Number(p.price) /
+      (unit === "cent" ? Number(p.area) / SQFT_PER_CENT : Number(p.area)),
+    suffix: unit === "cent" ? " / cent" : " / sq ft",
+  };
+}
+export const MAX_PHOTO_BYTES = 400 * 1024;
+export async function compressPhotos(files) {
+  const results = [];
+  for (const file of files) {
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type))
+      throw new Error("Choose JPG, PNG or WebP images.");
+    const url = URL.createObjectURL(file);
+    try {
+      const image = new Image();
+      image.src = url;
+      await image.decode();
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      if (!context) throw new Error("Photo processing is unavailable.");
+      let ratio = Math.min(
+          1,
+          1200 / image.naturalWidth,
+          1600 / image.naturalHeight,
+        ),
+        quality = 0.78,
+        encoded;
+      for (;;) {
+        canvas.width = Math.max(1, Math.round(image.naturalWidth * ratio));
+        canvas.height = Math.max(1, Math.round(image.naturalHeight * ratio));
+        context.fillStyle = "#fff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        encoded = canvas.toDataURL("image/jpeg", quality);
+        if (
+          (encoded.length - encoded.indexOf(",") - 1) * 0.75 <=
+          MAX_PHOTO_BYTES
+        )
+          break;
+        if (quality > 0.48)
+          quality = Math.max(0.48, Number((quality - 0.1).toFixed(2)));
+        else if (canvas.width > 1 || canvas.height > 1) ratio *= 0.8;
+        else
+          throw new Error(
+            "This photo could not be optimized. Try another image.",
+          );
+      }
+      results.push(encoded);
+    } finally {
+      URL.revokeObjectURL(url);
+    }
+  }
+  return results;
+}

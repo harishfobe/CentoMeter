@@ -1,2 +1,93 @@
-:root{--ease:cubic-bezier(.2,.8,.2,1);--t-fast:140ms;--t:240ms}.agent-feature button,.agent-feature a{transition:scale var(--t-fast) var(--ease),background var(--t-fast)}.agent-feature button:active,.agent-detail button:active{scale:.96}.agent-photo-strip img{animation:agent-image-in var(--t) var(--ease)}.modal:has(.agent-detail),.modal:has(.form-stack){animation:agent-sheet-rise var(--t) var(--ease)}.agent-privacy.is-unlocked,.location-gate.is-unlocked{animation:agent-unlock .5s var(--ease)}.agent-skeleton{animation:agent-shimmer 1.3s infinite}.agent-feature .save-button[aria-pressed=true]{animation:agent-heart .3s var(--ease)}@keyframes agent-image-in{from{opacity:.3;filter:blur(3px)}to{opacity:1;filter:blur(0)}}@keyframes agent-sheet-rise{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}@keyframes agent-unlock{50%{box-shadow:0 0 0 4px #F96B1322}}@keyframes agent-shimmer{to{background-position:-200%}}@keyframes agent-heart{50%{scale:1.2}}@media(hover:hover){.agent-listing:hover{translate:0 -3px;box-shadow:var(--agent-shadow)}}@media(prefers-reduced-motion:reduce){.agent-feature *,.agent-detail *,.modal{animation:none!important;transition:none!important;scroll-behavior:auto!important;view-transition-name:none!important}}
-::view-transition-old(root),::view-transition-new(root){animation-duration:var(--t)}@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}}
+:root {
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-fast: 140ms;
+  --t: 240ms;
+}
+.agent-feature button,
+.agent-feature a {
+  transition:
+    scale var(--t-fast) var(--ease),
+    background var(--t-fast);
+}
+.agent-feature button:active,
+.agent-detail button:active {
+  scale: 0.96;
+}
+.agent-photo-strip img {
+  animation: agent-image-in var(--t) var(--ease);
+}
+.modal:has(.agent-detail),
+.modal:has(.form-stack) {
+  animation: agent-sheet-rise var(--t) var(--ease);
+}
+.agent-privacy.is-unlocked,
+.location-gate.is-unlocked {
+  animation: agent-unlock 0.5s var(--ease);
+}
+.agent-skeleton {
+  animation: agent-shimmer 1.3s infinite;
+}
+.agent-feature .save-button[aria-pressed="true"] {
+  animation: agent-heart 0.3s var(--ease);
+}
+@keyframes agent-image-in {
+  from {
+    opacity: 0.3;
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+@keyframes agent-sheet-rise {
+  from {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@keyframes agent-unlock {
+  50% {
+    box-shadow: 0 0 0 4px #f96b1322;
+  }
+}
+@keyframes agent-shimmer {
+  to {
+    background-position: -200%;
+  }
+}
+@keyframes agent-heart {
+  50% {
+    scale: 1.2;
+  }
+}
+@media (hover: hover) {
+  .agent-listing:hover {
+    translate: 0 -3px;
+    box-shadow: var(--agent-shadow);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .agent-feature *,
+  .agent-detail *,
+  .modal {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+    view-transition-name: none !important;
+  }
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--t);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

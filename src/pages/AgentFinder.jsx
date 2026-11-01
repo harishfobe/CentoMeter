@@ -1,1 +1,222 @@
-import React,{useState,useMemo,useEffect} from 'react';import {agents,listings,findAgents} from '../lib/agents';import {readLocal} from '../Discovery';import AgentCard from '../components/agent/AgentCard';export default function AgentFinder({onNavigate,Modal}){const [filtersOpen,setFiltersOpen]=useState(false);const [f,setF]=useState({query:'',city:'',sort:'recommended'});const [input,setInput]=useState('');useEffect(()=>{const timer=setTimeout(()=>setF(x=>({...x,query:input})),250);return()=>clearTimeout(timer)},[input]);const rows=useMemo(()=>findAgents(agents,f),[f]);const set=(k,v)=>setF(x=>({...x,[k]:v}));const controls=<div className="agent-filter-bar"><input aria-label="Find agents, locality or language" placeholder="Name, locality or language" value={input} onChange={e=>setInput(e.target.value)}/>{[['city','City',['Bengaluru','Hyderabad','Pune']],['locality','Service area',[...new Set(agents.flatMap(a=>a.serviceAreas))]],['language','Language',['English','Hindi','Kannada','Marathi','Telugu']],['specialty','Specialty',['Apartments','Villas','Plots','Rentals','Commercial','PG']],['response','Responds within',['60','240','1440']],['experience','Experience',['3','5','10']],['count','Active listings',['1','5']]].map(([k,l,opts])=><select key={k} aria-label={l} multiple={['language','specialty'].includes(k)} value={f[k]||(['language','specialty'].includes(k)?[]:'')} onChange={e=>set(k,['language','specialty'].includes(k)?[...e.target.selectedOptions].map(o=>o.value).filter(Boolean):e.target.value)}><option value="">{l} · Any</option>{opts.map(x=><option key={x}>{x}</option>)}</select>)}<label><input type="checkbox" checked={!!f.verified} onChange={e=>set('verified',e.target.checked)}/>Verified only</label><input type="number" aria-label="Listing budget" placeholder="Budget ₹" value={f.budget||''} onChange={e=>set('budget',e.target.value)}/><select aria-label="Sort agents" value={f.sort} onChange={e=>set('sort',e.target.value)}>{[['recommended','Recommended'],['fast','Fastest response'],['count','Most listings'],['experience','Most experienced'],['new','Newest']].map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></div>;return <section className="page agent-finder agent-feature"><h1>Find your local expert</h1><button className="secondary" onClick={()=>setFiltersOpen(true)}>More finder filters</button>{filtersOpen?<Modal title="Find an agent" onClose={()=>setFiltersOpen(false)}>{controls}<button className="primary" onClick={()=>setFiltersOpen(false)}>Show {rows.length} agents</button></Modal>:controls}{input&&<div className="agent-suggestions" aria-label="Search suggestions">{[['Agents',agents.filter(a=>[a.name,a.handle].join(' ').toLowerCase().includes(input.toLowerCase())).map(a=>a.name)],['Localities',[...new Set(agents.flatMap(a=>a.serviceAreas))].filter(x=>x.toLowerCase().includes(input.toLowerCase()))],['Languages',[...new Set(agents.flatMap(a=>a.languages))].filter(x=>x.toLowerCase().includes(input.toLowerCase()))]].map(([label,values])=><section key={label}><strong>{label}</strong>{values.slice(0,3).map(x=><button className="secondary" key={x} onClick={()=>setInput(x)}>{x}</button>)}</section>)}</div>}<div className="action-row"><button className="secondary" onClick={()=>set('sort','new')}>New agents</button><button className="secondary" onClick={()=>set('sort','fast')}>Fastest to reply</button><button className="secondary" onClick={()=>{let city='Bengaluru';try{city=readLocal('centometer-city',null)||city}catch{/* Use the remembered-city fallback. */}set('city',city)}}>Agents near me · selected city</button></div><p aria-live="polite">{rows.length} agents</p><div className="agent-grid">{input!==f.query?Array.from({length:3},(_,i)=><div key={i} className="agent-skeleton" aria-label="Finding agents"/>):rows.map(a=><AgentCard key={a.id} agent={a} items={listings} onNavigate={onNavigate}/>)}</div>{!rows.length&&<div className="empty"><h2>No matching agents</h2><button className="secondary" onClick={()=>{setInput('');setF({})}}>Clear filters</button></div>}<button className="secondary" onClick={()=>onNavigate('agent-dashboard')}>Demo agent dashboard</button><p className="fine-print">Sample agents and listings · Preview only</p></section>}
+import React, { useState, useMemo, useEffect } from "react";
+import { agents, listings, findAgents } from "../lib/agents";
+import { readLocal } from "../Discovery";
+import AgentCard from "../components/agent/AgentCard";
+export default function AgentFinder({ onNavigate, Modal }) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [f, setF] = useState({ query: "", city: "", sort: "recommended" });
+  const [input, setInput] = useState("");
+  useEffect(() => {
+    const timer = setTimeout(() => setF((x) => ({ ...x, query: input })), 250);
+    return () => clearTimeout(timer);
+  }, [input]);
+  const rows = useMemo(() => findAgents(agents, f), [f]);
+  const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
+  const controls = (
+    <div className="agent-filter-bar">
+      <input
+        aria-label="Find agents, locality or language"
+        placeholder="Name, locality or language"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      {[
+        ["city", "City", ["Bengaluru", "Hyderabad", "Pune"]],
+        [
+          "locality",
+          "Service area",
+          [...new Set(agents.flatMap((a) => a.serviceAreas))],
+        ],
+        [
+          "language",
+          "Language",
+          ["English", "Hindi", "Kannada", "Marathi", "Telugu"],
+        ],
+        [
+          "specialty",
+          "Specialty",
+          ["Apartments", "Villas", "Plots", "Rentals", "Commercial", "PG"],
+        ],
+        ["response", "Responds within", ["60", "240", "1440"]],
+        ["experience", "Experience", ["3", "5", "10"]],
+        ["count", "Active listings", ["1", "5"]],
+      ].map(([k, l, opts]) => (
+        <select
+          key={k}
+          aria-label={l}
+          multiple={["language", "specialty"].includes(k)}
+          value={f[k] || (["language", "specialty"].includes(k) ? [] : "")}
+          onChange={(e) =>
+            set(
+              k,
+              ["language", "specialty"].includes(k)
+                ? [...e.target.selectedOptions]
+                    .map((o) => o.value)
+                    .filter(Boolean)
+                : e.target.value,
+            )
+          }
+        >
+          <option value="">{l} · Any</option>
+          {opts.map((x) => (
+            <option key={x}>{x}</option>
+          ))}
+        </select>
+      ))}
+      <label>
+        <input
+          type="checkbox"
+          checked={!!f.verified}
+          onChange={(e) => set("verified", e.target.checked)}
+        />
+        Verified only
+      </label>
+      <input
+        type="number"
+        aria-label="Listing budget"
+        placeholder="Budget ₹"
+        value={f.budget || ""}
+        onChange={(e) => set("budget", e.target.value)}
+      />
+      <select
+        aria-label="Sort agents"
+        value={f.sort}
+        onChange={(e) => set("sort", e.target.value)}
+      >
+        {[
+          ["recommended", "Recommended"],
+          ["fast", "Fastest response"],
+          ["count", "Most listings"],
+          ["experience", "Most experienced"],
+          ["new", "Newest"],
+        ].map(([v, l]) => (
+          <option key={v} value={v}>
+            {l}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+  return (
+    <section className="page agent-finder agent-feature">
+      <h1>Find your local expert</h1>
+      <button className="secondary" onClick={() => setFiltersOpen(true)}>
+        More finder filters
+      </button>
+      {filtersOpen ? (
+        <Modal title="Find an agent" onClose={() => setFiltersOpen(false)}>
+          {controls}
+          <button className="primary" onClick={() => setFiltersOpen(false)}>
+            Show {rows.length} agents
+          </button>
+        </Modal>
+      ) : (
+        controls
+      )}
+      {input && (
+        <div className="agent-suggestions" aria-label="Search suggestions">
+          {[
+            [
+              "Agents",
+              agents
+                .filter((a) =>
+                  [a.name, a.handle]
+                    .join(" ")
+                    .toLowerCase()
+                    .includes(input.toLowerCase()),
+                )
+                .map((a) => a.name),
+            ],
+            [
+              "Localities",
+              [...new Set(agents.flatMap((a) => a.serviceAreas))].filter((x) =>
+                x.toLowerCase().includes(input.toLowerCase()),
+              ),
+            ],
+            [
+              "Languages",
+              [...new Set(agents.flatMap((a) => a.languages))].filter((x) =>
+                x.toLowerCase().includes(input.toLowerCase()),
+              ),
+            ],
+          ].map(([label, values]) => (
+            <section key={label}>
+              <strong>{label}</strong>
+              {values.slice(0, 3).map((x) => (
+                <button
+                  className="secondary"
+                  key={x}
+                  onClick={() => setInput(x)}
+                >
+                  {x}
+                </button>
+              ))}
+            </section>
+          ))}
+        </div>
+      )}
+      <div className="action-row">
+        <button className="secondary" onClick={() => set("sort", "new")}>
+          New agents
+        </button>
+        <button className="secondary" onClick={() => set("sort", "fast")}>
+          Fastest to reply
+        </button>
+        <button
+          className="secondary"
+          onClick={() => {
+            let city = "Bengaluru";
+            try {
+              city = readLocal("centometer-city", null) || city;
+            } catch {
+              /* Use the remembered-city fallback. */
+            }
+            set("city", city);
+          }}
+        >
+          Agents near me · selected city
+        </button>
+      </div>
+      <p aria-live="polite">{rows.length} agents</p>
+      <div className="agent-grid">
+        {input !== f.query
+          ? Array.from({ length: 3 }, (_, i) => (
+              <div
+                key={i}
+                className="agent-skeleton"
+                aria-label="Finding agents"
+              />
+            ))
+          : rows.map((a) => (
+              <AgentCard
+                key={a.id}
+                agent={a}
+                items={listings}
+                onNavigate={onNavigate}
+              />
+            ))}
+      </div>
+      {!rows.length && (
+        <div className="empty">
+          <h2>No matching agents</h2>
+          <button
+            className="secondary"
+            onClick={() => {
+              setInput("");
+              setF({});
+            }}
+          >
+            Clear filters
+          </button>
+        </div>
+      )}
+      <button
+        className="secondary"
+        onClick={() => onNavigate("agent-dashboard")}
+      >
+        Demo agent dashboard
+      </button>
+      <p className="fine-print">Sample agents and listings · Preview only</p>
+    </section>
+  );
+}

@@ -1,1 +1,20 @@
-import React from 'react';export default function StatsRow({agent:a,count}){return <dl className="agent-stats">{[['Active listings',count],['Closed deals',a.closedDeals],['Years',a.experienceYears],['RERA agent no.',a.reraAgentNo]].filter(([,v])=>v!=null).map(([k,v])=><div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>}
+import React from "react";
+export default function StatsRow({ agent: a, count }) {
+  return (
+    <dl className="agent-stats">
+      {[
+        ["Active listings", count],
+        ["Closed deals", a.closedDeals],
+        ["Years", a.experienceYears],
+        ["RERA agent no.", a.reraAgentNo],
+      ]
+        .filter(([, v]) => v != null)
+        .map(([k, v]) => (
+          <div key={k}>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))}
+    </dl>
+  );
+}

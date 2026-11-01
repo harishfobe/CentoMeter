@@ -1,4 +1,443 @@
-import React,{useState,useEffect} from 'react';import L from 'leaflet';import {useRef} from 'react';import {money,hasValue,emiPayment} from '../../PropertyModel';import {landArea,landDimensions} from '../../LandMeasurements';import {approvalLabels} from '../../PlotUI';import {EmiCalculator} from '../../PropertyExtras';import {visitDates} from '../../JourneyUX';import {getExactLocation,accessStatus} from '../../lib/locationAccess';import {useAgentStore,viewerId,toggleStore,updateStore} from '../../lib/agentStore';import RequestLocationSheet from './RequestLocationSheet';import {listings as relatedListings,agents as relatedAgents} from '../../lib/agents';
-import {shareAgentLink} from '../../pages/AgentProfile';
-export function UnlockedMap({point}){const host=useRef(null);useEffect(()=>{if(!point)return;const map=L.map(host.current,{scrollWheelZoom:false}).setView(point,15);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap contributors'}).addTo(map);L.marker(point).addTo(map);const resize=new ResizeObserver(()=>map.invalidateSize());resize.observe(host.current);return()=>{resize.disconnect();map.remove()}},[point?.[0],point?.[1]]);return <div className="agent-location-map" ref={host} aria-label="Approved property location"/>}
-export default function ListingDetailSheet({p,agent:a,Modal,onClose,source,onRelated}){const s=useAgentStore();const [request,setRequest]=useState(false),[report,setReport]=useState(false),[visit,setVisit]=useState(false),[emi,setEmi]=useState(false);const [,tick]=useState(0);const [photo,setPhoto]=useState(0);const [zoom,setZoom]=useState(false);useEffect(()=>setPhoto(0),[p.id]);useEffect(()=>{const t=setInterval(()=>tick(n=>n+1),1000);return()=>clearInterval(t)},[]);const point=getExactLocation(p.id,viewerId);const req=s.requests.find(r=>r.propertyId===p.id&&r.viewerId===viewerId);const state=accessStatus(req);const link=location.origin+location.pathname+'#agent/'+a.handle+'?l='+p.id+'&src=share';const facts=[['Type',p.type],['Beds',p.beds],['Baths',p.baths],['Area',p.type==='Land'?landArea(p.area):p.area+' sq ft'],['Dimensions',p.type==='Land'?landDimensions(p):null],...['carpetArea','superArea','roadWidth','frontage','floor','totalFloors','propertyAge','possessionStatus','furnishing','parking','ownershipType','facing','available'].map(k=>[k,p[k]])].filter(([,v])=>hasValue(v));return <Modal title={p.title} onClose={onClose}><article className="agent-detail"><div className="agent-photo-strip" onScroll={e=>setPhoto(Math.round(e.currentTarget.scrollLeft/e.currentTarget.clientWidth))} tabIndex="0" onKeyDown={e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.currentTarget.scrollBy({left:e.currentTarget.clientWidth*(e.key==='ArrowRight'?1:-1),behavior:'smooth'})}}}>{p.photos.map((url,i)=><img key={url+i} src={url} width="800" height="500" decoding="async" alt={p.title+' photo '+(i+1)}/>)}</div><p>{photo+1}/{p.photos.length}</p><button className="secondary" onClick={()=>setZoom(true)}>View photo full screen</button><h2>{money(p.price)}{p.mode==='RENT'?'/mo':''}</h2><p>{money(p.price/p.area)} / sq ft · {p.locality}</p>{p.mode==='BUY'?<><button className="secondary" onClick={()=>setEmi(v=>!v)}>From {money(emiPayment(p.price*.8,9,20))}/mo · EMI</button>{emi&&<EmiCalculator p={p}/>}</>:<dl>{['deposit','maintenance','brokerage'].filter(k=>hasValue(p[k])).map(k=><div key={k}><dt>{k}</dt><dd>{money(p[k])}</dd></div>)}</dl>}<h3>Key facts</h3><dl className="agent-facts">{facts.map(([k,v])=><div key={k}><dt>{k.replace(/([A-Z])/g,' $1')}</dt><dd>{v}</dd></div>)}</dl><h3>Legal & trust</h3>{p.reraNo&&<p>RERA: {p.reraNo}<button onClick={()=>navigator.clipboard?.writeText(p.reraNo)}>Copy</button></p>}{approvalLabels(p).map(x=><span className="pill" key={x}>{x}</span>)}<p>Confirmed available: {new Date(p.confirmedAt).toLocaleDateString('en-IN')}. {Date.now()-Date.parse(p.confirmedAt)>14*86400000?'Not recently confirmed':''}</p><ul>{p.highlights.map(x=><li key={x}>{x}</li>)}</ul><h3>Amenities</h3><div className="chips">{p.amenities.map(x=><span className="pill" key={x}>{x}</span>)}</div><details open><summary>Description</summary><p>{p.description}</p></details>{p.floorPlanUrl&&<a href={p.floorPlanUrl} target="_blank" rel="noopener noreferrer">Floor plan</a>}{p.videoUrl&&<a href={p.videoUrl} target="_blank" rel="noopener noreferrer">Watch video</a>}<section className={'location-gate '+(point?'is-unlocked':'')}><h3>{point?'🔓 Location unlocked':'🔒 Location on request'}</h3><p role="status">{state==='unrequested'?'Request the exact location':state}</p>{point?<><UnlockedMap point={point}/><p>{p.locality}, {p.city}</p><a className="primary" href={'https://www.google.com/maps/dir/?api=1&destination='+point.join(',')} target="_blank" rel="noopener noreferrer">Get directions</a></>:<p>{p.locality}, {p.city}. Neighbourhood details are public; the exact spot is private.</p>}</section><section><h3>Similar from this agent</h3>{relatedListings.filter(x=>x.id!==p.id&&x.agentId===p.agentId&&x.type===p.type).slice(0,3).map(x=><button className="secondary" key={x.id} onClick={()=>onRelated?.(x)}>{x.title}</button>)}<h3>More in {p.locality}</h3>{relatedListings.filter(x=>x.id!==p.id&&x.locality===p.locality&&x.city===p.city).slice(0,3).map(x=><button className="secondary" key={x.id} onClick={()=>onRelated?.(x)}>{x.title} · {relatedAgents.find(a=>a.id===x.agentId)?.name}</button>)}</section><button className="text-button" onClick={()=>setReport(true)}>Report this listing</button><div className="agent-detail-actions"><>{point?<a className="primary" href={'https://www.google.com/maps/dir/?api=1&destination='+point.join(',')} target="_blank" rel="noopener noreferrer">Get directions</a>:<button className="primary" disabled={state==='requested'} onClick={()=>setRequest(true)}>{state==='requested'?'Requested':'Request location'}</button>}</><a className="secondary" href={'https://wa.me/91'+a.whatsapp+'?text='+encodeURIComponent('Hello, I am interested in '+p.title+' on CentoMeter.')} target="_blank" rel="noopener noreferrer">WhatsApp</a><button className="secondary" onClick={()=>setVisit(true)}>Site visit</button><button className="secondary" onClick={()=>toggleStore('saved',p.id)}>{s.saved.includes(p.id)?'Saved':'Save'}</button><button className="secondary" onClick={()=>shareAgentLink(link,p.title)}>Share</button></div></article>{zoom&&<Modal title="Photo viewer" onClose={()=>setZoom(false)}><img className="agent-full-photo" src={p.photos[photo]} alt={p.title}/><p>Pinch to zoom on your phone.</p></Modal>}{request&&<RequestLocationSheet p={p} agent={a} source={source} Modal={Modal} onClose={()=>setRequest(false)}/>} {report&&<Modal title="Report listing" onClose={()=>setReport(false)}><form className="form-stack" onSubmit={e=>{e.preventDefault();updateStore(s=>({...s,reports:[...s.reports,{listingId:p.id,reason:new FormData(e.currentTarget).get('reason'),at:new Date().toISOString()}]}));setReport(false)}}><label>Reason<select name="reason"><option>Incorrect details</option><option>Unavailable</option><option>Suspicious listing</option></select></label><button className="primary">Save report locally</button></form></Modal>}{visit&&<Modal title="Request site visit" onClose={()=>setVisit(false)}><form className="form-stack" onSubmit={e=>{e.preventDefault();updateStore(s=>({...s,events:[...s.events,{kind:'visit',agentId:a.id,listingId:p.id,date:new FormData(e.currentTarget).get('date')}]}));setVisit(false)}}><label>Visit date<select name="date">{visitDates().map(d=><option key={d.value} value={d.value}>{d.label}</option>)}</select></label><p>Preview only. No appointment is booked.</p><button className="primary">Save visit request</button></form></Modal>}</Modal>}
+import React, { useState, useEffect } from "react";
+import L from "leaflet";
+import { useRef } from "react";
+import { money, hasValue, emiPayment } from "../../PropertyModel";
+import { landArea, landDimensions } from "../../LandMeasurements";
+import { approvalLabels } from "../../PlotUI";
+import { EmiCalculator } from "../../PropertyExtras";
+import { visitDates } from "../../JourneyUX";
+import { getExactLocation, accessStatus } from "../../lib/locationAccess";
+import {
+  useAgentStore,
+  viewerId,
+  toggleStore,
+  updateStore,
+} from "../../lib/agentStore";
+import RequestLocationSheet from "./RequestLocationSheet";
+import {
+  listings as relatedListings,
+  agents as relatedAgents,
+} from "../../lib/agents";
+import { shareAgentLink } from "../../pages/AgentProfile";
+export function UnlockedMap({ point }) {
+  const host = useRef(null);
+  useEffect(() => {
+    if (!point) return;
+    const map = L.map(host.current, { scrollWheelZoom: false }).setView(
+      point,
+      15,
+    );
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
+    }).addTo(map);
+    L.marker(point).addTo(map);
+    const resize = new ResizeObserver(() => map.invalidateSize());
+    resize.observe(host.current);
+    return () => {
+      resize.disconnect();
+      map.remove();
+    };
+  }, [point?.[0], point?.[1]]);
+  return (
+    <div
+      className="agent-location-map"
+      ref={host}
+      aria-label="Approved property location"
+    />
+  );
+}
+export default function ListingDetailSheet({
+  p,
+  agent: a,
+  Modal,
+  onClose,
+  source,
+  onRelated,
+}) {
+  const s = useAgentStore();
+  const [request, setRequest] = useState(false),
+    [report, setReport] = useState(false),
+    [visit, setVisit] = useState(false),
+    [emi, setEmi] = useState(false);
+  const [, tick] = useState(0);
+  const [photo, setPhoto] = useState(0);
+  const [zoom, setZoom] = useState(false);
+  useEffect(() => setPhoto(0), [p.id]);
+  useEffect(() => {
+    const t = setInterval(() => tick((n) => n + 1), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const point = getExactLocation(p.id, viewerId);
+  const req = s.requests.find(
+    (r) => r.propertyId === p.id && r.viewerId === viewerId,
+  );
+  const state = accessStatus(req);
+  const link =
+    location.origin +
+    location.pathname +
+    "#agent/" +
+    a.handle +
+    "?l=" +
+    p.id +
+    "&src=share";
+  const facts = [
+    ["Type", p.type],
+    ["Beds", p.beds],
+    ["Baths", p.baths],
+    ["Area", p.type === "Land" ? landArea(p.area) : p.area + " sq ft"],
+    ["Dimensions", p.type === "Land" ? landDimensions(p) : null],
+    ...[
+      "carpetArea",
+      "superArea",
+      "roadWidth",
+      "frontage",
+      "floor",
+      "totalFloors",
+      "propertyAge",
+      "possessionStatus",
+      "furnishing",
+      "parking",
+      "ownershipType",
+      "facing",
+      "available",
+    ].map((k) => [k, p[k]]),
+  ].filter(([, v]) => hasValue(v));
+  return (
+    <Modal title={p.title} onClose={onClose}>
+      <article className="agent-detail">
+        <div
+          className="agent-photo-strip"
+          onScroll={(e) =>
+            setPhoto(
+              Math.round(
+                e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
+              ),
+            )
+          }
+          tabIndex="0"
+          onKeyDown={(e) => {
+            if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
+              e.preventDefault();
+              e.currentTarget.scrollBy({
+                left:
+                  e.currentTarget.clientWidth *
+                  (e.key === "ArrowRight" ? 1 : -1),
+                behavior: "smooth",
+              });
+            }
+          }}
+        >
+          {p.photos.map((url, i) => (
+            <img
+              key={url + i}
+              src={url}
+              width="800"
+              height="500"
+              decoding="async"
+              alt={p.title + " photo " + (i + 1)}
+            />
+          ))}
+        </div>
+        <p>
+          {photo + 1}/{p.photos.length}
+        </p>
+        <button className="secondary" onClick={() => setZoom(true)}>
+          View photo full screen
+        </button>
+        <h2>
+          {money(p.price)}
+          {p.mode === "RENT" ? "/mo" : ""}
+        </h2>
+        <p>
+          {money(p.price / p.area)} / sq ft · {p.locality}
+        </p>
+        {p.mode === "BUY" ? (
+          <>
+            <button className="secondary" onClick={() => setEmi((v) => !v)}>
+              From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
+            </button>
+            {emi && <EmiCalculator p={p} />}
+          </>
+        ) : (
+          <dl>
+            {["deposit", "maintenance", "brokerage"]
+              .filter((k) => hasValue(p[k]))
+              .map((k) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{money(p[k])}</dd>
+                </div>
+              ))}
+          </dl>
+        )}
+        <h3>Key facts</h3>
+        <dl className="agent-facts">
+          {facts.map(([k, v]) => (
+            <div key={k}>
+              <dt>{k.replace(/([A-Z])/g, " $1")}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))}
+        </dl>
+        <h3>Legal & trust</h3>
+        {p.reraNo && (
+          <p>
+            RERA: {p.reraNo}
+            <button onClick={() => navigator.clipboard?.writeText(p.reraNo)}>
+              Copy
+            </button>
+          </p>
+        )}
+        {approvalLabels(p).map((x) => (
+          <span className="pill" key={x}>
+            {x}
+          </span>
+        ))}
+        <p>
+          Confirmed available:{" "}
+          {new Date(p.confirmedAt).toLocaleDateString("en-IN")}.{" "}
+          {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000
+            ? "Not recently confirmed"
+            : ""}
+        </p>
+        <ul>
+          {p.highlights.map((x) => (
+            <li key={x}>{x}</li>
+          ))}
+        </ul>
+        <h3>Amenities</h3>
+        <div className="chips">
+          {p.amenities.map((x) => (
+            <span className="pill" key={x}>
+              {x}
+            </span>
+          ))}
+        </div>
+        <details open>
+          <summary>Description</summary>
+          <p>{p.description}</p>
+        </details>
+        {p.floorPlanUrl && (
+          <a href={p.floorPlanUrl} target="_blank" rel="noopener noreferrer">
+            Floor plan
+          </a>
+        )}
+        {p.videoUrl && (
+          <a href={p.videoUrl} target="_blank" rel="noopener noreferrer">
+            Watch video
+          </a>
+        )}
+        <section className={"location-gate " + (point ? "is-unlocked" : "")}>
+          <h3>{point ? "🔓 Location unlocked" : "🔒 Location on request"}</h3>
+          <p role="status">
+            {state === "unrequested" ? "Request the exact location" : state}
+          </p>
+          {point ? (
+            <>
+              <UnlockedMap point={point} />
+              <p>
+                {p.locality}, {p.city}
+              </p>
+              <a
+                className="primary"
+                href={
+                  "https://www.google.com/maps/dir/?api=1&destination=" +
+                  point.join(",")
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get directions
+              </a>
+            </>
+          ) : (
+            <p>
+              {p.locality}, {p.city}. Neighbourhood details are public; the
+              exact spot is private.
+            </p>
+          )}
+        </section>
+        <section>
+          <h3>Similar from this agent</h3>
+          {relatedListings
+            .filter(
+              (x) =>
+                x.id !== p.id && x.agentId === p.agentId && x.type === p.type,
+            )
+            .slice(0, 3)
+            .map((x) => (
+              <button
+                className="secondary"
+                key={x.id}
+                onClick={() => onRelated?.(x)}
+              >
+                {x.title}
+              </button>
+            ))}
+          <h3>More in {p.locality}</h3>
+          {relatedListings
+            .filter(
+              (x) =>
+                x.id !== p.id && x.locality === p.locality && x.city === p.city,
+            )
+            .slice(0, 3)
+            .map((x) => (
+              <button
+                className="secondary"
+                key={x.id}
+                onClick={() => onRelated?.(x)}
+              >
+                {x.title} ·{" "}
+                {relatedAgents.find((a) => a.id === x.agentId)?.name}
+              </button>
+            ))}
+        </section>
+        <button className="text-button" onClick={() => setReport(true)}>
+          Report this listing
+        </button>
+        <div className="agent-detail-actions">
+          <>
+            {point ? (
+              <a
+                className="primary"
+                href={
+                  "https://www.google.com/maps/dir/?api=1&destination=" +
+                  point.join(",")
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get directions
+              </a>
+            ) : (
+              <button
+                className="primary"
+                disabled={state === "requested"}
+                onClick={() => setRequest(true)}
+              >
+                {state === "requested" ? "Requested" : "Request location"}
+              </button>
+            )}
+          </>
+          <a
+            className="secondary"
+            href={
+              "https://wa.me/91" +
+              a.whatsapp +
+              "?text=" +
+              encodeURIComponent(
+                "Hello, I am interested in " + p.title + " on CentoMeter.",
+              )
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
+          <button className="secondary" onClick={() => setVisit(true)}>
+            Site visit
+          </button>
+          <button
+            className="secondary"
+            onClick={() => toggleStore("saved", p.id)}
+          >
+            {s.saved.includes(p.id) ? "Saved" : "Save"}
+          </button>
+          <button
+            className="secondary"
+            onClick={() => shareAgentLink(link, p.title)}
+          >
+            Share
+          </button>
+        </div>
+      </article>
+      {zoom && (
+        <Modal title="Photo viewer" onClose={() => setZoom(false)}>
+          <img
+            className="agent-full-photo"
+            src={p.photos[photo]}
+            alt={p.title}
+          />
+          <p>Pinch to zoom on your phone.</p>
+        </Modal>
+      )}
+      {request && (
+        <RequestLocationSheet
+          p={p}
+          agent={a}
+          source={source}
+          Modal={Modal}
+          onClose={() => setRequest(false)}
+        />
+      )}{" "}
+      {report && (
+        <Modal title="Report listing" onClose={() => setReport(false)}>
+          <form
+            className="form-stack"
+            onSubmit={(e) => {
+              e.preventDefault();
+              updateStore((s) => ({
+                ...s,
+                reports: [
+                  ...s.reports,
+                  {
+                    listingId: p.id,
+                    reason: new FormData(e.currentTarget).get("reason"),
+                    at: new Date().toISOString(),
+                  },
+                ],
+              }));
+              setReport(false);
+            }}
+          >
+            <label>
+              Reason
+              <select name="reason">
+                <option>Incorrect details</option>
+                <option>Unavailable</option>
+                <option>Suspicious listing</option>
+              </select>
+            </label>
+            <button className="primary">Save report locally</button>
+          </form>
+        </Modal>
+      )}
+      {visit && (
+        <Modal title="Request site visit" onClose={() => setVisit(false)}>
+          <form
+            className="form-stack"
+            onSubmit={(e) => {
+              e.preventDefault();
+              updateStore((s) => ({
+                ...s,
+                events: [
+                  ...s.events,
+                  {
+                    kind: "visit",
+                    agentId: a.id,
+                    listingId: p.id,
+                    date: new FormData(e.currentTarget).get("date"),
+                  },
+                ],
+              }));
+              setVisit(false);
+            }}
+          >
+            <label>
+              Visit date
+              <select name="date">
+                {visitDates().map((d) => (
+                  <option key={d.value} value={d.value}>
+                    {d.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <p>Preview only. No appointment is booked.</p>
+            <button className="primary">Save visit request</button>
+          </form>
+        </Modal>
+      )}
+    </Modal>
+  );
+}

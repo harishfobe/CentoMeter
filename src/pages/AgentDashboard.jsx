@@ -1,1 +1,301 @@
-import React,{useState} from 'react';import {agents,listings,responseLabel} from '../lib/agents';import {useAgentStore,updateStore,decideRequest} from '../lib/agentStore';import {accessStatus} from '../lib/locationAccess';import QRCode from '../components/agent/QRCode';export default function AgentDashboard({onPost,onNavigate}){const s=useAgentStore();const [id,setId]=useState(agents[0].id),[tab,setTab]=useState('Requests'),[filter,setFilter]=useState('requested'),[query,setQuery]=useState(''),[expiry,setExpiry]=useState(24),[copied,setCopied]=useState(false);const a=agents.find(a=>a.id===id);const own=[...listings,...(s.customListings||[])].filter(p=>p.agentId===id);const requests=s.requests.filter(r=>r.agentId===id);const samples=requests.filter(r=>r.repliedAt).map(r=>(Date.parse(r.repliedAt)-Date.parse(r.createdAt))/60000).sort((a,b)=>a-b);const median=samples.length?(samples[Math.floor((samples.length-1)/2)]+samples[Math.floor(samples.length/2)])/2:null;const link=location.origin+location.pathname+'#agent/'+a.handle+'?src=ig';const alter=(p,patch)=>updateStore(s=>({...s,overrides:{...s.overrides,[p.id]:{...s.overrides[p.id],...patch}}}));return <section className="page agent-feature"><h1>Agent dashboard</h1><p>Demo: approve as agent · This switcher is not authentication.</p><label>Act as this agent<select value={id} onChange={e=>setId(e.target.value)}>{agents.map(a=><option key={a.id} value={a.id}>{a.name}</option>)}</select></label><div className="agent-profile-tabs" role="tablist" aria-label="Agent dashboard">{['Requests','Listings','Link & insights'].map(t=><button role="tab" aria-selected={t===tab} key={t} onClick={()=>setTab(t)}>{t}{t==='Requests'?' ('+requests.filter(r=>accessStatus(r)==='requested').length+')':''}</button>)}</div>{tab==='Requests'?<><input aria-label="Search buyer" value={query} placeholder="Buyer name" onChange={e=>setQuery(e.target.value)}/><select aria-label="Request status" value={filter} onChange={e=>setFilter(e.target.value)}>{['requested','approved','declined','expired','revoked'].map(x=><option key={x}>{x}</option>)}</select><label>Approval validity<select value={expiry} onChange={e=>setExpiry(Number(e.target.value))}>{[[24,'24 hours'],[168,'7 days'],[720,'30 days'],[0,'No expiry']].map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></label>{requests.filter(r=>accessStatus(r)===filter&&r.buyer.name.toLowerCase().includes(query.toLowerCase())).map(r=><article className="request-card" key={r.id}><h2>{own.find(p=>p.id===r.propertyId)?.title||'Listing'}</h2><p>{r.buyer.name} · {accessStatus(r)==='approved'?r.buyer.phone:'••••••'+r.buyer.phone.slice(-4)}</p><p>Budget: {r.buyer.budget||'Not specified'} · {r.buyer.timeline}</p><p>Source: {r.source==='ig'?'Instagram':r.source}</p><p>{accessStatus(r)}</p><div className="action-row"><button className="primary" onClick={()=>decideRequest(r.id,'approved',expiry)}>Approve</button><button className="secondary" onClick={()=>decideRequest(r.id,'declined',0)}>Decline</button><button className="secondary" onClick={()=>decideRequest(r.id,'revoked',0)}>Revoke</button><button className="secondary" onClick={()=>requests.filter(x=>x.viewerId===r.viewerId&&accessStatus(x)==='requested').forEach(x=>decideRequest(x.id,'approved',expiry))}>Approve all from buyer</button></div></article>)}</>:tab==='Listings'?<><button className="primary" onClick={()=>onPost(a)}>+ Add listing</button>{own.map(p=><article className="request-card" key={p.id}><h2>{p.title}</h2><label>Status<select value={s.overrides[p.id]?.status||p.status} onChange={e=>alter(p,{status:e.target.value})}>{['available','under-offer','sold','rented'].map(x=><option key={x}>{x}</option>)}</select></label><button className="secondary" onClick={()=>alter(p,{confirmedAt:new Date().toISOString()})}>Confirm still available</button><button className="secondary" onClick={()=>onNavigate('agent/'+a.handle+'?l='+p.id)}>Preview listing</button><button className="secondary" onClick={()=>onPost(a,{...p,intent:p.mode==='RENT'?'RENT':'SELL',shareDefault:p.privacy,location:null})}>Edit listing · place pin again</button></article>)}</>:<><button className="primary" onClick={async()=>{try{await navigator.clipboard.writeText(link);setCopied(true)}catch{setCopied(false)}}}>Copy my link</button><p role="status">{copied?'Link copied':link}</p><QRCode value={link}/><button className="secondary" onClick={()=>onNavigate('agent/'+a.handle)}>Preview as a buyer</button><h2>Local insights</h2><p>Median reply: {median==null?'No replies yet':Math.round(median)+' min'}</p><p>{s.events.filter(e=>e.kind==='views'&&e.agentId===id).length} views → {s.events.filter(e=>e.kind==='saves'&&e.agentId===id).length} saves → {requests.length} requests → {requests.filter(r=>r.status==='approved').length} approved</p><p>{responseLabel(a)}</p><dl className="agent-stats">{['views','saves'].map(k=><div key={k}><dt>{k}</dt><dd>{s.events.filter(e=>e.kind===k&&e.agentId===id).length}</dd></div>)}<div><dt>Requests</dt><dd>{requests.length}</dd></div><div><dt>Approvals</dt><dd>{requests.filter(r=>r.status==='approved').length}</dd></div></dl><p>Approval rate: {requests.length?Math.round(requests.filter(r=>r.status==='approved').length/requests.length*100):0}%</p>{['ig','direct','share'].map(source=><p key={source}>{source}: {requests.filter(r=>r.source===source).length} requests</p>)}</>}<p className="fine-print">Sample content · Local device counters only</p></section>}
+import React, { useState } from "react";
+import { agents, listings, responseLabel } from "../lib/agents";
+import { useAgentStore, updateStore, decideRequest } from "../lib/agentStore";
+import { accessStatus } from "../lib/locationAccess";
+import QRCode from "../components/agent/QRCode";
+export default function AgentDashboard({ onPost, onNavigate }) {
+  const s = useAgentStore();
+  const [id, setId] = useState(agents[0].id),
+    [tab, setTab] = useState("Requests"),
+    [filter, setFilter] = useState("requested"),
+    [query, setQuery] = useState(""),
+    [expiry, setExpiry] = useState(24),
+    [copied, setCopied] = useState(false);
+  const a = agents.find((a) => a.id === id);
+  const own = [...listings, ...(s.customListings || [])].filter(
+    (p) => p.agentId === id,
+  );
+  const requests = s.requests.filter((r) => r.agentId === id);
+  const samples = requests
+    .filter((r) => r.repliedAt)
+    .map((r) => (Date.parse(r.repliedAt) - Date.parse(r.createdAt)) / 60000)
+    .sort((a, b) => a - b);
+  const median = samples.length
+    ? (samples[Math.floor((samples.length - 1) / 2)] +
+        samples[Math.floor(samples.length / 2)]) /
+      2
+    : null;
+  const link =
+    location.origin + location.pathname + "#agent/" + a.handle + "?src=ig";
+  const alter = (p, patch) =>
+    updateStore((s) => ({
+      ...s,
+      overrides: { ...s.overrides, [p.id]: { ...s.overrides[p.id], ...patch } },
+    }));
+  return (
+    <section className="page agent-feature">
+      <h1>Agent dashboard</h1>
+      <p>Demo: approve as agent · This switcher is not authentication.</p>
+      <label>
+        Act as this agent
+        <select value={id} onChange={(e) => setId(e.target.value)}>
+          {agents.map((a) => (
+            <option key={a.id} value={a.id}>
+              {a.name}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div
+        className="agent-profile-tabs"
+        role="tablist"
+        aria-label="Agent dashboard"
+      >
+        {["Requests", "Listings", "Link & insights"].map((t) => (
+          <button
+            role="tab"
+            aria-selected={t === tab}
+            key={t}
+            onClick={() => setTab(t)}
+          >
+            {t}
+            {t === "Requests"
+              ? " (" +
+                requests.filter((r) => accessStatus(r) === "requested").length +
+                ")"
+              : ""}
+          </button>
+        ))}
+      </div>
+      {tab === "Requests" ? (
+        <>
+          <input
+            aria-label="Search buyer"
+            value={query}
+            placeholder="Buyer name"
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <select
+            aria-label="Request status"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            {["requested", "approved", "declined", "expired", "revoked"].map(
+              (x) => (
+                <option key={x}>{x}</option>
+              ),
+            )}
+          </select>
+          <label>
+            Approval validity
+            <select
+              value={expiry}
+              onChange={(e) => setExpiry(Number(e.target.value))}
+            >
+              {[
+                [24, "24 hours"],
+                [168, "7 days"],
+                [720, "30 days"],
+                [0, "No expiry"],
+              ].map(([v, l]) => (
+                <option key={v} value={v}>
+                  {l}
+                </option>
+              ))}
+            </select>
+          </label>
+          {requests
+            .filter(
+              (r) =>
+                accessStatus(r) === filter &&
+                r.buyer.name.toLowerCase().includes(query.toLowerCase()),
+            )
+            .map((r) => (
+              <article className="request-card" key={r.id}>
+                <h2>
+                  {own.find((p) => p.id === r.propertyId)?.title || "Listing"}
+                </h2>
+                <p>
+                  {r.buyer.name} ·{" "}
+                  {accessStatus(r) === "approved"
+                    ? r.buyer.phone
+                    : "••••••" + r.buyer.phone.slice(-4)}
+                </p>
+                <p>
+                  Budget: {r.buyer.budget || "Not specified"} ·{" "}
+                  {r.buyer.timeline}
+                </p>
+                <p>Source: {r.source === "ig" ? "Instagram" : r.source}</p>
+                <p>{accessStatus(r)}</p>
+                <div className="action-row">
+                  <button
+                    className="primary"
+                    onClick={() => decideRequest(r.id, "approved", expiry)}
+                  >
+                    Approve
+                  </button>
+                  <button
+                    className="secondary"
+                    onClick={() => decideRequest(r.id, "declined", 0)}
+                  >
+                    Decline
+                  </button>
+                  <button
+                    className="secondary"
+                    onClick={() => decideRequest(r.id, "revoked", 0)}
+                  >
+                    Revoke
+                  </button>
+                  <button
+                    className="secondary"
+                    onClick={() =>
+                      requests
+                        .filter(
+                          (x) =>
+                            x.viewerId === r.viewerId &&
+                            accessStatus(x) === "requested",
+                        )
+                        .forEach((x) => decideRequest(x.id, "approved", expiry))
+                    }
+                  >
+                    Approve all from buyer
+                  </button>
+                </div>
+              </article>
+            ))}
+        </>
+      ) : tab === "Listings" ? (
+        <>
+          <button className="primary" onClick={() => onPost(a)}>
+            + Add listing
+          </button>
+          {own.map((p) => (
+            <article className="request-card" key={p.id}>
+              <h2>{p.title}</h2>
+              <label>
+                Status
+                <select
+                  value={s.overrides[p.id]?.status || p.status}
+                  onChange={(e) => alter(p, { status: e.target.value })}
+                >
+                  {["available", "under-offer", "sold", "rented"].map((x) => (
+                    <option key={x}>{x}</option>
+                  ))}
+                </select>
+              </label>
+              <button
+                className="secondary"
+                onClick={() =>
+                  alter(p, { confirmedAt: new Date().toISOString() })
+                }
+              >
+                Confirm still available
+              </button>
+              <button
+                className="secondary"
+                onClick={() => onNavigate("agent/" + a.handle + "?l=" + p.id)}
+              >
+                Preview listing
+              </button>
+              <button
+                className="secondary"
+                onClick={() =>
+                  onPost(a, {
+                    ...p,
+                    intent: p.mode === "RENT" ? "RENT" : "SELL",
+                    shareDefault: p.privacy,
+                    location: null,
+                  })
+                }
+              >
+                Edit listing · place pin again
+              </button>
+            </article>
+          ))}
+        </>
+      ) : (
+        <>
+          <button
+            className="primary"
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(link);
+                setCopied(true);
+              } catch {
+                setCopied(false);
+              }
+            }}
+          >
+            Copy my link
+          </button>
+          <p role="status">{copied ? "Link copied" : link}</p>
+          <QRCode value={link} />
+          <button
+            className="secondary"
+            onClick={() => onNavigate("agent/" + a.handle)}
+          >
+            Preview as a buyer
+          </button>
+          <h2>Local insights</h2>
+          <p>
+            Median reply:{" "}
+            {median == null ? "No replies yet" : Math.round(median) + " min"}
+          </p>
+          <p>
+            {
+              s.events.filter((e) => e.kind === "views" && e.agentId === id)
+                .length
+            }{" "}
+            views →{" "}
+            {
+              s.events.filter((e) => e.kind === "saves" && e.agentId === id)
+                .length
+            }{" "}
+            saves → {requests.length} requests →{" "}
+            {requests.filter((r) => r.status === "approved").length} approved
+          </p>
+          <p>{responseLabel(a)}</p>
+          <dl className="agent-stats">
+            {["views", "saves"].map((k) => (
+              <div key={k}>
+                <dt>{k}</dt>
+                <dd>
+                  {
+                    s.events.filter((e) => e.kind === k && e.agentId === id)
+                      .length
+                  }
+                </dd>
+              </div>
+            ))}
+            <div>
+              <dt>Requests</dt>
+              <dd>{requests.length}</dd>
+            </div>
+            <div>
+              <dt>Approvals</dt>
+              <dd>{requests.filter((r) => r.status === "approved").length}</dd>
+            </div>
+          </dl>
+          <p>
+            Approval rate:{" "}
+            {requests.length
+              ? Math.round(
+                  (requests.filter((r) => r.status === "approved").length /
+                    requests.length) *
+                    100,
+                )
+              : 0}
+            %
+          </p>
+          {["ig", "direct", "share"].map((source) => (
+            <p key={source}>
+              {source}: {requests.filter((r) => r.source === source).length}{" "}
+              requests
+            </p>
+          ))}
+        </>
+      )}
+      <p className="fine-print">Sample content · Local device counters only</p>
+    </section>
+  );
+}

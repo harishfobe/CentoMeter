@@ -15,10 +15,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -34,10 +31,7 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "status": "sold",
     "confirmedAt": "2026-10-09T18:51:43.679Z",
@@ -45,14 +39,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      12.9787,
-      77.6393
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
+    "approx": [12.9787, 77.6393],
+    "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7619.047619047619,
@@ -74,10 +62,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 0,
@@ -88,11 +73,7 @@
     "floor": "Ground",
     "facing": "South-East",
     "postedAt": "2026-10-13",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a2",
     "status": "under-offer",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
@@ -100,17 +81,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      17.4607,
-      78.3663
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [17.4607, 78.3663],
+    "amenities": ["Parking", "Lift access"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6577.9503105590065,
     "sample": true
@@ -128,19 +101,14 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
     "contactName": "Meera Kulkarni",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
     "postedAt": "2026-10-10",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Agricultural",
     "agentId": "a3",
     "status": "available",
@@ -149,18 +117,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      18.5077,
-      73.8063
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [18.5077, 73.8063],
+    "amenities": ["Road access", "Corner plot"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2834.1463414634145,
     "sample": true
@@ -181,10 +140,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -195,11 +151,7 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
@@ -207,14 +159,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      13.0357,
-      77.5963
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
+    "approx": [13.0357, 77.5963],
+    "amenities": ["Parking", "Lift access"],
     "highlights": [],
     "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7614.545454545455,
@@ -236,10 +182,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -250,11 +193,7 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
@@ -262,17 +201,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      17.3917,
-      78.3543
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [17.3917, 78.3543],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6571.0317460317465,
     "sample": true
@@ -290,19 +221,14 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Residential",
     "contactName": "Sneha Patil",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "South-East",
     "postedAt": "2026-10-14",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Residential",
     "agentId": "a6",
     "status": "available",
@@ -311,18 +237,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      18.5147,
-      73.7733
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [18.5147, 73.7733],
+    "amenities": ["Road access", "Corner plot"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2927.165354330709,
     "sample": true
@@ -343,10 +260,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -357,11 +271,7 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -369,14 +279,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      12.9277,
-      77.6763
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
+    "approx": [12.9277, 77.6763],
+    "amenities": ["Parking", "Lift access"],
     "highlights": [],
     "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7583.136094674556,
@@ -398,10 +302,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 198000,
@@ -412,11 +313,7 @@
     "floor": "Ground",
     "facing": "South",
     "postedAt": "2026-10-22",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -424,17 +321,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      17.4347,
-      78.4093
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [17.4347, 78.4093],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected independent house in Jubilee Hills. Ask the agent about documents and visit availability.",
     "pricePerSqft": 26.229508196721312,
     "sample": true
@@ -455,10 +344,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 126000,
@@ -472,10 +358,7 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -483,18 +366,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      12.9817,
-      77.6393
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [12.9817, 77.6393],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 29.761904761904763,
     "sample": true
@@ -515,10 +389,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 292500,
@@ -529,11 +400,7 @@
     "floor": "Ground",
     "facing": "North-West",
     "postedAt": "2026-10-24",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a2",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -541,14 +408,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      17.4007,
-      78.3363
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
+    "approx": [17.4007, 78.3363],
+    "amenities": ["Parking", "Lift access"],
     "highlights": [],
     "description": "A well-connected villa in Kokapet. Ask the agent about documents and visit availability.",
     "pricePerSqft": 28.181818181818183,
@@ -569,10 +430,7 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Office",
     "maintenance": 1500,
     "deposit": 0,
@@ -582,10 +440,7 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/interior.jpg", "/apartment.jpg"],
     "agentId": "a3",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -593,17 +448,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      18.5727,
-      73.7733
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [18.5727, 73.7733],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected commercial in Baner. Ask the agent about documents and visit availability.",
     "pricePerSqft": 12152,
     "sample": true
@@ -624,10 +471,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 204000,
@@ -638,11 +482,7 @@
     "floor": "Ground",
     "facing": "East",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -650,18 +490,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      12.9107,
-      77.5873
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [12.9107, 77.5873],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 31.349206349206348,
     "sample": true
@@ -682,10 +513,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1000,
     "deposit": 24000,
@@ -696,10 +524,7 @@
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -707,14 +532,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      17.4407,
-      78.3473
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
+    "approx": [17.4407, 78.3473],
+    "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected apartment in Gachibowli. Ask the agent about documents and visit availability.",
     "pricePerSqft": 100,
@@ -740,10 +559,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -754,11 +570,7 @@
     "floor": "Ground",
     "facing": "South-West",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a6",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -766,17 +578,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      18.5747,
-      73.7733
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [18.5747, 73.7733],
+    "amenities": ["Parking", "Lift access"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7039.751552795031,
     "sample": true
@@ -796,10 +600,7 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Office",
     "maintenance": 2500,
     "deposit": 0,
@@ -809,10 +610,7 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/interior.jpg", "/apartment.jpg"],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -820,18 +618,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      12.9907,
-      77.6273
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [12.9907, 77.6273],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected commercial in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 13211.2,
     "sample": true
@@ -852,10 +641,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -866,10 +652,7 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -877,14 +660,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      17.4487,
-      78.3903
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
+    "approx": [17.4487, 78.3903],
+    "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6508.522727272727,
@@ -906,10 +683,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -925,10 +699,7 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -936,17 +707,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      12.9787,
-      77.6393
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [12.9787, 77.6393],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7628.571428571428,
     "sample": true
@@ -964,19 +727,14 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Residential",
     "contactName": "Rahul Reddy",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Residential",
     "agentId": "a2",
     "status": "available",
@@ -985,18 +743,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      17.4027,
-      78.3843
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [17.4027, 78.3843],
+    "amenities": ["Road access", "Corner plot"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected land in Manikonda. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2740.9448818897636,
     "sample": true
@@ -1017,10 +766,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 286500,
@@ -1031,11 +777,7 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a3",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1043,14 +785,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      18.5777,
-      73.7733
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
+    "approx": [18.5777, 73.7733],
+    "amenities": ["Parking", "Lift access"],
     "highlights": [],
     "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 32.91925465838509,
@@ -1072,10 +808,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -1086,11 +819,7 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1098,17 +827,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      13.0357,
-      77.5963
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [13.0357, 77.5963],
+    "amenities": ["Parking", "Lift access"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7619.393939393939,
     "sample": true
@@ -1129,10 +850,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 132000,
@@ -1143,10 +861,7 @@
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-23",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -1154,18 +869,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      17.4517,
-      78.3903
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [17.4517, 78.3903],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 32.95454545454545,
     "sample": true
@@ -1186,10 +892,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 292500,
@@ -1200,11 +903,7 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a6",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1212,14 +911,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      18.5347,
-      73.8433
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
+    "approx": [18.5347, 73.8433],
+    "amenities": ["Parking", "Lift access"],
     "highlights": [],
     "description": "A well-connected villa in Shivajinagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 33.484848484848484,
@@ -1241,10 +934,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 1000,
     "deposit": 24000,
@@ -1255,10 +945,7 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1266,17 +953,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      12.9277,
-      77.6763
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [12.9277, 77.6763],
+    "amenities": ["Parking", "Lift access"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 127.77777777777777,
     "sample": true,
@@ -1300,10 +979,7 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Office",
     "maintenance": 2500,
     "deposit": 165000,
@@ -1313,10 +989,7 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-25",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/interior.jpg", "/apartment.jpg"],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1324,18 +997,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      17.4287,
-      78.3353
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [17.4287, 78.3353],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected commercial in Gachibowli. Ask the agent about documents and visit availability.",
     "pricePerSqft": 56.4,
     "sample": true
@@ -1356,10 +1020,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 126000,
@@ -1373,10 +1034,7 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1384,14 +1042,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      12.9817,
-      77.6393
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
+    "approx": [12.9817, 77.6393],
+    "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 39.285714285714285,
@@ -1413,10 +1065,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 0,
@@ -1427,11 +1076,7 @@
     "floor": "Ground",
     "facing": "South-East",
     "postedAt": "2026-10-13",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a2",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -1439,17 +1084,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      17.4607,
-      78.3663
-    ],
-    "amenities": [
-      "Parking",
-      "Lift access"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [17.4607, 78.3663],
+    "amenities": ["Parking", "Lift access"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6585.403726708075,
     "sample": true
@@ -1467,19 +1104,14 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
     "contactName": "Meera Kulkarni",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
     "postedAt": "2026-10-10",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Agricultural",
     "agentId": "a3",
     "status": "available",
@@ -1488,18 +1120,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      18.5077,
-      73.8063
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [18.5077, 73.8063],
+    "amenities": ["Road access", "Corner plot"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2843.9024390243903,
     "sample": true
@@ -1520,10 +1143,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 204000,
@@ -1534,11 +1154,7 @@
     "floor": "Ground",
     "facing": "East",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1546,14 +1162,8 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [
-      12.9107,
-      77.5873
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
+    "approx": [12.9107, 77.5873],
+    "amenities": ["Parking", "Balcony"],
     "highlights": [],
     "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 37.698412698412696,
@@ -1575,10 +1185,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -1589,11 +1196,7 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1601,17 +1204,9 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [
-      17.3917,
-      78.3543
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details"
-    ],
+    "approx": [17.3917, 78.3543],
+    "amenities": ["Parking", "Balcony"],
+    "highlights": ["Clear property details"],
     "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6580.555555555556,
     "sample": true
@@ -1629,19 +1224,14 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Residential",
     "contactName": "Sneha Patil",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "South-East",
     "postedAt": "2026-10-14",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Residential",
     "agentId": "a6",
     "status": "available",
@@ -1650,18 +1240,9 @@
       "mode": "exact",
       "radiusM": 1000
     },
-    "approx": [
-      18.5147,
-      73.7733
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment"
-    ],
+    "approx": [18.5147, 73.7733],
+    "amenities": ["Road access", "Corner plot"],
+    "highlights": ["Clear property details", "Visits by appointment"],
     "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
     "pricePerSqft": 2936.6141732283463,
     "sample": true

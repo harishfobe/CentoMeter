@@ -17,10 +17,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -36,10 +33,7 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p2",
@@ -57,10 +51,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -71,20 +62,13 @@
     "floor": "1–3",
     "facing": "North-East",
     "postedAt": "2026-10-11",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [
-      12.94,
-      77.618
-    ]
+    "approx": [12.94, 77.618]
   },
   {
     "id": "p3",
@@ -104,10 +88,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -118,11 +99,7 @@
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p4",
@@ -139,10 +116,7 @@
     "tag": "Corner plot",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Residential",
     "contactName": "Ananya Rao",
     "freshness": "Availability checked: 12 Oct 2026",
@@ -151,9 +125,7 @@
     "ownershipType": "Freehold",
     "possessionStatus": "Plot ready",
     "postedAt": "2026-10-22",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Residential"
   },
   {
@@ -172,10 +144,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -186,19 +155,13 @@
     "floor": "1–3",
     "facing": "South",
     "postedAt": "2026-10-14",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      12.918,
-      77.637
-    ]
+    "approx": [12.918, 77.637]
   },
   {
     "id": "p6",
@@ -218,10 +181,7 @@
     "furnishing": "Unfurnished",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -232,11 +192,7 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p7",
@@ -256,10 +212,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -270,11 +223,7 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p8",
@@ -289,29 +238,21 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Commercial",
     "contactName": "Ananya Rao",
     "freshness": "Price updated: 10 Oct 2026",
     "roadWidth": "30 ft",
     "facing": "North-West",
     "postedAt": "2026-10-17",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Commercial",
     "agentId": "a1",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      12.919,
-      77.673
-    ]
+    "approx": [12.919, 77.673]
   },
   {
     "id": "p9",
@@ -331,10 +272,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -345,10 +283,7 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p10",
@@ -368,10 +303,7 @@
     "furnishing": "Unfurnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -382,11 +314,7 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p11",
@@ -404,10 +332,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -418,20 +343,13 @@
     "floor": "1–3",
     "facing": "East",
     "postedAt": "2026-10-20",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [
-      13.096,
-      77.593
-    ]
+    "approx": [13.096, 77.593]
   },
   {
     "id": "p12",
@@ -448,19 +366,14 @@
     "tag": "Corner plot",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
     "contactName": "Square Homes — sample builder",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "South-East",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Agricultural"
   },
   {
@@ -481,10 +394,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 126000,
@@ -498,10 +408,7 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p14",
@@ -519,10 +426,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 286500,
@@ -533,20 +437,13 @@
     "floor": "1–3",
     "facing": "South-West",
     "postedAt": "2026-10-23",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      12.943,
-      77.618
-    ]
+    "approx": [12.943, 77.618]
   },
   {
     "id": "p15",
@@ -566,10 +463,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 198000,
@@ -580,11 +474,7 @@
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-24",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p17",
@@ -602,10 +492,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 132000,
@@ -616,19 +503,13 @@
     "floor": "1–3",
     "facing": "North",
     "postedAt": "2026-10-25",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      12.921,
-      77.637
-    ]
+    "approx": [12.921, 77.637]
   },
   {
     "id": "p18",
@@ -648,10 +529,7 @@
     "furnishing": "Unfurnished",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 292500,
@@ -662,11 +540,7 @@
     "floor": "4+",
     "facing": "North-East",
     "postedAt": "2026-10-26",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p19",
@@ -686,10 +560,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 204000,
@@ -700,11 +571,7 @@
     "floor": "Ground",
     "facing": "East",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p21",
@@ -724,10 +591,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 138000,
@@ -738,10 +602,7 @@
     "floor": "4+",
     "facing": "South",
     "postedAt": "2026-10-28",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p22",
@@ -761,10 +622,7 @@
     "furnishing": "Unfurnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 298500,
@@ -775,11 +633,7 @@
     "floor": "Ground",
     "facing": "South-West",
     "postedAt": "2026-10-10",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p23",
@@ -797,10 +651,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 210000,
@@ -811,20 +662,13 @@
     "floor": "1–3",
     "facing": "West",
     "postedAt": "2026-10-11",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [
-      13.099,
-      77.593
-    ]
+    "approx": [13.099, 77.593]
   },
   {
     "id": "p27",
@@ -844,10 +688,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -858,10 +699,7 @@
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p28",
@@ -881,10 +719,7 @@
     "furnishing": "Unfurnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 0,
@@ -895,11 +730,7 @@
     "floor": "Ground",
     "facing": "South-East",
     "postedAt": "2026-10-13",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p29",
@@ -917,10 +748,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -931,20 +759,13 @@
     "floor": "1–3",
     "facing": "South",
     "postedAt": "2026-10-14",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      17.437,
-      78.405
-    ]
+    "approx": [17.437, 78.405]
   },
   {
     "id": "p30",
@@ -961,19 +782,14 @@
     "tag": "Corner plot",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
     "contactName": "Square Homes — sample builder",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Agricultural"
   },
   {
@@ -994,10 +810,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -1008,10 +821,7 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p32",
@@ -1029,10 +839,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 0,
@@ -1043,20 +850,13 @@
     "floor": "1–3",
     "facing": "North-West",
     "postedAt": "2026-10-17",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      17.403,
-      78.332
-    ]
+    "approx": [17.403, 78.332]
   },
   {
     "id": "p33",
@@ -1076,10 +876,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -1090,11 +887,7 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p34",
@@ -1111,19 +904,14 @@
     "tag": "Corner plot",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Residential",
     "contactName": "Ananya Rao",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Residential"
   },
   {
@@ -1142,10 +930,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 126000,
@@ -1156,19 +941,13 @@
     "floor": "1–3",
     "facing": "East",
     "postedAt": "2026-10-20",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [
-      17.449,
-      78.343
-    ]
+    "approx": [17.449, 78.343]
   },
   {
     "id": "p36",
@@ -1188,10 +967,7 @@
     "furnishing": "Unfurnished",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 286500,
@@ -1202,11 +978,7 @@
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p37",
@@ -1226,10 +998,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 198000,
@@ -1240,11 +1009,7 @@
     "floor": "Ground",
     "facing": "South",
     "postedAt": "2026-10-22",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p39",
@@ -1264,10 +1029,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 132000,
@@ -1278,10 +1040,7 @@
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-23",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p40",
@@ -1301,10 +1060,7 @@
     "furnishing": "Unfurnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 292500,
@@ -1315,11 +1071,7 @@
     "floor": "Ground",
     "facing": "North-West",
     "postedAt": "2026-10-24",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p41",
@@ -1337,10 +1089,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 204000,
@@ -1351,20 +1100,13 @@
     "floor": "1–3",
     "facing": "North",
     "postedAt": "2026-10-25",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      17.4,
-      78.35
-    ]
+    "approx": [17.4, 78.35]
   },
   {
     "id": "p45",
@@ -1384,10 +1126,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -1398,10 +1137,7 @@
     "floor": "4+",
     "facing": "South",
     "postedAt": "2026-10-26",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p46",
@@ -1421,10 +1157,7 @@
     "furnishing": "Unfurnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -1435,11 +1168,7 @@
     "floor": "Ground",
     "facing": "South-West",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p47",
@@ -1457,10 +1186,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -1471,20 +1197,13 @@
     "floor": "1–3",
     "facing": "West",
     "postedAt": "2026-10-28",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "exact",
       "radiusM": 800
     },
-    "approx": [
-      18.605,
-      73.758
-    ]
+    "approx": [18.605, 73.758]
   },
   {
     "id": "p48",
@@ -1501,19 +1220,14 @@
     "tag": "Corner plot",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Agricultural",
     "contactName": "Square Homes — sample builder",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
     "postedAt": "2026-10-10",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Agricultural"
   },
   {
@@ -1534,10 +1248,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -1548,10 +1259,7 @@
     "floor": "Ground",
     "facing": "North",
     "postedAt": "2026-10-11",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p50",
@@ -1569,10 +1277,7 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -1583,20 +1288,13 @@
     "floor": "1–3",
     "facing": "North-East",
     "postedAt": "2026-10-12",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [
-      18.537,
-      73.839
-    ]
+    "approx": [18.537, 73.839]
   },
   {
     "id": "p51",
@@ -1616,10 +1314,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -1630,11 +1325,7 @@
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-13",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p52",
@@ -1651,19 +1342,14 @@
     "tag": "Corner plot",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
+    "features": ["Road access", "Corner plot"],
     "subtype": "Residential",
     "contactName": "Ananya Rao",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "South-East",
     "postedAt": "2026-10-14",
-    "photos": [
-      "/land.jpg"
-    ],
+    "photos": ["/land.jpg"],
     "landType": "Residential"
   },
   {
@@ -1682,10 +1368,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 126000,
@@ -1696,19 +1379,13 @@
     "floor": "1–3",
     "facing": "South",
     "postedAt": "2026-10-15",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      18.569,
-      73.781
-    ]
+    "approx": [18.569, 73.781]
   },
   {
     "id": "p54",
@@ -1728,10 +1405,7 @@
     "furnishing": "Unfurnished",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 286500,
@@ -1742,11 +1416,7 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p55",
@@ -1766,10 +1436,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 198000,
@@ -1780,11 +1447,7 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-17",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p57",
@@ -1804,10 +1467,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 132000,
@@ -1818,10 +1478,7 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ]
+    "photos": ["/apartment.jpg", "/interior.jpg"]
   },
   {
     "id": "p58",
@@ -1841,10 +1498,7 @@
     "furnishing": "Unfurnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 292500,
@@ -1855,11 +1509,7 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "p59",
@@ -1877,10 +1527,7 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 204000,
@@ -1891,20 +1538,13 @@
     "floor": "1–3",
     "facing": "East",
     "postedAt": "2026-10-20",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
+    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      18.549,
-      73.792
-    ]
+    "approx": [18.549, 73.792]
   },
   {
     "id": "Bengaluru-BUY-Commercial",
@@ -1923,10 +1563,7 @@
     "furnishing": "Fully furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Office",
     "maintenance": 2500,
     "deposit": 0,
@@ -1936,10 +1573,7 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-21",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "Bengaluru-RENT-Commercial",
@@ -1958,10 +1592,7 @@
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Office",
     "maintenance": 3000,
     "deposit": 165000,
@@ -1971,10 +1602,7 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-22",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "Bengaluru-RENT-PG",
@@ -1992,11 +1620,7 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Wi-Fi",
-      "Housekeeping",
-      "Meals included"
-    ],
+    "features": ["Wi-Fi", "Housekeeping", "Meals included"],
     "subtype": "Home",
     "occupancy": "Private room",
     "meals": "Included",
@@ -2010,19 +1634,13 @@
     "bathroom": "Attached",
     "ac": "No",
     "postedAt": "2026-10-23",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a1",
     "privacy": {
       "mode": "hidden",
       "radiusM": 800
     },
-    "approx": [
-      12.972,
-      77.647
-    ]
+    "approx": [12.972, 77.647]
   },
   {
     "id": "Hyderabad-BUY-Commercial",
@@ -2041,10 +1659,7 @@
     "furnishing": "Fully furnished",
     "seller": "Builder",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Office",
     "maintenance": 2000,
     "deposit": 0,
@@ -2054,10 +1669,7 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-24",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "Hyderabad-RENT-Commercial",
@@ -2076,10 +1688,7 @@
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Office",
     "maintenance": 2500,
     "deposit": 165000,
@@ -2089,10 +1698,7 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-25",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "Hyderabad-RENT-PG",
@@ -2110,10 +1716,7 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": [
-      "Wi-Fi",
-      "Housekeeping"
-    ],
+    "features": ["Wi-Fi", "Housekeeping"],
     "subtype": "Home",
     "occupancy": "Private room",
     "meals": "Not included",
@@ -2127,19 +1730,13 @@
     "bathroom": "Shared",
     "ac": "No",
     "postedAt": "2026-10-26",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a2",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      17.434,
-      78.355
-    ]
+    "approx": [17.434, 78.355]
   },
   {
     "id": "Pune-BUY-Commercial",
@@ -2158,10 +1755,7 @@
     "furnishing": "Fully furnished",
     "seller": "Builder",
     "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
+    "features": ["Parking", "Balcony"],
     "subtype": "Office",
     "maintenance": 1500,
     "deposit": 0,
@@ -2171,10 +1765,7 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "Pune-RENT-Commercial",
@@ -2193,10 +1784,7 @@
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
-    "features": [
-      "Parking",
-      "Lift access"
-    ],
+    "features": ["Parking", "Lift access"],
     "subtype": "Office",
     "maintenance": 2000,
     "deposit": 165000,
@@ -2206,10 +1794,7 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-28",
-    "photos": [
-      "/interior.jpg",
-      "/apartment.jpg"
-    ]
+    "photos": ["/interior.jpg", "/apartment.jpg"]
   },
   {
     "id": "Pune-RENT-PG",
@@ -2227,11 +1812,7 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": [
-      "Wi-Fi",
-      "Housekeeping",
-      "Meals included"
-    ],
+    "features": ["Wi-Fi", "Housekeeping", "Meals included"],
     "subtype": "Home",
     "occupancy": "Private room",
     "meals": "Included",
@@ -2245,18 +1826,12 @@
     "bathroom": "Attached",
     "ac": "No",
     "postedAt": "2026-10-10",
-    "photos": [
-      "/apartment.jpg",
-      "/interior.jpg"
-    ],
+    "photos": ["/apartment.jpg", "/interior.jpg"],
     "agentId": "a3",
     "privacy": {
       "mode": "radius",
       "radiusM": 800
     },
-    "approx": [
-      18.554,
-      73.793
-    ]
+    "approx": [18.554, 73.793]
   }
 ]
