@@ -1,326 +1,387 @@
-import { useScrollPolish, useMinimumSkeleton } from "../lib/agentMotion";
+import {
+  useScrollPolish,
+  useMinimumSkeleton,
+  animateMotion,
+} from "../lib/agentMotion";
 import MotionSkeleton from "../components/agent/MotionSkeleton";
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  useLayoutEffect,
+} from "react";
+import {
+  Search,
+  X,
+  SlidersHorizontal,
+  MapPin,
+  Zap,
+  ShieldCheck,
+  Sparkles,
+  ChevronDown,
+} from "lucide-react";
 import { agents, listings, findAgents } from "../lib/agents";
 import { readLocal } from "../Discovery";
 import { cityForLocation } from "../PropertyModel";
 import AgentCard from "../components/agent/AgentCard";
-const empty = { query: "", city: "", sort: "recommended" };
-const groups = [
-  ["city", "City", ["Bengaluru", "Hyderabad", "Pune"]],
-  [
-    "locality",
-    "Service area",
-    [...new Set(agents.flatMap((a) => a.serviceAreas))],
-  ],
-  [
-    "language",
-    "Languages",
-    ["English", "Hindi", "Kannada", "Marathi", "Telugu"],
-  ],
-  [
-    "specialty",
-    "Specialties",
-    ["Apartments", "Villas", "Plots", "Rentals", "Commercial", "PG"],
-  ],
-  [
-    "response",
-    "Responds within",
-    [
-      ["60", "1 hour"],
-      ["240", "4 hours"],
-      ["1440", "1 day"],
-    ],
-  ],
-  [
-    "experience",
-    "Experience",
-    [
-      ["3", "3+ years"],
-      ["5", "5+ years"],
-      ["10", "10+ years"],
-    ],
-  ],
-  [
-    "count",
-    "Active listings",
-    [
-      ["1", "1+ listing"],
-      ["5", "5+ listings"],
-    ],
-  ],
-];
+import FinderFilterSheet, {
+  cities,
+  sorts,
+  budgetOptions,
+} from "../components/agent/FinderFilterSheet";
+const empty = { query: "", city: "", sort: "recommended", mode: "BUY" };
+const areas = [...new Set(agents.flatMap((a) => a.serviceAreas))];
+const languages = [...new Set(agents.flatMap((a) => a.languages))];
+const specialties = [...new Set(agents.flatMap((a) => a.specialties))];
 export default function AgentFinder({ onNavigate, Modal }) {
   const host = useRef(null);
   useScrollPolish(host);
   const ready = useMinimumSkeleton("finder");
-  const [filtersOpen, setFiltersOpen] = useState(false),
-    [f, setF] = useState({ ...empty }),
-    [input, setInput] = useState(""),
-    [nearby, setNearby] = useState(""),
-    [locating, setLocating] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setF((x) => ({ ...x, query: input })), 250);
-    return () => clearTimeout(timer);
-  }, [input]);
-  const rows = useMemo(() => findAgents(agents, f), [f]);
-  const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
-  const toggle = (key, value) => {
-    if (["language", "specialty"].includes(key)) {
-      const values = f[key] || [];
-      set(
-        key,
-        values.includes(value)
-          ? values.filter((v) => v !== value)
-          : [...values, value],
-      );
-    } else set(key, f[key] === value ? "" : value);
-  };
-  const nearMe = () => {
-    const fallback = (reason) => {
-      const city = readLocal("centometer-city", null) || f.city || "Bengaluru";
-      set("city", city);
-      setNearby(reason + " Using " + city + " as the city fallback.");
-      setLocating(false);
-    };
-    setLocating(true);
-    setNearby("Finding your city using device geolocation…");
-    if (!navigator.geolocation) {
-      fallback("Geolocation is unavailable.");
-      return;
+  const [f, setF] = useState(() => {
+    try {
+      return {
+        ...empty,
+        ...JSON.parse(
+          new URLSearchParams(location.hash.split("?")[1]).get("filters") ||
+            "{}",
+        ),
+      };
+    } catch {
+      return { ...empty };
     }
+  });
+  const [input, setInput] = useState(f.query),
+    [sheet, setSheet] = useState(""),
+    [toast, setToast] = useState(""),
+    [suggest, setSuggest] = useState(false),
+    [cursor, setCursor] = useState(-1);
+  const set = (key, value) => setF((x) => ({ ...x, [key]: value }));
+  useEffect(() => {
+    const t = setTimeout(() => setF((x) => ({ ...x, query: input })), 250);
+    return () => clearTimeout(t);
+  }, [input]);
+  useEffect(() => {
+    if (sheet) return;
+    const t = setTimeout(() => {
+      const q = new URLSearchParams();
+      if (JSON.stringify(f) !== JSON.stringify(empty))
+        q.set("filters", JSON.stringify(f));
+      history.replaceState(
+        history.state,
+        "",
+        "#agents" + (q.size ? "?" + q : ""),
+      );
+    }, 250);
+    return () => clearTimeout(t);
+  }, [f, sheet]);
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(""), 3000);
+    return () => clearTimeout(t);
+  }, [toast]);
+  const rows = useMemo(() => {
+    const [min, max] = (f.budget || "0:Infinity").split(":").map(Number);
+    const eligible = f.budget
+      ? listings.filter(
+          (p) => p.mode === f.mode && p.price >= min && p.price <= max,
+        )
+      : listings;
+    const base = { ...f, locality: "", budget: f.budget ? String(max) : "" };
+    return findAgents(agents, base, eligible).filter(
+      (a) =>
+        (!f.locality?.length ||
+          f.locality.some((v) => a.serviceAreas.includes(v))) &&
+        (!f.budget || eligible.some((p) => p.agentId === a.id)),
+    );
+  }, [f]);
+  const positions = useRef(new Map());
+  useLayoutEffect(() => {
+    const cards = [
+      ...(host.current?.querySelectorAll(".agent-grid > .agent-card") || []),
+    ].slice(0, 20);
+    const next = new Map();
+    for (const card of cards) {
+      const id = card.querySelector("h2,h3")?.textContent;
+      const rect = card.getBoundingClientRect();
+      next.set(id, rect);
+      const before = positions.current.get(id);
+      animateMotion(
+        card,
+        before
+          ? [
+              {
+                translate: `${before.left - rect.left}px ${before.top - rect.top}px`,
+              },
+              { translate: "0 0" },
+            ]
+          : [{ opacity: 0 }, { opacity: 1 }],
+        { duration: 200 },
+      );
+    }
+    positions.current = next;
+  }, [rows]);
+  const reset = () => {
+    setInput("");
+    setF({ ...empty });
+  };
+  const near = () => {
+    const fallback = () => {
+      const city = readLocal("centometer-city", null) || f.city || "Bengaluru";
+      set("city", cities.includes(city) ? city : "Bengaluru");
+      setToast("Using " + (cities.includes(city) ? city : "Bengaluru"));
+    };
+    if (!navigator.geolocation) return fallback();
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const city = cityForLocation([
-          position.coords.latitude,
-          position.coords.longitude,
-        ]);
-        if (!city) {
-          fallback("No supported city near this location.");
-          return;
-        }
-        set("city", city);
-        setNearby("Using geolocation: agents in " + city + ".");
-        setLocating(false);
+      (p) => {
+        const city = cityForLocation([p.coords.latitude, p.coords.longitude]);
+        if (city) {
+          set("city", city);
+          setToast("Using " + city);
+        } else fallback();
       },
-      () => fallback("Location access was denied or unavailable."),
+      fallback,
       { timeout: 10000, maximumAge: 300000 },
     );
   };
-  const suggestions = [
-    [
-      "Agents",
-      agents
-        .filter((a) =>
-          [a.name, a.handle]
-            .join(" ")
-            .toLowerCase()
-            .includes(input.toLowerCase()),
+  const labels = {
+    response: (v) =>
+      `Responds in ${{ 60: "1 h", 240: "4 h", 1440: "1 day" }[v]}`,
+    experience: (v) => `${v}+ years`,
+    count: (v) => `${v}+ listings`,
+    verified: () => "Verified",
+    budget: (v) => budgetOptions(f.mode).find((x) => x[0] === v)?.[1] || v,
+    sort: (v) => sorts.find((x) => x[0] === v)?.[1],
+  };
+  const active = Object.entries(f)
+    .filter(
+      ([k, v]) =>
+        !["query", "mode"].includes(k) &&
+        v &&
+        (!Array.isArray(v) || v.length) &&
+        (k !== "sort" || v !== "recommended"),
+    )
+    .flatMap(([k, v]) =>
+      (Array.isArray(v) ? v : [v]).map((value) => ({
+        key: k,
+        value,
+        label: labels[k] ? labels[k](value) : String(value),
+      })),
+    );
+  const suggestions = input.trim()
+    ? [
+        ["Agents", agents.map((a) => a.name)],
+        ["Areas", areas],
+        ["Languages", languages],
+      ]
+        .flatMap(([group, values]) =>
+          values
+            .filter((v) => v.toLowerCase().includes(input.toLowerCase()))
+            .map((value) => ({ group, value })),
         )
-        .map((a) => a.name),
-    ],
-    [
-      "Localities",
-      [...new Set(agents.flatMap((a) => a.serviceAreas))].filter((x) =>
-        x.toLowerCase().includes(input.toLowerCase()),
-      ),
-    ],
-    [
-      "Languages",
-      [...new Set(agents.flatMap((a) => a.languages))].filter((x) =>
-        x.toLowerCase().includes(input.toLowerCase()),
-      ),
-    ],
-  ].filter(([, values]) => values.length);
+        .slice(0, 6)
+    : [];
+  const choose = (value) => {
+    setInput(value);
+    setSuggest(false);
+    setCursor(-1);
+  };
+  const quick = (label, Icon, pressed, click) => (
+    <button className="chip" aria-pressed={pressed} onClick={click}>
+      <Icon size={15} />
+      {label}
+    </button>
+  );
   return (
-    <section ref={host} className="page agent-finder agent-feature">
+    <section
+      ref={host}
+      className="page agent-finder agent-feature finder-refined"
+    >
       <div className="agent-finder-intro">
-        <span className="agent-eyebrow">PEOPLE WHO KNOW YOUR PLACE</span>
         <h1>Find your local expert</h1>
-        <p>Local knowledge. A more confident next move.</p>
       </div>
-      <div className="agent-filter-bar">
-        <input
-          aria-label="Find agents, locality or language"
-          placeholder="Name, locality or language"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <select
-          aria-label="Sort agents"
-          value={f.sort}
-          onChange={(e) => set("sort", e.target.value)}
-        >
-          {[
-            ["recommended", "Recommended"],
-            ["fast", "Fastest response"],
-            ["count", "Most listings"],
-            ["experience", "Most experienced"],
-            ["new", "Newest"],
-          ].map(([value, label]) => (
-            <option value={value} key={value}>
-              {label}
-            </option>
-          ))}
-        </select>
-        <button className="secondary" onClick={() => setFiltersOpen(true)}>
-          More finder filters
-        </button>
-      </div>
-      <div className="chips" aria-label="Quick city filters">
-        {["Bengaluru", "Hyderabad", "Pune"].map((city) => (
-          <button
-            className="chip"
-            aria-pressed={f.city === city}
-            key={city}
-            onClick={() => toggle("city", city)}
+      <div className="finder-sticky">
+        <div className="finder-search-row">
+          <div
+            className="finder-search"
+            role="search"
+            aria-label="Find an agent"
           >
-            {city}
-          </button>
-        ))}
-      </div>
-      {filtersOpen && (
-        <div className="agent-filter-sheet">
-          <Modal title="Find an agent" onClose={() => setFiltersOpen(false)}>
-            <div className="form-stack">
-              {groups.map(([key, label, values]) => (
-                <fieldset key={key}>
-                  <legend>{label}</legend>
-                  <div className="chips">
-                    {values.map((option) => {
-                      const [value, text] = Array.isArray(option)
-                        ? option
-                        : [option, option];
-                      const selected = Array.isArray(f[key])
-                        ? f[key].includes(value)
-                        : f[key] === value;
-                      return (
-                        <button
-                          type="button"
-                          className="chip"
-                          aria-pressed={selected}
-                          key={value}
-                          onClick={() => toggle(key, value)}
-                        >
-                          {text}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </fieldset>
-              ))}
-              <label>
-                <input
-                  type="checkbox"
-                  checked={!!f.verified}
-                  onChange={(e) => set("verified", e.target.checked)}
-                />
-                Verified only
-              </label>
-              <label>
-                Maximum listing budget (₹)
-                <input
-                  type="number"
-                  min="0"
-                  value={f.budget || ""}
-                  onChange={(e) => set("budget", e.target.value)}
-                />
-              </label>
-              <button
-                className="secondary"
-                onClick={() => {
-                  setInput("");
-                  setF({ ...empty, sort: f.sort });
-                }}
+            <Search size={19} />
+            <input
+              aria-label="Name, area or language"
+              role="combobox"
+              aria-autocomplete="list"
+              aria-expanded={suggest && !!suggestions.length}
+              aria-controls="finder-suggestions"
+              aria-activedescendant={
+                cursor >= 0 ? `suggestion-${cursor}` : undefined
+              }
+              placeholder="Name, area or language"
+              value={input}
+              onFocus={() => setSuggest(true)}
+              onBlur={() => setTimeout(() => setSuggest(false), 150)}
+              onChange={(e) => {
+                setInput(e.target.value);
+                setSuggest(true);
+                setCursor(-1);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setSuggest(false);
+                if (
+                  suggestions.length &&
+                  (e.key === "ArrowDown" || e.key === "ArrowUp")
+                ) {
+                  e.preventDefault();
+                  setSuggest(true);
+                  setCursor(
+                    (x) =>
+                      (x +
+                        (e.key === "ArrowDown" ? 1 : -1) +
+                        suggestions.length) %
+                      suggestions.length,
+                  );
+                }
+                if (e.key === "Enter" && suggestions[cursor]) {
+                  e.preventDefault();
+                  choose(suggestions[cursor].value);
+                }
+              }}
+            />
+            {input && (
+              <button aria-label="Clear search" onClick={() => choose("")}>
+                <X size={16} />
+              </button>
+            )}
+            {suggest && suggestions.length > 0 && (
+              <div
+                id="finder-suggestions"
+                role="listbox"
+                aria-label="Suggestions"
+                className="finder-suggestions"
               >
-                Clear filters
-              </button>
-              <button className="primary" onClick={() => setFiltersOpen(false)}>
-                Show {rows.length} {rows.length === 1 ? "agent" : "agents"}
-              </button>
-            </div>
-          </Modal>
+                {suggestions.map((s, i) => (
+                  <div
+                    role="option"
+                    id={`suggestion-${i}`}
+                    key={s.group + s.value}
+                    aria-selected={cursor === i}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => choose(s.value)}
+                  >
+                    <small>
+                      {i === 0 || suggestions[i - 1].group !== s.group
+                        ? s.group
+                        : ""}
+                    </small>
+                    <span>{s.value}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <button
+            className="finder-filter-trigger"
+            aria-haspopup="dialog"
+            aria-label={`Filters, ${active.length} active`}
+            onClick={() => setSheet("filters")}
+          >
+            <SlidersHorizontal size={20} />
+            {active.length > 0 && <span>{active.length}</span>}
+          </button>
         </div>
-      )}
-      {input && suggestions.length > 0 && (
-        <div className="agent-suggestions" aria-label="Search suggestions">
-          {suggestions.map(([label, values]) => (
-            <section key={label}>
-              <strong>{label}</strong>
-              {values.slice(0, 3).map((value) => (
-                <button
-                  className="secondary"
-                  key={value}
-                  onClick={() => setInput(value)}
-                >
-                  {value}
-                </button>
-              ))}
-            </section>
+        <div className="finder-quick">
+          <div>
+            {quick("Near me", MapPin, !!f.city, near)}
+            {quick("Fastest reply", Zap, f.sort === "fast", () =>
+              set("sort", f.sort === "fast" ? "recommended" : "fast"),
+            )}
+            {quick("Verified", ShieldCheck, !!f.verified, () =>
+              set("verified", !f.verified),
+            )}
+            {quick("New", Sparkles, f.sort === "new", () =>
+              set("sort", f.sort === "new" ? "recommended" : "new"),
+            )}
+            {quick("City: " + (f.city || "Any"), ChevronDown, !!f.city, () =>
+              setSheet("city"),
+            )}
+          </div>
+        </div>
+      </div>
+      {active.length > 0 && (
+        <div className="finder-active">
+          {active.map((a) => (
+            <button
+              key={a.key + a.value}
+              onClick={() =>
+                set(
+                  a.key,
+                  Array.isArray(f[a.key])
+                    ? f[a.key].filter((v) => v !== a.value)
+                    : a.key === "sort"
+                      ? "recommended"
+                      : "",
+                )
+              }
+            >
+              {a.label}
+              <X size={12} />
+            </button>
           ))}
+          <button onClick={reset}>Clear all</button>
         </div>
       )}
-      <div className="action-row">
-        <button className="secondary" onClick={() => set("sort", "new")}>
-          New agents
-        </button>
-        <button className="secondary" onClick={() => set("sort", "fast")}>
-          Fastest to reply
-        </button>
-        <button className="secondary" disabled={locating} onClick={nearMe}>
-          Agents near me · use geolocation
+      <div className="finder-results">
+        <span aria-live="polite" aria-atomic="true" key={rows.length}>
+          {rows.length} {rows.length === 1 ? "agent" : "agents"}
+        </span>
+        <button aria-haspopup="dialog" onClick={() => setSheet("sort")}>
+          Sort:{" "}
+          {f.sort === "recommended"
+            ? "Best"
+            : sorts.find((x) => x[0] === f.sort)?.[1]}
+          <ChevronDown size={14} />
         </button>
       </div>
-      <p className="fine-print">
-        Uses device geolocation to find your city; falls back to your selected
-        city if unavailable.
-      </p>
-      {nearby && <p role="status">{nearby}</p>}
-      <p aria-live="polite">
-        {rows.length} {rows.length === 1 ? "agent" : "agents"}
-      </p>
+      {sheet && (
+        <FinderFilterSheet
+          Modal={Modal}
+          kind={sheet}
+          f={f}
+          set={set}
+          reset={reset}
+          count={rows.length}
+          close={() => setSheet("")}
+          areas={areas}
+          languages={languages}
+          specialties={specialties}
+        />
+      )}
+      {toast && (
+        <div className="finder-toast" role="status">
+          {toast}
+        </div>
+      )}
       <div
         className="agent-grid agent-skeleton-shell"
         aria-busy={input !== f.query}
       >
         <MotionSkeleton ready={ready} />
-        {input !== f.query
-          ? Array.from({ length: 3 }, (_, i) => (
-              <div
-                className="agent-skeleton"
-                key={i}
-                aria-label="Finding agents"
-              />
-            ))
-          : rows.map((a) => (
-              <AgentCard
-                key={a.id}
-                agent={a}
-                items={listings}
-                onNavigate={onNavigate}
-              />
-            ))}
+        {rows.map((a) => (
+          <AgentCard
+            key={a.id}
+            agent={a}
+            items={listings}
+            onNavigate={onNavigate}
+          />
+        ))}
       </div>
       {!rows.length && (
         <div className="empty">
           <h2>No matching agents</h2>
-          <button
-            className="secondary"
-            onClick={() => {
-              setInput("");
-              setF({ ...empty, sort: f.sort });
-            }}
-          >
-            Clear filters
-          </button>
+          <button onClick={reset}>Clear all</button>
         </div>
       )}
-      <button
-        className="secondary"
-        onClick={() => onNavigate("agent-dashboard")}
-      >
-        Demo agent dashboard
-      </button>
       <p className="fine-print">
         Demo: location gating is simulated · Sample agents and listings
       </p>

@@ -76,33 +76,29 @@ it("finder uses geolocation and explains the fallback", async () => {
     },
   });
   render(<AgentFinder Modal={Modal} onNavigate={() => {}} />);
-  fireEvent.click(screen.getByText("Agents near me · use geolocation"));
-  expect(screen.getByRole("status").textContent).toContain(
-    "Using geolocation: agents in Hyderabad",
-  );
+  fireEvent.click(screen.getByText("Near me"));
+  expect(screen.getByRole("status").textContent).toContain("Using Hyderabad");
   cleanup();
   vi.stubGlobal("navigator", {
     geolocation: { getCurrentPosition: (_success, error) => error() },
   });
   render(<AgentFinder Modal={Modal} onNavigate={() => {}} />);
-  fireEvent.click(screen.getByText("Agents near me · use geolocation"));
-  expect(screen.getByRole("status").textContent).toContain("city fallback");
+  fireEvent.click(screen.getByText("Near me"));
+  expect(screen.getByRole("status").textContent).toContain("Using Bengaluru");
 });
-it("finder keeps sort controlled, hides empty suggestion groups, and labels chips with units", async () => {
+it("finder resets defaults, hides empty suggestions, and labels segments with units", async () => {
   render(<AgentFinder Modal={Modal} onNavigate={() => {}} />);
-  fireEvent.change(screen.getByLabelText("Sort agents"), {
-    target: { value: "fast" },
-  });
-  fireEvent.change(screen.getByLabelText("Find agents, locality or language"), {
+  fireEvent.click(screen.getByText("Fastest reply"));
+  fireEvent.change(screen.getByLabelText("Name, area or language"), {
     target: { value: "no-such-agent" },
   });
   await waitFor(() =>
     expect(screen.getByText("No matching agents")).toBeTruthy(),
   );
-  expect(screen.queryByLabelText("Search suggestions")).toBeNull();
-  fireEvent.click(screen.getByText("Clear filters"));
-  expect(screen.getByLabelText("Sort agents").value).toBe("fast");
-  fireEvent.click(screen.getByText("More finder filters"));
-  for (const text of ["1 hour", "4 hours", "1 day", "3+ years"])
+  expect(screen.queryByRole("listbox")).toBeNull();
+  fireEvent.click(screen.getAllByText("Clear all")[0]);
+  expect(screen.getByText("Sort: Best")).toBeTruthy();
+  fireEvent.click(screen.getByLabelText("Filters, 0 active"));
+  for (const text of ["1 hour", "4 hours", "1 day", "3+ yrs"])
     expect(screen.getByText(text)).toBeTruthy();
 });

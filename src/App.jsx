@@ -3397,6 +3397,12 @@ export default function App() {
 
         {route === "profile" && (
           <section className="page profile-page">
+            <button
+              className="secondary"
+              onClick={() => navigate("agent-dashboard")}
+            >
+              Demo agent dashboard
+            </button>
             <div className="page-intro">
               <p className="eyebrow">YOUR SPACE ON CENTOMETER</p>
               <h1>A home for your next move.</h1>
