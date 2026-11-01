@@ -1,4 +1,4 @@
-import useExpiryTick from '../lib/useExpiryTick';
+import useExpiryTick from "../lib/useExpiryTick";
 import useDebouncedValue from "../lib/useDebouncedValue";
 import ListingPresence from "../components/agent/ListingPresence";
 import ListingGrid from "../components/agent/ListingGrid";
@@ -73,7 +73,9 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
   const ready = useMinimumSkeleton(handle, !!a);
   const tabScroll = useRef({ listings: null, about: null });
   const store = useAgentStore();
-  const expiryNow=useExpiryTick(store.requests.filter(r=>r.viewerId===viewerId));
+  const expiryNow = useExpiryTick(
+    store.requests.filter((r) => r.viewerId === viewerId),
+  );
   const requestMap = useMemo(
     () =>
       new Map(
@@ -248,7 +250,9 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           Share profile
         </button>
       </nav>
-      <p className="fine-print">Demo: location gating is simulated</p>
+      <p className="fine-print agent-demo-note">
+        Demo: location gating is simulated
+      </p>
       <div className="agent-skeleton-shell">
         {" "}
         <AgentHeader
@@ -300,10 +304,10 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       >
         <>
           <FilterBar f={f} onChange={change} onMore={() => setMore(true)} />
-          <p aria-live="polite">
+          <p className="agent-result-count" aria-live="polite">
             {rows.length} {rows.length === 1 ? "property" : "properties"}
           </p>
-          <div className="chips">
+          <div className="chips agent-applied-filters">
             {Object.entries(f)
               .filter(([k, v]) => v !== defaults[k])
               .map(([k, v]) => (

@@ -16,3 +16,5 @@ createRoot(document.getElementById("root")).render(
     <App />
   </ErrorBoundary>,
 );
+
+import "./styles/refinement.css";

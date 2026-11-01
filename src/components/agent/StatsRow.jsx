@@ -28,7 +28,7 @@ function Counter({ value }) {
     </dd>
   );
 }
-export default function StatsRow({ agent: a, count }) {
+export default function StatsRow({ agent: a, count, compact = false }) {
   return (
     <dl className="agent-stats">
       {[
@@ -37,7 +37,9 @@ export default function StatsRow({ agent: a, count }) {
         ["Years", a.experienceYears],
         ["RERA agent no.", a.reraAgentNo],
       ]
-        .filter(([, v]) => v != null)
+        .filter(
+          ([label, v]) => v != null && (!compact || label !== "RERA agent no."),
+        )
         .map(([label, value]) => (
           <div key={label}>
             <dt>{label}</dt>

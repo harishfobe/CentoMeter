@@ -134,7 +134,11 @@ export default function AgentFinder({ onNavigate, Modal }) {
   ].filter(([, values]) => values.length);
   return (
     <section ref={host} className="page agent-finder agent-feature">
-      <h1>Find your local expert</h1>
+      <div className="agent-finder-intro">
+        <span className="agent-eyebrow">PEOPLE WHO KNOW YOUR PLACE</span>
+        <h1>Find your local expert</h1>
+        <p>Local knowledge. A more confident next move.</p>
+      </div>
       <div className="agent-filter-bar">
         <input
           aria-label="Find agents, locality or language"

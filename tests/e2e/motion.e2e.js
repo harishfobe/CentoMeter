@@ -38,9 +38,15 @@ test("dragging the handle dismisses the sheet without moving the list", async ({
 }) => {
   await page.goto("/#agent/ananya.rao?mode=BUY&available=false");
   await page.waitForTimeout(400);
-  await page.locator(".property-copy").last().scrollIntoViewIfNeeded();
+  await page
+    .locator(".property-copy")
+    .last()
+    .evaluate((el) => el.scrollIntoView({ block: "center" }));
   await page.waitForTimeout(260);
-  await page.locator(".property-copy").last().scrollIntoViewIfNeeded();
+  await page
+    .locator(".property-copy")
+    .last()
+    .evaluate((el) => el.scrollIntoView({ block: "center" }));
   const y = await page.evaluate(() => scrollY);
   await page.locator(".property-copy").last().click();
   const handle = page.getByRole("button", { name: "Drag to dismiss" });

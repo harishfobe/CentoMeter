@@ -1,4 +1,5 @@
 import React from "react";
+import { SlidersHorizontal } from "lucide-react";
 import { defaults } from "../../lib/agents";
 import BudgetChips from "./BudgetChips";
 export default function FilterBar({ f, onChange, onMore }) {
@@ -40,7 +41,8 @@ export default function FilterBar({ f, onChange, onMore }) {
         ))}
       </select>
       <BudgetChips f={f} onChange={onChange} onCustom={onMore} />
-      <button onClick={onMore}>
+      <button className="agent-more-button" onClick={onMore}>
+        <SlidersHorizontal size={15} aria-hidden="true" />
         More filters{" "}
         <span key={JSON.stringify(f)} className="agent-more-count">
           {Object.entries(f).filter(([k, v]) => v !== defaults[k]).length}

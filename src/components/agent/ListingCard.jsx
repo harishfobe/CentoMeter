@@ -88,6 +88,11 @@ function ListingCard({
           />
         ))}
       </div>
+      {photos.length > 0 && (
+        <span className="agent-photo-count" aria-hidden="true">
+          {index + 1} / {photos.length}
+        </span>
+      )}
       <div className="agent-photo-dots" aria-hidden="true">
         {photos.map((_, i) => (
           <span key={i} data-active={index === i} />
@@ -118,7 +123,7 @@ function ListingCard({
       <div className="agent-listing-chips">
         <span className="pill">{statusLabel(p.status)}</span>
         {recentlyConfirmed(p) ? (
-          <span className="pill">Recently confirmed</span>
+          <span className="pill agent-confirmed">Recently confirmed</span>
         ) : (
           <small>Not recently confirmed</small>
         )}
