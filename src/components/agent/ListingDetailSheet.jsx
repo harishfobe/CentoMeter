@@ -1,14 +1,11 @@
 import useSheetDrag from "../../lib/useSheetDrag";
-import MotionSkeleton from "./MotionSkeleton";
 import {
-  useMinimumSkeleton,
   animateMotion,
   reducedMotion,
   revealGalleryImage,
 } from "../../lib/agentMotion";
 import useExpiryTick from "../../lib/useExpiryTick";
-import React, { useState, useEffect } from "react";
-import L from "leaflet";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useRef } from "react";
 import { money, hasValue, emiPayment } from "../../PropertyModel";
 import { landArea, landDimensions } from "../../LandMeasurements";
@@ -30,34 +27,20 @@ import {
   agents as relatedAgents,
   statusLabel,
 } from "../../lib/agents";
-import { shareAgentLink } from "../../pages/AgentProfile";
-export function UnlockedMap({ point }) {
-  const host = useRef(null);
-  useEffect(() => {
-    if (!point) return;
-    const map = L.map(host.current, { scrollWheelZoom: false }).setView(
-      point,
-      15,
-    );
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors",
-    }).addTo(map);
-    const marker = L.marker(point).addTo(map);
-    marker.getElement()?.classList.add("agent-pin-drop");
-
-    const resize = new ResizeObserver(() => map.invalidateSize());
-    resize.observe(host.current);
-    return () => {
-      resize.disconnect();
-      map.remove();
-    };
-  }, [point?.[0], point?.[1]]);
+import { shareAgentLink } from "../../lib/agentShare";
+import LoadingSkeleton from "../LoadingSkeleton";
+const ApprovedMap = lazy(() => import("./UnlockedMap"));
+export function UnlockedMap(props) {
   return (
-    <div
-      className="agent-location-map"
-      ref={host}
-      aria-label="Approved property location"
-    />
+    <Suspense
+      fallback={
+        <div className="agent-location-map">
+          <LoadingSkeleton kind="map" />
+        </div>
+      }
+    >
+      <ApprovedMap {...props} />
+    </Suspense>
   );
 }
 export default function ListingDetailSheet({
@@ -69,7 +52,6 @@ export default function ListingDetailSheet({
   onRelated,
   exiting = false,
 }) {
-  const ready = useMinimumSkeleton(p.id);
   const drag = useSheetDrag(onClose);
   const gallery = useRef(null),
     imageStops = useRef([]);
@@ -180,8 +162,6 @@ export default function ListingDetailSheet({
         <span />
       </button>
       <article className="agent-detail agent-skeleton-shell">
-        <MotionSkeleton ready={ready} kind="detail" />
-
         <div
           className="agent-photo-strip"
           ref={gallery}
@@ -353,14 +333,12 @@ export default function ListingDetailSheet({
               : statusLabel(state)}
           </p>
           <div className="agent-map-reveal" data-open={!!point}>
-            <div>{point && <UnlockedMap point={point} />}</div>
+            {point && <UnlockedMap point={point} />}
           </div>
           {point ? (
-            <>
-              <p>
-                {p.locality}, {p.city}
-              </p>
-            </>
+            <p>
+              {p.locality}, {p.city}
+            </p>
           ) : (
             <p>
               {p.locality}, {p.city}. Neighbourhood details are public; the

@@ -72,3 +72,26 @@ it("still calls card actions with the listing id", () => {
   fireEvent.click(screen.getByLabelText("Save " + listings[0].title));
   expect(save).toHaveBeenCalledWith(listings[0].id);
 });
+
+it("agent cards ignore unrelated store changes and update their own follow state", async () => {
+  const { default: AgentCard } =
+    await import("../src/components/agent/AgentCard");
+  const { agents } = await import("../src/lib/agents");
+  const commits = vi.fn();
+  render(
+    <Profiler id="agent" onRender={commits}>
+      <AgentCard agent={agents[0]} items={listings} onNavigate={() => {}} />
+    </Profiler>,
+  );
+  const before = commits.mock.calls.length;
+  act(() => toggleStore("saved", "unrelated-to-agent"));
+  expect(commits.mock.calls.length).toBe(before);
+  act(() => toggleStore("followed", agents[1].id));
+  expect(commits.mock.calls.length).toBe(before);
+  const followed = snapshot().followed.includes(agents[0].id);
+  act(() => toggleStore("followed", agents[0].id));
+  expect(
+    screen.getByRole("button", { name: followed ? "Follow" : "Following" }),
+  ).toBeTruthy();
+  flushStore();
+});

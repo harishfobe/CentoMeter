@@ -1,15 +1,11 @@
-import {
-  useScrollPolish,
-  useMinimumSkeleton,
-  animateMotion,
-} from "../lib/agentMotion";
-import MotionSkeleton from "../components/agent/MotionSkeleton";
+import { useScrollPolish, animateMotion } from "../lib/agentMotion";
 import React, {
   useState,
   useMemo,
   useEffect,
   useRef,
   useLayoutEffect,
+  memo,
 } from "react";
 import {
   Search,
@@ -34,10 +30,9 @@ const empty = { query: "", city: "", sort: "recommended", mode: "BUY" };
 const areas = [...new Set(agents.flatMap((a) => a.serviceAreas))];
 const languages = [...new Set(agents.flatMap((a) => a.languages))];
 const specialties = [...new Set(agents.flatMap((a) => a.specialties))];
-export default function AgentFinder({ onNavigate, Modal }) {
+function AgentFinder({ onNavigate, Modal }) {
   const host = useRef(null);
   useScrollPolish(host);
-  const ready = useMinimumSkeleton("finder");
   const [f, setF] = useState(() => {
     try {
       return {
@@ -100,24 +95,32 @@ export default function AgentFinder({ onNavigate, Modal }) {
     const cards = [
       ...(host.current?.querySelectorAll(".agent-grid > .agent-card") || []),
     ].slice(0, 20);
-    const next = new Map();
-    for (const card of cards) {
-      const id = card.querySelector("h2,h3")?.textContent;
+    // Read all boxes before starting any animation writes; use document coordinates.
+    const measurements = cards.map((card) => {
       const rect = card.getBoundingClientRect();
-      next.set(id, rect);
-      const before = positions.current.get(id);
-      animateMotion(
+      return {
         card,
-        before
-          ? [
-              {
-                translate: `${before.left - rect.left}px ${before.top - rect.top}px`,
-              },
-              { translate: "0 0" },
-            ]
-          : [{ opacity: 0 }, { opacity: 1 }],
-        { duration: 200 },
-      );
+        id: card.dataset.agentId,
+        left: rect.left + scrollX,
+        top: rect.top + scrollY,
+      };
+    });
+    const next = new Map(measurements.map((item) => [item.id, item]));
+    for (const item of measurements) {
+      const before = positions.current.get(item.id);
+      if (!before || before.left !== item.left || before.top !== item.top)
+        animateMotion(
+          item.card,
+          before
+            ? [
+                {
+                  translate: `${before.left - item.left}px ${before.top - item.top}px`,
+                },
+                { translate: "0 0" },
+              ]
+            : [{ opacity: 0 }, { opacity: 1 }],
+          { duration: 200 },
+        );
     }
     positions.current = next;
   }, [rows]);
@@ -366,7 +369,6 @@ export default function AgentFinder({ onNavigate, Modal }) {
         className="agent-grid agent-skeleton-shell"
         aria-busy={input !== f.query}
       >
-        <MotionSkeleton ready={ready} />
         {rows.map((a) => (
           <AgentCard
             key={a.id}
@@ -388,3 +390,5 @@ export default function AgentFinder({ onNavigate, Modal }) {
     </section>
   );
 }
+
+export default memo(AgentFinder);

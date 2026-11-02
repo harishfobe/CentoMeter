@@ -843,17 +843,17 @@
   .finder-refined .chip:active,
   .finder-sheet .chip:active {
     scale: 0.95;
-    transition: scale 120ms;
+    transition: scale 120ms var(--ease-out);
   }
   .finder-sheet .modal {
-    animation: finder-sheet-in 280ms var(--ease-out);
+    animation: finder-sheet-in 280ms var(--var(--ease-out));
   }
   .finder-sheet .modal-scrim {
-    animation: finder-fade 200ms;
+    animation: finder-fade 200ms var(--ease-out);
   }
   .finder-results > span,
   .finder-refined .agent-grid {
-    animation: finder-fade 200ms;
+    animation: finder-fade 200ms var(--ease-out);
   }
   @keyframes finder-sheet-in {
     from {

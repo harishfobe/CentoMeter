@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 export const reducedMotion = () =>
   typeof window === "undefined" ||
   !window.matchMedia ||
@@ -85,16 +85,6 @@ export function useCardEntrance(index = 0) {
     [index],
   );
   return ref;
-}
-export function useMinimumSkeleton(key, enabled = true) {
-  const [ready, setReady] = useState(!enabled);
-  useEffect(() => {
-    if (!enabled) return;
-    setReady(false);
-    const timer = setTimeout(() => setReady(true), 300);
-    return () => clearTimeout(timer);
-  }, [key, enabled]);
-  return ready;
 }
 export function useScrollPolish(ref) {
   useEffect(() => {

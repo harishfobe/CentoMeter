@@ -143,6 +143,9 @@ export function SelectedPropertySheet({
             }}
           >
             <img
+              width="600"
+              height="400"
+              decoding="async"
               draggable={false}
               src={image}
               alt={p.title}

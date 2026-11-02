@@ -1,13 +1,23 @@
 import { useCardEntrance } from "../../lib/agentMotion";
 import { ShieldCheck, MapPin, ArrowUpRight } from "lucide-react";
-import React, { memo } from "react";
+import React, { memo, useMemo, useCallback } from "react";
 import { responseLabel, activeListings } from "../../lib/agents";
-import { toggleStore, useAgentStore } from "../../lib/agentStore";
+import { toggleStore, useAgentSelector } from "../../lib/agentStore";
 function AgentCard({ agent: a, items, onNavigate }) {
   const entrance = useCardEntrance();
-  const s = useAgentStore();
+  const selectFollowed = useCallback((s) => s.followed.includes(a.id), [a.id]);
+  const followed = useAgentSelector(selectFollowed);
+  const count = useMemo(
+    () => activeListings(items, a.id).length,
+    [items, a.id],
+  );
+  const previews = useMemo(
+    () =>
+      items.filter((p) => p.agentId === a.id && p.photos?.length).slice(0, 3),
+    [items, a.id],
+  );
   return (
-    <article ref={entrance} className="agent-card">
+    <article ref={entrance} className="agent-card" data-agent-id={a.id}>
       <div className="agent-card-identity">
         <img width="52" height="52" src={a.avatar} alt="" />
         <div>
@@ -39,27 +49,21 @@ function AgentCard({ agent: a, items, onNavigate }) {
         ))}
       </div>
       <p className="agent-card-meta">
-        {activeListings(items, a.id).length}{" "}
-        {activeListings(items, a.id).length === 1
-          ? "active listing"
-          : "active listings"}{" "}
-        · {a.experienceYears} {a.experienceYears === 1 ? "year" : "years"}
+        {count} {count === 1 ? "active listing" : "active listings"} ·{" "}
+        {a.experienceYears} {a.experienceYears === 1 ? "year" : "years"}
       </p>
       <div className="agent-thumbnails">
-        {items
-          .filter((p) => p.agentId === a.id)
-          .slice(0, 3)
-          .map((p) => (
-            <img
-              key={p.id}
-              width="80"
-              height="60"
-              loading="lazy"
-              decoding="async"
-              src={p.photos[0]}
-              alt={p.type}
-            />
-          ))}
+        {previews.map((p) => (
+          <img
+            key={p.id}
+            width="80"
+            height="60"
+            loading="lazy"
+            decoding="async"
+            src={p.photos[0]}
+            alt={p.type}
+          />
+        ))}
       </div>
       <div className="agent-card-actions">
         <button
@@ -70,10 +74,10 @@ function AgentCard({ agent: a, items, onNavigate }) {
         </button>
         <button
           className="secondary"
-          aria-pressed={s.followed.includes(a.id)}
+          aria-pressed={followed}
           onClick={() => toggleStore("followed", a.id)}
         >
-          {s.followed.includes(a.id) ? "Following" : "Follow"}
+          {followed ? "Following" : "Follow"}
         </button>
       </div>
     </article>

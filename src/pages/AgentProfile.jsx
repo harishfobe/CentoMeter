@@ -3,12 +3,7 @@ import useDebouncedValue from "../lib/useDebouncedValue";
 import ListingPresence from "../components/agent/ListingPresence";
 import ListingGrid from "../components/agent/ListingGrid";
 import AgentTabs from "../components/agent/AgentTabs";
-import MotionSkeleton from "../components/agent/MotionSkeleton";
-import {
-  useMinimumSkeleton,
-  useScrollPolish,
-  reducedMotion,
-} from "../lib/agentMotion";
+import { useScrollPolish, reducedMotion } from "../lib/agentMotion";
 import { getExactLocation } from "../lib/locationAccess";
 import CompareTable from "../components/agent/CompareTable";
 import { useAgentNavigation } from "../lib/agentNavigation";
@@ -44,21 +39,8 @@ import AgentHeader from "../components/agent/AgentHeader";
 import FilterBar from "../components/agent/FilterBar";
 import FilterSheet from "../components/agent/FilterSheet";
 import ListingCard from "../components/agent/ListingCard";
-export async function shareAgentLink(url, title) {
-  if (navigator.share) {
-    try {
-      await navigator.share({ url, title });
-      return;
-    } catch (e) {
-      if (e.name === "AbortError") return;
-    }
-  }
-  try {
-    await navigator.clipboard.writeText(url);
-  } catch {
-    window.prompt("Copy this link", url);
-  }
-}
+import { shareAgentLink } from "../lib/agentShare";
+export { shareAgentLink } from "../lib/agentShare";
 export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
   const {
     query,
@@ -70,7 +52,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
     a = agents.find((a) => a.handle === handle);
   const host = useRef(null);
   useScrollPolish(host);
-  const ready = useMinimumSkeleton(handle, !!a);
   const tabScroll = useRef({ listings: null, about: null });
   const store = useAgentStore();
   const expiryNow = useExpiryTick(
@@ -253,15 +234,12 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       <p className="fine-print agent-demo-note">
         Demo: location gating is simulated
       </p>
-      <div className="agent-skeleton-shell">
-        {" "}
-        <AgentHeader
-          agent={a}
-          count={activeListings(items, a.id).length}
-          onShare={() => shareAgentLink(link, a.name)}
-        />
-        <MotionSkeleton ready={ready} kind="header" />
-      </div>
+      <AgentHeader
+        agent={a}
+        count={activeListings(items, a.id).length}
+        onShare={() => shareAgentLink(link, a.name)}
+      />
+
       <AgentTabs tab={tab} onChange={changeTab} />
       <section
         data-agent-panel
@@ -340,7 +318,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
               onOpen={openListing}
               onCompare={onCompare}
             />
-            <MotionSkeleton ready={ready} />
           </div>
           {!rows.length && (
             <div className="empty">

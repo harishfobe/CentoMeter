@@ -76,6 +76,8 @@ test("price typing keeps the list stable until the 200ms debounce", async ({
       subtree: true,
       childList: true,
       attributes: true,
+      // Ignore compositor animation cleanup and image-loaded metadata.
+      attributeFilter: ["class", "src", "aria-pressed"],
     });
   });
   await page.getByLabel("Minimum ₹").fill("1000");
@@ -101,8 +103,12 @@ test("gallery touch drag opens the full-screen viewer", async ({ page }) => {
   await page.goto("/#agent/ananya.rao?mode=BUY&available=false");
   await page.waitForTimeout(400);
   await page.locator(".property-copy").first().click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.waitForTimeout(320);
+  await expect(page.locator(".agent-detail")).toBeVisible();
+  await page
+    .locator(".modal:has(.agent-detail)")
+    .evaluate((el) =>
+      Promise.all(el.getAnimations().map((a) => a.finished.catch(() => {}))),
+    );
   const gallery = page.locator(".agent-detail .agent-photo-strip"),
     box = await gallery.boundingBox();
   const x = box.x + box.width / 2,

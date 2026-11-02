@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore, useCallback } from "react";
 import { readLocal, writeLocal } from "../Discovery";
 import { indianMobile } from "../PropertyModel";
 import {
@@ -105,15 +105,17 @@ export function updateStore(fn) {
   writeTimer = setTimeout(flushStore, 250);
   listeners.forEach((fn) => fn());
 }
+const subscribe = (fn) => {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+};
 export function useAgentStore() {
-  return useSyncExternalStore(
-    (fn) => {
-      listeners.add(fn);
-      return () => listeners.delete(fn);
-    },
-    snapshot,
-    snapshot,
-  );
+  return useSyncExternalStore(subscribe, snapshot, snapshot);
+}
+// Return stable primitives/references so unrelated store updates do not render consumers.
+export function useAgentSelector(select) {
+  const getSnapshot = useCallback(() => select(state), [select]);
+  return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
 }
 export function toggleStore(field, id) {
   const token = field + ":" + id;

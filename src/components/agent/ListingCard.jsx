@@ -1,3 +1,4 @@
+import { preloadListingDetails } from "../../lib/listingDetailsLoader";
 import { useCardEntrance, revealGalleryImage } from "../../lib/agentMotion";
 import React, { useRef, useState, useEffect, memo } from "react";
 import { Heart } from "lucide-react";
@@ -107,7 +108,12 @@ function ListingCard({
         <span className="agent-heart-burst" aria-hidden="true" />
         <Heart size={20} fill={saved ? "currentColor" : "none"} />
       </button>
-      <button className="property-copy" onClick={() => onOpen(p.id)}>
+      <button
+        className="property-copy"
+        onPointerEnter={preloadListingDetails}
+        onFocus={preloadListingDetails}
+        onClick={() => onOpen(p.id)}
+      >
         <div className="price">
           {money(price.amount)}
           <small>{p.mode === "RENT" ? "/mo" : price.suffix}</small>

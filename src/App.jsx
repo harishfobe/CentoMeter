@@ -1,17 +1,23 @@
+import { loadListingDetails } from "./lib/listingDetailsLoader";
+import PropertyCard from "./components/PropertyCard";
+import MapView from "./MapView";
+import { Modal, IconButton } from "./Modal";
+export { Modal } from "./Modal";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 import AgentToasts from "./components/agent/AgentToasts";
 import { sameAgentPage } from "./lib/agentNavigation";
 import { flushSync } from "react-dom";
 import { routeMotion } from "./lib/routeMotion";
 import React, {
   useState,
+  lazy,
+  Suspense,
   useEffect,
   useMemo,
   useRef,
   useCallback,
 } from "react";
-import L from "leaflet";
-import "leaflet.markercluster";
-import useOverlayBack from "./OverlayHistory";
+
 import {
   Home,
   Map as MapIcon,
@@ -30,12 +36,10 @@ import {
   X,
   House,
   KeyRound,
-  Check,
   CheckCircle2,
   Maximize2,
   LocateFixed,
   List,
-  ImagePlus,
   BedDouble,
   Bath,
   Square,
@@ -51,11 +55,7 @@ import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
 import { useAgentStore, viewerId } from "./lib/agentStore";
 import { AgentRequests, AgentSaved } from "./components/agent/AgentActivity";
-import AgentDashboard from "./pages/AgentDashboard";
 import { updateStore } from "./lib/agentStore";
-import AgentFinder from "./pages/AgentFinder";
-import AgentProfile from "./pages/AgentProfile";
-import ListingDetailSheet from "./components/agent/ListingDetailSheet";
 import { parseAgentRoute } from "./lib/agents";
 import { LocationGate, LocationRequestForm, LocationRequests } from "./AgentUI";
 import {
@@ -63,7 +63,6 @@ import {
   isLocationLocked,
   mapPoint,
   exactLocation,
-  publicBoundary,
   registerExactLocation,
   restoreExactLocations,
   safeSearchArea,
@@ -71,19 +70,12 @@ import {
   leadSourceFromSearch,
 } from "./lib/locationAccess";
 import {
-  restorePhotos,
   restoreListings,
   persistListings,
-  deletePhotos,
   migrateDraftPhotos,
 } from "./PhotoStorage";
-import useDraftStorage from "./useDraftStorage";
-import LocationSearch from "./LocationSearch";
-import {
-  OptionalListingFields,
-  OptionalPropertyDetails,
-  EmiCalculator,
-} from "./PropertyExtras";
+
+import { OptionalPropertyDetails, EmiCalculator } from "./PropertyExtras";
 import {
   centers,
   money,
@@ -93,7 +85,7 @@ import {
   hasValue,
   cityForLocation,
 } from "./PropertyModel";
-import { visitDates, landPrice, compressPhotos } from "./JourneyUX";
+import { visitDates } from "./JourneyUX";
 import {
   SellerProfile,
   ContactButtons,
@@ -109,14 +101,9 @@ import {
 } from "./MinimalUI";
 import SearchDiscovery from "./SearchDiscovery";
 import { developerFor } from "./SearchSuggestions";
-import { pinPrice, plotBoundary, plotStyle } from "./PlotUI";
-import { mobileQuery, bindMapInteractions } from "./MapInteractions";
-import {
-  LandSummary,
-  LandFields,
-  LandAreaFields,
-  landArea,
-} from "./LandDetails";
+
+import { mobileQuery } from "./MapInteractions";
+import { LandSummary } from "./LandDetails";
 import {
   priceBasis,
   areaBasis,
@@ -126,7 +113,6 @@ import {
   Visits,
 } from "./Journeys";
 import {
-  facingDirections,
   supportsFacing,
   filterDefaults,
   readLocal,
@@ -139,9 +125,57 @@ import {
   Gallery,
 } from "./Discovery";
 
-const NO_HOTSPOTS = Object.freeze([]);
-const NO_ITEMS = Object.freeze([]);
-const mapAccessBefore = new Map();
+// Commit focus after a deferred route has actually rendered, not on its placeholder.
+function ReadyView({ Component, ...props }) {
+  useEffect(() => {
+    const heading = document.querySelector("main h1:not(.sr-only)");
+    if (heading && !document.querySelector("[role=dialog]")) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus({ preventScroll: true });
+    }
+  }, [Component]);
+  return <Component {...props} />;
+}
+function defer(Component, kind) {
+  return function Deferred(props) {
+    return (
+      <Suspense fallback={<LoadingSkeleton kind={kind} />}>
+        <ReadyView Component={Component} {...props} />
+      </Suspense>
+    );
+  };
+}
+const PostFlow = defer(
+  lazy(() => import("./PostFlow")),
+  "form",
+);
+const AgentFinder = defer(
+  lazy(() => import("./pages/AgentFinder")),
+  "finder",
+);
+const AgentProfile = defer(
+  lazy(() => import("./pages/AgentProfile")),
+  "profile",
+);
+const AgentDashboard = defer(
+  lazy(() => import("./pages/AgentDashboard")),
+  "form",
+);
+const Detail = lazy(loadListingDetails);
+function ListingDetailSheet(props) {
+  return (
+    <Suspense
+      fallback={
+        <Modal title="Property details" onClose={props.onClose} historyManaged>
+          <LoadingSkeleton kind="detail" />
+        </Modal>
+      }
+    >
+      <Detail {...props} />
+    </Suspense>
+  );
+}
+
 const initialFilters = filterDefaults;
 const readSaved = () => {
   const value = readLocal("centometer-saved", []);
@@ -329,538 +363,6 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
     </form>
   );
 }
-function IconButton({ label, children, ...props }) {
-  return (
-    <button className="icon-button" aria-label={label} title={label} {...props}>
-      {children}
-    </button>
-  );
-}
-export function Modal({
-  title,
-  onClose,
-  children,
-  historyManaged = false,
-  motionKind,
-  exiting = false,
-}) {
-  const ref = useRef(null);
-  const close = useRef(onClose);
-  const dirtyForm = useRef(false);
-  close.current = onClose;
-  useOverlayBack(!historyManaged, () => close.current());
-  useEffect(() => {
-    const before = document.activeElement;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    ref.current?.querySelector("button")?.focus({ preventScroll: true });
-    const key = (e) => {
-      const dialogs = document.querySelectorAll(".modal");
-      if (ref.current !== dialogs[dialogs.length - 1]) return;
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        close.current();
-      }
-      if (e.key === "Tab") {
-        const els = ref.current.querySelectorAll(
-          "button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]",
-        );
-        const first = els[0],
-          last = els[els.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last?.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first?.focus();
-        }
-      }
-    };
-    document.addEventListener("keydown", key);
-    return () => {
-      document.body.style.overflow = prev;
-      document.removeEventListener("keydown", key);
-      if (before?.isConnected) before.focus({ preventScroll: true });
-    };
-  }, []);
-  return (
-    <div
-      className="modal-scrim"
-      data-motion-kind={motionKind}
-      data-exiting={exiting}
-      onChangeCapture={(e) => {
-        if (e.target.closest("form")) dirtyForm.current = true;
-      }}
-      onMouseDown={(e) => {
-        if (
-          e.target === e.currentTarget &&
-          !(dirtyForm.current && ref.current?.querySelector("form"))
-        )
-          close.current();
-      }}
-    >
-      <section
-        className="modal"
-        role="dialog"
-        aria-modal="true"
-        aria-label={title}
-        ref={ref}
-        tabIndex={-1}
-      >
-        <div className="modal-heading">
-          <h2>{title}</h2>
-          <IconButton label="Close dialog" onClick={() => close.current()}>
-            <X />
-          </IconButton>
-        </div>
-        {children}
-      </section>
-    </div>
-  );
-}
-function MapView({
-  city,
-  items = NO_ITEMS,
-  selected,
-  onSelect,
-  onBounds,
-  location,
-  onLocation,
-  onDismiss,
-  resetKey = 0,
-  focusPoint,
-  viewport,
-  onViewport,
-  scrollPreview = false,
-  priceUnit = "total",
-  hotspots = NO_HOTSPOTS,
-  staticView = false,
-  clustered = false,
-  requests = NO_ITEMS,
-}) {
-  const accessBefore = useRef(mapAccessBefore);
-  const host = useRef();
-  const map = useRef();
-  const markers = useRef();
-  const clusters = useRef(null);
-  const point = useRef();
-  const callbacks = useRef({ onSelect, onBounds, onLocation });
-  callbacks.current = {
-    onSelect,
-    onBounds,
-    onLocation,
-    onDismiss,
-    hotspots,
-    focusPoint,
-    items,
-    requests,
-  };
-  const fitPropertyFrame = (m) => {
-    const frame = callbacks.current;
-    const points = [
-      ...(frame.focusPoint ? [frame.focusPoint] : []),
-      ...frame.hotspots.map((p) => [p.lat, p.lng]),
-      ...frame.items.flatMap((p) => {
-        const point = mapPoint(p, frame.requests);
-        return point ? publicBoundary(p, frame.requests) || [point] : [];
-      }),
-    ];
-    if (points.length)
-      m.fitBounds(L.latLngBounds(points), {
-        padding: [65, 65],
-        maxZoom: 14,
-        animate: false,
-      });
-  };
-  const [tileError, setTileError] = useState(false);
-  const [mapLayer, setMapLayer] = useState("street");
-  const tileLayer = useRef(null);
-  useEffect(() => {
-    const m = L.map(host.current, {
-      maxZoom: 19,
-      zoomControl: false,
-      dragging: !staticView,
-      touchZoom: !staticView,
-      scrollWheelZoom: !staticView,
-      doubleClickZoom: !staticView,
-      boxZoom: !staticView,
-      keyboard: !staticView,
-      tapHold: !staticView,
-    }).setView(
-      viewport?.center || centers[city],
-      viewport?.zoom || (window.innerWidth < 700 ? 11 : 12),
-    );
-    map.current = m;
-    if (!staticView) L.control.zoom({ position: "topright" }).addTo(m);
-    markers.current = L.layerGroup().addTo(m);
-    if (clustered && !staticView)
-      clusters.current = L.markerClusterGroup({
-        maxClusterRadius: 45,
-        showCoverageOnHover: false,
-        spiderfyOnMaxZoom: true,
-      }).addTo(m);
-    const report = () => {
-      callbacks.current.onBounds?.(m.getBounds());
-      onViewport?.({
-        center: [m.getCenter().lat, m.getCenter().lng],
-        zoom: m.getZoom(),
-      });
-    };
-    m.on("moveend zoomend", report);
-    m.on("click", (e) => {
-      if (callbacks.current.onLocation)
-        callbacks.current.onLocation([e.latlng.lat, e.latlng.lng]);
-      else callbacks.current.onDismiss?.();
-    });
-    report();
-    const observer = new ResizeObserver(() => {
-      m.invalidateSize({ pan: false });
-      if (staticView) fitPropertyFrame(m);
-      report();
-    });
-    observer.observe(host.current);
-    return () => {
-      observer.disconnect();
-      m.remove();
-    };
-  }, []);
-  useEffect(() => {
-    const m = map.current;
-    if (!m) return;
-    tileLayer.current?.remove();
-    setTileError(false);
-    const satellite = mapLayer === "satellite";
-    const tiles = L.tileLayer(
-      satellite
-        ? "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        : "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 19,
-        attribution: satellite
-          ? "Tiles &copy; Esri, Maxar, Earthstar Geographics, and the GIS User Community"
-          : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      },
-    ).addTo(m);
-    tiles.on("tileerror", () => setTileError(true));
-    tiles.on("tileload", () => setTileError(false));
-    tileLayer.current = tiles;
-    return () => tiles.remove();
-  }, [mapLayer]);
-  useEffect(
-    () =>
-      bindMapInteractions(
-        map.current,
-        host.current,
-        window.matchMedia(mobileQuery),
-        scrollPreview,
-        staticView,
-      ),
-    [scrollPreview, staticView],
-  );
-  useEffect(() => {
-    map.current.setView(
-      focusPoint || viewport?.center || centers[city],
-      focusPoint ? 14 : viewport?.zoom || (window.innerWidth < 700 ? 11 : 12),
-    );
-  }, [city, resetKey, focusPoint?.[0], focusPoint?.[1]]);
-  useEffect(() => {
-    markers.current.clearLayers();
-    clusters.current?.clearLayers();
-    const animations = [];
-    items.forEach((p) => {
-      const point = mapPoint(p, requests);
-      if (!point) return;
-      const locked = isLocationLocked(p, requests);
-      const agent = agents.find((a) => a.id === p.agentId);
-      const boundary = plotBoundary({
-        ...p,
-        boundary: publicBoundary(p, requests),
-      });
-      if (boundary) {
-        const polygon = L.polygon(boundary, {
-          ...plotStyle(p, p.id === selected),
-          bubblingMouseEvents: false,
-          interactive: !staticView,
-        }).addTo(markers.current);
-        polygon.on("click", () => callbacks.current.onSelect?.(p.id));
-        const path = polygon.getElement();
-        if (path && !staticView) {
-          path.setAttribute("role", "button");
-          path.setAttribute("tabindex", "0");
-          path.setAttribute("aria-label", p.title + " plot boundary");
-          path.setAttribute("aria-pressed", String(p.id === selected));
-          path.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-              event.preventDefault();
-              callbacks.current.onSelect?.(p.id);
-            }
-          });
-        }
-      }
-      const label =
-        p.type === "Land" && p.mode === "BUY"
-          ? money(landPrice(p, priceUnit).amount).replace(/\s/g, "") +
-            { total: "", cent: "/c", sqft: "/sqft" }[priceUnit]
-          : pinPrice(p, money);
-      if (locked) {
-        L.circle(point, {
-          radius: Math.max(100, Number(p.privacy?.radiusM) || 800),
-          color: "#F96B13",
-          weight: 1.5,
-          fillColor: "#F96B13",
-          fillOpacity: 0.1,
-          interactive: false,
-        }).addTo(markers.current);
-      }
-      if (
-        !locked &&
-        accessBefore.current.get(p.id) &&
-        p.approx &&
-        !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ) {
-        const ring = L.circle(p.approx, {
-          radius: p.privacy?.radiusM || 800,
-          color: "#F96B13",
-          fillOpacity: 0.12,
-          interactive: false,
-        }).addTo(markers.current);
-        let start;
-        const frame = (t) => {
-          start ??= t;
-          const progress = Math.min(1, (t - start) / 500);
-          ring.setLatLng([
-            p.approx[0] + (point[0] - p.approx[0]) * progress,
-            p.approx[1] + (point[1] - p.approx[1]) * progress,
-          ]);
-          ring.setRadius(
-            Math.max(1, (p.privacy?.radiusM || 800) * (1 - progress)),
-          );
-          if (progress < 1) animations.push(requestAnimationFrame(frame));
-          else ring.remove();
-        };
-        animations.push(requestAnimationFrame(frame));
-      }
-      accessBefore.current.set(p.id, locked);
-      const marker = L.marker(point, {
-        icon: L.divIcon({
-          className:
-            (locked ? "agent-radius-marker " : "price-marker ") +
-            (p.type === "Land" ? "type-land " : "type-home ") +
-            (p.id === selected ? "selected" : ""),
-          html: locked
-            ? '<span><img alt="" src="' +
-              (agent?.avatar || "/agent-ananya.svg") +
-              '"/></span>'
-            : "<span>" + label + "</span>",
-          iconSize: [94, 38],
-          iconAnchor: [47, 40],
-        }),
-        title: p.title + ", " + label,
-        bubblingMouseEvents: false,
-        keyboard: !staticView,
-        interactive: !staticView,
-        zIndexOffset: p.id === selected ? 1000 : 0,
-      }).addTo(clusters.current || markers.current);
-      marker.on("click", () => callbacks.current.onSelect?.(p.id));
-      const el = marker.getElement();
-      el?.setAttribute("role", staticView ? "img" : "button");
-      el?.setAttribute(
-        "aria-label",
-        p.title + ", " + label.replace("/c", " per cent"),
-      );
-      if (!staticView)
-        el?.setAttribute("aria-pressed", String(selected === p.id));
-      el?.setAttribute("data-property-id", p.id);
-    });
-    hotspots.forEach((spot) => {
-      L.marker([spot.lat, spot.lng], {
-        icon: L.divIcon({
-          className: "hotspot-marker hotspot-" + spot.id,
-          html:
-            "<span><i>" +
-            spot.glyph +
-            "</i>" +
-            spot.label +
-            "<small>" +
-            spot.distance +
-            "</small></span>",
-          iconSize: [116, 32],
-          iconAnchor:
-            spot.id === "school"
-              ? [128, 54]
-              : spot.id === "hospital"
-                ? [40, 54]
-                : spot.id === "transit"
-                  ? [110, -12]
-                  : [65, -12],
-        }),
-        title: spot.label + " · " + spot.distance + " · illustrative location",
-        keyboard: !staticView,
-        interactive: !staticView,
-        zIndexOffset: 100,
-      }).addTo(markers.current);
-    });
-    return () => animations.forEach(cancelAnimationFrame);
-  }, [items, selected, priceUnit, hotspots, staticView, requests]);
-  useEffect(() => {
-    if (staticView) {
-      fitPropertyFrame(map.current);
-      return;
-    }
-    if (hotspots.length && focusPoint)
-      map.current.fitBounds(
-        L.latLngBounds([focusPoint, ...hotspots.map((p) => [p.lat, p.lng])]),
-        { padding: [65, 65], maxZoom: 14 },
-      );
-  }, [hotspots, staticView, focusPoint?.[0], focusPoint?.[1]]);
-  useEffect(() => {
-    if (point.current) point.current.remove();
-    if (location) {
-      if (onLocation)
-        map.current.setView(location, Math.max(map.current.getZoom(), 14));
-      point.current = L.marker(location, {
-        icon: L.divIcon({
-          className: "location-pin",
-          html: "<span></span>",
-          iconSize: [26, 26],
-        }),
-      }).addTo(map.current);
-    }
-  }, [location]);
-  return (
-    <>
-      {!staticView && (
-        <button
-          type="button"
-          className="map-layer-toggle"
-          aria-label="Satellite view"
-          aria-pressed={mapLayer === "satellite"}
-          onClick={() =>
-            setMapLayer((v) => (v === "street" ? "satellite" : "street"))
-          }
-        >
-          {mapLayer === "street" ? "Satellite" : "Street"}
-        </button>
-      )}
-      <div
-        className={"map-canvas" + (staticView ? " static-property-map" : "")}
-        data-map-layer={mapLayer}
-        ref={host}
-        role={staticView ? "region" : undefined}
-        aria-label={
-          staticView
-            ? "Property and surrounding hotspots"
-            : onLocation
-              ? "Choose a property location on the map"
-              : "Interactive property map"
-        }
-      >
-        {tileError && (
-          <div className="map-warning">
-            Map tiles unavailable. Check your connection; sample markers still
-            work.
-          </div>
-        )}
-      </div>
-      {items.some(
-        (p) =>
-          !isLocationLocked(p, requests) &&
-          plotBoundary({ ...p, boundary: publicBoundary(p, requests) }),
-      ) && (
-        <div className="plot-map-legend" aria-label="Plot status legend">
-          {["available", "reserved", "sold"].map((status) => (
-            <span key={status}>
-              <i className={status} />
-              {status}
-            </span>
-          ))}
-        </div>
-      )}
-    </>
-  );
-}
-function PropertyCard({
-  p,
-  saved,
-  onSave,
-  onOpen,
-  compact = false,
-  priceUnit = "total",
-}) {
-  return (
-    <article className={"property-card " + (compact ? "compact" : "")}>
-      <button
-        className="property-image"
-        onClick={() => onOpen(p)}
-        aria-label={"View " + p.title}
-      >
-        <img
-          src={p.photos?.[0] || "/" + p.image + ".jpg"}
-          alt={
-            p.type === "Land"
-              ? "Illustrative green residential land"
-              : `Illustrative ${String(typeLabel(p.type) || "property").toLowerCase()}`
-          }
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.style.opacity = 0;
-            e.currentTarget.parentElement.classList.add("photo-unavailable");
-          }}
-        />
-        <span className="badge">{p.tag}</span>
-      </button>
-      <button
-        className={"save-button " + (saved ? "is-saved" : "")}
-        aria-label={(saved ? "Unsave " : "Save ") + p.title}
-        aria-pressed={saved}
-        onClick={() => onSave(p.id)}
-      >
-        <Heart size={18} fill={saved ? "currentColor" : "none"} />
-      </button>
-      <button className="property-copy" onClick={() => onOpen(p)}>
-        <div className="price">
-          {p.type === "Land" && p.mode !== "BUY"
-            ? pinPrice(p, money)
-            : money(landPrice(p, priceUnit).amount)}
-          {p.type === "Land" && p.mode === "BUY" && (
-            <small>{landPrice(p, priceUnit).suffix || " total"}</small>
-          )}
-          {p.mode === "RENT" && p.type !== "Land" && (
-            <small>{priceBasis(p)}</small>
-          )}
-        </div>
-        <h3>{p.title}</h3>
-        <p className="muted location-line">
-          <MapPin size={13} />
-          {p.locality}, {p.city}
-        </p>
-        <div className="property-specs">
-          {!["Land", "Commercial", "PG"].includes(p.type) && (
-            <span>
-              <BedDouble />
-              {p.beds === 0 ? "Studio" : p.beds + " BHK"}
-            </span>
-          )}
-          {p.type === "PG" && <span>{p.occupancy}</span>}
-          {p.baths > 0 && (
-            <span>
-              <Bath />
-              {p.baths} baths
-            </span>
-          )}
-          <span>
-            <Square />
-            {p.type === "Land"
-              ? landArea(p.area)
-              : Number(p.area || 0).toLocaleString("en-IN") +
-                " sq ft · " +
-                areaBasis(p)}
-          </span>
-        </div>
-      </button>
-    </article>
-  );
-}
 function Empty({ title, description, action, onAction }) {
   return (
     <div className="empty">
@@ -875,853 +377,6 @@ function Empty({ title, description, action, onAction }) {
     </div>
   );
 }
-function PostFlow({ onExit, onComplete, city, initialDraft, agent }) {
-  const [step, setStep] = useState(() =>
-    initialDraft ? 1 : readLocal("centometer-draft", null)?.step || 0,
-  );
-  const [error, setError] = useState("");
-  const [done, setDone] = useState(false);
-  const emptyData = {
-    type: "Apartment",
-    intent: "SELL",
-    title: "",
-    price: "",
-    area: "",
-    beds: "1",
-    address: "",
-    description: "",
-    photos: [],
-    features: [],
-    location: null,
-    facing: "Not specified",
-  };
-  const [data, setData] = useState(() => ({
-    ...emptyData,
-    ...(initialDraft || readLocal("centometer-draft", null)?.data || {}),
-  }));
-  const [photosReady, setPhotosReady] = useState(false);
-  const [discardOpen, setDiscardOpen] = useState(false);
-  const [finishing, setFinishing] = useState(false);
-  const dirty = useRef(new Set());
-  useEffect(() => {
-    let active = true;
-    restorePhotos(
-      initialDraft || readLocal("centometer-draft", null)?.data || emptyData,
-    ).then((record) => {
-      if (active) {
-        setData((current) => ({ ...current, photos: record.photos || [] }));
-        setPhotosReady(true);
-      }
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
-  const draftId = useRef(
-    initialDraft?.id || readLocal("centometer-draft", null)?.id || Date.now(),
-  );
-  const {
-    status: draftStatus,
-    flush: flushDraft,
-    stop: stopDraft,
-  } = useDraftStorage(
-    { id: draftId.current, step, data },
-    photosReady && !done,
-  );
-  const exit = async () => {
-    await flushDraft();
-    onExit();
-  };
-  const set = (k, v) => {
-    dirty.current.add(k);
-    setData((d) => ({ ...d, [k]: v }));
-    setError("");
-  };
-  const chooseType = (type) => {
-    setData((d) => ({
-      ...d,
-      type,
-      ...(type === "Land"
-        ? {
-            landType: d.landType || "Residential",
-            highlights: d.highlights || [],
-          }
-        : {}),
-      photos: (type === "Land") !== (d.type === "Land") ? [] : d.photos,
-      ...Object.fromEntries(
-        ["title", "description", "price"]
-          .filter((key) => !dirty.current.has(key))
-          .map((key) => [key, ""]),
-      ),
-    }));
-    setError("");
-  };
-  const chooseIntent = (intent) => {
-    setData((d) => ({
-      ...d,
-      intent,
-      type: intent === "SELL" && d.type === "PG" ? "Apartment" : d.type,
-      ...Object.fromEntries(
-        ["title", "description", "price"]
-          .filter((key) => !dirty.current.has(key))
-          .map((key) => [key, ""]),
-      ),
-    }));
-    setError("");
-  };
-  const fillSample = () => {
-    setData((d) => ({
-      ...d,
-      title:
-        d.type === "Land"
-          ? "A generous plot at Greenfield"
-          : d.type === "PG"
-            ? "A private room at Parkside PG"
-            : "A sunlit home at Parkside",
-      price: d.intent === "RENT" ? "12000" : "7200000",
-      area: d.type === "PG" ? "180" : "1200",
-      address: city + " — sample central location",
-      description:
-        d.type === "Land"
-          ? "Residential plot with road access and open views."
-          : "A bright property close to everyday conveniences.",
-      photos: d.type === "Land" ? ["/land.jpg"] : ["/apartment.jpg"],
-      location: centers[city],
-      landType: d.type === "Land" ? "Residential" : d.landType,
-      occupancy: "Private room",
-      meals: "Not included",
-      bathroom: "Attached",
-      ac: "No",
-      baths: 1,
-      features: ["Parking"],
-      deposit: d.intent === "RENT" ? "24000" : "",
-      maintenance: d.intent === "RENT" ? "1000" : "",
-    }));
-    for (const key of ["title", "price", "address", "description"])
-      dirty.current.add(key);
-    setError("");
-  };
-  const [uploading, setUploading] = useState(false);
-  const upload = async (e) => {
-    const input = e.target;
-    const files = [...input.files].slice(0, 6 - data.photos.length);
-    if (!files.length) return;
-    setUploading(true);
-    setError("");
-    try {
-      const photos = await compressPhotos(files);
-      set("photos", [...data.photos, ...photos]);
-    } catch (error) {
-      setError(
-        error.message || "Could not process this photo. Try another image.",
-      );
-    } finally {
-      setUploading(false);
-      input.value = "";
-    }
-  };
-  const next = () => {
-    if (step === 1 && data.type === "Land") {
-      if (!data.landType && !data.subtype) {
-        setError("Select a land type.");
-        return;
-      }
-      if (
-        (data.length || data.width) &&
-        (!(Number(data.length) > 0) || !(Number(data.width) > 0))
-      ) {
-        setError("Enter a positive length and width.");
-        return;
-      }
-    }
-    if (
-      step === 1 &&
-      (!data.title.trim() ||
-        !(Number(data.price) > 0) ||
-        !(Number(data.area) > 0) ||
-        data.photos.length === 0)
-    ) {
-      setError(
-        "Add a title, a positive price and area, and at least one sample photo.",
-      );
-      return;
-    }
-    if (step === 2 && !cityForLocation(data.location)) {
-      setError("Choose a pin within 60 km of Bengaluru, Hyderabad or Pune.");
-      return;
-    }
-    if (step === 2 && (!data.address.trim() || !data.location)) {
-      setError("Add a locality and choose a point on the map.");
-      return;
-    }
-    setError("");
-    setStep(step + 1);
-  };
-  if (done)
-    return (
-      <div className="success-page">
-        <span className="success-icon">
-          <CheckCircle2 size={42} />
-        </span>
-        <p className="eyebrow">ALL SET</p>
-        <h1>Your listing looks great.</h1>
-        <p>
-          Your sample listing is ready to review on this device.
-          <br />
-          Nothing has been published.
-        </p>
-        <button className="primary" onClick={exit}>
-          Back to exploring
-        </button>
-      </div>
-    );
-  return (
-    <section className="page post-page">
-      <button className="back-button" onClick={onExit}>
-        <ArrowLeft size={18} />
-        Back to exploring
-      </button>
-      <div className="page-intro">
-        <span className="eyebrow">MAKE ROOM FOR WHAT’S NEXT</span>
-        <h1>Post property</h1>
-      </div>
-      <div className="draft-tools">
-        <span role="status">{draftStatus}</span>
-        <button className="secondary" onClick={exit}>
-          Save draft & exit
-        </button>
-        <button className="text-button" onClick={() => setDiscardOpen(true)}>
-          Discard draft
-        </button>
-        <button type="button" className="text-button" onClick={fillSample}>
-          Fill with sample data
-        </button>
-      </div>
-      {discardOpen && (
-        <Modal
-          title="Discard this draft?"
-          onClose={() => setDiscardOpen(false)}
-        >
-          <p>This removes this unfinished draft from your device.</p>
-          <div className="modal-actions">
-            <button className="secondary" onClick={() => setDiscardOpen(false)}>
-              Keep editing
-            </button>
-            <button
-              className="primary"
-              onClick={async () => {
-                await stopDraft();
-                removeLocal("centometer-draft");
-                writeLocal(
-                  "centometer-draft-bank",
-                  readLocal("centometer-draft-bank", []).filter(
-                    (x) => String(x.id) !== String(draftId.current),
-                  ),
-                );
-                await deletePhotos("draft:" + draftId.current);
-                onExit();
-              }}
-            >
-              Discard draft
-            </button>
-          </div>
-        </Modal>
-      )}
-      <div className="stepper">
-        {["Type", "Details", "Location", "Review"].map((s, i) => (
-          <div key={s} className={i <= step ? "active" : ""}>
-            <span>{i < step ? <Check size={16} /> : i + 1}</span>
-            <small>{s}</small>
-          </div>
-        ))}
-      </div>
-      <div className="post-panel">
-        <div className="form-stack">
-          {step === 0 && (
-            <>
-              <h2>What would you like to list?</h2>
-              <div
-                className="segment"
-                role="group"
-                aria-label="Listing purpose"
-              >
-                {["SELL", "RENT"].map((i) => (
-                  <button
-                    type="button"
-                    key={i}
-                    aria-pressed={data.intent === i}
-                    onClick={() => chooseIntent(i)}
-                    className={data.intent === i ? "active" : ""}
-                  >
-                    {i === "SELL" ? "For sale" : "For rent"}
-                  </button>
-                ))}
-              </div>
-              <PropertyTypes
-                mode={data.intent}
-                value={data.type}
-                onChange={(t) => {
-                  if (t !== data.type) chooseType(t);
-                }}
-              />
-            </>
-          )}
-          {step === 1 && (
-            <>
-              <h2>
-                {data.type === "Land"
-                  ? "Land details"
-                  : "Tell the story of your property."}
-              </h2>
-              <label>
-                Listing title
-                <input
-                  maxLength={80}
-                  placeholder="Give your listing a clear title"
-                  value={data.title}
-                  onChange={(e) => set("title", e.target.value)}
-                />
-              </label>
-              <div
-                className={
-                  "form-columns" +
-                  (data.type === "Land" ? " land-price-area" : "")
-                }
-              >
-                <label>
-                  {data.intent === "RENT" ? "Monthly rent" : "Asking price"} (₹)
-                  <input
-                    type="number"
-                    min="1"
-                    placeholder="Enter amount"
-                    value={data.price}
-                    onChange={(e) => set("price", e.target.value)}
-                  />
-                </label>
-                {data.type === "Land" ? (
-                  <LandAreaFields data={data} set={set} />
-                ) : (
-                  <label>
-                    Area (sq ft)
-                    <input
-                      type="number"
-                      min="1"
-                      placeholder="Enter area"
-                      value={data.area}
-                      onChange={(e) => set("area", e.target.value)}
-                    />
-                  </label>
-                )}
-              </div>
-              {data.type === "Land" && <LandFields data={data} set={set} />}
-              {data.intent === "RENT" && (
-                <div className="form-columns">
-                  <label>
-                    Deposit (₹)
-                    <input
-                      type="number"
-                      min="0"
-                      value={data.deposit ?? ""}
-                      onChange={(e) => set("deposit", e.target.value)}
-                    />
-                  </label>
-                  <label>
-                    Monthly maintenance (₹)
-                    <input
-                      type="number"
-                      min="0"
-                      value={data.maintenance ?? ""}
-                      onChange={(e) => set("maintenance", e.target.value)}
-                    />
-                  </label>
-                </div>
-              )}
-              {data.type === "PG" && (
-                <div className="form-columns">
-                  {[
-                    [
-                      "occupancy",
-                      "Occupancy",
-                      ["Private room", "Twin sharing", "Triple sharing"],
-                    ],
-                    ["meals", "Meals", ["Included", "Not included"]],
-                    ["bathroom", "Bathroom", ["Attached", "Shared"]],
-                    ["ac", "AC", ["Yes", "No"]],
-                  ].map(([key, label, options]) => (
-                    <label key={key}>
-                      {label}
-                      <select
-                        value={data[key] || ""}
-                        onChange={(e) => set(key, e.target.value)}
-                      >
-                        <option value="">Select</option>
-                        {options.map((x) => (
-                          <option key={x}>{x}</option>
-                        ))}
-                      </select>
-                    </label>
-                  ))}
-                </div>
-              )}
-              {data.type !== "Land" && (
-                <>
-                  <label>
-                    Bathrooms
-                    <input
-                      type="number"
-                      min="0"
-                      max="20"
-                      value={data.baths ?? ""}
-                      onChange={(e) => set("baths", e.target.value)}
-                    />
-                  </label>
-                  <fieldset className="land-highlight-options">
-                    <legend>Amenities</legend>
-                    <div className="chips">
-                      {[
-                        "Parking",
-                        "Lift access",
-                        "Balcony",
-                        "Wi-Fi",
-                        "Housekeeping",
-                        "Meals included",
-                      ].map((feature) => (
-                        <button
-                          type="button"
-                          key={feature}
-                          className={
-                            "chip " +
-                            ((data.features || []).includes(feature)
-                              ? "active"
-                              : "")
-                          }
-                          aria-pressed={(data.features || []).includes(feature)}
-                          onClick={() =>
-                            set(
-                              "features",
-                              (data.features || []).includes(feature)
-                                ? data.features.filter((x) => x !== feature)
-                                : [...(data.features || []), feature],
-                            )
-                          }
-                        >
-                          {feature}
-                        </button>
-                      ))}
-                    </div>
-                  </fieldset>
-                </>
-              )}
-              {!["Land", "Commercial"].includes(data.type) && (
-                <label>
-                  Bedrooms
-                  <select
-                    value={data.beds}
-                    onChange={(e) => set("beds", e.target.value)}
-                  >
-                    {[1, 2, 3, 4, 5].map((n) => (
-                      <option key={n}>{n}</option>
-                    ))}
-                  </select>
-                </label>
-              )}
-              {supportsFacing(data.type) && (
-                <label>
-                  Facing direction
-                  <select
-                    value={data.facing || "Not specified"}
-                    onChange={(e) => set("facing", e.target.value)}
-                  >
-                    {["Not specified", ...facingDirections].map((direction) => (
-                      <option key={direction}>{direction}</option>
-                    ))}
-                  </select>
-                  {data.type !== "Land" && (
-                    <small>
-                      Direction the main entrance faces when looking out.
-                    </small>
-                  )}
-                </label>
-              )}
-              <OptionalListingFields data={data} set={set} />
-              {
-                <label>
-                  Description
-                  <textarea
-                    rows="3"
-                    placeholder={
-                      data.type === "Land"
-                        ? "Describe access, nearby landmarks, approvals and land highlights"
-                        : "Describe the property and its highlights"
-                    }
-                    value={data.description}
-                    onChange={(e) => set("description", e.target.value)}
-                  />
-                </label>
-              }
-              <div>
-                <label>
-                  Property photos{" "}
-                  <small>
-                    Up to 6 • JPG, PNG or WebP • Automatically optimized
-                  </small>
-                </label>
-                <div className="upload-zone">
-                  <ImagePlus size={27} />
-                  <p>Make a beautiful first impression</p>
-                  <label className="secondary upload-label">
-                    {uploading ? "Optimizing photos…" : "Choose images"}
-                    <input
-                      aria-label="Upload property images"
-                      type="file"
-                      accept="image/jpeg,image/png,image/webp"
-                      multiple
-                      onChange={upload}
-                      disabled={uploading || data.photos.length >= 6}
-                    />
-                  </label>
-                  <button
-                    className="text-button"
-                    onClick={() =>
-                      set(
-                        "photos",
-                        data.type === "Land"
-                          ? ["/land.jpg"]
-                          : ["/villa.jpg", "/apartment.jpg"],
-                      )
-                    }
-                  >
-                    Use sample photos
-                  </button>
-                  <small>
-                    Draft details are saved on this device. Large photos may
-                    need reselecting.
-                  </small>
-                </div>
-                <div className="upload-previews">
-                  {data.photos.map((url, i) => (
-                    <div key={i}>
-                      <img src={url} alt={"Selected photo " + (i + 1)} />
-                      <button
-                        className="photo-order"
-                        onClick={() =>
-                          set("photos", [
-                            url,
-                            ...data.photos.filter((_, j) => j !== i),
-                          ])
-                        }
-                      >
-                        {i === 0 ? "Cover photo" : "Make cover"}
-                      </button>
-                      {i > 0 && (
-                        <button
-                          className="photo-move"
-                          aria-label={"Move photo " + (i + 1) + " earlier"}
-                          onClick={() => {
-                            const next = [...data.photos];
-                            [next[i - 1], next[i]] = [next[i], next[i - 1]];
-                            set("photos", next);
-                          }}
-                        >
-                          ← Move earlier
-                        </button>
-                      )}
-                      <IconButton
-                        label={"Remove photo " + (i + 1)}
-                        onClick={() =>
-                          set(
-                            "photos",
-                            data.photos.filter((_, j) => j !== i),
-                          )
-                        }
-                      >
-                        <X size={14} />
-                      </IconButton>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </>
-          )}
-          {step === 2 && (
-            <>
-              {agent && (
-                <fieldset>
-                  <legend>Location sharing</legend>
-                  <label>
-                    Public map visibility
-                    <select
-                      value={data.shareDefault?.mode || "hidden"}
-                      onChange={(e) =>
-                        set("shareDefault", {
-                          mode: e.target.value,
-                          radiusM: data.shareDefault?.radiusM || 500,
-                        })
-                      }
-                    >
-                      <option value="hidden">Hidden</option>
-                      <option value="radius">Approximate area</option>
-                    </select>
-                  </label>
-                  {data.shareDefault?.mode === "radius" && (
-                    <label>
-                      Radius
-                      <select
-                        value={data.shareDefault.radiusM || 500}
-                        onChange={(e) =>
-                          set("shareDefault", {
-                            ...data.shareDefault,
-                            radiusM: Number(e.target.value),
-                          })
-                        }
-                      >
-                        {[300, 500, 1000].map((n) => (
-                          <option key={n} value={n}>
-                            {n} m
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  )}
-                  <p>
-                    Exact coordinates are stored separately. A buyer needs your
-                    approval.
-                  </p>
-                </fieldset>
-              )}
-              <h2>Put your property on the map.</h2>
-              <LocationSearch
-                value={data.address}
-                onChange={(value) => set("address", value)}
-                city={city}
-                onPick={(point, label) => {
-                  set("location", point);
-                  set("address", label);
-                }}
-              />
-              <p className="muted">Tap the map to place your property pin.</p>
-              <div className="location-picker">
-                <MapView
-                  city={city}
-                  location={data.location}
-                  onLocation={(coords) => set("location", coords)}
-                />
-              </div>
-              <button
-                type="button"
-                className="secondary"
-                onClick={() => {
-                  if (!navigator.geolocation) {
-                    setError("GPS is unavailable in this browser.");
-                    return;
-                  }
-                  navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                      set("location", [
-                        position.coords.latitude,
-                        position.coords.longitude,
-                      ]);
-                      setError("");
-                    },
-                    () =>
-                      setError(
-                        "Allow location access or place your pin on the map.",
-                      ),
-                    { enableHighAccuracy: true, timeout: 12000 },
-                  );
-                }}
-              >
-                <LocateFixed size={17} />
-                Use my current GPS
-              </button>
-              <button
-                className="secondary"
-                onClick={() => {
-                  set("location", centers[city]);
-                  set("address", city + " — sample central location");
-                }}
-              >
-                <LocateFixed size={17} />
-                Use sample location
-              </button>
-              {data.location && (
-                <p className="positive">
-                  <CheckCircle2 size={16} />
-                  Pin placed at{" "}
-                  {data.location.map((n) => n.toFixed(4)).join(", ")}
-                </p>
-              )}
-            </>
-          )}
-          {step === 3 && (
-            <>
-              <h2>One last look.</h2>
-              <div className="form-columns seller-contact-fields">
-                <label>
-                  Contact name
-                  <input
-                    value={data.contactName || ""}
-                    placeholder="Owner or agent name"
-                    onChange={(e) => set("contactName", e.target.value)}
-                  />
-                </label>
-                <label>
-                  Phone number
-                  <input
-                    type="tel"
-                    inputMode="tel"
-                    value={data.contactPhone || ""}
-                    placeholder="+91 mobile number"
-                    onChange={(e) => set("contactPhone", e.target.value)}
-                  />
-                </label>
-                <label>
-                  WhatsApp (optional)
-                  <input
-                    type="tel"
-                    inputMode="tel"
-                    value={data.whatsapp || ""}
-                    placeholder="Same as phone if left blank"
-                    onChange={(e) => set("whatsapp", e.target.value)}
-                  />
-                </label>
-              </div>
-              <OptionalPropertyDetails
-                p={{ ...data, mode: data.intent === "RENT" ? "RENT" : "BUY" }}
-              />
-              <div className="review-image">
-                <img src={data.photos[0]} alt="Your sample listing" />
-                <span className="badge">
-                  {data.intent === "SELL" ? "For sale" : "For rent"}
-                </span>
-              </div>
-              <div className="price">
-                {money(Number(data.price))}
-                {data.intent === "RENT" ? " / month" : ""}
-              </div>
-              <h3>{data.title}</h3>
-              <p className="muted">
-                {typeLabel(data.type)}
-                {data.type !== "Land"
-                  ? " · " + Number(data.area).toLocaleString("en-IN") + " sq ft"
-                  : ""}{" "}
-                · {data.address}
-              </p>
-              {data.type === "Land" ? (
-                <LandSummary p={data} />
-              ) : (
-                <p>{data.description}</p>
-              )}
-              {data.type !== "Land" && supportsFacing(data.type) && (
-                <p>
-                  <strong>Facing direction:</strong>{" "}
-                  {data.facing || "Not specified"}
-                </p>
-              )}
-              <div className="note">
-                <Info size={18} />
-                <span>
-                  This is a design preview. Finishing saves a sample listing on
-                  this device only.
-                </span>
-              </div>
-            </>
-          )}
-          {error && (
-            <p className="form-error" role="alert">
-              {error}
-            </p>
-          )}
-          <div className="modal-actions">
-            {step > 0 ? (
-              <button
-                className="secondary"
-                onClick={() => {
-                  setStep(step - 1);
-                  setError("");
-                }}
-              >
-                Back
-              </button>
-            ) : (
-              <span />
-            )}
-            {step < 3 ? (
-              <button className="primary" onClick={next}>
-                Continue
-                <ChevronRight size={17} />
-              </button>
-            ) : (
-              <button
-                className="primary"
-                disabled={finishing || !photosReady}
-                onClick={async () => {
-                  if (!indianMobile(data.contactPhone)) {
-                    setError(
-                      "Enter a valid 10-digit Indian mobile number starting with 6–9.",
-                    );
-                    return;
-                  }
-                  if (data.whatsapp && !indianMobile(data.whatsapp)) {
-                    setError(
-                      "Enter a valid WhatsApp mobile number or leave it blank.",
-                    );
-                    return;
-                  }
-                  if (
-                    (data.propertyAge !== undefined &&
-                      data.propertyAge !== "" &&
-                      (!Number.isFinite(Number(data.propertyAge)) ||
-                        Number(data.propertyAge) < 0)) ||
-                    (data.totalFloors !== undefined &&
-                      data.totalFloors !== "" &&
-                      (!Number.isInteger(Number(data.totalFloors)) ||
-                        Number(data.totalFloors) < 1))
-                  ) {
-                    setError(
-                      "Enter a non-negative property age and a positive whole number of floors.",
-                    );
-                    return;
-                  }
-                  setFinishing(true);
-                  try {
-                    await onComplete({
-                      ...data,
-                      id: draftId.current,
-                      createdAt: data.createdAt || new Date().toISOString(),
-                      postedAt: data.postedAt || new Date().toISOString(),
-                    });
-                    await stopDraft();
-                    removeLocal("centometer-draft");
-                    writeLocal(
-                      "centometer-draft-bank",
-                      readLocal("centometer-draft-bank", []).filter(
-                        (x) => String(x.id) !== String(draftId.current),
-                      ),
-                    );
-                    await deletePhotos("draft:" + draftId.current);
-                    setDone(true);
-                  } catch (error) {
-                    setError(
-                      error.message ||
-                        "Could not save this listing. Keep editing and retry.",
-                    );
-                  } finally {
-                    setFinishing(false);
-                  }
-                }}
-              >
-                {finishing ? "Saving…" : "Finish preview"}
-                <Check size={17} />
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export default function App() {
   const agentState = useAgentStore();
   const intentFilters = useRef({ BUY: initialFilters, RENT: initialFilters });
@@ -1749,7 +404,7 @@ export default function App() {
   );
   useEffect(() => {
     writeLocal("centometer-location-requests", legacyLocationRequests);
-  }, [locationRequests]);
+  }, [legacyLocationRequests]);
   useEffect(() => {
     let active = true;
     restoreExactLocations().then(() => {
@@ -1947,12 +602,15 @@ export default function App() {
   useEffect(() => {
     writeLocal("centometer-activity", activity);
   }, [activity]);
-  const navigate = (r) => {
-    if (route === r) window.scrollTo(0, 0);
-    else if (history.state?.centometerOverlay) location.replace("#" + r);
-    else location.hash = r;
-    setModal(null);
-  };
+  const navigate = useCallback(
+    (r) => {
+      if (route === r) window.scrollTo(0, 0);
+      else if (history.state?.centometerOverlay) location.replace("#" + r);
+      else location.hash = r;
+      setModal(null);
+    },
+    [route],
+  );
   const openSearch = () => {
     searchReturn.current = route;
     navigate("search");
@@ -1976,15 +634,20 @@ export default function App() {
     } else navigate("results");
   };
   const notify = (s) => setToast(s);
-  const save = (id) => {
-    setSavedToastId(saved.includes(id) ? null : id);
-    setSaved((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
-    notify(
-      saved.includes(id)
-        ? "Removed from your saved places"
-        : "Added to your saved places",
+  const savedRef = useRef(saved);
+  savedRef.current = saved;
+  const save = useCallback((id) => {
+    const had = savedRef.current.includes(id);
+    const next = had
+      ? savedRef.current.filter((x) => x !== id)
+      : [...savedRef.current, id];
+    savedRef.current = next;
+    setSaved(next);
+    setSavedToastId(had ? null : id);
+    setToast(
+      had ? "Removed from your saved places" : "Added to your saved places",
     );
-  };
+  }, []);
   const [isMobile, setIsMobile] = useState(
     () => window.matchMedia(mobileQuery).matches,
   );
@@ -2120,58 +783,72 @@ export default function App() {
     setBounds(null);
     setQuery("");
   };
-  const open = (p) => {
-    if (p.agentId) {
-      navigate(
-        "agent/" +
-          agents.find((a) => a.id === p.agentId)?.handle +
-          "?l=" +
-          p.id,
-      );
-      return;
-    }
-    returnTo.current = { route, scroll: window.scrollY };
-    setRecent((r) => [p.id, ...r.filter((id) => id !== p.id)].slice(0, 8));
-    navigate("property/" + p.id);
-  };
+  const open = useCallback(
+    (p) => {
+      if (p.agentId) {
+        navigate(
+          "agent/" +
+            agents.find((a) => a.id === p.agentId)?.handle +
+            "?l=" +
+            p.id,
+        );
+        return;
+      }
+      returnTo.current = { route, scroll: window.scrollY };
+      setRecent((r) => [p.id, ...r.filter((id) => id !== p.id)].slice(0, 8));
+      navigate("property/" + p.id);
+    },
+    [navigate, route],
+  );
   const goBack = () => {
     restoreScroll.current = returnTo.current.scroll;
     navigate(returnTo.current.route);
   };
   const handleBounds = useCallback((b) => setBounds(b), []);
-  const renderCard = (p, compact = false) => (
-    <div key={p.id} className={compact ? "compact-wrapper" : "card-wrapper"}>
+  const renderCard = (p, compact = false) =>
+    compact ? (
       <PropertyCard
+        key={p.id}
         p={p}
         saved={saved.includes(p.id)}
         onSave={save}
         onOpen={open}
-        compact={compact}
+        compact
         priceUnit={priceUnit}
       />
-      {!compact && (
-        <div className="card-meta">
-          <span>
-            {p.seller} · {p.available}
-          </span>
-          <small>{p.freshness} · Sample</small>
-          {p.mode === "RENT" &&
-            (p.deposit != null || p.maintenance != null) && (
-              <small>
-                {[
-                  p.deposit != null ? "Deposit " + money(p.deposit) : null,
-                  p.maintenance != null
-                    ? "Maintenance " + money(p.maintenance) + "/mo"
-                    : null,
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </small>
-            )}
-        </div>
-      )}
-    </div>
-  );
+    ) : (
+      <div key={p.id} className={compact ? "compact-wrapper" : "card-wrapper"}>
+        <PropertyCard
+          p={p}
+          saved={saved.includes(p.id)}
+          onSave={save}
+          onOpen={open}
+          compact={compact}
+          priceUnit={priceUnit}
+        />
+        {!compact && (
+          <div className="card-meta">
+            <span>
+              {p.seller} · {p.available}
+            </span>
+            <small>{p.freshness} · Sample</small>
+            {p.mode === "RENT" &&
+              (p.deposit != null || p.maintenance != null) && (
+                <small>
+                  {[
+                    p.deposit != null ? "Deposit " + money(p.deposit) : null,
+                    p.maintenance != null
+                      ? "Maintenance " + money(p.maintenance) + "/mo"
+                      : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </small>
+              )}
+          </div>
+        )}
+      </div>
+    );
   const searchNearMe = () => {
     setAgentPicks(false);
     if (!navigator.geolocation) {
@@ -4027,7 +2704,8 @@ export default function App() {
           <SearchLibrary
             entries={savedSearches}
             onChange={setSavedSearches}
-            onOpen={(entry) => {
+            onOpen={async (entry) => {
+              const { default: L } = await import("leaflet");
               mapViewport.current = entry.viewport || null;
               setBounds(entry.bounds ? L.latLngBounds(entry.bounds) : null);
               setAreaOnly(!!entry.bounds);

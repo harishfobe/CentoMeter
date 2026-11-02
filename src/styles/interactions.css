@@ -105,3 +105,201 @@ a[href],
     transition: none !important;
   }
 }
+/* Shadows are painted once; only the lift changes during interaction. */
+.property-card,
+.agent-card {
+  box-shadow: 0 3px 16px #18181b0a;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .leaflet-container .price-marker > span {
+    transition: transform 180ms var(--ease-out);
+  }
+}
+/* Geometry-bearing skeletons used by actual deferred imports. */
+.loading-skeleton {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px 16px;
+  min-height: 70dvh;
+}
+.loading-heading,
+.loading-line,
+.loading-photo {
+  position: relative;
+  overflow: hidden;
+  background: #f0f0f2;
+  border-radius: 12px;
+}
+.loading-heading {
+  height: 32px;
+  width: min(300px, 85%);
+  margin-bottom: 8px;
+}
+.loading-line {
+  height: 44px;
+  margin-bottom: 12px;
+}
+.loading-content {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.loading-card {
+  border: 1px solid #e4e4e7;
+  border-radius: 18px;
+  padding: 16px;
+  min-height: 336px;
+}
+.loading-photo {
+  height: 210px;
+  margin-bottom: 16px;
+}
+.loading-card .loading-line {
+  height: 20px;
+}
+.loading-line.short {
+  width: 60%;
+}
+.loading-form .loading-content,
+.loading-detail .loading-content {
+  grid-template-columns: 1fr;
+}
+.loading-form .loading-card,
+.loading-detail .loading-card {
+  min-height: 450px;
+}
+.loading-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  padding: 0;
+  min-height: 0;
+}
+.loading-map .loading-content,
+.loading-map .loading-card,
+.loading-map .loading-photo {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+.loading-map .loading-content {
+  display: block;
+}
+.loading-map .loading-line {
+  display: none;
+}
+.loading-finder > .loading-line {
+  height: 48px;
+  margin-bottom: 88px;
+}
+.loading-profile > .loading-heading {
+  width: 100%;
+  height: 280px;
+}
+@media (max-width: 760px) {
+  .loading-content {
+    grid-template-columns: 1fr;
+  }
+  .loading-finder {
+    padding-top: 4px;
+  }
+  .loading-finder .loading-heading {
+    margin-bottom: 4px;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .loading-heading::after,
+  .loading-line::after,
+  .loading-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, #ffffffb0, transparent);
+    translate: -100% 0;
+    animation: loading-shimmer 1.3s var(--ease-out) infinite;
+  }
+  @keyframes loading-shimmer {
+    to {
+      translate: 100% 0;
+    }
+  }
+}
+/* Vendor map movement follows the same motion contract. Spider-leg geometry is instant. */
+.leaflet-container .leaflet-cluster-spider-leg {
+  transition: none !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .leaflet-container.leaflet-zoom-anim .leaflet-zoom-animated {
+    transition: transform 250ms var(--ease-out);
+  }
+  .leaflet-container.leaflet-fade-anim .leaflet-popup {
+    transition: opacity 200ms var(--ease-out);
+  }
+  .leaflet-container .leaflet-cluster-anim .leaflet-marker-icon,
+  .leaflet-container.leaflet-cluster-anim .leaflet-marker-icon {
+    transition:
+      transform 300ms var(--ease-out),
+      opacity 200ms var(--ease-out);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .leaflet-container *,
+  .leaflet-container *::before,
+  .leaflet-container *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.agent-location-map {
+  position: relative;
+}
+.loading-identity {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.loading-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f0f0f2;
+}
+.loading-identity .loading-line {
+  flex: 1;
+  margin: 0;
+}
+.loading-finder .loading-photo {
+  height: 78px;
+  margin: 16px 0;
+}
+.loading-finder .loading-card {
+  min-height: 336px;
+}
+.loading-finder .loading-card > .loading-line:last-child {
+  height: 44px;
+  width: 100%;
+  margin-bottom: 0;
+}
+.loading-detail {
+  padding: 0;
+}
+.loading-detail > .loading-heading,
+.loading-detail > .loading-line {
+  display: none;
+}
+.loading-detail .loading-photo {
+  height: 235px;
+}
+@media (min-width: 1024px) {
+  .loading-detail .loading-photo {
+    height: 300px;
+  }
+}

@@ -1,25 +1,22 @@
 import React, { useRef, useEffect } from "react";
-import { observeOnce, reducedMotion } from "../../lib/agentMotion";
+import { observeOnce, animateMotion } from "../../lib/agentMotion";
 function Counter({ value }) {
   const ref = useRef(null);
   useEffect(() => {
-    if (typeof value !== "number" || reducedMotion()) return;
-    let frame = 0;
+    let animation;
     const stop = observeOnce(ref.current, () => {
-      const start = performance.now();
-      const tick = (now) => {
-        const t = reducedMotion() ? 1 : Math.min(1, (now - start) / 700);
-        if (ref.current)
-          ref.current.textContent = String(
-            Math.round(value * (1 - Math.pow(1 - t, 3))),
-          );
-        if (t < 1) frame = requestAnimationFrame(tick);
-      };
-      frame = requestAnimationFrame(tick);
+      animation = animateMotion(
+        ref.current,
+        [
+          { opacity: 0, translate: "0 4px" },
+          { opacity: 1, translate: "0 0" },
+        ],
+        { duration: 280 },
+      );
     });
     return () => {
       stop();
-      cancelAnimationFrame(frame);
+      animation?.cancel();
     };
   }, [value]);
   return (

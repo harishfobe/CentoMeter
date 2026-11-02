@@ -379,6 +379,9 @@ export function Gallery({ p }) {
       >
         {images.map((src, i) => (
           <img
+            width="800"
+            height="500"
+            decoding="async"
             src={src}
             alt={`Illustrative ${typeLabel(p.type)} photo ${i + 1}`}
             key={i}

@@ -440,7 +440,14 @@ export default function SearchDiscovery({
                     onClick={() => onProject(p)}
                     aria-label={`View ${p.title}`}
                   >
-                    <img src={`/${p.image}.jpg`} alt="" loading="lazy" />
+                    <img
+                      src={`/${p.image}.jpg`}
+                      width="80"
+                      height="60"
+                      decoding="async"
+                      alt=""
+                      loading="lazy"
+                    />
                     <span className="project-copy">
                       <strong>{p.title}</strong>
                       <small>{p.locality}</small>

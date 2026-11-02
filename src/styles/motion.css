@@ -273,15 +273,10 @@
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
 .agent-map-reveal {
-  display: grid;
-  grid-template-rows: 0fr;
-}
-.agent-map-reveal > div {
-  overflow: hidden;
-  min-height: 0;
+  display: none;
 }
 .agent-map-reveal[data-open="true"] {
-  grid-template-rows: 1fr;
+  display: block;
 }
 .agent-lock-swap {
   display: grid;
@@ -439,17 +434,16 @@
   .modal[data-dragging="true"] {
     animation: none !important;
   }
-  /* Explicit map-reveal exception requested: grid tracks, never animated height. */
-  .agent-map-reveal {
-    transition: grid-template-rows 280ms var(--ease-out);
+  .agent-map-reveal[data-open="true"] {
+    animation: agent-backdrop-in 200ms var(--ease-out);
   }
   .agent-lock-swap svg {
     transition:
       opacity var(--t),
       rotate var(--t) var(--ease-out);
   }
-  .agent-success-check path {
-    animation: agent-check-draw 400ms var(--ease-out);
+  .agent-success-check {
+    animation: agent-success-in 280ms var(--ease-out);
   }
   .agent-detail-actions .primary:disabled {
     animation: agent-request-pulse 400ms var(--ease-out);
@@ -548,12 +542,14 @@
       opacity: 1;
     }
   }
-  @keyframes agent-check-draw {
+  @keyframes agent-success-in {
     from {
-      stroke-dashoffset: 42;
+      opacity: 0;
+      scale: 0.85;
     }
     to {
-      stroke-dashoffset: 0;
+      opacity: 1;
+      scale: 1;
     }
   }
   @keyframes agent-request-pulse {
