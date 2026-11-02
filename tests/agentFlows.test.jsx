@@ -129,3 +129,34 @@ it("counts a view once per agent session and renders custom listings immediately
   );
   expect(screen.getByText("New custom home")).toBeTruthy();
 });
+it("shows an edited sample listing once, using its latest title", () => {
+  updateStore((s) => ({
+    ...s,
+    customListings: [{ ...property, title: "Updated listing title" }],
+  }));
+  setup();
+  const matches = document.querySelectorAll(
+    `.agent-motion-grid [data-listing-id="${property.id}"]`,
+  );
+  expect(matches).toHaveLength(1);
+  expect(matches[0].textContent).toContain("Updated listing title");
+});
+it("offers a single action to reopen an expired request", () => {
+  const request = {
+    id: "retry-test",
+    agentId: agent.id,
+    propertyId: property.id,
+    viewerId: undefined,
+    status: "expired",
+    createdAt: "2020-01-01T00:00:00Z",
+  };
+  // Use the same current buyer as the application, preserving the per-viewer lock.
+  return import("../src/lib/agentStore").then(({ viewerId }) => {
+    updateStore((s) => ({ ...s, requests: [{ ...request, viewerId }] }));
+    render(<AgentRequests onNavigate={() => {}} />);
+    expect(
+      screen.getAllByRole("button", { name: "Request again" }),
+    ).toHaveLength(1);
+    expect(screen.queryByRole("button", { name: "View listing" })).toBeNull();
+  });
+});

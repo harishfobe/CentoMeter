@@ -1,3 +1,4 @@
+import Empty from "../components/Empty";
 import { useScrollPolish, animateMotion } from "../lib/agentMotion";
 import React, {
   useState,
@@ -31,7 +32,16 @@ const areas = [...new Set(agents.flatMap((a) => a.serviceAreas))];
 const languages = [...new Set(agents.flatMap((a) => a.languages))];
 const specialties = [...new Set(agents.flatMap((a) => a.specialties))];
 function AgentFinder({ onNavigate, Modal }) {
-  const host = useRef(null);
+  const host = useRef(null),
+    lifecycle = useRef({ active: false, geo: 0, blur: null });
+  useEffect(() => {
+    lifecycle.current.active = true;
+    return () => {
+      lifecycle.current.active = false;
+      lifecycle.current.geo++;
+      clearTimeout(lifecycle.current.blur);
+    };
+  }, []);
   useScrollPolish(host);
   const [f, setF] = useState(() => {
     try {
@@ -51,7 +61,10 @@ function AgentFinder({ onNavigate, Modal }) {
     [toast, setToast] = useState(""),
     [suggest, setSuggest] = useState(false),
     [cursor, setCursor] = useState(-1);
-  const set = (key, value) => setF((x) => ({ ...x, [key]: value }));
+  const set = (key, value) => {
+    if (key === "city") lifecycle.current.geo++;
+    setF((x) => ({ ...x, [key]: value }));
+  };
   useEffect(() => {
     const t = setTimeout(() => setF((x) => ({ ...x, query: input })), 250);
     return () => clearTimeout(t);
@@ -125,11 +138,16 @@ function AgentFinder({ onNavigate, Modal }) {
     positions.current = next;
   }, [rows]);
   const reset = () => {
+    lifecycle.current.geo++;
     setInput("");
     setF({ ...empty });
   };
   const near = () => {
+    const generation = ++lifecycle.current.geo;
+    const current = () =>
+      lifecycle.current.active && generation === lifecycle.current.geo;
     const fallback = () => {
+      if (!current()) return;
       const city = readLocal("centometer-city", null) || f.city || "Bengaluru";
       set("city", cities.includes(city) ? city : "Bengaluru");
       setToast("Using " + (cities.includes(city) ? city : "Bengaluru"));
@@ -137,6 +155,7 @@ function AgentFinder({ onNavigate, Modal }) {
     if (!navigator.geolocation) return fallback();
     navigator.geolocation.getCurrentPosition(
       (p) => {
+        if (!current()) return;
         const city = cityForLocation([p.coords.latitude, p.coords.longitude]);
         if (city) {
           set("city", city);
@@ -222,8 +241,16 @@ function AgentFinder({ onNavigate, Modal }) {
               }
               placeholder="Name, area or language"
               value={input}
-              onFocus={() => setSuggest(true)}
-              onBlur={() => setTimeout(() => setSuggest(false), 150)}
+              onFocus={() => {
+                clearTimeout(lifecycle.current.blur);
+                setSuggest(true);
+              }}
+              onBlur={() => {
+                lifecycle.current.blur = setTimeout(
+                  () => setSuggest(false),
+                  150,
+                );
+              }}
               onChange={(e) => {
                 setInput(e.target.value);
                 setSuggest(true);
@@ -379,10 +406,13 @@ function AgentFinder({ onNavigate, Modal }) {
         ))}
       </div>
       {!rows.length && (
-        <div className="empty">
-          <h2>No matching agents</h2>
-          <button onClick={reset}>Clear all</button>
-        </div>
+        <Empty
+          heading="h2"
+          title="No matching agents"
+          description="Try a wider area or fewer filters."
+          action="Clear all"
+          onAction={reset}
+        />
       )}
       <p className="fine-print">
         Demo: location gating is simulated · Sample agents and listings

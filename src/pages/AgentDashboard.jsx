@@ -1,3 +1,5 @@
+import CopyButton from "../components/CopyButton";
+import { mergeListings } from "../lib/agents";
 import React, { useState } from "react";
 import { agents, listings, responseLabel } from "../lib/agents";
 import {
@@ -15,9 +17,9 @@ export default function AgentDashboard({ onPost, onNavigate }) {
     [filter, setFilter] = useState("requested"),
     [query, setQuery] = useState(""),
     [expiry, setExpiry] = useState(24),
-    [copied, setCopied] = useState(false);
+    [copyStatus, setCopyStatus] = useState(null);
   const a = agents.find((a) => a.id === id);
-  const own = [...listings, ...(s.customListings || [])].filter(
+  const own = mergeListings(listings, s.customListings || []).filter(
     (p) => p.agentId === id,
   );
   const requests = s.requests.filter((r) => r.agentId === id);
@@ -39,6 +41,9 @@ export default function AgentDashboard({ onPost, onNavigate }) {
     }));
   return (
     <section className="page agent-feature">
+      <button className="text-button" onClick={() => onNavigate("profile")}>
+        ← Back to profile
+      </button>
       <h1>Agent dashboard</h1>
       <p>
         Demo: location gating is simulated · Approve as agent · This switcher is
@@ -260,20 +265,23 @@ export default function AgentDashboard({ onPost, onNavigate }) {
         </>
       ) : (
         <>
-          <button
+          <CopyButton
             className="primary"
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(link);
-                setCopied(true);
-              } catch {
-                setCopied(false);
-              }
-            }}
+            value={link}
+            onResult={(ok) =>
+              setCopyStatus({
+                value: link,
+                text: ok
+                  ? "Link copied"
+                  : "Copy failed. Select and copy this link: " + link,
+              })
+            }
           >
             Copy my link
-          </button>
-          <p role="status">{copied ? "Link copied" : link}</p>
+          </CopyButton>
+          <p role="status">
+            {copyStatus?.value === link ? copyStatus.text : link}
+          </p>
           <QRCode value={link} />
           <button
             className="secondary"

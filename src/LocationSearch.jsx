@@ -8,9 +8,23 @@ function geocode(term, city, signal) {
   const job = queue
     .catch(() => {})
     .then(async () => {
-      await new Promise((resolve) =>
-        setTimeout(resolve, Math.max(0, 1100 - (Date.now() - lastRequest))),
-      );
+      if (signal.aborted) throw new DOMException("Aborted", "AbortError");
+      await new Promise((resolve, reject) => {
+        const done = () => {
+          signal.removeEventListener("abort", cancel);
+          resolve();
+        };
+        const cancel = () => {
+          clearTimeout(timer);
+          signal.removeEventListener("abort", cancel);
+          reject(new DOMException("Aborted", "AbortError"));
+        };
+        const timer = setTimeout(
+          done,
+          Math.max(0, 1100 - (Date.now() - lastRequest)),
+        );
+        signal.addEventListener("abort", cancel, { once: true });
+      });
       if (signal.aborted) throw new DOMException("Aborted", "AbortError");
       lastRequest = Date.now();
       const endpoint =
@@ -55,13 +69,15 @@ export default function LocationSearch({ value, onChange, city, onPick }) {
     [busy, setBusy] = useState(false);
   const timer = useRef(),
     request = useRef();
-  useEffect(
-    () => () => {
+  useEffect(() => {
+    setResults([]);
+    setStatus("");
+    setBusy(false);
+    return () => {
       clearTimeout(timer.current);
       request.current?.abort();
-    },
-    [],
-  );
+    };
+  }, [city]);
   const search = () => {
     const term = value.trim();
     if (term.length < 3) {
@@ -86,7 +102,8 @@ export default function LocationSearch({ value, onChange, city, onPick }) {
           );
         }
       } catch (error) {
-        if (error.name !== "AbortError") setStatus(error.message);
+        if (!controller.signal.aborted && error.name !== "AbortError")
+          setStatus(error.message);
       } finally {
         if (!controller.signal.aborted) setBusy(false);
       }

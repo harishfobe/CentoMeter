@@ -1,8 +1,9 @@
+import WhatsAppLink from "../WhatsAppLink";
 import React from "react";
 import { MapPin, ShieldCheck, MessageCircle, Share2 } from "lucide-react";
 import { responseLabel } from "../../lib/agents";
 import StatsRow from "./StatsRow";
-import { toggleStore, useAgentStore, notifyAgent } from "../../lib/agentStore";
+import { toggleStore, useAgentStore } from "../../lib/agentStore";
 export default function AgentHeader({ agent: a, count, onShare }) {
   const s = useAgentStore();
   return (
@@ -40,31 +41,15 @@ export default function AgentHeader({ agent: a, count, onShare }) {
         )}
       </details>
       <div className="action-row">
-        <a
+        <WhatsAppLink
           className="primary"
-          onClick={(e) => {
-            if (!/^\d{10}$/.test(a.whatsapp)) {
-              e.preventDefault();
-              notifyAgent(
-                "Demo WhatsApp: " + a.whatsapp + " is a fake number.",
-              );
-            }
-          }}
-          href={
-            "https://wa.me/91" +
-            a.whatsapp +
-            "?text=" +
-            encodeURIComponent(
-              "Hello " +
-                a.name +
-                ", I am interested in your CentoMeter listings.",
-            )
+          number={a.whatsapp}
+          message={
+            "Hello " + a.name + ", I am interested in your CentoMeter listings."
           }
-          target="_blank"
-          rel="noopener noreferrer"
         >
           <MessageCircle size={17} aria-hidden="true" /> Message on WhatsApp
-        </a>
+        </WhatsAppLink>
         <a
           className="secondary"
           href={a.instagramUrl}

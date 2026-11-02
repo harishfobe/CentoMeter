@@ -62,6 +62,10 @@ export function flushStore() {
     pendingToggles.clear();
     listeners.forEach((fn) => fn());
     notifyAgent("Could not save this change. Your selection was restored.");
+  } else {
+    notifyAgent(
+      "Changes could not be saved on this device. Keep this page open and retry.",
+    );
   }
   return false;
 }

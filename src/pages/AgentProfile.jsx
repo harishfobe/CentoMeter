@@ -1,3 +1,5 @@
+import Empty from "../components/Empty";
+import { mergeListings } from "../lib/agents";
 import useExpiryTick from "../lib/useExpiryTick";
 import useDebouncedValue from "../lib/useDebouncedValue";
 import ListingPresence from "../components/agent/ListingPresence";
@@ -130,7 +132,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
   }, [route]);
   const items = useMemo(
     () =>
-      [...listings, ...(store.customListings || [])]
+      mergeListings(listings, store.customListings || [])
         .filter((p) => p.agentId === a?.id)
         .map((p) => ({ ...p, ...store.overrides[p.id] })),
     [a, store.overrides, store.customListings],
@@ -189,13 +191,15 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
   }, [a?.id]);
   if (!a)
     return (
-      <section className="page empty">
-        <h1>Agent not found</h1>
-        <p>This profile link may have changed.</p>
-        <button className="primary" onClick={() => onNavigate("agents")}>
-          Find an agent
-        </button>
-      </section>
+      <Empty
+        as="section"
+        className="page empty"
+        heading="h1"
+        title="Agent not found"
+        description="This profile link may have changed."
+        action="Find an agent"
+        onAction={() => onNavigate("agents")}
+      />
     );
   const tab = query.get("tab") || "listings";
   const changeTab = (next) => {
@@ -227,9 +231,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
     <section ref={host} className="page agent-feature agent-public">
       <nav className="agent-slim-bar">
         <button onClick={() => onNavigate("home")}>← CentoMeter</button>
-        <button onClick={() => shareAgentLink(link, a.name)}>
-          Share profile
-        </button>
       </nav>
       <p className="fine-print agent-demo-note">
         Demo: location gating is simulated

@@ -1,3 +1,4 @@
+import { disposeMap } from "../../lib/disposeMap";
 import React, { useRef, useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -22,7 +23,7 @@ export default function UnlockedMap({ point }) {
     resize.observe(host.current);
     return () => {
       resize.disconnect();
-      map.remove();
+      disposeMap(map);
     };
   }, [point?.[0], point?.[1]]);
   return (

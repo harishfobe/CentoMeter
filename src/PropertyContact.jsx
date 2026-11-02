@@ -1,3 +1,4 @@
+import WhatsAppLink from "./components/WhatsAppLink";
 import React from "react";
 import { exactLocation } from "./lib/locationAccess";
 import { indianMobile } from "./PropertyModel";
@@ -57,15 +58,10 @@ export function ContactButtons({ p, onVisit }) {
           </button>
         )}
         {links.whatsapp ? (
-          <a
-            className="contact-whatsapp"
-            href={links.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <WhatsAppLink className="contact-whatsapp" href={links.whatsapp}>
             <MessageCircle size={18} />
             WhatsApp
-          </a>
+          </WhatsAppLink>
         ) : (
           <button className="contact-whatsapp" disabled>
             <MessageCircle size={18} />

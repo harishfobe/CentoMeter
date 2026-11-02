@@ -3,6 +3,11 @@ import listings from "../data/agentListings.json";
 import { sortProperties } from "../PropertyModel";
 import { landPrice } from "../JourneyUX";
 export { agents, listings };
+// Edited/custom listings replace their sample record instead of creating duplicate cards.
+export const mergeListings = (base, custom = []) => [
+  ...new Map([...base, ...custom].map((p) => [String(p.id), p])).values(),
+];
+
 export const recentlyConfirmed = (p, now = Date.now()) =>
   Number.isFinite(Date.parse(p.confirmedAt)) &&
   now - Date.parse(p.confirmedAt) <= 14 * 86400000;

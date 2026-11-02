@@ -52,3 +52,18 @@ it("publishes an agent listing only after persistence succeeds and strips privat
   expect(next[0]).not.toHaveProperty("location");
   expect(mocks.updateStore).toHaveBeenCalledTimes(1);
 });
+it("keeps the identity of an edited agent listing instead of prefixing it again", async () => {
+  const edited = { ...draft, id: "al-post-3", agentId: "a1" };
+  const saveListings = vi
+    .fn()
+    .mockResolvedValue({ ok: true, photosSaved: true });
+  const { next } = await savePostedListing({
+    data: edited,
+    agent: { id: "a1", name: "Agent" },
+    editing: edited,
+    drafts: [edited],
+    saveListings,
+  });
+  expect(next).toHaveLength(1);
+  expect(next[0].id).toBe("al-post-3");
+});

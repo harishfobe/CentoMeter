@@ -95,3 +95,23 @@ it("agent cards ignore unrelated store changes and update their own follow state
   ).toBeTruthy();
   flushStore();
 });
+it("reports failed non-toggle store writes instead of silently losing requests", async () => {
+  const { updateStore } = await import("../src/lib/agentStore");
+  flushStore();
+  vi.useFakeTimers();
+  const notify = vi.fn();
+  window.addEventListener("centometer-toast", notify);
+  vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+    throw Error("blocked");
+  });
+  act(() =>
+    updateStore((s) => ({
+      ...s,
+      reports: [...s.reports, { id: "unsaved-report" }],
+    })),
+  );
+  await act(() => vi.advanceTimersByTimeAsync(250));
+  expect(notify).toHaveBeenCalled();
+  expect(notify.mock.calls[0][0].detail).toMatch(/could not be saved/);
+  window.removeEventListener("centometer-toast", notify);
+});

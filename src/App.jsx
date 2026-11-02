@@ -1,3 +1,4 @@
+import Empty from "./components/Empty";
 import { savePostedListing } from "./lib/savePostedListing";
 import useListingStorage from "./useListingStorage";
 import { loadListingDetails } from "./lib/listingDetailsLoader";
@@ -57,7 +58,7 @@ import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
 import { useAgentStore, viewerId } from "./lib/agentStore";
 import { AgentRequests, AgentSaved } from "./components/agent/AgentActivity";
-import { parseAgentRoute } from "./lib/agents";
+import { parseAgentRoute, mergeListings } from "./lib/agents";
 import { LocationGate, LocationRequestForm, LocationRequests } from "./AgentUI";
 import {
   accessStatus,
@@ -358,20 +359,6 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
     </form>
   );
 }
-function Empty({ title, description, action, onAction }) {
-  return (
-    <div className="empty">
-      <Search size={30} />
-      <h3>{title}</h3>
-      <p>{description}</p>
-      {action && (
-        <button className="secondary" onClick={onAction}>
-          {action}
-        </button>
-      )}
-    </div>
-  );
-}
 export default function App() {
   const agentState = useAgentStore();
   const intentFilters = useRef({ BUY: initialFilters, RENT: initialFilters });
@@ -507,7 +494,7 @@ export default function App() {
   useEffect(() => {
     if (route === "home" && pendingListScroll.current) {
       pendingListScroll.current = false;
-      requestAnimationFrame(() => {
+      const frame = requestAnimationFrame(() => {
         listingRef.current?.scrollIntoView({
           behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
             .matches
@@ -517,6 +504,7 @@ export default function App() {
         });
         listingRef.current?.focus({ preventScroll: true });
       });
+      return () => cancelAnimationFrame(frame);
     }
   }, [route]);
   useEffect(() => {
@@ -550,7 +538,10 @@ export default function App() {
     return () => window.removeEventListener("hashchange", fn);
   }, []);
   useEffect(() => {
-    writeLocal("centometer-saved", saved);
+    if (!writeLocal("centometer-saved", saved))
+      setToast(
+        "Saved places could not be retained on this device. Keep this page open and retry.",
+      );
   }, [saved]);
   useEffect(() => {
     if (toast) {
@@ -635,13 +626,13 @@ export default function App() {
     return () => media.removeEventListener("change", update);
   }, []);
   const allProperties = useMemo(
-    () => [
-      ...properties.filter((p) => !p.agentId),
-      ...agentListings.map((p) => ({ ...p, ...agentState.overrides[p.id] })),
-      ...drafts
-        .map((d) => (d.agentId ? d : normalizePostedListing(d, profile.name)))
-        .filter(Boolean),
-    ],
+    () =>
+      mergeListings(
+        [...properties.filter((p) => !p.agentId), ...agentListings],
+        drafts
+          .map((d) => (d.agentId ? d : normalizePostedListing(d, profile.name)))
+          .filter(Boolean),
+      ).map((p) => (p.agentId ? { ...p, ...agentState.overrides[p.id] } : p)),
     [drafts, profile.name, agentState.overrides],
   );
   const candidates = useMemo(
@@ -1052,13 +1043,25 @@ export default function App() {
         </header>
       )}
       <main>
-        {!detail &&
+        {!browse &&
+          !detail &&
           !agentRoute &&
-          !["post", "search", "profile"].includes(route) && (
-            <h1 className="sr-only" tabIndex={-1}>
-              {routeTitle}
-            </h1>
+          !["post", "search", "saved", "profile"].includes(route) && (
+            <Empty
+              as="section"
+              className="page empty"
+              heading="h1"
+              title="Page not found"
+              description="This link may be out of date. Return to explore the sample properties."
+              action="Back to exploring"
+              onAction={() => navigate("home")}
+            />
           )}
+        {["home", "map", "results", "saved"].includes(route) && (
+          <h1 className="sr-only" tabIndex={-1}>
+            {routeTitle}
+          </h1>
+        )}
         {route === "search" && (
           <SearchDiscovery
             city={city}
@@ -2071,17 +2074,6 @@ export default function App() {
             </div>
           </section>
         )}
-        {!browse &&
-          !detail &&
-          !agentRoute &&
-          !["post", "saved", "profile", "search"].includes(route) && (
-            <Empty
-              title="This place isn’t on the map"
-              description="Return to the home screen to continue exploring."
-              action="Go home"
-              onAction={() => navigate("home")}
-            />
-          )}
       </main>
       {route !== "search" && (
         <nav className="bottom-nav" aria-label="Main navigation">

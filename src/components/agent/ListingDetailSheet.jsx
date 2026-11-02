@@ -1,3 +1,5 @@
+import WhatsAppLink from "../WhatsAppLink";
+import CopyButton from "../CopyButton";
 import useSheetDrag from "../../lib/useSheetDrag";
 import {
   animateMotion,
@@ -281,9 +283,13 @@ export default function ListingDetailSheet({
         {p.reraNo && (
           <p>
             RERA: {p.reraNo}
-            <button onClick={() => navigator.clipboard?.writeText(p.reraNo)}>
+            <CopyButton
+              value={p.reraNo}
+              aria-label="Copy RERA number"
+              successMessage="RERA number copied"
+            >
               Copy
-            </button>
+            </CopyButton>
           </p>
         )}
         {approvalLabels(p).map((x) => (
@@ -408,29 +414,13 @@ export default function ListingDetailSheet({
               </button>
             )}
           </>
-          <a
+          <WhatsAppLink
             className="secondary"
-            onClick={(e) => {
-              if (!/^\d{10}$/.test(a.whatsapp)) {
-                e.preventDefault();
-                notifyAgent(
-                  "Demo WhatsApp: " + a.whatsapp + " is a fake number.",
-                );
-              }
-            }}
-            href={
-              "https://wa.me/91" +
-              a.whatsapp +
-              "?text=" +
-              encodeURIComponent(
-                "Hello, I am interested in " + p.title + " on CentoMeter.",
-              )
-            }
-            target="_blank"
-            rel="noopener noreferrer"
+            number={a.whatsapp}
+            message={"Hello, I am interested in " + p.title + " on CentoMeter."}
           >
             WhatsApp
-          </a>
+          </WhatsAppLink>
           <button className="secondary" onClick={() => setVisit(true)}>
             Site visit
           </button>

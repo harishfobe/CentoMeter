@@ -24,11 +24,7 @@ import { centers, money, indianMobile, cityForLocation } from "./PropertyModel";
 import { compressPhotos } from "./JourneyUX";
 import PropertyTypes, { typeLabel } from "./PropertyTypes";
 import { LandSummary, LandFields, LandAreaFields } from "./LandDetails";
-import {
-  facingDirections,
-  supportsFacing,
-  readLocal,
-} from "./Discovery";
+import { facingDirections, supportsFacing, readLocal } from "./Discovery";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
 export default function PostFlow({
@@ -735,6 +731,7 @@ export default function PostFlow({
                   }
                   navigator.geolocation.getCurrentPosition(
                     (position) => {
+                      if (!mounted.current) return;
                       set("location", [
                         position.coords.latitude,
                         position.coords.longitude,
@@ -742,6 +739,7 @@ export default function PostFlow({
                       setError("");
                     },
                     () =>
+                      mounted.current &&
                       setError(
                         "Allow location access or place your pin on the map.",
                       ),

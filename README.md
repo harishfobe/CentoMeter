@@ -12,6 +12,7 @@ CentoMeter is a React and Vite real-estate marketplace prototype with an interac
 From this folder, install the exact dependencies recorded in the lockfile and start Vite:
 
 ```sh
+nvm use # if using nvm; .nvmrc pins Node 22
 npm ci
 npm run dev
 ```
@@ -63,7 +64,12 @@ CentoMeter/
 │   └── visual-reference/
 ├── public/                 # Logo, favicon, and illustrative property photos
 ├── src/
-│   ├── App.jsx             # Application screens, interactions, and Leaflet map
+│   ├── App.jsx             # Route composition and application interactions
+│   ├── MapViewImpl.jsx     # Deferred Leaflet map and teardown
+│   ├── PostFlow.jsx        # Listing editor and draft recovery
+│   ├── useListingStorage.js # Serialized listing persistence
+│   ├── components/        # Shared actions and agent UI
+│   ├── pages/             # Agent finder, profiles and dashboard
 │   ├── Discovery.jsx       # Discovery filters, gallery, and related UI
 │   ├── Journeys.jsx        # Saved-search and visit workflows
 │   ├── properties.json     # Demonstration listing data
@@ -74,7 +80,7 @@ CentoMeter/
 └── package-lock.json
 ```
 
-Public files remain at the `public/` root because the existing UI uses root-relative URLs for them. The map is implemented in `App.jsx`; it does not have separate bundled map assets.
+Public files remain at the `public/` root because the existing UI uses root-relative URLs for them. The Leaflet map loads through `MapView.jsx` and `MapViewImpl.jsx` as a separate deferred bundle.
 
 ## Current scope
 
@@ -91,4 +97,4 @@ Location gating is simulated. `private/demo-locations.json` contains synthetic d
 
 Agent WhatsApp values are distinct masked dummy values, not contact numbers. Demo floor plans and RERA identifiers are illustrative. GitHub Actions runs the build, lint, and tests on pushes and pull requests.
 
-For browser navigation checks, run `npx playwright install chromium` once, then `npm run test:e2e`. The suite runs Chromium at desktop and mobile viewport sizes. `npm run format` formats source and tests.
+For browser navigation checks, run `npx playwright install chromium` once, then `npm run test:e2e`. The suite runs Chromium at desktop, tablet and phone sizes, including audit flows at 360 px and 1280 px. See [the repository audit report](docs/reports/REPO_AUDIT_REPORT.md) for findings and validation. `npm run format` formats source and tests.

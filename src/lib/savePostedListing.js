@@ -13,7 +13,11 @@ export async function savePostedListing({
     throw new Error(
       "Choose a pin within 60 km of Bengaluru, Hyderabad or Pune.",
     );
-  const id = agent ? "al-post-" + d.id : d.id || editing?.id || Date.now();
+  const id = agent
+    ? editing?.agentId === agent.id
+      ? editing.id
+      : "al-post-" + d.id
+    : d.id || editing?.id || Date.now();
   let listing = { ...d, city: pinCity, id };
   if (agent) {
     const approx = await registerExactLocation(

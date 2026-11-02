@@ -1,18 +1,15 @@
+import WhatsAppLink from "../WhatsAppLink";
+import { mergeListings } from "../../lib/agents";
 import useExpiryTick from "../../lib/useExpiryTick";
 import React from "react";
 import { agents, listings } from "../../lib/agents";
-import {
-  useAgentStore,
-  viewerId,
-  canRequest,
-  notifyAgent,
-} from "../../lib/agentStore";
+import { useAgentStore, viewerId, canRequest } from "../../lib/agentStore";
 import { accessStatus } from "../../lib/locationAccess";
 export function AgentRequests({ onNavigate }) {
   const s = useAgentStore();
   useExpiryTick(s.requests.filter((r) => r.viewerId === viewerId));
   return (
-    <div>
+    <>
       {s.visits
         .filter((v) => v.viewerId === viewerId)
         .map((v) => (
@@ -20,7 +17,7 @@ export function AgentRequests({ onNavigate }) {
             <h2>
               Site visit ·{" "}
               {
-                [...listings, ...(s.customListings || [])].find(
+                mergeListings(listings, s.customListings || []).find(
                   (p) => p.id === v.propertyId,
                 )?.title
               }
@@ -33,7 +30,7 @@ export function AgentRequests({ onNavigate }) {
         .filter((r) => r.viewerId === viewerId)
         .map((r) => {
           const a = agents.find((a) => a.id === r.agentId),
-            p = [...listings, ...(s.customListings || [])].find(
+            p = mergeListings(listings, s.customListings || []).find(
               (p) => p.id === r.propertyId,
             );
           const status = accessStatus(r);
@@ -54,28 +51,25 @@ export function AgentRequests({ onNavigate }) {
                   : ""}
               </p>
               <button
-                className="secondary"
+                className={
+                  ["expired", "declined", "revoked"].includes(status) &&
+                  !canRequest(s.requests, r.propertyId)
+                    ? "primary"
+                    : "secondary"
+                }
                 onClick={() =>
                   onNavigate("agent/" + a.handle + "?l=" + r.propertyId)
                 }
               >
-                View listing
+                {["expired", "declined", "revoked"].includes(status) &&
+                !canRequest(s.requests, r.propertyId)
+                  ? "Request again"
+                  : "View listing"}
               </button>
-              {["expired", "declined", "revoked"].includes(status) &&
-                !canRequest(s.requests, r.propertyId) && (
-                  <button
-                    className="primary"
-                    onClick={() =>
-                      onNavigate("agent/" + a.handle + "?l=" + r.propertyId)
-                    }
-                  >
-                    Request again
-                  </button>
-                )}
             </article>
           );
         })}
-    </div>
+    </>
   );
 }
 export function AgentSaved({ onNavigate }) {
@@ -84,7 +78,7 @@ export function AgentSaved({ onNavigate }) {
     <section>
       <h2>Agent shortlist</h2>
       {agents.map((a) => {
-        const rows = [...listings, ...(s.customListings || [])].filter(
+        const rows = mergeListings(listings, s.customListings || []).filter(
           (p) => p.agentId === a.id && s.saved.includes(p.id),
         );
         return rows.length ? (
@@ -99,30 +93,16 @@ export function AgentSaved({ onNavigate }) {
                 {p.title}
               </button>
             ))}
-            <a
+            <WhatsAppLink
               className="secondary"
-              onClick={(e) => {
-                if (!/^\d{10}$/.test(a.whatsapp)) {
-                  e.preventDefault();
-                  notifyAgent(
-                    "Demo WhatsApp: " + a.whatsapp + " is a fake number.",
-                  );
-                }
-              }}
-              href={
-                "https://wa.me/91" +
-                a.whatsapp +
-                "?text=" +
-                encodeURIComponent(
-                  "My CentoMeter shortlist: " +
-                    rows.map((p) => p.title).join(", "),
-                )
+              number={a.whatsapp}
+              message={
+                "My CentoMeter shortlist: " +
+                rows.map((p) => p.title).join(", ")
               }
-              target="_blank"
-              rel="noopener noreferrer"
             >
               Send shortlist to agent on WhatsApp
-            </a>
+            </WhatsAppLink>
           </article>
         ) : null;
       })}

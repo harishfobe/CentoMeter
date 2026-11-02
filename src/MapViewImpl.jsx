@@ -1,3 +1,4 @@
+import { disposeMap } from "./lib/disposeMap";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
@@ -124,7 +125,7 @@ export default function MapView({
     observer.observe(host.current);
     return () => {
       observer.disconnect();
-      m.remove();
+      disposeMap(m);
     };
   }, []);
   useEffect(() => {
@@ -147,7 +148,10 @@ export default function MapView({
     tiles.on("tileerror", () => setTileError(true));
     tiles.on("tileload", () => setTileError(false));
     tileLayer.current = tiles;
-    return () => tiles.remove();
+    return () => {
+      tiles.off();
+      tiles.remove();
+    };
   }, [mapLayer]);
   useEffect(
     () =>
