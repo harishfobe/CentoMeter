@@ -1,3 +1,4 @@
+import useViewMode from "../useViewMode";
 import React from "react";
 function CardPlaceholder({ agent }) {
   return (
@@ -19,10 +20,16 @@ function CardPlaceholder({ agent }) {
   );
 }
 export default function LoadingSkeleton({ kind = "finder" }) {
+  const [view] = useViewMode(
+    kind === "finder"
+      ? "centometer-view-finder"
+      : "centometer-view-agent-listings",
+  );
   const agent = kind === "finder";
   return (
     <section
       className={`loading-skeleton loading-${kind}`}
+      data-view={view}
       role="status"
       aria-label="Loading content"
       aria-busy="true"

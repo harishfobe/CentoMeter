@@ -3,7 +3,7 @@ import { ShieldCheck, MapPin, ArrowUpRight } from "lucide-react";
 import React, { memo, useMemo, useCallback } from "react";
 import { responseLabel, activeListings } from "../../lib/agents";
 import { toggleStore, useAgentSelector } from "../../lib/agentStore";
-function AgentCard({ agent: a, items, onNavigate }) {
+function AgentCard({ agent: a, items, onNavigate, view = "grid" }) {
   const entrance = useCardEntrance();
   const selectFollowed = useCallback((s) => s.followed.includes(a.id), [a.id]);
   const followed = useAgentSelector(selectFollowed);
@@ -17,7 +17,11 @@ function AgentCard({ agent: a, items, onNavigate }) {
     [items, a.id],
   );
   return (
-    <article ref={entrance} className="agent-card" data-agent-id={a.id}>
+    <article
+      ref={entrance}
+      className={"agent-card " + (view === "list" ? "agent-card--list" : "")}
+      data-agent-id={a.id}
+    >
       <div className="agent-card-identity">
         <img width="52" height="52" src={a.avatar} alt="" />
         <div>

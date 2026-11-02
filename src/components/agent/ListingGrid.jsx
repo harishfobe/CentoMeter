@@ -3,6 +3,7 @@ import ListingCard from "./ListingCard";
 import { animateMotion, reducedMotion } from "../../lib/agentMotion";
 function ListingGrid({
   rows,
+  view = "grid",
   unit,
   saved,
   requests,
@@ -18,6 +19,13 @@ function ListingGrid({
   useLayoutEffect(() => {
     const host = root.current;
     if (!host) return;
+    const animations = [],
+      ghosts = [];
+    const play = (...args) => {
+      const animation = animateMotion(...args);
+      if (animation) animations.push(animation);
+      return animation;
+    };
     const nodes = [
       ...host.querySelectorAll(":scope > [data-listing-id]"),
     ].slice(0, 20);
@@ -42,14 +50,20 @@ function ListingGrid({
         if (old) {
           const x = old.x - item.x,
             y = old.y - item.y;
-          if (x || y)
-            animateMotion(
+          if (x || y || old.width !== item.width || old.height !== item.height)
+            play(
               item.node,
-              [{ translate: `${x}px ${y}px` }, { translate: "0 0" }],
+              [
+                {
+                  translate: `${x}px ${y}px`,
+                  scale: `${old.width / item.width} ${old.height / item.height}`,
+                },
+                { translate: "0 0", scale: "1 1" },
+              ],
               { duration: 220 },
             );
         } else
-          animateMotion(
+          play(
             item.node,
             [
               { opacity: 0, translate: "0 8px" },
@@ -62,6 +76,7 @@ function ListingGrid({
       for (const [id, item] of before.current)
         if (!after.has(id)) {
           const clone = item.node.cloneNode(true);
+          clone.removeAttribute("data-listing-id");
           clone.setAttribute("aria-hidden", "true");
           clone.inert = true;
           clone.classList.add("agent-exit-clone");
@@ -73,7 +88,8 @@ function ListingGrid({
             height: `${item.height}px`,
           });
           host.append(clone);
-          const a = animateMotion(
+          ghosts.push(clone);
+          const a = play(
             clone,
             [
               { opacity: 1, scale: 1 },
@@ -86,13 +102,22 @@ function ListingGrid({
         }
     }
     before.current = after;
-  }, [key]);
+    return () => {
+      animations.forEach((animation) => animation.cancel());
+      ghosts.forEach((node) => node.remove());
+    };
+  }, [key, view]);
   return (
-    <div ref={root} className="property-grid agent-motion-grid">
+    <div
+      ref={root}
+      className="property-grid agent-motion-grid view-mode-grid"
+      data-view={view}
+    >
       {rows.map((p, index) => (
         <ListingCard
           key={p.id}
           p={p}
+          view={view}
           entranceIndex={index}
           unit={unit}
           saved={saved.includes(p.id)}

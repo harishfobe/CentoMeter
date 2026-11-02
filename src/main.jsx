@@ -17,3 +17,5 @@ createRoot(document.getElementById("root")).render(
 import "./styles/refinement.css";
 
 import "./styles/interactions.css";
+
+import "./styles/viewModes.css";

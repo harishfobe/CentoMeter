@@ -1,3 +1,5 @@
+import ViewToggle from "./components/ViewToggle";
+import useViewMode from "./useViewMode";
 import Empty from "./components/Empty";
 import { savePostedListing } from "./lib/savePostedListing";
 import useListingStorage from "./useListingStorage";
@@ -360,6 +362,7 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
   );
 }
 export default function App() {
+  const [browseView, setBrowseView] = useViewMode("centometer-view-browse");
   const agentState = useAgentStore();
   const intentFilters = useRef({ BUY: initialFilters, RENT: initialFilters });
   const [notes, setNotes] = useState(() => readLocal("centometer-notes", {}));
@@ -773,7 +776,7 @@ export default function App() {
     navigate(returnTo.current.route);
   };
   const handleBounds = useCallback((b) => setBounds(b), []);
-  const renderCard = (p, compact = false) =>
+  const renderCard = (p, compact = false, view = "grid") =>
     compact ? (
       <PropertyCard
         key={p.id}
@@ -792,6 +795,7 @@ export default function App() {
           onSave={save}
           onOpen={open}
           compact={compact}
+          view={view}
           priceUnit={priceUnit}
         />
         {!compact && (
@@ -1382,6 +1386,11 @@ export default function App() {
                       {sorted.length}{" "}
                       {sorted.length === 1 ? "property" : "properties"}
                     </h2>
+                    <ViewToggle
+                      view={browseView}
+                      onChange={setBrowseView}
+                      label="Browse listing view"
+                    />
                     {route === "results" ? (
                       <button
                         className="secondary list-map-button"
@@ -1450,8 +1459,11 @@ export default function App() {
                       </select>
                     </label>
                   </div>
-                  <div className="property-grid">
-                    {sorted.map((p) => renderCard(p))}
+                  <div
+                    className="property-grid view-mode-grid"
+                    data-view={browseView}
+                  >
+                    {sorted.map((p) => renderCard(p, false, browseView))}
                   </div>
                   {!sorted.length && (
                     <Empty
