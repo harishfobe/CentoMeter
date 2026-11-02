@@ -67,6 +67,11 @@ export default function ListingDetailSheet({
 
   const [visitError, setVisitError] = useState("");
   const photos = Array.isArray(p.photos) ? p.photos : [];
+  const rentalCosts = [
+    ["deposit", "Deposit"],
+    ["maintenance", "Monthly maintenance"],
+    ["brokerage", "Brokerage"],
+  ].filter(([key]) => hasValue(p[key]));
   const [photo, setPhoto] = useState(0);
   const [zoom, setZoom] = useState(false);
   useEffect(() => setPhoto(0), [p.id]);
@@ -258,18 +263,16 @@ export default function ListingDetailSheet({
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
-        ) : (
-          <dl>
-            {["deposit", "maintenance", "brokerage"]
-              .filter((k) => hasValue(p[k]))
-              .map((k) => (
-                <div key={k}>
-                  <dt>{k}</dt>
-                  <dd>{money(p[k])}</dd>
-                </div>
-              ))}
+        ) : rentalCosts.length > 0 ? (
+          <dl className="agent-rental-costs" aria-label="Rental costs">
+            {rentalCosts.map(([key, label]) => (
+              <div key={key}>
+                <dt>{label}</dt>
+                <dd>{money(p[key])}</dd>
+              </div>
+            ))}
           </dl>
-        )}
+        ) : null}
         <h3>Key facts</h3>
         <dl className="agent-facts">
           {facts.map(([k, v]) => (
