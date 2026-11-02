@@ -1,5 +1,5 @@
 :root {
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 120ms;
   --t: 200ms;
@@ -369,10 +369,10 @@
   .agent-feature a:active,
   .agent-detail button:active,
   .agent-detail a:active {
-    scale: 0.97;
+    scale: 0.95;
   }
   .agent-listing:has(.property-copy:active) {
-    scale: 0.97;
+    scale: 0.95;
   }
   .agent-listing {
     transition:
@@ -466,7 +466,7 @@
   @media (hover: hover) {
     .agent-listing:hover,
     .agent-card:hover {
-      translate: 0 -2px;
+      translate: 0 -4px;
     }
   }
   @media (min-width: 1024px) {
@@ -558,7 +558,7 @@
   }
   @keyframes agent-request-pulse {
     50% {
-      scale: 0.97;
+      scale: 0.95;
       opacity: 0.6;
     }
   }

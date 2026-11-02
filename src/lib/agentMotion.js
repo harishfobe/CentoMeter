@@ -27,7 +27,7 @@ export function animateMotion(element, keyframes, options = {}) {
   const animation = element.animate(keyframes, {
     fill: "backwards",
     duration: 200,
-    easing: "cubic-bezier(.2,.8,.2,1)",
+    easing: "cubic-bezier(.16,1,.3,1)",
     ...options,
   });
   const stop = stopWhenOutside(element, animation);

@@ -1,0 +1,107 @@
+/* Shared interaction feedback. Individual translate/scale properties compose
+   without changing document geometry or overwriting positioned transforms. */
+button,
+a[href],
+[role="button"] {
+  touch-action: manipulation;
+}
+@media (prefers-reduced-motion: no-preference) {
+  button,
+  a[href],
+  [role="button"],
+  .property-card,
+  .agent-card {
+    transition:
+      scale 120ms var(--ease-out),
+      translate 200ms var(--ease-out),
+      opacity 160ms var(--ease-out);
+  }
+  button:enabled:active,
+  a[href]:active,
+  [role="button"]:not([aria-disabled="true"]):active,
+  .agent-feature button:enabled:active,
+  .agent-detail button:enabled:active {
+    scale: 0.95;
+  }
+  .agent-listing:has(.property-copy:active) {
+    scale: 0.95;
+  }
+  .agent-feature .agent-listing .property-copy:enabled:active {
+    scale: 1;
+  }
+  .property-image img {
+    transition: scale 320ms var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    button:enabled:not([aria-disabled="true"]):hover,
+    a[href]:hover,
+    [role="button"]:not([aria-disabled="true"]):hover,
+    .property-card:hover,
+    .agent-card:hover {
+      translate: 0 -4px;
+    }
+    /* The parent card provides the lift for its main click target. */
+    .property-card .property-copy:hover,
+    .property-card .property-image:hover {
+      translate: none;
+    }
+    .property-card:hover .property-image img {
+      scale: 1.035;
+    }
+  }
+  .modal-scrim:not([data-motion-kind]):not(:where(.finder-sheet *)) {
+    animation: interaction-backdrop 200ms var(--ease-out) both;
+  }
+  .modal-scrim:not([data-motion-kind]):not(:where(.finder-sheet *)) > .modal {
+    animation: interaction-dialog 240ms var(--ease-out) both;
+  }
+  @keyframes interaction-backdrop {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes interaction-dialog {
+    from {
+      opacity: 0;
+      scale: 0.98;
+      translate: 0 12px;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+      translate: 0 0;
+    }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  button,
+  a[href],
+  [role="button"],
+  .property-card,
+  .agent-card,
+  .property-image img,
+  .modal-scrim,
+  .modal-scrim * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .activity-tabs button {
+    transition:
+      scale 120ms var(--ease-out),
+      translate 200ms var(--ease-out);
+  }
+  .activity-tab-icon {
+    transition: scale 200ms var(--ease-out);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .activity-tab-icon {
+    transition: none !important;
+  }
+}
