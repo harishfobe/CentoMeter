@@ -1,3 +1,4 @@
+import { ArrowUpRight, Compass, Flag } from "lucide-react";
 import Empty from "../components/Empty";
 import { mergeListings } from "../lib/agents";
 import useExpiryTick from "../lib/useExpiryTick";
@@ -365,9 +366,32 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           onClose={() => setMore(false)}
         />
       )}
-      <button className="text-button" onClick={() => setReportAgent(true)}>
-        Report agent
-      </button>
+      <footer
+        className="agent-profile-footer"
+        aria-label="More profile actions"
+      >
+        <button
+          className="secondary agent-profile-explore"
+          onClick={() => onNavigate("agents")}
+        >
+          <Compass size={22} aria-hidden="true" />
+          <span>
+            <strong>Explore more agents</strong>
+            <small>Find your next local expert on CentoMeter</small>
+          </span>
+          <ArrowUpRight size={18} aria-hidden="true" />
+        </button>
+        <button
+          className="text-button agent-profile-report"
+          onClick={() => setReportAgent(true)}
+        >
+          <Flag size={15} aria-hidden="true" />
+          Report agent
+        </button>
+        <p className="fine-print">
+          Demo: location gating is simulated · Sample agents and listings
+        </p>
+      </footer>
       {reportAgent && (
         <Modal title="Report agent" onClose={() => setReportAgent(false)}>
           <form
@@ -400,12 +424,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           </form>
         </Modal>
       )}
-      <button className="secondary" onClick={() => onNavigate("agents")}>
-        Explore more on CentoMeter
-      </button>
-      <p className="fine-print">
-        Demo: location gating is simulated · Sample agents and listings
-      </p>
       {Detail && (
         <ListingPresence item={items.find((p) => p.id === query.get("l"))}>
           {(shown, exiting) => (

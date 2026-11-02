@@ -939,3 +939,66 @@
 .finder-sheet-reset {
   z-index: 4;
 }
+
+/* A separate, quiet close to the profile; actions never compete on one line. */
+.agent-profile-footer {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e4e4e7;
+}
+.agent-feature .agent-profile-explore {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 76px;
+  padding: 16px;
+  border: 1px solid #e4e4e7;
+  border-radius: 16px;
+  background: #fafafa;
+  color: #18181b;
+  text-align: left;
+  white-space: normal;
+}
+.agent-profile-explore > svg {
+  flex-shrink: 0;
+}
+.agent-profile-explore > svg:first-child {
+  color: #b84406;
+}
+.agent-profile-explore > span {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+}
+.agent-profile-explore strong {
+  font-size: 15px;
+  line-height: 1.4;
+}
+.agent-profile-explore small {
+  color: #52525b;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.agent-feature .agent-profile-report {
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: #52525b;
+  font-size: 13px;
+  font-weight: 500;
+}
+.agent-profile-footer .fine-print {
+  max-width: 420px;
+  margin: 0 auto;
+  color: #71717a;
+  font-size: 12px;
+  line-height: 1.6;
+  text-align: center;
+}
