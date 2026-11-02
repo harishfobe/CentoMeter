@@ -1,3 +1,4 @@
+import { ArrowUpRight, ChevronDown, Copy, FileImage, Play } from "lucide-react";
 import WhatsAppLink from "../WhatsAppLink";
 import CopyButton from "../CopyButton";
 import useSheetDrag from "../../lib/useSheetDrag";
@@ -282,57 +283,113 @@ export default function ListingDetailSheet({
             </div>
           ))}
         </dl>
-        <h3>Legal & trust</h3>
-        {p.reraNo && (
-          <p>
-            RERA: {p.reraNo}
-            <CopyButton
-              value={p.reraNo}
-              aria-label="Copy RERA number"
-              successMessage="RERA number copied"
-            >
-              Copy
-            </CopyButton>
-          </p>
+        <section
+          className="agent-detail-section agent-trust-card"
+          aria-label="Legal and trust details"
+        >
+          <h3>Legal &amp; trust</h3>
+          <dl className="agent-trust-details">
+            {p.reraNo && (
+              <div>
+                <dt>RERA number</dt>
+                <dd>
+                  <span className="agent-rera-number">{p.reraNo}</span>
+                  <CopyButton
+                    className="text-button agent-rera-copy"
+                    value={p.reraNo}
+                    aria-label="Copy RERA number"
+                    successMessage="RERA number copied"
+                  >
+                    <Copy size={14} aria-hidden="true" /> Copy
+                  </CopyButton>
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt>Availability confirmed</dt>
+              <dd>
+                <time dateTime={p.confirmedAt}>
+                  {new Date(p.confirmedAt).toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </time>
+              </dd>
+            </div>
+          </dl>
+          {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000 && (
+            <p className="agent-trust-note">Not recently confirmed</p>
+          )}
+          {approvalLabels(p).length > 0 && (
+            <div className="chips agent-detail-amenities">
+              {approvalLabels(p).map((x) => (
+                <span className="pill" key={x}>
+                  {x}
+                </span>
+              ))}
+            </div>
+          )}
+        </section>
+        {p.highlights.length > 0 && (
+          <section
+            className="agent-detail-section"
+            aria-label="Listing highlights"
+          >
+            <h3>Highlights</h3>
+            <ul className="agent-detail-highlights">
+              {p.highlights.map((x) => (
+                <li key={x}>{x}</li>
+              ))}
+            </ul>
+          </section>
         )}
-        {approvalLabels(p).map((x) => (
-          <span className="pill" key={x}>
-            {x}
-          </span>
-        ))}
-        <p>
-          Confirmed available:{" "}
-          {new Date(p.confirmedAt).toLocaleDateString("en-IN")}.{" "}
-          {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000
-            ? "Not recently confirmed"
-            : ""}
-        </p>
-        <ul>
-          {p.highlights.map((x) => (
-            <li key={x}>{x}</li>
-          ))}
-        </ul>
-        <h3>Amenities</h3>
-        <div className="chips">
-          {p.amenities.map((x) => (
-            <span className="pill" key={x}>
-              {x}
-            </span>
-          ))}
-        </div>
-        <details open>
-          <summary>Description</summary>
+        {p.amenities.length > 0 && (
+          <section
+            className="agent-detail-section"
+            aria-label="Listing amenities"
+          >
+            <h3>Amenities</h3>
+            <div className="chips agent-detail-amenities">
+              {p.amenities.map((x) => (
+                <span className="pill" key={x}>
+                  {x}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+        <details className="agent-detail-section agent-detail-description" open>
+          <summary>
+            Description <ChevronDown size={18} aria-hidden="true" />
+          </summary>
           <p>{p.description}</p>
         </details>
-        {p.floorPlanUrl && (
-          <a href={p.floorPlanUrl} target="_blank" rel="noopener noreferrer">
-            Floor plan
-          </a>
-        )}
-        {p.videoUrl && (
-          <a href={p.videoUrl} target="_blank" rel="noopener noreferrer">
-            Watch video
-          </a>
+        {(p.floorPlanUrl || p.videoUrl) && (
+          <div className="agent-detail-resources">
+            {p.floorPlanUrl && (
+              <a
+                className="secondary agent-detail-resource"
+                href={p.floorPlanUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FileImage size={18} aria-hidden="true" /> Floor plan
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            )}
+            {p.videoUrl && (
+              <a
+                className="secondary agent-detail-resource"
+                href={p.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Play size={18} aria-hidden="true" /> Watch video
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            )}
+          </div>
         )}
         <section className={"location-gate " + (point ? "is-unlocked" : "")}>
           <h3>{point ? "🔓 Location unlocked" : "🔒 Location on request"}</h3>
