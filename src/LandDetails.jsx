@@ -9,16 +9,9 @@ import {
 } from "./LandMeasurements";
 import { approvalLabels, plotStatus } from "./PlotUI";
 import { hasValue } from "./PropertyModel";
-export {
-  SQFT_PER_CENT,
-  toCents,
-  toSqft,
-  landNumber,
-  landArea,
-  landDimensions,
-} from "./LandMeasurements";
+export { toCents, landNumber, landArea } from "./LandMeasurements";
 
-export function ApprovalBadges({ p }) {
+function ApprovalBadges({ p }) {
   const labels = approvalLabels(p);
   return (
     labels.length > 0 && (
@@ -33,7 +26,7 @@ export function ApprovalBadges({ p }) {
     )
   );
 }
-export function landHighlights(p) {
+function landHighlights(p) {
   const supplied = Array.isArray(p.highlights)
     ? p.highlights
     : typeof p.highlights === "string"

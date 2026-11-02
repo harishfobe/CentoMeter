@@ -38,10 +38,6 @@ export function nearText(text, query) {
   });
 }
 export { distanceKm } from "./PropertyModel";
-export const localDate = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-};
 export function SearchLibrary({ entries, onChange, onOpen }) {
   return (
     <div className="form-stack">

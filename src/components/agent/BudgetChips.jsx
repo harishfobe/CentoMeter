@@ -1,5 +1,5 @@
 import React from "react";
-export const budgetRanges = (mode) =>
+const budgetRanges = (mode) =>
   mode === "RENT"
     ? [
         [0, 15000, "Under ₹15k"],

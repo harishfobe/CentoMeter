@@ -58,7 +58,7 @@ export async function restorePhotos(data) {
     return { ...data, photos: fallback };
   }
 }
-export function metadataOnly(data) {
+function metadataOnly(data) {
   return {
     ...data,
     photos: (Array.isArray(data.photos) ? data.photos : []).filter(

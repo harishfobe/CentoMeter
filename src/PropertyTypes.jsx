@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 // Labels can evolve without changing listing data or searches saved on this device.
-export const propertyTypeDetails = {
+const propertyTypeDetails = {
   Apartment: {
     label: "Apartment / Flat",
     mobileLabel: "Apartment",
@@ -21,12 +21,12 @@ export const propertyTypeDetails = {
   PG: { label: "PG", Icon: BedDouble },
 };
 // Keep existing Villa listings and saved searches in the combined house category.
-export const propertyTypeKey = (type) =>
+const propertyTypeKey = (type) =>
   type === "Villa" ? "Independent House" : type;
 export const matchesPropertyType = (listingType, filterType) =>
   filterType === "All" ||
   propertyTypeKey(listingType) === propertyTypeKey(filterType);
-export const typesFor = (mode) =>
+const typesFor = (mode) =>
   mode === "RENT"
     ? ["Land", "Independent House", "Apartment", "Commercial", "PG"]
     : ["Land", "Independent House", "Apartment", "Commercial"];

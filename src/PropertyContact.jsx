@@ -2,11 +2,11 @@ import React from "react";
 import { exactLocation } from "./lib/locationAccess";
 import { indianMobile } from "./PropertyModel";
 import { Phone, MessageCircle, UserRound } from "lucide-react";
-export function contactNumber(value) {
+function contactNumber(value) {
   const digits = indianMobile(value);
   return digits ? "91" + digits : null;
 }
-export function contactLinks(p) {
+function contactLinks(p) {
   const phone = contactNumber(p.contactPhone || p.phone);
   const whatsapp = contactNumber(p.whatsapp || p.contactPhone || p.phone);
   return {

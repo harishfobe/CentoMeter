@@ -1,6 +1,6 @@
 import { toCents } from "./LandMeasurements";
 
-export const plotColors = {
+const plotColors = {
   available: "#10B981",
   reserved: "#F59E0B",
   sold: "#EF4444",

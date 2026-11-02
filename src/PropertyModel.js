@@ -112,7 +112,7 @@ export function normalizePostedListing(d, profileName = "Property owner") {
   };
 }
 
-export const postedTime = (p) => {
+const postedTime = (p) => {
   const t = Date.parse(p.postedAt || p.createdAt || "");
   return Number.isFinite(t) ? t : 0;
 };
