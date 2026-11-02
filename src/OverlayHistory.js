@@ -1,23 +1,47 @@
 import { useEffect, useRef } from "react";
 let pendingBack = Promise.resolve();
-// Serialize closing/reopening so switching one dialog to another cannot pop the new dialog.
+function reportHistoryFailure() {
+  window.dispatchEvent(
+    new CustomEvent("centometer-toast", {
+      detail:
+        "Browser history is unavailable. Use the close button or Escape to dismiss this dialog.",
+    }),
+  );
+}
+function clearOwnedMarker(token) {
+  if (window.history.state?.centometerOverlay !== token) return;
+  const state = { ...window.history.state };
+  delete state.centometerOverlay;
+  try {
+    window.history.replaceState(state, "");
+  } catch {
+    reportHistoryFailure();
+  }
+}
+// Wait for the actual Back event. A timeout can allow a new dialog to push an
+// entry before a delayed Back arrives, immediately closing the new dialog.
 function removeEntry(token, href) {
   if (window.history.state?.centometerOverlay !== token) return;
   if (window.location.href !== href) {
-    const state = { ...window.history.state };
-    delete state.centometerOverlay;
-    window.history.replaceState(state, "");
+    clearOwnedMarker(token);
     return;
   }
   pendingBack = new Promise((resolve) => {
-    const done = () => {
-      clearTimeout(timer);
+    const finish = () => {
       window.removeEventListener("popstate", done);
       resolve();
     };
-    const timer = setTimeout(done, 1000);
+    const done = () => {
+      if (window.history.state?.centometerOverlay !== token) finish();
+    };
     window.addEventListener("popstate", done);
-    window.history.back();
+    try {
+      window.history.back();
+    } catch {
+      clearOwnedMarker(token);
+      reportHistoryFailure();
+      finish();
+    }
   });
 }
 export default function useOverlayBack(open, onClose) {
@@ -38,17 +62,21 @@ export default function useOverlayBack(open, onClose) {
         close.current();
       }
     };
-    pendingBack.then(() => {
-      if (cancelled) return;
-      href = window.location.href;
-      window.history.pushState(
-        { ...window.history.state, centometerOverlay: id },
-        "",
-        href,
-      );
-      active = true;
-      window.addEventListener("popstate", pop);
-    });
+    void pendingBack
+      .then(() => {
+        if (cancelled) return;
+        href = window.location.href;
+        window.history.pushState(
+          { ...window.history.state, centometerOverlay: id },
+          "",
+          href,
+        );
+        active = true;
+        window.addEventListener("popstate", pop);
+      })
+      .catch(() => {
+        if (!cancelled) reportHistoryFailure();
+      });
     return () => {
       cancelled = true;
       window.removeEventListener("popstate", pop);

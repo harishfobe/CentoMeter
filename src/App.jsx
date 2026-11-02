@@ -1,3 +1,5 @@
+import { savePostedListing } from "./lib/savePostedListing";
+import useListingStorage from "./useListingStorage";
 import { loadListingDetails } from "./lib/listingDetailsLoader";
 import PropertyCard from "./components/PropertyCard";
 import MapView from "./MapView";
@@ -55,7 +57,6 @@ import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
 import { useAgentStore, viewerId } from "./lib/agentStore";
 import { AgentRequests, AgentSaved } from "./components/agent/AgentActivity";
-import { updateStore } from "./lib/agentStore";
 import { parseAgentRoute } from "./lib/agents";
 import { LocationGate, LocationRequestForm, LocationRequests } from "./AgentUI";
 import {
@@ -63,17 +64,12 @@ import {
   isLocationLocked,
   mapPoint,
   exactLocation,
-  registerExactLocation,
   restoreExactLocations,
   safeSearchArea,
   publicShare,
   leadSourceFromSearch,
 } from "./lib/locationAccess";
-import {
-  restoreListings,
-  persistListings,
-  migrateDraftPhotos,
-} from "./PhotoStorage";
+import {} from "./PhotoStorage";
 
 import { OptionalPropertyDetails, EmiCalculator } from "./PropertyExtras";
 import {
@@ -83,7 +79,6 @@ import {
   indianMobile,
   sortProperties,
   hasValue,
-  cityForLocation,
 } from "./PropertyModel";
 import { visitDates } from "./JourneyUX";
 import {
@@ -407,9 +402,16 @@ export default function App() {
   }, [legacyLocationRequests]);
   useEffect(() => {
     let active = true;
-    restoreExactLocations().then(() => {
-      if (active) setLocationRequests((xs) => [...xs]);
-    });
+    void restoreExactLocations()
+      .then(() => {
+        if (active) setLocationRequests((xs) => [...xs]);
+      })
+      .catch(() => {
+        if (active)
+          setToast(
+            "Private locations could not be restored. Location access remains locked; please reload to retry.",
+          );
+      });
     return () => {
       active = false;
     };
@@ -417,7 +419,8 @@ export default function App() {
   useEffect(() => {
     const deadlines = locationRequests
       .filter((r) => r.status === "approved" && r.expiresAt)
-      .map((r) => Date.parse(r.expiresAt) || Date.now());
+      .map((r) => Date.parse(r.expiresAt))
+      .filter((deadline) => Number.isFinite(deadline) && deadline > Date.now());
     if (!deadlines.length) return;
     const timer = setTimeout(
       () =>
@@ -449,28 +452,12 @@ export default function App() {
   const returnTo = useRef({ route: "home", scroll: 0 });
   const restoreScroll = useRef(null);
   const mapViewport = useRef(null);
-  const [listingsReady, setListingsReady] = useState(false);
-  const listingQueue = useRef(Promise.resolve());
-  const listingTimer = useRef();
-  const saveListings = (next) => {
-    listingQueue.current = listingQueue.current
-      .catch(() => {})
-      .then(() => persistListings(next));
-    return listingQueue.current;
-  };
-  useEffect(() => {
-    void migrateDraftPhotos();
-    let active = true;
-    restoreListings(readLocal("centometer-listings", [])).then((items) => {
-      if (active) {
-        setDrafts(items);
-        setListingsReady(true);
-      }
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
+  const {
+    drafts,
+    setDrafts,
+    ready: listingsReady,
+    saveListings,
+  } = useListingStorage((message) => setToast(message));
   const [areaOnly, setAreaOnly] = useState(false);
   const [savedSearches, setSavedSearches] = useState(() =>
     readLocal("centometer-searches", []),
@@ -508,9 +495,6 @@ export default function App() {
   const [visitDate, setVisitDate] = useState(() => visitDates()[0].value);
   const [sort, setSort] = useState("recommended");
   const [resetKey, setResetKey] = useState(0);
-  const [drafts, setDrafts] = useState(() =>
-    readLocal("centometer-listings", []),
-  );
   const [profile, setProfile] = useState({
     name: "Aarav Sharma",
     email: "aarav@example.com",
@@ -520,13 +504,6 @@ export default function App() {
   const [contactSent, setContactSent] = useState(false);
   const [contactError, setContactError] = useState("");
   const [contactTarget, setContactTarget] = useState(null);
-  useEffect(() => {
-    if (!listingsReady) return;
-    listingTimer.current = setTimeout(() => {
-      void saveListings(drafts);
-    }, 500);
-    return () => clearTimeout(listingTimer.current);
-  }, [drafts, listingsReady]);
   useEffect(() => {
     if (route === "home" && pendingListScroll.current) {
       pendingListScroll.current = false;
@@ -1790,7 +1767,8 @@ export default function App() {
             />
           </section>
         )}
-        {route === "post" && (
+        {route === "post" && !listingsReady && <LoadingSkeleton kind="form" />}
+        {route === "post" && listingsReady && (
           <PostFlow
             initialDraft={editing}
             agent={postingAgent}
@@ -1800,63 +1778,13 @@ export default function App() {
               navigate("home");
             }}
             onComplete={async (d) => {
-              const pinCity = cityForLocation(d.location);
-              if (!pinCity)
-                throw new Error(
-                  "Choose a pin within 60 km of Bengaluru, Hyderabad or Pune.",
-                );
-              clearTimeout(listingTimer.current);
-              const id = postingAgent
-                ? "al-post-" + d.id
-                : d.id || editing?.id || Date.now();
-              let listing = { ...d, city: pinCity, id };
-              if (postingAgent) {
-                const approx = await registerExactLocation(
-                  id,
-                  d.location,
-                  d.shareDefault?.radiusM || 500,
-                );
-                listing = {
-                  ...normalizePostedListing(listing, postingAgent.name),
-                  agentId: postingAgent.id,
-                  privacy: d.shareDefault || { mode: "hidden", radiusM: 500 },
-                  shareDefault: d.shareDefault || {
-                    mode: "hidden",
-                    radiusM: 500,
-                  },
-                  status: "available",
-                  confirmedAt: new Date().toISOString(),
-                  amenities: d.features || [],
-                  highlights: d.highlights || [],
-                  approx,
-                  seller: "Agent",
-                  contactName: postingAgent.name,
-                };
-                delete listing.lat;
-                delete listing.lng;
-                delete listing.location;
-                delete listing.boundary;
-                delete listing.address;
-                delete listing.contactPhone;
-                delete listing.whatsapp;
-                listing.locality = d.locality || pinCity;
-                updateStore((s) => ({
-                  ...s,
-                  customListings: [
-                    ...(s.customListings || []).filter((p) => p.id !== id),
-                    listing,
-                  ],
-                }));
-              }
-              const next = [
-                ...drafts.filter((x) => String(x.id) !== String(d.id)),
-                listing,
-              ];
-              const result = await saveListings(next);
-              if (!result.ok)
-                throw new Error(
-                  "Device storage is full. Remove an old listing or free space and retry.",
-                );
+              const { next, result } = await savePostedListing({
+                data: d,
+                agent: postingAgent,
+                editing,
+                drafts,
+                saveListings,
+              });
               setDrafts(next);
               setEditing(null);
               if (!result.photosSaved)

@@ -1,6 +1,9 @@
-import { readLocal, writeLocal } from "./Discovery";
+import { readLocal, writeLocal, removeLocal } from "./Discovery";
 let opening;
 const photoCache = new Map();
+const failedRestores = new Map();
+export const hasPhotoRestoreFailure = (data) =>
+  !!data?.photoKey && failedRestores.has(data.photoKey);
 const samePhotos = (a, b) =>
   a?.length === b.length && a.every((value, index) => value === b[index]);
 function database() {
@@ -52,9 +55,13 @@ export async function restorePhotos(data) {
     const photos = await transaction("readonly", (store) =>
       store.get(data.photoKey),
     );
-    if (Array.isArray(photos)) photoCache.set(data.photoKey, [...photos]);
+    if (Array.isArray(photos)) {
+      photoCache.set(data.photoKey, [...photos]);
+      failedRestores.delete(data.photoKey);
+    } else failedRestores.set(data.photoKey, [...fallback]);
     return { ...data, photos: Array.isArray(photos) ? photos : fallback };
   } catch {
+    failedRestores.set(data.photoKey, [...fallback]);
     return { ...data, photos: fallback };
   }
 }
@@ -69,13 +76,20 @@ function metadataOnly(data) {
 export async function storePhotoData(data, key) {
   const safe = metadataOnly(data);
   const photos = Array.isArray(data.photos) ? data.photos : [];
-  if (!photos.length)
+  if (data.photoKey && samePhotos(failedRestores.get(data.photoKey), photos))
+    return { data: safe, photosSaved: false };
+  if (!photos.length) {
+    // A failed restore must not erase the only reference to retained binary photos.
+    if (data.photoKey && !photoCache.has(data.photoKey))
+      return { data: safe, photosSaved: false };
     return { data: { ...safe, photoKey: undefined }, photosSaved: true };
+  }
   if (samePhotos(photoCache.get(key), photos))
     return { data: { ...safe, photoKey: key }, photosSaved: true };
   try {
     await transaction("readwrite", (store) => store.put(photos, key));
     photoCache.set(key, [...photos]);
+    failedRestores.delete(key);
     return { data: { ...safe, photoKey: key }, photosSaved: true };
   } catch {
     return {
@@ -87,6 +101,7 @@ export async function storePhotoData(data, key) {
 export async function deletePhotos(key) {
   if (!key) return;
   photoCache.delete(key);
+  failedRestores.delete(key);
   try {
     await transaction("readwrite", (store) => store.delete(key));
   } catch {
@@ -190,4 +205,26 @@ export async function migrateDraftPhotos() {
       JSON.stringify(current)
   )
     writeLocal("centometer-draft", migrated);
+}
+
+// Clear only this draft; an older completion must not remove a newer editor's work.
+export async function removeDraft(id) {
+  const current = readLocal("centometer-draft", null);
+  const bank = readLocal("centometer-draft-bank", []);
+  const matches = (record) => String(record?.id) === String(id);
+  const own = [current, ...(Array.isArray(bank) ? bank : [])].filter(matches);
+  const removed = !matches(current) || removeLocal("centometer-draft");
+  const saved = writeLocal(
+    "centometer-draft-bank",
+    (Array.isArray(bank) ? bank : []).filter((record) => !matches(record)),
+  );
+  if (!removed || !saved) return false;
+  const keys = new Set([
+    "draft:" + id,
+    ...own
+      .map((record) => record.data?.photoKey)
+      .filter((key) => /^(draft:|legacy-draft:)/.test(key || "")),
+  ]);
+  await Promise.all([...keys].map(deletePhotos));
+  return true;
 }

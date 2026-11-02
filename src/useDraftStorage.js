@@ -5,18 +5,29 @@ export default function useDraftStorage(snapshot, ready) {
   latest.current = snapshot;
   const readyRef = useRef(ready);
   readyRef.current = ready;
-  const stopped = useRef(false);
-  const queue = useRef(Promise.resolve());
+  const stopped = useRef(false),
+    queue = useRef(Promise.resolve()),
+    timer = useRef(null),
+    lastQueued = useRef(null);
   const [status, setStatus] = useState("Draft will save on this device");
-  const mounted = useRef(true);
+  const mounted = useRef(false);
   const flush = useCallback(() => {
     const current = latest.current;
     if (stopped.current || !readyRef.current) return Promise.resolve();
+    if (
+      lastQueued.current?.id === current.id &&
+      lastQueued.current.step === current.step &&
+      lastQueued.current.data === current.data
+    )
+      return queue.current;
+    clearTimeout(timer.current);
+    lastQueued.current = current;
     queue.current = queue.current
-      .catch(() => {})
       .then(async () => {
         if (stopped.current) return;
+        if (mounted.current) setStatus("Saving draft…");
         const result = await persistDraft(current);
+        if (!result.ok) lastQueued.current = null;
         if (mounted.current)
           setStatus(
             result.skipped
@@ -28,24 +39,40 @@ export default function useDraftStorage(snapshot, ready) {
                   : "Draft saved automatically on this device",
           );
         return result;
+      })
+      .catch(() => {
+        lastQueued.current = null;
+        if (mounted.current)
+          setStatus("Draft could not be saved. Keep this page open and retry.");
+        return { ok: false, photosSaved: false };
       });
     return queue.current;
   }, []);
   useEffect(() => {
     if (!ready) return;
-    const timer = setTimeout(flush, 500);
-    return () => clearTimeout(timer);
+    timer.current = setTimeout(() => {
+      void flush();
+    }, 500);
+    return () => clearTimeout(timer.current);
   }, [snapshot.data, snapshot.step, ready, flush]);
   useEffect(() => {
     mounted.current = true;
     return () => {
       mounted.current = false;
+      clearTimeout(timer.current);
       if (!stopped.current) void flush();
     };
   }, [flush]);
-  const stop = async () => {
-    await queue.current.catch(() => {});
+  const stop = useCallback(async () => {
+    // Mark stopped before waiting: a debounce firing during an in-flight write
+    // must not queue a new write that resurrects a discarded/completed draft.
     stopped.current = true;
-  };
-  return { status, flush, stop };
+    clearTimeout(timer.current);
+    await queue.current;
+  }, []);
+  const resume = useCallback(() => {
+    stopped.current = false;
+    lastQueued.current = null;
+  }, []);
+  return { status, flush, stop, resume };
 }

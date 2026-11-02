@@ -9,7 +9,11 @@ import {
   ImagePlus,
   Info,
 } from "lucide-react";
-import { restorePhotos, deletePhotos } from "./PhotoStorage";
+import {
+  restorePhotos,
+  removeDraft,
+  hasPhotoRestoreFailure,
+} from "./PhotoStorage";
 import useDraftStorage from "./useDraftStorage";
 import LocationSearch from "./LocationSearch";
 import {
@@ -24,8 +28,6 @@ import {
   facingDirections,
   supportsFacing,
   readLocal,
-  writeLocal,
-  removeLocal,
 } from "./Discovery";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
@@ -63,18 +65,34 @@ export default function PostFlow({
   const [discardOpen, setDiscardOpen] = useState(false);
   const [finishing, setFinishing] = useState(false);
   const dirty = useRef(new Set());
+  const mounted = useRef(false);
   useEffect(() => {
     let active = true;
+    mounted.current = true;
     restorePhotos(
       initialDraft || readLocal("centometer-draft", null)?.data || emptyData,
-    ).then((record) => {
-      if (active) {
-        setData((current) => ({ ...current, photos: record.photos || [] }));
-        setPhotosReady(true);
-      }
-    });
+    )
+      .then((record) => {
+        if (active) {
+          setData((current) => ({ ...current, photos: record.photos || [] }));
+          if (hasPhotoRestoreFailure(record))
+            setError(
+              "Saved photos could not be restored. Their stored references are retained; reselect photos or retry later.",
+            );
+        }
+      })
+      .catch(() => {
+        if (active)
+          setError(
+            "Saved photos could not be restored. Keep this page open and retry.",
+          );
+      })
+      .finally(() => {
+        if (active) setPhotosReady(true);
+      });
     return () => {
       active = false;
+      mounted.current = false;
     };
   }, []);
   const draftId = useRef(
@@ -84,13 +102,30 @@ export default function PostFlow({
     status: draftStatus,
     flush: flushDraft,
     stop: stopDraft,
+    resume: resumeDraft,
   } = useDraftStorage(
     { id: draftId.current, step, data },
     photosReady && !done,
   );
+  const [leaving, setLeaving] = useState(false);
   const exit = async () => {
-    await flushDraft();
-    onExit();
+    setLeaving(true);
+    try {
+      const result = await flushDraft();
+      if (result && !result.ok) {
+        setError(
+          "Draft could not be saved. Keep this page open and retry before leaving.",
+        );
+        return;
+      }
+      onExit();
+    } catch {
+      setError(
+        "Draft could not be saved. Keep this page open and retry before leaving.",
+      );
+    } finally {
+      if (mounted.current) setLeaving(false);
+    }
   };
   const set = (k, v) => {
     dirty.current.add(k);
@@ -170,13 +205,14 @@ export default function PostFlow({
     setError("");
     try {
       const photos = await compressPhotos(files);
-      set("photos", [...data.photos, ...photos]);
+      if (mounted.current) set("photos", [...data.photos, ...photos]);
     } catch (error) {
-      setError(
-        error.message || "Could not process this photo. Try another image.",
-      );
+      if (mounted.current)
+        setError(
+          error.message || "Could not process this photo. Try another image.",
+        );
     } finally {
-      setUploading(false);
+      if (mounted.current) setUploading(false);
       input.value = "";
     }
   };
@@ -225,6 +261,7 @@ export default function PostFlow({
         </span>
         <p className="eyebrow">ALL SET</p>
         <h1>Your listing looks great.</h1>
+        {error && <p role="status">{error}</p>}
         <p>
           Your sample listing is ready to review on this device.
           <br />
@@ -237,7 +274,11 @@ export default function PostFlow({
     );
   return (
     <section className="page post-page">
-      <button className="back-button" onClick={onExit}>
+      <button
+        className="back-button"
+        onClick={exit}
+        disabled={leaving || finishing || uploading || !photosReady}
+      >
         <ArrowLeft size={18} />
         Back to exploring
       </button>
@@ -247,8 +288,16 @@ export default function PostFlow({
       </div>
       <div className="draft-tools">
         <span role="status">{draftStatus}</span>
-        <button className="secondary" onClick={exit}>
-          Save draft & exit
+        <button
+          className="secondary"
+          onClick={exit}
+          disabled={leaving || finishing || uploading || !photosReady}
+        >
+          {!photosReady
+            ? "Restoring draft…"
+            : leaving
+              ? "Saving draft…"
+              : "Save draft & exit"}
         </button>
         <button className="text-button" onClick={() => setDiscardOpen(true)}>
           Discard draft
@@ -271,14 +320,15 @@ export default function PostFlow({
               className="primary"
               onClick={async () => {
                 await stopDraft();
-                removeLocal("centometer-draft");
-                writeLocal(
-                  "centometer-draft-bank",
-                  readLocal("centometer-draft-bank", []).filter(
-                    (x) => String(x.id) !== String(draftId.current),
-                  ),
-                );
-                await deletePhotos("draft:" + draftId.current);
+                const removed = await removeDraft(draftId.current);
+                if (!removed) {
+                  resumeDraft();
+                  setDiscardOpen(false);
+                  setError(
+                    "Draft could not be discarded. Device storage is unavailable; please retry.",
+                  );
+                  return;
+                }
                 onExit();
               }}
             >
@@ -537,7 +587,9 @@ export default function PostFlow({
                       accept="image/jpeg,image/png,image/webp"
                       multiple
                       onChange={upload}
-                      disabled={uploading || data.photos.length >= 6}
+                      disabled={
+                        uploading || !photosReady || data.photos.length >= 6
+                      }
                     />
                   </label>
                   <button
@@ -819,7 +871,11 @@ export default function PostFlow({
               <span />
             )}
             {step < 3 ? (
-              <button className="primary" onClick={next}>
+              <button
+                className="primary"
+                onClick={next}
+                disabled={uploading || !photosReady}
+              >
                 Continue
                 <ChevronRight size={17} />
               </button>
@@ -864,22 +920,20 @@ export default function PostFlow({
                       postedAt: data.postedAt || new Date().toISOString(),
                     });
                     await stopDraft();
-                    removeLocal("centometer-draft");
-                    writeLocal(
-                      "centometer-draft-bank",
-                      readLocal("centometer-draft-bank", []).filter(
-                        (x) => String(x.id) !== String(draftId.current),
-                      ),
-                    );
-                    await deletePhotos("draft:" + draftId.current);
-                    setDone(true);
+                    const removed = await removeDraft(draftId.current);
+                    if (mounted.current && !removed)
+                      setError(
+                        "Listing saved, but this draft could not be cleared from device storage.",
+                      );
+                    if (mounted.current) setDone(true);
                   } catch (error) {
-                    setError(
-                      error.message ||
-                        "Could not save this listing. Keep editing and retry.",
-                    );
+                    if (mounted.current)
+                      setError(
+                        error.message ||
+                          "Could not save this listing. Keep editing and retry.",
+                      );
                   } finally {
-                    setFinishing(false);
+                    if (mounted.current) setFinishing(false);
                   }
                 }}
               >
