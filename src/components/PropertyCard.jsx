@@ -12,16 +12,11 @@ function PropertyCard({
   onSave,
   onOpen,
   compact = false,
-  view = "grid",
   priceUnit = "total",
 }) {
   return (
     <article
-      className={
-        "property-card " +
-        (compact ? "compact compact-wrapper " : "") +
-        (view === "list" ? "property-card--list" : "")
-      }
+      className={"property-card " + (compact ? "compact compact-wrapper" : "")}
     >
       <button
         className="property-image"

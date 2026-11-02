@@ -1,5 +1,3 @@
-import ViewToggle from "../components/ViewToggle";
-import useViewMode from "../useViewMode";
 import Empty from "../components/Empty";
 import { useScrollPolish, animateMotion } from "../lib/agentMotion";
 import React, {
@@ -34,7 +32,6 @@ const areas = [...new Set(agents.flatMap((a) => a.serviceAreas))];
 const languages = [...new Set(agents.flatMap((a) => a.languages))];
 const specialties = [...new Set(agents.flatMap((a) => a.specialties))];
 function AgentFinder({ onNavigate, Modal }) {
-  const [view, setView] = useViewMode("centometer-view-finder");
   const host = useRef(null),
     lifecycle = useRef({ active: false, geo: 0, blur: null });
   useEffect(() => {
@@ -108,7 +105,6 @@ function AgentFinder({ onNavigate, Modal }) {
   }, [f]);
   const positions = useRef(new Map());
   useLayoutEffect(() => {
-    const animations = [];
     const cards = [
       ...(host.current?.querySelectorAll(".agent-grid > .agent-card") || []),
     ].slice(0, 20);
@@ -120,39 +116,27 @@ function AgentFinder({ onNavigate, Modal }) {
         id: card.dataset.agentId,
         left: rect.left + scrollX,
         top: rect.top + scrollY,
-        width: rect.width,
-        height: rect.height,
       };
     });
     const next = new Map(measurements.map((item) => [item.id, item]));
     for (const item of measurements) {
       const before = positions.current.get(item.id);
-      if (
-        !before ||
-        before.left !== item.left ||
-        before.top !== item.top ||
-        before.width !== item.width ||
-        before.height !== item.height
-      )
-        animations.push(
-          animateMotion(
-            item.card,
-            before
-              ? [
-                  {
-                    translate: `${before.left - item.left}px ${before.top - item.top}px`,
-                    scale: `${before.width / item.width} ${before.height / item.height}`,
-                  },
-                  { translate: "0 0", scale: "1 1" },
-                ]
-              : [{ opacity: 0 }, { opacity: 1 }],
-            { duration: 200 },
-          ),
+      if (!before || before.left !== item.left || before.top !== item.top)
+        animateMotion(
+          item.card,
+          before
+            ? [
+                {
+                  translate: `${before.left - item.left}px ${before.top - item.top}px`,
+                },
+                { translate: "0 0" },
+              ]
+            : [{ opacity: 0 }, { opacity: 1 }],
+          { duration: 200 },
         );
     }
     positions.current = next;
-    return () => animations.forEach((animation) => animation?.cancel());
-  }, [rows, view]);
+  }, [rows]);
   const reset = () => {
     lifecycle.current.geo++;
     setInput("");
@@ -381,7 +365,6 @@ function AgentFinder({ onNavigate, Modal }) {
         <span aria-live="polite" aria-atomic="true" key={rows.length}>
           {rows.length} {rows.length === 1 ? "agent" : "agents"}
         </span>
-        <ViewToggle view={view} onChange={setView} label="Finder view" />
         <button aria-haspopup="dialog" onClick={() => setSheet("sort")}>
           Sort:{" "}
           {f.sort === "recommended"
@@ -410,15 +393,13 @@ function AgentFinder({ onNavigate, Modal }) {
         </div>
       )}
       <div
-        className="agent-grid agent-skeleton-shell view-mode-grid"
-        data-view={view}
+        className="agent-grid agent-skeleton-shell"
         aria-busy={input !== f.query}
       >
         {rows.map((a) => (
           <AgentCard
             key={a.id}
             agent={a}
-            view={view}
             items={listings}
             onNavigate={onNavigate}
           />

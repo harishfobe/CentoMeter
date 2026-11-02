@@ -18,7 +18,6 @@ function ListingCard({
   request,
   unlocked = false,
   entranceIndex = 0,
-  view = "grid",
   onCompare,
 }) {
   const entrance = useCardEntrance(entranceIndex);
@@ -35,7 +34,6 @@ function ListingCard({
       data-below-fold={entranceIndex >= 3}
       className={
         "property-card agent-listing " +
-        (view === "list" ? "property-card--list " : "") +
         (["sold", "rented"].includes(p.status) ? "listing-inactive" : "")
       }
     >

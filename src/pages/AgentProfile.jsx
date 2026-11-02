@@ -1,5 +1,3 @@
-import ViewToggle from "../components/ViewToggle";
-import useViewMode from "../useViewMode";
 import { ArrowUpRight, Compass, Flag } from "lucide-react";
 import Empty from "../components/Empty";
 import { mergeListings } from "../lib/agents";
@@ -47,7 +45,6 @@ import ListingCard from "../components/agent/ListingCard";
 import { shareAgentLink } from "../lib/agentShare";
 export { shareAgentLink } from "../lib/agentShare";
 export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
-  const [view, setView] = useViewMode("centometer-view-agent-listings");
   const {
     query,
     replace,
@@ -221,7 +218,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
     <ListingCard
       key={p.id}
       p={p}
-      view={view}
       unit={JSON.parse(deferredFilters).unit}
       saved={store.saved.includes(p.id)}
       request={requestMap.get(p.id)}
@@ -288,16 +284,9 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
       >
         <>
           <FilterBar f={f} onChange={change} onMore={() => setMore(true)} />
-          <div className="view-results-row">
-            <p className="agent-result-count" aria-live="polite">
-              {rows.length} {rows.length === 1 ? "property" : "properties"}
-            </p>
-            <ViewToggle
-              view={view}
-              onChange={setView}
-              label="Agent listing view"
-            />
-          </div>
+          <p className="agent-result-count" aria-live="polite">
+            {rows.length} {rows.length === 1 ? "property" : "properties"}
+          </p>
           <div className="chips agent-applied-filters">
             {Object.entries(f)
               .filter(([k, v]) => v !== defaults[k])
@@ -321,7 +310,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
               aria-hidden="true"
             />
             <ListingGrid
-              view={view}
               rows={rows}
               unit={JSON.parse(deferredFilters).unit}
               saved={store.saved}
