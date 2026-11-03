@@ -91,9 +91,17 @@ test("property saves update immediately and persist across a reload", async ({
     name: label.replace(/^Save /, "Unsave "),
     exact: true,
   });
-  await expect(saved).toHaveAttribute("aria-pressed", "true");
-  await saved.click();
-  await expect(
-    page.getByRole("button", { name: label, exact: true }),
-  ).toHaveAttribute("aria-pressed", "false");
+  // Home can show the same listing in discovery and the complete list.
+  // Every instance must reflect the same persisted save state.
+  await expect(saved.first()).toHaveAttribute("aria-pressed", "true");
+  for (const button of await saved.all()) {
+    await expect(button).toHaveAttribute("aria-pressed", "true");
+  }
+  await saved.first().click();
+  const unsaved = page.getByRole("button", { name: label, exact: true });
+  await expect(saved).toHaveCount(0);
+  await expect(unsaved.first()).toHaveAttribute("aria-pressed", "false");
+  for (const button of await unsaved.all()) {
+    await expect(button).toHaveAttribute("aria-pressed", "false");
+  }
 });

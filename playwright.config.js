@@ -6,12 +6,12 @@ export default defineConfig({
   projects: [
     {
       name: "desktop",
-      testIgnore: "audit-flows.e2e.js",
+      testIgnore: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
       use: { viewport: { width: 1440, height: 900 } },
     },
     {
       name: "tablet",
-      testIgnore: "audit-flows.e2e.js",
+      testIgnore: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
       use: {
         viewport: { width: 768, height: 1024 },
         isMobile: true,
@@ -20,7 +20,7 @@ export default defineConfig({
     },
     {
       name: "phone",
-      testIgnore: "audit-flows.e2e.js",
+      testIgnore: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
       use: {
         viewport: { width: 375, height: 812 },
         isMobile: true,
@@ -29,7 +29,7 @@ export default defineConfig({
     },
     {
       name: "audit-phone",
-      testMatch: "audit-flows.e2e.js",
+      testMatch: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
       use: {
         viewport: { width: 360, height: 800 },
         isMobile: true,
@@ -38,7 +38,7 @@ export default defineConfig({
     },
     {
       name: "audit-desktop",
-      testMatch: "audit-flows.e2e.js",
+      testMatch: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
       use: { viewport: { width: 1280, height: 900 } },
     },
   ],

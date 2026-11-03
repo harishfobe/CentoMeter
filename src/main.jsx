@@ -15,3 +15,5 @@ createRoot(document.getElementById("root")).render(
     <App />
   </ErrorBoundary>,
 );
+
+import "./styles/home.css";

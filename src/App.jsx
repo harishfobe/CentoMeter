@@ -1,3 +1,4 @@
+import HomeDiscovery from "./components/HomeDiscovery";
 import Empty from "./components/Empty";
 import { savePostedListing } from "./lib/savePostedListing";
 import useListingStorage from "./useListingStorage";
@@ -917,7 +918,8 @@ export default function App() {
   };
 
   const activeNav =
-    route === "home" || route === "map"
+    ["home", "results", "search"].includes(route) ||
+    route.startsWith("property/")
       ? "home"
       : agentRoute
         ? "agents"
@@ -1153,15 +1155,29 @@ export default function App() {
               role="tablist"
               aria-label="Property intent"
             >
-              {["BUY", "RENT"].map((m) => (
+              {(route === "home"
+                ? ["BUY", "SELL", "RENT"]
+                : ["BUY", "RENT"]
+              ).map((m) => (
                 <button
                   key={m}
                   role="tab"
                   aria-selected={mode === m}
                   className={mode === m ? "active" : ""}
-                  onClick={() => setIntent(m)}
+                  onClick={() => {
+                    if (m === "SELL") {
+                      setPostingAgent(null);
+                      navigate("post");
+                    } else setIntent(m);
+                  }}
                 >
-                  {m === "BUY" ? <Home size={18} /> : <KeyRound size={18} />}
+                  {m === "BUY" ? (
+                    <Home size={18} />
+                  ) : m === "SELL" ? (
+                    <Plus size={18} />
+                  ) : (
+                    <KeyRound size={18} />
+                  )}
                   <span>{m}</span>
                   {mode === m && <span className="tab-indicator" />}
                 </button>
@@ -1261,7 +1277,8 @@ export default function App() {
               className={
                 "explore-layout " +
                 (route === "map" ? "map-only" : "") +
-                (route === "results" ? "results-layout" : "")
+                (route === "results" ? "results-layout" : "") +
+                (route === "home" ? " home-discovery-layout" : "")
               }
             >
               {route !== "results" && (
@@ -1331,16 +1348,6 @@ export default function App() {
                       <List size={16} />
                       {route === "results" ? "Show map" : "View list"}
                     </button>
-                    {route === "home" && (
-                      <button
-                        className="map-expand"
-                        aria-label="Explore full map"
-                        onClick={() => navigate("map")}
-                      >
-                        <Maximize2 size={16} />
-                        <span>Full map</span>
-                      </button>
-                    )}
                     {chosen && !isMobile && (
                       <div className="map-preview">{selectionPreview}</div>
                     )}
@@ -1358,7 +1365,40 @@ export default function App() {
                       Move the map to explore more places
                     </div>
                   </div>
+                  {route === "home" && (
+                    <div className="home-map-footer">
+                      <div>
+                        <strong>Explore on map</strong>
+                        <p>
+                          {filtered.length} sample{" "}
+                          {filtered.length === 1 ? "property" : "properties"}{" "}
+                          around {city}
+                        </p>
+                      </div>
+                      <button
+                        className="primary"
+                        onClick={() => navigate("map")}
+                      >
+                        <MapIcon size={15} aria-hidden="true" /> Open map
+                      </button>
+                    </div>
+                  )}
                 </div>
+              )}
+              {route === "home" && (
+                <HomeDiscovery
+                  items={filtered}
+                  city={city}
+                  saved={saved}
+                  recent={recent}
+                  onSave={save}
+                  onOpen={open}
+                  priceUnit={priceUnit}
+                  onBrowse={() => {
+                    setAreaOnly(false);
+                    navigate("results");
+                  }}
+                />
               )}
               {route !== "map" && (
                 <aside
@@ -2076,8 +2116,8 @@ export default function App() {
       {route !== "search" && (
         <nav className="bottom-nav" aria-label="Main navigation">
           {[
-            [MapIcon, "Map", "home"],
-            [Search, "Search", "results"],
+            [Home, "Home", "home"],
+            [MapIcon, "Map", "map"],
             [UsersRound, "Agents", "agents"],
             [Clock3, "Activity", "saved"],
             [User, "Profile", "profile"],
@@ -2090,15 +2130,7 @@ export default function App() {
                 (r === "agents" ? "agent-nav" : "")
               }
               onClick={() => {
-                if (r === "results" && window.matchMedia(mobileQuery).matches) {
-                  openSearch();
-                  return;
-                }
                 navigate(r);
-                if (r === "results") {
-                  setAreaOnly(false);
-                  setFocusSearch(true);
-                }
               }}
             >
               <span>
