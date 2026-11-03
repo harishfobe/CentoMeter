@@ -7,10 +7,10 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "vitest run",
     "lint": "eslint src tests eslint.config.js",
-    "format": "prettier --write src tests",
-    "test:e2e": "playwright test"
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "format": "prettier --write src tests"
   },
   "dependencies": {
     "leaflet": "1.9.4",
@@ -23,7 +23,6 @@
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.64.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.8",
     "eslint": "^10.14.0",
     "fake-indexeddb": "^6.2.7",
     "globals": "^17.13.0",
@@ -31,5 +30,8 @@
     "prettier": "^3.9.10",
     "vite": "^6.4.5",
     "vitest": "^5.0.5"
+  },
+  "engines": {
+    "node": "22.x"
   }
 }
