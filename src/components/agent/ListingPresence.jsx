@@ -11,7 +11,7 @@ export default function ListingPresence({ item, children }) {
         retained.current = null;
         redraw((n) => n + 1);
       },
-      reducedMotion() ? 0 : 280,
+      reducedMotion() ? 0 : 200,
     );
     return () => clearTimeout(timer);
   }, [item]);

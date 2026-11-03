@@ -21,6 +21,7 @@ export default function useSheetDrag(onClose) {
       origin.current = { y: e.clientY, time: performance.now(), sheet };
       e.currentTarget.setPointerCapture?.(e.pointerId);
       sheet.dataset.dragging = "true";
+      sheet.dataset.dragged = "true";
       sheet.style.willChange = "transform";
     },
     onPointerMove: (e) => {
@@ -42,7 +43,6 @@ export default function useSheetDrag(onClose) {
       const distance = e.clientY - start.y,
         velocity = distance / Math.max(1, performance.now() - start.time);
       if (distance > 120 || (distance > 35 && velocity > 0.7)) {
-        start.sheet.style.translate = "";
         start.sheet.style.willChange = "";
         delete start.sheet.dataset.dragging;
         onClose();

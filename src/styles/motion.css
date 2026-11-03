@@ -401,6 +401,18 @@
   .agent-filter-bar {
     transition: translate var(--t) var(--ease-out);
   }
+  .agent-feature .agent-back-top {
+    translate: 0 8px;
+    transition:
+      opacity 160ms var(--ease-out),
+      translate 160ms var(--ease-out),
+      scale var(--t-fast) var(--ease-out),
+      visibility 0s linear 160ms;
+  }
+  .agent-feature[data-back-top="true"] .agent-back-top {
+    translate: 0 0;
+    transition-delay: 0s;
+  }
 
   .agent-skeleton::after {
     animation: agent-shimmer 1.3s var(--ease-in-out) infinite;
@@ -425,14 +437,18 @@
     animation: agent-sheet-in 280ms var(--ease-out);
   }
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"]::before {
-    animation: agent-backdrop-in 280ms var(--ease-out) reverse both;
+    animation: agent-backdrop-out 200ms var(--ease-out) both;
     pointer-events: none;
   }
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"] > .modal {
-    animation: agent-sheet-in 280ms var(--ease-out) reverse both;
+    animation: agent-sheet-out 200ms var(--ease-out) both;
   }
   .modal[data-dragging="true"] {
     animation: none !important;
+  }
+  .modal-scrim[data-motion-kind="listing"]:not([data-exiting="true"])
+    > .modal[data-dragged="true"] {
+    animation: none;
   }
   .agent-map-reveal[data-open="true"] {
     animation: agent-backdrop-in 200ms var(--ease-out);
@@ -534,12 +550,27 @@
       translate: 0 0;
     }
   }
+  @keyframes agent-sheet-out {
+    to {
+      translate: 0 100%;
+    }
+  }
+  @keyframes agent-panel-out {
+    to {
+      translate: 100% 0;
+    }
+  }
   @keyframes agent-backdrop-in {
     from {
       opacity: 0;
     }
     to {
       opacity: 1;
+    }
+  }
+  @keyframes agent-backdrop-out {
+    to {
+      opacity: 0;
     }
   }
   @keyframes agent-success-in {
@@ -638,7 +669,7 @@
 
 @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"] > .modal {
-    animation-name: agent-panel-in;
+    animation-name: agent-panel-out;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
