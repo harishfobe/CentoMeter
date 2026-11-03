@@ -77,7 +77,7 @@ textarea {
 }
 input::placeholder,
 textarea::placeholder {
-  color: var(--placeholder);
+  color: #71717a;
   opacity: 1;
 }
 button:focus-visible,

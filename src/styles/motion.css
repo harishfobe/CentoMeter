@@ -406,8 +406,7 @@
     transition:
       opacity 160ms var(--ease-out),
       translate 160ms var(--ease-out),
-      scale var(--t-fast) var(--ease-out),
-      visibility 0s linear 160ms;
+      scale var(--t-fast) var(--ease-out);
   }
   .agent-feature[data-back-top="true"] .agent-back-top {
     translate: 0 0;

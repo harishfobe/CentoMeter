@@ -22,6 +22,7 @@ a[href],
   .agent-feature button:enabled:active,
   .agent-detail button:enabled:active {
     scale: 0.95;
+    transition: none;
   }
   .agent-listing:has(.property-copy:active) {
     scale: 0.95;

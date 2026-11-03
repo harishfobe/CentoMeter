@@ -245,8 +245,16 @@ export default function MapView({
         "aria-label",
         p.title + ", " + label.replace("/c", " per cent"),
       );
-      if (!staticView)
+      if (!staticView) {
+        el?.setAttribute("tabindex", "0");
         el?.setAttribute("aria-pressed", String(selected === p.id));
+        el?.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            callbacks.current.onSelect?.(p.id);
+          }
+        });
+      }
       el?.setAttribute("data-property-id", p.id);
     });
     hotspots.forEach((spot) => {

@@ -70,8 +70,6 @@ import {
   publicShare,
   leadSourceFromSearch,
 } from "./lib/locationAccess";
-import {} from "./PhotoStorage";
-
 import { OptionalPropertyDetails, EmiCalculator } from "./PropertyExtras";
 import {
   centers,
