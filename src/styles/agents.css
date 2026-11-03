@@ -846,7 +846,7 @@
     transition: scale 120ms var(--ease-out);
   }
   .finder-sheet .modal {
-    animation: finder-sheet-in 280ms var(--var(--ease-out));
+    animation: finder-sheet-in 280ms var(--ease-out);
   }
   .finder-sheet .modal-scrim {
     animation: finder-fade 200ms var(--ease-out);
