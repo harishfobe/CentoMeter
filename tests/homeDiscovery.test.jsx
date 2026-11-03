@@ -58,10 +58,10 @@ it("reuses save and open actions and reflects the saved state across sections", 
   ).toBe("true");
   expect(screen.getByText("Saved and viewed on this device")).toBeTruthy();
 });
-it("retains a working path to the original property list", () => {
+it("retains section links to the separate property list", () => {
   render(<HomeDiscovery {...defaults} />);
   fireEvent.click(
-    screen.getByRole("button", { name: "Browse all properties" }),
+    screen.getByRole("button", { name: "See all suggested for you" }),
   );
   expect(defaults.onBrowse).toHaveBeenCalledTimes(1);
 });
@@ -106,4 +106,54 @@ it("keeps the existing per-bed monthly rent label for PG listings", () => {
       screen.getByRole("region", { name: "Spotlight property" }),
     ).getByText("₹30,000 / bed / month"),
   ).toBeTruthy();
+});
+
+it("ends Home with local agents, without a full-list footer or invented ratings", () => {
+  const people = [
+    {
+      id: "local",
+      name: "Local Expert",
+      city: "Bengaluru",
+      handle: "local.expert",
+      avatar: "/agent-ananya.svg",
+      specialties: [],
+      responseTimeMins: 15,
+      experienceYears: 3,
+      closedDeals: 12,
+      verified: true,
+    },
+    {
+      id: "other",
+      name: "Other City",
+      city: "Pune",
+      handle: "other",
+      avatar: "/agent-ananya.svg",
+      specialties: [],
+    },
+  ];
+  const onNavigate = vi.fn();
+  const app = render(
+    <HomeDiscovery
+      {...defaults}
+      agents={people}
+      agentItems={[]}
+      onNavigate={onNavigate}
+    />,
+  );
+  const footer = screen.getByRole("region", { name: "Top rated agents" });
+  expect(app.container.querySelector(".home-discovery").lastElementChild).toBe(
+    footer,
+  );
+  expect(
+    within(footer).getByRole("heading", { name: /Local Expert/ }),
+  ).toBeTruthy();
+  expect(screen.queryByText("Other City")).toBeNull();
+  expect(
+    within(footer).getByText(/Customer ratings aren't available yet/),
+  ).toBeTruthy();
+  expect(
+    screen.queryByRole("button", { name: "Browse all properties" }),
+  ).toBeNull();
+  fireEvent.click(within(footer).getByRole("button", { name: /View profile/ }));
+  expect(onNavigate).toHaveBeenCalledWith("agent/local.expert");
 });

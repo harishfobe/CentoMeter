@@ -41,11 +41,12 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
   ).toHaveAttribute("aria-current", "page");
   const tabs = page.getByRole("tablist", { name: "Property intent" });
   await expect(tabs.getByRole("tab")).toHaveText(["BUY", "SELL", "RENT"]);
-  await expect(page.locator(".home-discovery h2")).toHaveText([
+  await expect(page.locator(".home-section-heading h2")).toHaveText([
     "Suggested for you",
     "Spotlight",
     "Projects",
     "Most popular",
+    "Top rated agents",
   ]);
   await expect(page.locator(".search-controls")).toBeVisible();
   await expect(
@@ -71,7 +72,19 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
   expect(map.height).toBeGreaterThan(300);
   await shot(page, info, "map");
   await page.getByRole("button", { name: "View list", exact: true }).click();
+  await expect(page).toHaveURL(/#map$/);
+  await expect(
+    nav.getByRole("button", { name: "Map", exact: true }),
+  ).toHaveAttribute("aria-current", "page");
   await expect(page.locator("#property-results")).toBeVisible();
+  await expect(
+    page.locator("#property-results .property-card").first(),
+  ).toBeVisible();
+  await shot(page, info, "map-list");
+  await page.getByRole("button", { name: "Back to map", exact: true }).click();
+  await expect(page).toHaveURL(/#map$/);
+  await expect(page.locator(".map-only .leaflet-container")).toBeVisible();
+  await page.getByRole("button", { name: "View list", exact: true }).click();
   await expect(
     page.getByRole("combobox", { name: "Sort properties" }),
   ).toBeVisible();
@@ -109,7 +122,7 @@ test("suggestions retain save persistence, original list navigation and property
     .click();
   await expect(suggestions).toBeVisible();
   await page
-    .getByRole("button", { name: "Browse all properties", exact: true })
+    .getByRole("button", { name: "See all suggested for you", exact: true })
     .click();
   await expect(page).toHaveURL(/#results$/);
   await expect(
@@ -161,4 +174,28 @@ test("Spotlight, Projects, popular rows and BUY/RENT use existing listing action
   );
   await popular.locator(".home-popular-open").first().click();
   await expect(page.locator(".detail-page")).toBeVisible();
+});
+
+test("Home ends with local agent cards and preserves follow and profile navigation", async ({
+  page,
+}, info) => {
+  await expect(page.locator("#property-results")).toHaveCount(0);
+  const agents = page.getByRole("region", { name: "Top rated agents" });
+  expect(
+    await page
+      .locator(".home-discovery")
+      .evaluate((el) => el.lastElementChild.getAttribute("aria-label")),
+  ).toBe("Top rated agents");
+  await expect(
+    agents.getByText(/Customer ratings aren't available yet/),
+  ).toBeVisible();
+  const card = agents.locator(".agent-card").first();
+  await card.getByRole("button", { name: "Follow", exact: true }).click();
+  await expect(
+    card.getByRole("button", { name: "Following", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await shot(page, info, "top-agents");
+  await card.getByRole("button", { name: /View profile/ }).click();
+  await expect(page).toHaveURL(/#agent\//);
+  await expect(page.locator(".agent-profile-heading")).toBeVisible();
 });

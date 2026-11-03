@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import { ArrowRight, Heart, MapPin, Sparkles } from "lucide-react";
+import AgentCard from "./agent/AgentCard";
 import PropertyCard from "./PropertyCard";
 import Empty from "./Empty";
 import { money } from "../PropertyModel";
@@ -13,6 +14,9 @@ const photo = (p) => p.photos?.[0] || `/${p.image || "apartment"}.jpg`;
 export default function HomeDiscovery({
   items,
   city,
+  agents = [],
+  agentItems = [],
+  onNavigate,
   saved,
   recent,
   onSave,
@@ -55,6 +59,44 @@ export default function HomeDiscovery({
         hasActivity: items.some((p) => kept.has(p.id) || seen.has(p.id)),
       };
     }, [items, recent, saved]);
+  const localAgents = useMemo(
+    () =>
+      agents
+        .filter((a) => a.city === city)
+        .sort(
+          (a, b) =>
+            Number(b.verified) - Number(a.verified) ||
+            (b.closedDeals || 0) - (a.closedDeals || 0),
+        )
+        .slice(0, 3),
+    [agents, city],
+  );
+  const topAgents = localAgents.length > 0 && (
+    <section
+      className="home-top-agents agent-finder"
+      aria-label="Top rated agents"
+    >
+      <div className="home-section-heading">
+        <div>
+          <h2>Top rated agents</h2>
+          <p>Featured local experts · Customer ratings aren't available yet</p>
+        </div>
+        <button className="text-button" onClick={() => onNavigate("agents")}>
+          See all agents <ArrowRight size={14} aria-hidden="true" />
+        </button>
+      </div>
+      <div className="home-agents-rail">
+        {localAgents.map((a) => (
+          <AgentCard
+            key={a.id}
+            agent={a}
+            items={agentItems}
+            onNavigate={onNavigate}
+          />
+        ))}
+      </div>
+    </section>
+  );
   const price = (p) => {
     if (p.type === "Land" && p.mode !== "BUY") return pinPrice(p, money);
     const amount = landPrice(p, priceUnit);
@@ -94,14 +136,15 @@ export default function HomeDiscovery({
   );
   if (!items.length)
     return (
-      <section className="home-discovery">
+      <div className="home-discovery">
         <Empty
           title="No matching suggestions"
           description="Try another property type or adjust your filters."
           action="Browse all properties"
           onAction={onBrowse}
         />
-      </section>
+        {topAgents}
+      </div>
     );
   return (
     <div className="home-discovery">
@@ -213,9 +256,7 @@ export default function HomeDiscovery({
           ))}
         </ol>
       </section>
-      <button className="secondary home-browse-all" onClick={onBrowse}>
-        Browse all properties <ArrowRight size={17} aria-hidden="true" />
-      </button>
+      {topAgents}
     </div>
   );
 }

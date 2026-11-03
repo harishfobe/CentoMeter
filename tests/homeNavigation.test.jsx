@@ -3,13 +3,20 @@ import React from "react";
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 import {
   cleanup,
+  act,
   fireEvent,
   render,
   screen,
   within,
   waitFor,
 } from "@testing-library/react";
-vi.mock("../src/MapView", () => ({ default: () => <div data-testid="map" /> }));
+const mapCallbacks = vi.hoisted(() => ({ bounds: null }));
+vi.mock("../src/MapView", () => ({
+  default: ({ onBounds }) => {
+    mapCallbacks.bounds = onBounds;
+    return <div data-testid="map" />;
+  },
+}));
 vi.mock("../src/useListingStorage", () => ({
   default: () => ({
     drafts: [],
@@ -98,4 +105,55 @@ it("retains BUY and RENT filtering on Home", async () => {
       .getByRole("tab", { name: "BUY" })
       .getAttribute("aria-selected"),
   ).toBe("true");
+});
+
+it("switches Map to its list and back without changing route or active tab", async () => {
+  history.replaceState(null, "", "#map");
+  render(<App />);
+  const nav = screen.getByRole("navigation", { name: "Main navigation" });
+  const toggle = screen.getByRole("button", { name: "View list", exact: true });
+  fireEvent.click(toggle);
+  expect(location.hash).toBe("#map");
+  expect(document.querySelector(".map-list-mode")).toBeTruthy();
+  expect(
+    screen.getByRole("complementary", { name: "Property list" }),
+  ).toBeTruthy();
+  expect(
+    within(nav)
+      .getByRole("button", { name: "Map", exact: true })
+      .getAttribute("aria-current"),
+  ).toBe("page");
+  fireEvent.click(screen.getByRole("button", { name: "Back to map" }));
+  expect(location.hash).toBe("#map");
+  expect(document.querySelector(".map-only")).toBeTruthy();
+  expect(
+    screen.queryByRole("complementary", { name: "Property list" }),
+  ).toBeNull();
+  expect(document.activeElement).toBe(toggle);
+});
+it("keeps the full property list off Home and ends with local agents", async () => {
+  const app = render(<App />);
+  expect(app.container.querySelector("#property-results")).toBeNull();
+  expect(
+    app.container
+      .querySelector(".home-discovery")
+      .lastElementChild.getAttribute("aria-label"),
+  ).toBe("Top rated agents");
+});
+
+it("keeps map-list properties when a hidden map emits collapsed bounds", () => {
+  history.replaceState(null, "", "#map");
+  const app = render(<App />);
+  act(() => mapCallbacks.bounds({ contains: () => true }));
+  fireEvent.click(
+    screen.getByRole("button", { name: "View list", exact: true }),
+  );
+  const count = app.container.querySelectorAll(
+    "#property-results .property-card",
+  ).length;
+  expect(count).toBeGreaterThan(0);
+  act(() => mapCallbacks.bounds({ contains: () => false }));
+  expect(
+    app.container.querySelectorAll("#property-results .property-card"),
+  ).toHaveLength(count);
 });

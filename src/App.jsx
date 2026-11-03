@@ -457,7 +457,9 @@ export default function App() {
   const [activityTab, setActivityTab] = useState("saved");
   const [editing, setEditing] = useState(null);
   const listingRef = useRef(null);
-  const pendingListScroll = useRef(false);
+  const [mapList, setMapList] = useState(false);
+  const mapListToggle = useRef(null);
+  const wasMapList = useRef(false);
   const searchReturn = useRef("home");
   const searchRef = useRef(null);
   const [focusSearch, setFocusSearch] = useState(false);
@@ -491,21 +493,12 @@ export default function App() {
   const [contactError, setContactError] = useState("");
   const [contactTarget, setContactTarget] = useState(null);
   useEffect(() => {
-    if (route === "home" && pendingListScroll.current) {
-      pendingListScroll.current = false;
-      const frame = requestAnimationFrame(() => {
-        listingRef.current?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? "auto"
-            : "smooth",
-          block: "start",
-        });
-        listingRef.current?.focus({ preventScroll: true });
-      });
-      return () => cancelAnimationFrame(frame);
-    }
-  }, [route]);
+    if (route !== "map") return;
+    if (mapList) listingRef.current?.focus({ preventScroll: true });
+    else if (wasMapList.current)
+      mapListToggle.current?.focus({ preventScroll: true });
+    wasMapList.current = mapList;
+  }, [route, mapList]);
   useEffect(() => {
     if (focusSearch && route === "results") {
       searchRef.current?.focus();
@@ -584,21 +577,12 @@ export default function App() {
   };
   const showList = () => {
     setAreaOnly(true);
-    if (window.matchMedia(mobileQuery).matches) {
-      if (route === "home") {
-        listingRef.current?.scrollIntoView({
-          behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
-            .matches
-            ? "auto"
-            : "smooth",
-          block: "start",
-        });
-        listingRef.current?.focus({ preventScroll: true });
-      } else {
-        pendingListScroll.current = true;
-        navigate("home");
-      }
-    } else navigate("results");
+    if (route === "map") setMapList(true);
+    else navigate("results");
+  };
+  const openMap = () => {
+    setMapList(false);
+    navigate("map");
   };
   const notify = (s) => setToast(s);
   const savedRef = useRef(saved);
@@ -685,7 +669,10 @@ export default function App() {
       }),
     [filtered, bounds, locationRequests],
   );
-  const resultItems = route === "results" && !areaOnly ? filtered : visible;
+  const resultItems =
+    (route === "results" || (route === "map" && mapList)) && !areaOnly
+      ? filtered
+      : visible;
   const sorted = useMemo(
     () => sortProperties(resultItems, sort, priceUnit),
     [resultItems, sort, priceUnit],
@@ -771,7 +758,13 @@ export default function App() {
     restoreScroll.current = returnTo.current.scroll;
     navigate(returnTo.current.route);
   };
-  const handleBounds = useCallback((b) => setBounds(b), []);
+  const handleBounds = useCallback(
+    (b) => {
+      // Hidden Leaflet panes can emit zero-size bounds. Keep the last visible area.
+      if (route !== "map" || !mapList) setBounds(b);
+    },
+    [route, mapList],
+  );
   const renderCard = (p, compact = false) =>
     compact ? (
       <PropertyCard
@@ -1276,13 +1269,17 @@ export default function App() {
             <section
               className={
                 "explore-layout " +
-                (route === "map" ? "map-only" : "") +
+                (route === "map"
+                  ? mapList
+                    ? "map-list-mode"
+                    : "map-only"
+                  : "") +
                 (route === "results" ? "results-layout" : "") +
                 (route === "home" ? " home-discovery-layout" : "")
               }
             >
               {route !== "results" && (
-                <div className="map-column">
+                <div className="map-column" hidden={route === "map" && mapList}>
                   <div className="map-stage">
                     <MapView
                       clustered
@@ -1291,7 +1288,8 @@ export default function App() {
                       scrollPreview={route === "home"}
                       viewport={mapViewport.current}
                       onViewport={(v) => {
-                        mapViewport.current = v;
+                        if (route !== "map" || !mapList)
+                          mapViewport.current = v;
                       }}
                       items={filtered}
                       requests={locationRequests}
@@ -1340,8 +1338,10 @@ export default function App() {
                     </button>
                     <button
                       className="map-list-toggle"
+                      ref={mapListToggle}
+                      aria-expanded={route === "map" && mapList}
                       aria-controls={
-                        route === "home" ? "property-results" : undefined
+                        route === "map" ? "property-results" : undefined
                       }
                       onClick={showList}
                     >
@@ -1375,10 +1375,7 @@ export default function App() {
                           around {city}
                         </p>
                       </div>
-                      <button
-                        className="primary"
-                        onClick={() => navigate("map")}
-                      >
+                      <button className="primary" onClick={openMap}>
                         <MapIcon size={15} aria-hidden="true" /> Open map
                       </button>
                     </div>
@@ -1389,6 +1386,9 @@ export default function App() {
                 <HomeDiscovery
                   items={filtered}
                   city={city}
+                  agents={agents}
+                  agentItems={allProperties}
+                  onNavigate={navigate}
                   saved={saved}
                   recent={recent}
                   onSave={save}
@@ -1400,7 +1400,7 @@ export default function App() {
                   }}
                 />
               )}
-              {route !== "map" && (
+              {(route === "results" || (route === "map" && mapList)) && (
                 <aside
                   className="listing-panel"
                   id="property-results"
@@ -1420,10 +1420,17 @@ export default function App() {
                       {sorted.length}{" "}
                       {sorted.length === 1 ? "property" : "properties"}
                     </h2>
-                    {route === "results" ? (
+                    {route === "map" ? (
                       <button
                         className="secondary list-map-button"
-                        onClick={() => navigate("map")}
+                        onClick={() => setMapList(false)}
+                      >
+                        <MapIcon size={18} /> Back to map
+                      </button>
+                    ) : route === "results" ? (
+                      <button
+                        className="secondary list-map-button"
+                        onClick={openMap}
                       >
                         <MapIcon size={18} />
                         Map View
@@ -1432,7 +1439,7 @@ export default function App() {
                       <>
                         <button
                           className="secondary home-list-map-button"
-                          onClick={() => navigate("map")}
+                          onClick={openMap}
                         >
                           <MapIcon size={18} />
                           Map
@@ -1440,7 +1447,7 @@ export default function App() {
                         <button
                           className="icon-button desktop-expand"
                           aria-label="Expand map"
-                          onClick={() => navigate("map")}
+                          onClick={openMap}
                         >
                           <Maximize2 size={18} />
                         </button>
@@ -1515,6 +1522,7 @@ export default function App() {
         )}
         {browse &&
           route !== "results" &&
+          !(route === "map" && mapList) &&
           chosen &&
           isMobile &&
           selectionPreview}
@@ -2130,7 +2138,8 @@ export default function App() {
                 (r === "agents" ? "agent-nav" : "")
               }
               onClick={() => {
-                navigate(r);
+                if (r === "map") openMap();
+                else navigate(r);
               }}
             >
               <span>
