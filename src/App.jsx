@@ -87,7 +87,7 @@ import {
   propertyHotspots,
 } from "./PropertyContact";
 import PropertyTypes, { typeLabel } from "./PropertyTypes";
-import { MobilePropertyPrice, StickyWhatsAppBar } from "./MobileUI";
+import { MobilePropertyPrice } from "./MobileUI";
 import {
   Wordmark,
   PropertyActionBar,
@@ -1885,7 +1885,6 @@ export default function App() {
               money={money}
               onVisit={() => requestVisit(detail)}
             />
-            <StickyWhatsAppBar property={detail} />
           </section>
         )}
         {route === "post" && !listingsReady && <LoadingSkeleton kind="form" />}

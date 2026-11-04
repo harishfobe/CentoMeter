@@ -790,13 +790,13 @@
     border-radius: 11px;
   }
   .mobile-detail-actions {
-    bottom: calc(var(--sticky-whatsapp-height, 64px) + env(safe-area-inset-bottom));
+    bottom: 0;
     z-index: 1000;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 12px;
-    padding: 10px var(--mobile-gutter);
+    padding: 10px var(--mobile-gutter) calc(10px + env(safe-area-inset-bottom));
     background: var(--paper);
     box-shadow: 0 -4px 16px rgba(24, 24, 27, 0.08);
   }
@@ -1644,7 +1644,7 @@
 }
 .direct-contact-buttons {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 8px;
 }
 .direct-contact-buttons a,
@@ -1666,7 +1666,11 @@
   background: var(--paper);
   border-color: var(--line);
   color: var(--ink);
-  width: 100%;
+}
+.direct-contact-buttons .contact-whatsapp {
+  background: var(--paper);
+  border-color: var(--line);
+  color: var(--ink);
 }
 .contact-panel .contact-visit {
   width: 100%;
@@ -1774,15 +1778,10 @@
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 12px;
-    padding: 10px var(--mobile-gutter);
-    bottom: calc(
-      var(--sticky-whatsapp-height, 64px) + env(safe-area-inset-bottom)
-    );
+    padding: 10px var(--mobile-gutter) calc(10px + env(safe-area-inset-bottom));
   }
   .app-shell .detail-page {
-    padding-bottom: calc(
-      120px + var(--sticky-whatsapp-height, 64px) + env(safe-area-inset-bottom)
-    );
+    padding-bottom: calc(120px + env(safe-area-inset-bottom));
   }
   .detail-page .property-hotspots {
     display: grid;
@@ -2768,54 +2767,4 @@ a:focus-visible {
 .agent-inbox .primary:hover,
 .selection-location-gate .primary:hover {
   background: #3f3f46;
-}
-
-/* Sticky WhatsApp lead CTA — always visible above the iOS home indicator. */
-.sticky-whatsapp-bar {
-  --sticky-whatsapp-height: 64px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  display: flex;
-  width: 100%;
-  padding: 10px 16px;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
-  background: var(--ink);
-  box-sizing: border-box;
-}
-.sticky-whatsapp-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  min-height: 48px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: #25d366;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
-  text-decoration: none;
-  text-align: center;
-}
-.sticky-whatsapp-cta:hover,
-.sticky-whatsapp-cta:active {
-  filter: brightness(0.95);
-  color: #ffffff;
-}
-.agent-detail {
-  padding-bottom: calc(
-    24px + var(--sticky-whatsapp-height, 64px) + env(safe-area-inset-bottom)
-  );
-}
-.modal:has(.sticky-whatsapp-bar) .agent-detail-actions {
-  bottom: calc(var(--sticky-whatsapp-height, 64px) + env(safe-area-inset-bottom));
-}
-@media (min-width: 761px) and (pointer: fine) {
-  .sticky-whatsapp-bar {
-    display: none;
-  }
 }
