@@ -52,7 +52,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 12px;
-  background: white;
+  background: var(--paper);
 }
 .home-map-footer strong {
   font-size: 13px;
@@ -148,7 +148,7 @@
   border: 1px solid #e4e4e7;
   border-radius: 16px;
   overflow: hidden;
-  background: white;
+  background: var(--paper);
 }
 .home-project > .property-card {
   border: 0;
@@ -247,7 +247,7 @@
   padding: 12px 8px 12px 0;
   border: 1px solid #e4e4e7;
   border-radius: 14px;
-  background: white;
+  background: var(--paper);
 }
 .home-popular-open {
   display: flex;
