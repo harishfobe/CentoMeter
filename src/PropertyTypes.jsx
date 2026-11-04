@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Building2,
   House,
@@ -42,10 +42,45 @@ export default function PropertyTypes({
   allowAll = false,
   compact = false,
 }) {
+  // On the browse page, reveal the property-type choices after Buy or Rent is
+  // selected. Compact filter-dialog controls remain visible as before.
+  const [expanded, setExpanded] = useState(!allowAll || compact);
+
+  useEffect(() => {
+    if (!allowAll || compact) return;
+    const revealOnIntentClick = (event) => {
+      const intent = event.target.closest('[aria-label="Property intent"]');
+      const button = intent?.querySelector ? event.target.closest('[role="tab"]') : null;
+      if (!intent || !button) return;
+      const selectedIntent = button.textContent.trim();
+      if (selectedIntent === "BUY" || selectedIntent === "RENT")
+        setExpanded(true);
+    };
+    document.addEventListener("click", revealOnIntentClick);
+    return () => document.removeEventListener("click", revealOnIntentClick);
+  }, [allowAll, compact]);
+
+  const collapsed = allowAll && !compact && !expanded;
   return (
     <section
-      className={"property-types" + (compact ? " property-types-compact" : "")}
+      className={
+        "property-types" +
+        (compact ? " property-types-compact" : "") +
+        (collapsed ? " property-types-collapsed" : "")
+      }
       aria-label="Property type"
+      aria-hidden={collapsed}
+      inert={collapsed}
+      style={
+        allowAll && !compact
+          ? {
+              maxHeight: collapsed ? 0 : 240,
+              opacity: collapsed ? 0 : 1,
+              overflow: "hidden",
+              transition: "max-height 240ms ease, opacity 180ms ease",
+            }
+          : undefined
+      }
     >
       <div
         className="property-type-options"
