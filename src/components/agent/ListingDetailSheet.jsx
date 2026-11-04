@@ -1,6 +1,6 @@
 import { ArrowUpRight, ChevronDown, Copy, FileImage, Play } from "lucide-react";
-import WhatsAppLink from "../WhatsAppLink";
 import CopyButton from "../CopyButton";
+import { StickyWhatsAppBar } from "../../MobileUI";
 import useSheetDrag from "../../lib/useSheetDrag";
 import {
   animateMotion,
@@ -474,13 +474,6 @@ export default function ListingDetailSheet({
               </button>
             )}
           </>
-          <WhatsAppLink
-            className="secondary"
-            number={a.whatsapp}
-            message={"Hello, I am interested in " + p.title + " on CentoMeter."}
-          >
-            WhatsApp
-          </WhatsAppLink>
           <button className="secondary" onClick={() => setVisit(true)}>
             Site visit
           </button>
@@ -498,6 +491,11 @@ export default function ListingDetailSheet({
           </button>
         </div>
       </article>
+      <StickyWhatsAppBar
+        number={a.whatsapp}
+        message={"Hello, I am interested in " + p.title + " on CentoMeter."}
+        label="WhatsApp"
+      />
       {zoom && (
         <Modal title="Photo viewer" onClose={() => setZoom(false)}>
           <img
