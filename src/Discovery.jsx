@@ -388,32 +388,11 @@ export function Gallery({ p }) {
           />
         ))}
       </div>
-      <span className="gallery-count">
-        {index + 1} / {images.length} ·{" "}
-        {p.photos?.length ? "Listing photos" : "Sample photos"}
-      </span>
       {images.length > 1 && (
-        <div className="gallery-controls">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              aria-label={`Show photo ${i + 1}`}
-              aria-pressed={index === i}
-              onClick={(e) =>
-                e.currentTarget
-                  .closest(".gallery-wrap")
-                  .querySelector(".swipe-gallery")
-                  .scrollTo({
-                    left:
-                      i * e.currentTarget.closest(".gallery-wrap").clientWidth,
-                    behavior: "smooth",
-                  })
-              }
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
+        <span className="gallery-count">
+          {index + 1} / {images.length} ·{" "}
+          {p.photos?.length ? "Listing photos" : "Sample photos"}
+        </span>
       )}
     </div>
   );
