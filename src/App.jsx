@@ -53,7 +53,6 @@ import {
   Clock3,
   Eye,
   Share2,
-  Sparkles,
 } from "lucide-react";
 import properties from "./properties.json";
 import agents from "./data/agents.json";
@@ -1367,13 +1366,7 @@ export default function App() {
                       aria-pressed={agentPicks}
                       onClick={() => setAgentPicks((v) => !v)}
                     >
-                      <span className="agent-picks-icon" aria-hidden="true">
-                        <Sparkles size={16} />
-                      </span>
-                      <span className="agent-picks-copy">
-                        <strong>Agent picks</strong>
-                        <small>Curated by local agents</small>
-                      </span>
+                      Agent picks
                     </button>
                     <div className="map-status">
                       <span className="live-dot" />
