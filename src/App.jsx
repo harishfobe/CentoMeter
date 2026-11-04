@@ -459,7 +459,6 @@ export default function App() {
   const listingRef = useRef(null);
   const [mapList, setMapList] = useState(false);
   const mapListToggle = useRef(null);
-  const sheetDragY = useRef(null);
   const wasMapList = useRef(false);
   const searchReturn = useRef("home");
   const searchRef = useRef(null);
@@ -585,6 +584,53 @@ export default function App() {
     setMapList(false);
     navigate("map");
   };
+  // Peek-sheet drag: the bar follows the finger, then opens the list or springs back.
+  const sheetDrag = useRef(null);
+  const suppressPeekClick = useRef(false);
+  const sheetPointerDown = (e) => {
+    if (route !== "map" || (e.pointerType === "mouse" && e.button !== 0))
+      return;
+    sheetDrag.current = { y: e.clientY, t: performance.now(), dy: 0, moved: 0 };
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    e.currentTarget.classList.add("dragging");
+  };
+  const sheetPointerMove = (e) => {
+    const d = sheetDrag.current;
+    if (!d) return;
+    d.dy = Math.min(0, e.clientY - d.y);
+    d.moved = Math.max(d.moved, Math.abs(e.clientY - d.y));
+    e.currentTarget.style.transform = `translateY(${d.dy}px)`;
+  };
+  const finishSheetDrag = (e, cancelled) => {
+    const d = sheetDrag.current;
+    if (!d) return;
+    sheetDrag.current = null;
+    const el = e.currentTarget;
+    el.classList.remove("dragging");
+    const dist = -d.dy;
+    const speed = dist / Math.max(1, performance.now() - d.t);
+    const commit = !cancelled && (dist > 56 || (dist > 16 && speed > 0.5));
+    if (d.moved > 6) {
+      suppressPeekClick.current = true;
+      setTimeout(() => {
+        suppressPeekClick.current = false;
+      }, 100);
+    }
+    if (!commit) {
+      el.style.transform = "";
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      showList();
+      return;
+    }
+    el.style.transform = `translateY(${-Math.round(window.innerHeight * 0.3)}px)`;
+    setTimeout(showList, 160);
+  };
+  useEffect(() => {
+    if (!mapList && mapListToggle.current)
+      mapListToggle.current.style.transform = "";
+  }, [mapList, route]);
   const notify = (s) => setToast(s);
   const savedRef = useRef(saved);
   savedRef.current = saved;
@@ -1347,16 +1393,17 @@ export default function App() {
                       aria-controls={
                         route === "map" ? "property-results" : undefined
                       }
-                      onClick={showList}
-                      onPointerDown={(e) => {
-                        sheetDragY.current = e.clientY;
+                      onClick={() => {
+                        if (suppressPeekClick.current) {
+                          suppressPeekClick.current = false;
+                          return;
+                        }
+                        showList();
                       }}
-                      onPointerUp={(e) => {
-                        const start = sheetDragY.current;
-                        sheetDragY.current = null;
-                        if (route === "map" && start != null && start - e.clientY > 30)
-                          showList();
-                      }}
+                      onPointerDown={sheetPointerDown}
+                      onPointerMove={sheetPointerMove}
+                      onPointerUp={(e) => finishSheetDrag(e, false)}
+                      onPointerCancel={(e) => finishSheetDrag(e, true)}
                     >
                       {route === "map" && (
                         <span className="map-sheet-grab" aria-hidden="true" />
