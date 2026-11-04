@@ -113,7 +113,7 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 20px;
   align-content: start;
-  background: white;
+  background: var(--paper);
   pointer-events: none;
   overflow: hidden;
 }
@@ -203,7 +203,7 @@
   visibility: hidden;
   border: 1px solid #e4e4e7;
   border-radius: 999px;
-  background: white;
+  background: var(--paper);
   box-shadow: 0 4px 20px #18181b15;
 }
 .agent-feature[data-back-top="true"] .agent-back-top {
@@ -266,7 +266,7 @@
   top: 0;
   z-index: 701;
   padding: 10px 0;
-  background: white;
+  background: var(--paper);
 }
 .modal-scrim[data-motion-kind="listing"] .agent-detail-actions {
   bottom: -18px;
@@ -645,7 +645,7 @@
 .agent-feature .chip {
   position: relative;
   isolation: isolate;
-  background: white !important;
+  background: var(--paper) !important;
 }
 .agent-feature .chip::before {
   content: "";

@@ -80,7 +80,7 @@
 }
 .agent-slim-bar button,
 .agent-filter-bar button {
-  background: white;
+  background: var(--paper);
   border: 1px solid #e4e4e7;
   border-radius: 999px;
   padding: 8px 16px;
@@ -89,7 +89,7 @@
   position: sticky;
   top: 48px;
   z-index: 550;
-  background: white;
+  background: var(--paper);
 }
 .agent-filter-bar {
   display: flex;
@@ -98,7 +98,7 @@
   align-items: center;
   padding: 10px 0;
   scrollbar-width: none;
-  background: white;
+  background: var(--paper);
 }
 .agent-public .agent-filter-bar {
   position: static;
@@ -190,7 +190,7 @@
   gap: 8px;
   flex-wrap: wrap;
   z-index: 700;
-  background: white;
+  background: var(--paper);
   border-top: 1px solid #e4e4e7;
   padding: 12px 0;
 }
@@ -210,7 +210,7 @@
 .modal:has(.agent-detail) .modal-heading {
   position: sticky;
   top: -24px;
-  background: white;
+  background: var(--paper);
   z-index: 701;
   padding: 12px 0;
 }
@@ -358,7 +358,7 @@
   min-width: 44px;
   min-height: 44px;
   border: 0;
-  background: white;
+  background: var(--paper);
   color: #71717a;
 }
 .agent-photo-dots button[aria-pressed="true"] {
@@ -631,7 +631,7 @@
   border: 1px solid #e4e4e7;
   border-radius: 999px;
   color: #52525b;
-  background: white;
+  background: var(--paper);
 }
 .finder-refined .chip[aria-pressed="true"],
 .finder-sheet .chip[aria-pressed="true"],

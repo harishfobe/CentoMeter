@@ -12,12 +12,16 @@
   --brand-on: #ffffff;
   --orange: var(--brand);
   --orange-hover: var(--brand-hover);
-  --brand-active: var(--brand);
+  --brand-action: #c44b05;
+  --brand-action-hover: #a83f04;
+  --brand-deep: #9d3c04;
+  --brand-active: var(--brand-action);
   --ink: #18181b;
+  --ink-alt: #18221f;
   --charcoal: var(--ink);
   --navy: var(--ink);
   --navy-deep: var(--ink);
-  --muted: #71717a;
+  --muted: #52525b;
   --placeholder: #a1a1aa;
   --paper: #ffffff;
   --canvas: #f4f4f5;
@@ -134,15 +138,15 @@ textarea:focus-visible {
   font-weight: 700;
 }
 .primary {
-  background: var(--brand);
-  border: 1px solid var(--brand);
+  background: var(--brand-action);
+  border: 1px solid var(--brand-action);
   color: var(--brand-on);
   box-shadow: none;
 }
 .primary:hover,
 .primary:active {
-  background: var(--brand-hover);
-  border-color: var(--brand-hover);
+  background: var(--brand-action-hover);
+  border-color: var(--brand-action-hover);
   color: var(--brand-on);
 }
 .secondary {
@@ -230,10 +234,10 @@ textarea:focus-visible {
   display: none;
 }
 .search-controls .search-box .icon-button {
-  width: 36px;
-  min-width: 36px;
-  height: 36px;
-  min-height: 36px;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
   color: var(--muted);
 }
 .search-controls .filter-button {
@@ -751,7 +755,7 @@ textarea:focus-visible {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 28px;
+    height: 44px;
     padding: 0;
     cursor: n-resize;
   }

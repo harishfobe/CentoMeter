@@ -89,7 +89,7 @@ img {
   color: var(--muted);
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 750;
   letter-spacing: 0.17em;
   line-height: 1.5;
@@ -106,7 +106,7 @@ img {
   display: flex;
   align-items: center;
   gap: 30px;
-  background: white;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 .brand {
@@ -155,7 +155,7 @@ img {
   gap: 24px;
 }
 .prototype-tag {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.12em;
   background: #f4f4f5;
   border: 1px solid var(--line);
@@ -202,7 +202,7 @@ img {
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  background: white;
+  background: var(--paper);
 }
 .explore-heading h1 {
   font-size: 29px;
@@ -267,7 +267,7 @@ img {
   display: flex;
   gap: 9px;
   align-items: center;
-  background: white;
+  background: var(--paper);
   font-size: 14px;
   font-weight: 600;
 }
@@ -283,7 +283,7 @@ img {
   justify-content: space-between;
   padding: 0 40px 22px;
   gap: 10px;
-  background: white;
+  background: var(--paper);
 }
 .chips {
   display: flex;
@@ -301,7 +301,7 @@ img {
   align-items: center;
   gap: 7px;
   min-height: 39px;
-  background: white;
+  background: var(--paper);
 }
 .chip:hover {
   border-color: #e4e4e7;
@@ -328,13 +328,13 @@ img {
   flex-direction: column;
   min-width: 0;
   min-height: 0;
-  background: white;
+  background: var(--paper);
 }
 .intent-tabs {
   display: flex;
   height: 62px;
   flex-shrink: 0;
-  background: white;
+  background: var(--paper);
   padding: 0 25px;
   gap: 6px;
   border-bottom: 1px solid var(--line);
@@ -393,7 +393,7 @@ img {
   align-items: center;
   justify-content: center;
   gap: 1px;
-  background: white;
+  background: var(--paper);
   color: var(--navy);
   font-size: 12px;
   font-weight: 800;
@@ -425,7 +425,7 @@ img {
   z-index: 999 !important;
 }
 .price-marker small {
-  font-size: 9px;
+  font-size: 11px;
 }
 .map-status {
   position: absolute;
@@ -435,7 +435,7 @@ img {
   gap: 8px;
   align-items: center;
   box-shadow: var(--shadow);
-  background: white;
+  background: var(--paper);
   padding: 10px 13px;
   border-radius: 8px;
   font-size: 12px;
@@ -470,7 +470,7 @@ img {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  background: white;
+  background: var(--paper);
   box-shadow: var(--shadow);
   display: grid;
   place-items: center;
@@ -497,7 +497,7 @@ img {
   bottom: 17px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 10px;
+  font-size: 11px;
   background: #ffffffdd;
   color: #71717a;
   padding: 2px 7px;
@@ -506,7 +506,7 @@ img {
   z-index: 400;
 }
 .leaflet-control-attribution {
-  font-size: 9px !important;
+  font-size: 11px !important;
 }
 .map-preview {
   position: absolute;
@@ -523,7 +523,7 @@ img {
 .map-warning {
   position: absolute;
   bottom: 105px;
-  background: white;
+  background: var(--paper);
   padding: 12px;
   font-size: 12px;
   color: #ef4444;
@@ -577,7 +577,7 @@ img {
   gap: 18px 16px;
 }
 .property-card {
-  background: white;
+  background: var(--paper);
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--line);
@@ -609,7 +609,7 @@ img {
   background: #ffffffed;
   color: var(--navy);
   border-radius: 5px;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   box-shadow: 0 1px 6px #18181b0c;
   letter-spacing: 0.02em;
@@ -630,7 +630,7 @@ img {
 .save-button:hover,
 .save-button.is-saved {
   color: var(--brand-active);
-  background: white;
+  background: var(--paper);
 }
 .property-copy {
   padding: 15px 14px 14px;
@@ -646,7 +646,7 @@ img {
 }
 .price small {
   font-family: var(--font-body);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0;
   color: var(--muted);
@@ -665,7 +665,7 @@ img {
   gap: 4px;
 }
 .property-copy p {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 5px;
   line-height: 1.5;
 }
@@ -677,7 +677,7 @@ img {
   padding-top: 11px;
   border-top: 1px solid #f4f4f5;
   color: #71717a;
-  font-size: 9px;
+  font-size: 11px;
 }
 .property-specs > span {
   display: flex;
@@ -708,7 +708,7 @@ img {
   height: 25px;
 }
 .compact .badge {
-  font-size: 8px;
+  font-size: 11px;
   left: 7px;
   top: 7px;
 }
@@ -722,11 +722,11 @@ img {
 .compact .property-specs {
   margin-top: 8px;
   padding-top: 8px;
-  font-size: 9px;
+  font-size: 11px;
 }
 .listing-disclaimer {
   text-align: center;
-  font-size: 10px;
+  font-size: 11px;
   color: #71717a;
   padding: 27px 8px 8px;
   line-height: 1.7;
@@ -759,7 +759,7 @@ img {
   position: relative;
 }
 .bottom-nav small {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 550;
 }
 .bottom-nav button > span {
@@ -860,7 +860,7 @@ img {
 }
 .secondary {
   border: 1px solid var(--line);
-  background: white;
+  background: var(--paper);
   color: var(--ink);
 }
 .secondary:hover {
@@ -950,7 +950,7 @@ img {
   background: #18181bb8;
   padding: 7px 10px;
   border-radius: 6px;
-  font-size: 10px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -974,7 +974,7 @@ img {
   background: var(--brand-soft);
   border-radius: 5px;
   padding: 6px 9px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -1039,7 +1039,7 @@ img {
   border-radius: 14px;
 }
 .contact-panel {
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 23px;
@@ -1160,7 +1160,7 @@ img {
 .post-panel {
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: white;
+  background: var(--paper);
   padding: 30px;
 }
 .form-stack {
@@ -1266,7 +1266,7 @@ textarea {
 }
 .upload-zone small {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 11px;
 }
 .upload-label {
   position: relative;
@@ -1302,7 +1302,7 @@ textarea {
   top: -5px;
   width: 23px;
   height: 23px;
-  background: white;
+  background: var(--paper);
   box-shadow: var(--shadow);
 }
 .location-picker {
@@ -1367,7 +1367,7 @@ textarea {
 }
 .profile-card {
   text-align: center;
-  background: white;
+  background: var(--paper);
   border-radius: 18px;
   border: 1px solid var(--line);
   padding: 32px;
@@ -1444,7 +1444,7 @@ textarea {
   animation: appear 0.16s;
 }
 .modal {
-  background: white;
+  background: var(--paper);
   width: 500px;
   max-width: 100%;
   max-height: 90dvh;
@@ -1542,7 +1542,7 @@ textarea {
   margin-top: 4px;
 }
 .draft-card small {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--success);
 }
 .toast {
@@ -1715,7 +1715,7 @@ textarea {
     display: block;
   }
   .explore-heading > .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
   .explore-heading h1 {
     font-size: 25px;
@@ -1774,7 +1774,7 @@ textarea {
   .map-status {
     left: 15px;
     top: 15px;
-    font-size: 10px;
+    font-size: 11px;
     padding: 10px 12px;
   }
   .leaflet-control-zoom {
@@ -1813,10 +1813,10 @@ textarea {
     padding: 13px 11px;
   }
   .compact .property-copy p {
-    font-size: 10px;
+    font-size: 11px;
   }
   .compact .property-specs {
-    font-size: 9px;
+    font-size: 11px;
     gap: 7px;
   }
   .compact .price {
@@ -1835,7 +1835,7 @@ textarea {
     font-size: 25px;
   }
   .results-heading .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
   .results-heading p:not(.eyebrow) {
     font-size: 12px;
@@ -1864,10 +1864,10 @@ textarea {
     font-size: 12px;
   }
   .property-copy p {
-    font-size: 10px;
+    font-size: 11px;
   }
   .property-specs {
-    font-size: 9px;
+    font-size: 11px;
     gap: 7px;
     margin-top: 10px;
   }
@@ -1876,7 +1876,7 @@ textarea {
     height: 11px;
   }
   .property-image .badge {
-    font-size: 8px;
+    font-size: 11px;
     left: 8px;
     top: 8px;
     padding: 4px 6px;
@@ -1902,7 +1902,7 @@ textarea {
     gap: 3px;
   }
   .bottom-nav small {
-    font-size: 10px;
+    font-size: 11px;
   }
   .bottom-nav button > span {
     height: 30px;
@@ -2024,7 +2024,7 @@ textarea {
     gap: 20px;
   }
   .stepper small {
-    font-size: 10px;
+    font-size: 11px;
   }
   .stepper {
     margin: 25px 0;
@@ -2165,7 +2165,7 @@ textarea {
     height: 14px;
   }
   .property-grid .badge {
-    font-size: 10px;
+    font-size: 11px;
     left: 12px;
     top: 12px;
   }
@@ -2279,7 +2279,7 @@ textarea {
   padding: 4px 6px;
   background: #18181b;
   color: #18181b;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.06em;
   border-radius: 4px;
 }
@@ -2312,7 +2312,7 @@ textarea {
     gap: 6px;
   }
   .header-post strong {
-    font-size: 9px;
+    font-size: 11px;
   }
 }
 
@@ -2331,7 +2331,7 @@ textarea {
   font-weight: 550;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: white;
+  background: var(--paper);
   color: var(--ink);
 }
 .list-map-button svg {
@@ -2390,7 +2390,7 @@ textarea {
     gap: 5px;
   }
   .header-post strong {
-    font-size: 9px;
+    font-size: 11px;
     padding: 4px;
   }
 }
@@ -2405,7 +2405,7 @@ textarea {
 }
 .header-post strong {
   padding: 3px 5px;
-  font-size: 9px;
+  font-size: 11px;
   border-radius: 3px;
 }
 @media (max-width: 420px) {
@@ -2413,11 +2413,11 @@ textarea {
     padding: 6px 8px;
     gap: 5px;
     min-height: 32px;
-    font-size: 10px;
+    font-size: 11px;
   }
   .header-post strong {
     padding: 3px 4px;
-    font-size: 8px;
+    font-size: 11px;
   }
 }
 
@@ -2430,7 +2430,7 @@ textarea {
   top: calc(100% + 8px);
   left: 0;
   right: 0;
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 14px;
   box-shadow: 0 12px 32px #18181b26;
@@ -2544,7 +2544,7 @@ textarea {
   }
   .header-post {
     padding: 6px;
-    font-size: 10px;
+    font-size: 11px;
   }
 }
 
@@ -2574,7 +2574,7 @@ textarea {
   padding: 7px 11px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: white;
+  background: var(--paper);
   color: var(--muted);
   font-size: 12px;
   font-weight: 550;
@@ -2685,7 +2685,7 @@ textarea {
   gap: 8px;
   flex-wrap: wrap;
   padding: 8px 24px;
-  background: white;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 .discovery-actions .chip {
@@ -2712,7 +2712,7 @@ textarea {
   background: var(--navy);
   color: white;
   border-radius: 20px;
-  font-size: 10px;
+  font-size: 11px;
   min-width: 18px;
   padding: 3px;
 }
@@ -2729,7 +2729,7 @@ textarea {
 }
 .card-meta {
   padding: 10px 12px;
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 0 0 12px 12px;
   display: flex;
@@ -2809,7 +2809,7 @@ textarea {
 }
 .cost-breakdown > small {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.6;
   color: var(--muted);
 }
@@ -2930,7 +2930,7 @@ textarea {
     display: flex;
     gap: 10px;
     padding: 10px 16px;
-    background: white;
+    background: var(--paper);
     border-top: 1px solid var(--line);
   }
   .mobile-detail-actions button {
@@ -3022,7 +3022,7 @@ textarea {
   z-index: 450;
   left: 16px;
   top: 62px;
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 10px 14px;
@@ -3071,7 +3071,7 @@ textarea {
 }
 .photo-order,
 .photo-move {
-  background: white;
+  background: var(--paper);
   min-height: 44px;
   border: 1px solid var(--line);
   font-size: 11px;
@@ -3173,7 +3173,7 @@ textarea {
   z-index: 1;
 }
 .price-marker small {
-  font-size: 8px;
+  font-size: 11px;
 }
 .profile-card > .profile-signout {
   width: 100%;
@@ -3243,7 +3243,7 @@ textarea {
   align-content: center;
   justify-items: center;
   gap: 8px;
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 16px;
   color: var(--muted);
@@ -3327,7 +3327,7 @@ textarea {
   justify-content: space-between;
   gap: 20px;
   padding: 18px 20px;
-  background: white;
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 12px;
 }
@@ -3358,7 +3358,7 @@ textarea {
   border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
-  background: white;
+  background: var(--paper);
 }
 .land-facts > div {
   padding: 13px 16px;
@@ -3516,7 +3516,7 @@ textarea {
     min-width: 20px;
     height: 20px;
     padding: 0 5px;
-    font-size: 10px;
+    font-size: 11px;
   }
   .activity-tab-label {
     height: 34px;
@@ -3579,13 +3579,13 @@ textarea {
   pointer-events: none;
 }
 .leaflet-container .price-marker.selected {
-  --pin-fill: #18221f;
+  --pin-fill: var(--ink-alt);
   --pin-text: #fff;
 }
 .leaflet-container .price-marker.selected > span {
-  background: #18221f;
+  background: var(--ink-alt);
   color: #fff;
-  border: 1.5px solid #18221f;
+  border: 1.5px solid var(--ink-alt);
   transform: translateX(-50%) scale(1.1);
   box-shadow:
     0 0 0 2.5px var(--pin-ring),
@@ -3607,7 +3607,7 @@ textarea {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 999px;
-  color: #18221f;
+  color: var(--ink-alt);
   font-size: 12px;
   line-height: 1.3;
   padding: 8px 11px;

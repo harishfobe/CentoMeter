@@ -204,7 +204,7 @@
   }
   .explore-toolbar.property-type-toolbar {
     padding: 6px 12px;
-    background: white;
+    background: var(--paper);
     flex-shrink: 0;
   }
   .property-type-toolbar .property-type-options {
@@ -228,7 +228,7 @@
     border-color: var(--line);
     border-radius: 12px;
     white-space: nowrap;
-    background: white;
+    background: var(--paper);
   }
   .property-type-toolbar .property-type-option.selected {
     background: var(--brand-soft);
@@ -329,7 +329,7 @@
     width: 44px;
     height: 44px;
     z-index: 450;
-    background: white;
+    background: var(--paper);
     border: 1px solid var(--line);
     border-radius: 12px;
     box-shadow: var(--shadow);
@@ -591,7 +591,7 @@
     border: 1px solid var(--line);
     border-radius: 9px;
     font-size: var(--type-label);
-    background: white;
+    background: var(--paper);
     color: var(--navy);
   }
   .gallery-wrap {
@@ -793,7 +793,7 @@
     align-items: center;
     gap: 8px;
     padding: 12px;
-    background: white;
+    background: var(--paper);
     border: 0;
     border-bottom: 1px solid var(--line);
     border-radius: 0;
@@ -997,7 +997,7 @@
     position: sticky;
     top: 0;
     z-index: 3;
-    background: white;
+    background: var(--paper);
     padding: 14px 0 10px;
     margin: 0 0 14px;
     border-bottom: 1px solid var(--line);
@@ -1015,7 +1015,7 @@
     position: sticky;
     bottom: calc(-12px - env(safe-area-inset-bottom));
     z-index: 3;
-    background: white;
+    background: var(--paper);
     padding: 12px 0 calc(12px + env(safe-area-inset-bottom));
     border-top: 1px solid var(--line);
     gap: 12px;
@@ -1247,7 +1247,7 @@
     min-height: 34px;
   }
   .price-marker small {
-    font-size: 10px;
+    font-size: 11px;
   }
   .property-type-toolbar .property-type-option {
     flex-basis: auto;
@@ -1520,7 +1520,7 @@
   padding: 9px 12px;
   border: 1px solid #e4e4e7;
   border-radius: 9999px;
-  background: white;
+  background: var(--paper);
   color: #18181b;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1647,7 +1647,7 @@
   place-items: center;
   border-radius: 50%;
   background: #f4f4f5;
-  color: #18221f;
+  color: var(--ink-alt);
 }
 .seller-profile > div {
   min-width: 0;
@@ -1677,7 +1677,7 @@
   gap: 6px;
   min-height: 46px;
   padding: 10px 8px;
-  border: 1px solid #18221f;
+  border: 1px solid var(--ink-alt);
   border-radius: 12px;
   font-size: 14px;
   font-weight: 700;
@@ -1690,7 +1690,7 @@
   color: #fff;
 }
 .direct-contact-buttons .contact-whatsapp {
-  background: #18221f;
+  background: var(--ink-alt);
   color: #fff;
 }
 .direct-contact-buttons a:active {
@@ -1732,7 +1732,7 @@
   height: 28px;
   border-radius: 50%;
   background: #fff;
-  color: #18221f;
+  color: var(--ink-alt);
   font-size: 12px;
   font-weight: 800;
 }
@@ -1741,7 +1741,7 @@
   padding: 3px 7px;
   background: #fff;
   border-radius: 999px;
-  color: #18221f;
+  color: var(--ink-alt);
   font-size: 11px;
 }
 .detail-page .detail-map {
@@ -1761,7 +1761,7 @@
   border: 1px solid #e4e4e7;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.96);
-  color: #18221f;
+  color: var(--ink-alt);
   box-shadow: 0 2px 8px #18181b18;
   font-size: 11px;
   font-weight: 700;
@@ -1775,10 +1775,10 @@
   font-style: normal;
   border-radius: 50%;
   background: #f4f4f5;
-  font-size: 10px;
+  font-size: 11px;
 }
 .hotspot-marker small {
-  font-size: 10px;
+  font-size: 11px;
   color: #71717a;
 }
 .hotspot-marker:focus-visible > span {
@@ -1852,11 +1852,11 @@
 }
 
 .hotspot-marker > span {
-  font-size: 10px;
+  font-size: 11px;
   gap: 4px;
 }
 .hotspot-marker small {
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .detail-page .detail-map .map-layer-toggle {
@@ -1885,7 +1885,7 @@
   padding: 9px 12px;
   font-size: 12px;
   background: #fff;
-  color: #18221f;
+  color: var(--ink-alt);
 }
 
 .marker-cluster {
@@ -2450,7 +2450,7 @@ a:focus-visible {
 .app-shell .header-end .header-post .header-post-copy > strong {
   display: inline-block;
   padding: 2px 5px;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1;
   letter-spacing: 0.8px;
   border-radius: 4px;
@@ -2463,7 +2463,7 @@ a:focus-visible {
     gap: 5px;
   }
   .app-shell .header-post .header-post-copy > span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .app-shell .header-post .header-post-icon {
     width: 20px;
@@ -2551,7 +2551,7 @@ a:focus-visible {
   min-height: 46px;
   border: 0;
   border-bottom: 2px solid transparent;
-  background: white;
+  background: var(--paper);
   color: #71717a;
   font-weight: 700;
 }
@@ -2595,7 +2595,7 @@ a:focus-visible {
   padding: 16px;
   border: 1px solid #e4e4e7;
   border-radius: 12px;
-  background: white;
+  background: var(--paper);
   margin: 12px 0;
   display: flex;
   flex-direction: column;
@@ -2692,7 +2692,7 @@ a:focus-visible {
   left: 12px;
   top: 62px;
   z-index: 450;
-  background: white;
+  background: var(--paper);
   color: #18181b;
   border: 1px solid #e4e4e7;
   border-radius: 999px;
@@ -2709,7 +2709,7 @@ a:focus-visible {
   place-items: center;
   width: 46px;
   height: 46px;
-  background: white;
+  background: var(--paper);
   border: 2px solid #f96b13;
   border-radius: 50%;
   box-shadow: 0 3px 12px #18181b30;
