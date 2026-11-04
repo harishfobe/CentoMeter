@@ -1,0 +1,91 @@
+/* Map overlays: keep the agent-picks filter prominent and easy to explain. */
+.map-stage .agent-picks-toggle {
+  position: absolute;
+  top: 66px;
+  left: 18px;
+  z-index: 450;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 1px solid #ffffff;
+  border-radius: 14px;
+  background: #fffffffa;
+  color: #27352f;
+  box-shadow: 0 5px 18px #17231d24;
+  text-align: left;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+.map-stage .agent-picks-toggle::before {
+  content: "✦";
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  border-radius: 10px;
+  background: #fff1e8;
+  color: #b84406;
+  font-size: 17px;
+}
+.map-stage .agent-picks-toggle::after {
+  content: "Curated by local agents";
+  display: block;
+  margin-left: -4px;
+  color: #68736e;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.map-stage .agent-picks-toggle:hover {
+  box-shadow: 0 7px 22px #17231d30;
+  transform: translateY(-1px);
+}
+.map-stage .agent-picks-toggle[aria-pressed="true"] {
+  border-color: #b84406;
+  background: #9d3c04;
+  color: #fff;
+}
+.map-stage .agent-picks-toggle[aria-pressed="true"]::before {
+  background: #ffffff24;
+  color: #fff;
+}
+.map-stage .agent-picks-toggle[aria-pressed="true"]::after {
+  color: #fff2e9;
+}
+.map-stage .agent-picks-toggle:focus-visible {
+  outline: 3px solid #b84406;
+  outline-offset: 3px;
+}
+.map-stage .map-save-search {
+  top: 124px;
+  left: 18px;
+}
+
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+  .map-stage .agent-picks-toggle {
+    top: 58px;
+    left: 12px;
+    min-height: 46px;
+    padding: 7px 11px;
+    gap: 8px;
+    border-radius: 13px;
+  }
+  .map-stage .agent-picks-toggle::before {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+  .map-stage .agent-picks-toggle::after {
+    font-size: 10px;
+  }
+  .map-stage .map-save-search {
+    top: 112px;
+    left: 12px;
+  }
+}
