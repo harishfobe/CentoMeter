@@ -40,6 +40,17 @@
     <link rel="manifest" href="/manifest.webmanifest" />
   </head>
   <body>
+    <script>
+      if (
+        window.self === window.top &&
+        (window.matchMedia("(pointer: fine)").matches ||
+          window.innerWidth > 480)
+      ) {
+        window.location.replace(
+          "/mobile-preview.html" + (window.location.hash || "#home"),
+        );
+      }
+    </script>
     <div id="root"></div>
     <noscript>Enable JavaScript to use CentoMeter.</noscript>
     <script type="module" src="/src/main.jsx"></script>

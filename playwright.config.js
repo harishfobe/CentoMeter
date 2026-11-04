@@ -5,20 +5,6 @@ export default defineConfig({
   workers: 1,
   projects: [
     {
-      name: "desktop",
-      testIgnore: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
-      use: { viewport: { width: 1440, height: 900 } },
-    },
-    {
-      name: "tablet",
-      testIgnore: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
-      use: {
-        viewport: { width: 768, height: 1024 },
-        isMobile: true,
-        hasTouch: true,
-      },
-    },
-    {
       name: "phone",
       testIgnore: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
       use: {
@@ -35,11 +21,6 @@ export default defineConfig({
         isMobile: true,
         hasTouch: true,
       },
-    },
-    {
-      name: "audit-desktop",
-      testMatch: ["audit-flows.e2e.js", "home-discovery.e2e.js"],
-      use: { viewport: { width: 1280, height: 900 } },
     },
   ],
   use: {

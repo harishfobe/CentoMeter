@@ -19,7 +19,7 @@ npm run dev
 
 Open the local URL printed by Vite. Stop the server with Ctrl+C.
 
-For the phone preview, open `/mobile-preview.html` on that server. It offers 280–480 px widths and 100–200% text sizing. Browse scrolls from the map preview to the list; the dedicated Map screen supports full panning. Sizing references are recorded in [docs/MOBILE-RESEARCH.md](./docs/MOBILE-RESEARCH.md).
+The app is mobile-only: touch devices open the app directly, while desktop browsers show the phone preview at the local URL. The preview offers 280–480 px widths and 100–200% text sizing; its Browse screen scrolls from the map preview to the list, and the dedicated Map screen supports full panning. Open `/mobile-preview.html` directly to return to the device frame. Sizing references are recorded in [docs/MOBILE-RESEARCH.md](./docs/MOBILE-RESEARCH.md).
 
 ## Build and preview
 
@@ -32,7 +32,7 @@ The production-ready static site is written to `dist/`. `npm run preview` serves
 
 ## Test and review
 
-Run `npm test` for unit and DOM interaction tests, and `npm run lint` for ESLint checks. Before publishing, build the app and follow the interaction checks in [docs/USABILITY-TEST-PLAN.md](./docs/USABILITY-TEST-PLAN.md). The earlier prototype test record and its scope are in [docs/VALIDATION.md](./docs/VALIDATION.md).
+Run `npm test` for unit and DOM interaction tests, and `npm run lint` for ESLint checks. `npm run test:e2e` runs phone-only browser checks at 375×812 and 360×800. Before publishing, build the app and follow the interaction checks in [docs/USABILITY-TEST-PLAN.md](./docs/USABILITY-TEST-PLAN.md). The earlier prototype test record and its scope are in [docs/VALIDATION.md](./docs/VALIDATION.md).
 
 Dependency advisories can be checked with:
 

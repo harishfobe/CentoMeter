@@ -6,8 +6,12 @@
  <title>CentoMeter · Mobile preview</title>
  <script>
   // A nested iframe can intercept map touches and scrolling in mobile Safari.
-  // Keep the framed device controls for desktop review, but use the app itself on phones.
-  if (window.top === window.self && window.matchMedia('(pointer: coarse)').matches) {
+  // Keep the frame on wider screens; load the app directly on phone-sized devices.
+  if (
+   window.top === window.self &&
+   window.matchMedia('(pointer: coarse)').matches &&
+   window.innerWidth <= 480
+  ) {
    window.location.replace('/' + (window.location.hash || '#home'));
   }
  </script>
@@ -29,12 +33,16 @@
 </head>
 <body>
  <header><nav aria-label="Preview screen"><button type="button" data-route="home" aria-pressed="true">Browse</button><button type="button" data-route="property/p4" aria-pressed="false">Land</button><button type="button" data-route="map" aria-pressed="false">Map</button><button type="button" data-route="post" aria-pressed="false">Post</button></nav><label>Width<select id="phone-width" aria-label="Phone width"><option value="280">280 px</option><option value="320">320 px</option><option value="360">360 px</option><option value="375">375 px</option><option value="390" selected>390 px</option><option value="412">412 px</option><option value="430">430 px</option><option value="480">480 px</option></select></label><label>Text<select id="text-scale" aria-label="Text size"><option value="100">100%</option><option value="125">125%</option><option value="150">150%</option><option value="200">200%</option></select></label><output id="actual-size" aria-label="Actual viewport size"></output></header>
- <main><div class="phone" id="phone"><iframe id="mobile-app" title="CentoMeter mobile app" src="/#home"></iframe></div></main>
+ <main><div class="phone" id="phone"><iframe id="mobile-app" title="CentoMeter mobile app"></iframe></div></main>
  <script>
   const frame=document.getElementById('mobile-app');
   const controls=document.querySelectorAll('button[data-route]');
   const width=document.getElementById('phone-width');
   const textScale=document.getElementById('text-scale');
+  const route=location.hash.slice(1)||'home';
+  const routeButton=Array.from(controls).find(button=>button.dataset.route===route);
+  controls.forEach(button=>button.setAttribute('aria-pressed',String(button===routeButton)));
+  frame.src='/#'+route;
   const applyTextSize=()=>{if(frame.contentDocument?.documentElement)frame.contentDocument.documentElement.style.fontSize=textScale.value+'%'};
   textScale.addEventListener('change',applyTextSize);
   frame.addEventListener('load',applyTextSize);
@@ -42,7 +50,9 @@
   width.addEventListener('change',()=>document.getElementById('phone').style.setProperty('--phone-width',width.value+'px'));
   controls.forEach(button=>button.addEventListener('click',()=>{
    controls.forEach(control=>control.setAttribute('aria-pressed',String(control===button)));
-   frame.src='/#'+button.dataset.route;
+   const route=button.dataset.route;
+   history.replaceState(null,'','#'+route);
+   frame.src='/#'+route;
   }));
  </script>
 </body>
