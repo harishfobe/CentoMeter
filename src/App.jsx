@@ -459,6 +459,7 @@ export default function App() {
   const listingRef = useRef(null);
   const [mapList, setMapList] = useState(false);
   const mapListToggle = useRef(null);
+  const sheetDragY = useRef(null);
   const wasMapList = useRef(false);
   const searchReturn = useRef("home");
   const searchRef = useRef(null);
@@ -1337,16 +1338,40 @@ export default function App() {
                       <LocateFixed size={21} />
                     </button>
                     <button
-                      className="map-list-toggle"
+                      className={
+                        "map-list-toggle" +
+                        (route === "map" ? " map-sheet-peek" : "")
+                      }
                       ref={mapListToggle}
                       aria-expanded={route === "map" && mapList}
                       aria-controls={
                         route === "map" ? "property-results" : undefined
                       }
                       onClick={showList}
+                      onPointerDown={(e) => {
+                        sheetDragY.current = e.clientY;
+                      }}
+                      onPointerUp={(e) => {
+                        const start = sheetDragY.current;
+                        sheetDragY.current = null;
+                        if (route === "map" && start != null && start - e.clientY > 30)
+                          showList();
+                      }}
                     >
-                      <List size={16} />
-                      {route === "results" ? "Show map" : "View list"}
+                      {route === "map" && (
+                        <span className="map-sheet-grab" aria-hidden="true" />
+                      )}
+                      <span className="map-sheet-row">
+                        <List size={16} aria-hidden="true" />
+                        {route === "results" ? "Show map" : "View list"}
+                        {route === "map" && (
+                          <span className="map-sheet-count" aria-hidden="true">
+                            {visible.length}{" "}
+                            {visible.length === 1 ? "property" : "properties"}{" "}
+                            in this area
+                          </span>
+                        )}
+                      </span>
                     </button>
                     {chosen && !isMobile && (
                       <div className="map-preview">{selectionPreview}</div>

@@ -337,3 +337,58 @@ a[href],
     transition: none;
   }
 }
+
+/* Map list peek sheet: the View list control becomes a bottom sheet peek on mobile. */
+.map-sheet-grab,
+.map-sheet-count {
+  display: none;
+}
+.map-sheet-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+  .map-list-toggle.map-sheet-peek {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    transform: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    min-height: 72px;
+    padding: 0 var(--mobile-gutter, 16px) 10px;
+    border-radius: 20px 20px 0 0;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    box-shadow: 0 -6px 20px rgba(24, 24, 27, 0.12);
+    touch-action: pan-x;
+  }
+  .map-sheet-grab {
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: 10px auto 8px;
+    border-radius: 9999px;
+    background: var(--line);
+  }
+  .map-sheet-row {
+    justify-content: space-between;
+    min-height: 44px;
+    font-weight: 700;
+  }
+  .map-sheet-count {
+    display: inline;
+    margin-left: auto;
+    font-weight: 600;
+    font-size: var(--type-caption, 0.75rem);
+    color: var(--muted);
+  }
+  .map-only .map-preview {
+    bottom: 88px;
+  }
+}
