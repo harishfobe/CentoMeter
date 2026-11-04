@@ -2,6 +2,7 @@ import { disposeMap } from "./lib/disposeMap";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import "./styles/map-controls.css";
 import React, { useState, useEffect, useRef } from "react";
 import L from "leaflet";
 
@@ -73,7 +74,6 @@ export default function MapView({
       });
   };
   const [tileError, setTileError] = useState(false);
-  const [mapLayer, setMapLayer] = useState("street");
   const tileLayer = useRef(null);
   useEffect(() => {
     const m = L.map(host.current, {
@@ -133,18 +133,11 @@ export default function MapView({
     if (!m) return;
     tileLayer.current?.remove();
     setTileError(false);
-    const satellite = mapLayer === "satellite";
-    const tiles = L.tileLayer(
-      satellite
-        ? "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        : "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-      {
-        maxZoom: 19,
-        attribution: satellite
-          ? "Tiles &copy; Esri, Maxar, Earthstar Geographics, and the GIS User Community"
-          : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      },
-    ).addTo(m);
+    const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(m);
     tiles.on("tileerror", () => setTileError(true));
     tiles.on("tileload", () => setTileError(false));
     tileLayer.current = tiles;
@@ -152,7 +145,7 @@ export default function MapView({
       tiles.off();
       tiles.remove();
     };
-  }, [mapLayer]);
+  }, []);
   useEffect(
     () =>
       bindMapInteractions(
@@ -313,22 +306,8 @@ export default function MapView({
   }, [location]);
   return (
     <>
-      {!staticView && (
-        <button
-          type="button"
-          className="map-layer-toggle"
-          aria-label="Satellite view"
-          aria-pressed={mapLayer === "satellite"}
-          onClick={() =>
-            setMapLayer((v) => (v === "street" ? "satellite" : "street"))
-          }
-        >
-          {mapLayer === "street" ? "Satellite" : "Street"}
-        </button>
-      )}
       <div
         className={"map-canvas" + (staticView ? " static-property-map" : "")}
-        data-map-layer={mapLayer}
         ref={host}
         role={staticView ? "region" : undefined}
         aria-label={
