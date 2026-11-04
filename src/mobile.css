@@ -265,7 +265,7 @@
   .discovery-actions > .chip,
   .discovery-actions > .text-button {
     flex-shrink: 0;
-    min-height: 34px;
+    min-height: 44px;
     font-size: var(--type-caption);
   }
   .explore-layout,
@@ -337,8 +337,8 @@
   .map-save-search {
     left: 12px;
     top: 54px;
-    padding: 7px 12px;
-    min-height: 38px;
+    padding: 8px 14px;
+    min-height: 44px;
     font-size: var(--type-caption);
   }
   .recenter {
@@ -534,7 +534,8 @@
     padding-bottom: 0;
   }
   .has-detail > .header,
-  .has-detail > .bottom-nav {
+  .has-detail > .bottom-nav,
+  .has-map-selection > .bottom-nav {
     display: none;
   }
   .detail-page {
@@ -801,17 +802,36 @@
     bottom: 0;
     z-index: 1000;
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 10px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
     padding: 10px var(--mobile-gutter) calc(10px + env(safe-area-inset-bottom));
-    background: #ffffff;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 -4px 16px #18181b08;
+    background: var(--paper);
+    box-shadow: 0 -4px 16px rgba(24, 24, 27, 0.08);
   }
-  .mobile-detail-actions button {
+  .mobile-detail-actions .sticky-price {
+    min-width: 0;
+  }
+  .mobile-detail-actions .sticky-price > span {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .mobile-detail-actions .sticky-price > strong {
+    display: block;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .mobile-detail-actions .sticky-price > small {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .mobile-detail-actions > .primary {
     min-height: 46px;
     font-size: var(--type-body);
-    padding: 11px 10px;
+    padding: 11px 16px;
+    white-space: nowrap;
   }
   .view-post > .header,
   .view-post > .bottom-nav {
@@ -1524,31 +1544,31 @@
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
   }
   .app-shell .search-controls .mobile-search-trigger {
-    height: 36px;
-    min-height: 36px;
+    height: 44px;
+    min-height: 44px;
     border: 0;
-    background: #fff;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-    border-radius: 999px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    border-radius: 9999px;
   }
   .app-shell .search-controls .filter-button {
-    height: 36px;
-    width: 36px;
-    min-width: 36px;
+    height: 44px;
+    width: 44px;
+    min-width: 44px;
     border: 0;
-    background: #fff;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-    border-radius: 999px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    border-radius: 9999px;
   }
   .app-shell .intent-tabs {
-    height: 36px;
-    min-height: 36px;
+    height: 44px;
+    min-height: 44px;
     padding: 0 12px;
     gap: 4px;
   }
   .app-shell .intent-tabs button {
-    height: 36px;
-    min-height: 36px;
+    height: 44px;
+    min-height: 44px;
     padding: 4px;
     font-size: 0.75rem;
   }
@@ -1567,11 +1587,11 @@
     display: none;
   }
   .app-shell .property-type-toolbar .property-type-option {
-    height: 36px;
-    min-height: 36px;
-    border-radius: 999px;
-    padding: 5px 9px;
-    flex: 1 0 auto;
+    height: 44px;
+    min-height: 44px;
+    border-radius: 9999px;
+    padding: 8px 12px;
+    flex: 0 0 auto;
     font-size: 0.75rem;
   }
   .app-shell .map-column,
@@ -1585,14 +1605,12 @@
   }
   .app-shell .map-stage .map-save-search {
     top: 10px;
-    min-height: 36px;
-    font-size: 11px;
-    padding: 7px 9px;
-  }
-  .app-shell .map-stage .map-save-search {
     right: 10px;
     left: auto;
-    max-width: 108px;
+    min-height: 44px;
+    max-width: none;
+    font-size: 12px;
+    padding: 8px 14px;
   }
   .app-shell .map-stage .recenter {
     top: auto;
@@ -1654,13 +1672,18 @@
   white-space: nowrap;
 }
 .direct-contact-buttons .contact-call {
-  background: #f96b13;
-  border-color: #f96b13;
-  color: #fff;
+  background: var(--paper);
+  border-color: var(--line);
+  color: var(--ink);
 }
 .direct-contact-buttons .contact-whatsapp {
-  background: var(--ink-alt);
-  color: #fff;
+  background: var(--paper);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.contact-panel .contact-visit {
+  width: 100%;
+  margin-top: 12px;
 }
 .direct-contact-buttons a:active {
   filter: brightness(0.92);
@@ -1760,37 +1783,14 @@
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   .app-shell .direct-property-bar,
   .app-shell.has-detail .direct-property-bar.mobile-detail-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
     padding: 10px var(--mobile-gutter) calc(10px + env(safe-area-inset-bottom));
   }
-  .contact-bar-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .contact-bar-heading .seller-profile {
-    flex: 1;
-    padding: 0;
-  }
-  .contact-bar-heading .sticky-price {
-    align-items: flex-end;
-    max-width: 44%;
-    text-align: right;
-  }
-  .contact-bar-heading .sticky-price > strong {
-    font-size: 18px;
-  }
-  .app-shell .direct-property-bar .direct-contact-buttons a,
-  .app-shell .direct-property-bar .direct-contact-buttons button {
-    min-height: 44px;
-    font-size: 13px;
-  }
   .app-shell .detail-page {
-    padding-bottom: calc(240px + env(safe-area-inset-bottom));
+    padding-bottom: calc(120px + env(safe-area-inset-bottom));
   }
   .detail-page .property-hotspots {
     display: grid;
@@ -2164,23 +2164,16 @@ a:focus-visible {
   width: 100%;
 }
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
-  .app-shell.has-map-selection > .bottom-nav {
-    display: grid;
-  }
   .app-shell .selected-property.selection-card {
     position: fixed;
-    left: 10px;
-    right: 10px;
-    bottom: calc(
-      var(--mobile-nav-height, 68px) + env(safe-area-inset-bottom) + 8px
-    );
+    left: 0;
+    right: 0;
+    bottom: 0;
     z-index: 1000;
   }
   .app-shell .selection-card .selection-sheet {
-    max-height: calc(
-      100dvh - var(--mobile-nav-height, 68px) - env(safe-area-inset-bottom) -
-        100px
-    );
+    border-radius: 24px 24px 0 0;
+    max-height: calc(100dvh - env(safe-area-inset-bottom) - 72px);
     overflow-y: auto;
   }
   .app-shell .selection-card .selection-scroll {
@@ -2444,16 +2437,13 @@ a:focus-visible {
   }
 }
 
-.app-shell .selection-card .selection-actions > .selection-visit {
-  grid-column: 1 / -1;
+.app-shell .selection-card .selection-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
-.app-shell .direct-contact > .optional-visit {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 44px;
-  margin-top: 6px;
+.app-shell .selection-card .selection-actions > .primary {
+  grid-column: 1 / -1;
 }
 
 /* Agent profiles and per-listing location access */

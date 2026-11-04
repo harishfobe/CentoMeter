@@ -68,7 +68,7 @@
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: #b84406;
+  background: var(--brand);
   opacity: 0;
   scale: 1 1;
 }
@@ -92,7 +92,7 @@
   left: 0;
   width: 50%;
   height: 2px;
-  background: #b84406;
+  background: var(--brand);
   scale: 0.9 1;
   transform-origin: center;
 }
@@ -150,7 +150,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #b84406;
+  background: var(--brand);
   opacity: 0;
   scale: 0.2 1;
   transform-origin: left;
@@ -213,7 +213,7 @@
 .agent-heart-burst {
   position: absolute;
   inset: 8px;
-  border: 2px dotted #b84406;
+  border: 2px dotted var(--brand);
   border-radius: 50%;
   opacity: 0;
   pointer-events: none;

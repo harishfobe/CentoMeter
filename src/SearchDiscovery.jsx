@@ -262,7 +262,7 @@ export default function SearchDiscovery({
               </div>
             ) : (
               <p className="search-discovery-empty">
-                No matching sample places. Press Next to search this term.
+                No matching sample places. Press Show results to search this term.
               </p>
             )}
           </div>
@@ -465,8 +465,8 @@ export default function SearchDiscovery({
         )}
       </div>
       <div className="search-discovery-footer">
-        <button type="button" onClick={() => search()}>
-          Next <ChevronRight size={18} />
+        <button type="button" className="primary" onClick={() => search()}>
+          Show results <ChevronRight size={18} aria-hidden="true" />
         </button>
       </div>
     </section>

@@ -15,7 +15,11 @@ const propertyTypeDetails = {
     mobileLabel: "Apartment",
     Icon: Building2,
   },
-  "Independent House": { label: "Villa", mobileLabel: "Villa", Icon: House },
+  "Independent House": {
+    label: "House / Villa",
+    mobileLabel: "House / Villa",
+    Icon: House,
+  },
   Land: { label: "Plot / Land", mobileLabel: "Land", Icon: Trees },
   Commercial: { label: "Commercial", Icon: BriefcaseBusiness },
   PG: { label: "PG", Icon: BedDouble },
