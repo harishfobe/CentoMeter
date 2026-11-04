@@ -597,15 +597,6 @@
     font-size: var(--type-caption);
     border-radius: 7px;
   }
-  .gallery-controls {
-    gap: 6px;
-    padding: 6px;
-  }
-  .gallery-controls button {
-    min-width: 44px;
-    min-height: 44px;
-    font-size: var(--type-caption);
-  }
   .detail-columns {
     display: block;
     margin-top: 0;
@@ -1881,8 +1872,7 @@
 .app-shell button {
   min-height: 44px;
 }
-.app-shell .icon-button,
-.app-shell .gallery-controls button {
+.app-shell .icon-button {
   min-width: 44px;
   min-height: 44px;
 }
