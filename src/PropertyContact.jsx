@@ -1,32 +1,31 @@
+import WhatsAppLink from "./components/WhatsAppLink";
 import React from "react";
 import { exactLocation } from "./lib/locationAccess";
 import { indianMobile } from "./PropertyModel";
-import { Phone, UserRound } from "lucide-react";
+import { Phone, MessageCircle, UserRound } from "lucide-react";
 function contactNumber(value) {
   const digits = indianMobile(value);
   return digits ? "91" + digits : null;
 }
-export function propertyWhatsApp(p) {
-  const digits = indianMobile(p.whatsapp || p.contactPhone || p.phone);
-  if (!digits) return null;
-  const message =
-    "Hi, I am interested in " +
-    p.title +
-    " in " +
-    p.locality +
-    ", " +
-    p.city +
-    ". Please share more details.";
-  return {
-    number: digits,
-    message,
-    href: "https://wa.me/91" + digits + "?text=" + encodeURIComponent(message),
-  };
-}
 function contactLinks(p) {
   const phone = contactNumber(p.contactPhone || p.phone);
+  const whatsapp = contactNumber(p.whatsapp || p.contactPhone || p.phone);
   return {
     call: phone ? "tel:+" + phone : null,
+    whatsapp: whatsapp
+      ? "https://wa.me/" +
+        whatsapp +
+        "?text=" +
+        encodeURIComponent(
+          "Hi, I am interested in " +
+            p.title +
+            " in " +
+            p.locality +
+            ", " +
+            p.city +
+            ". Please share more details.",
+        )
+      : null,
   };
 }
 export function SellerProfile({ p }) {
@@ -58,8 +57,19 @@ export function ContactButtons({ p }) {
             Call Now
           </button>
         )}
+        {links.whatsapp ? (
+          <WhatsAppLink className="contact-whatsapp" href={links.whatsapp}>
+            <MessageCircle size={18} />
+            WhatsApp
+          </WhatsAppLink>
+        ) : (
+          <button className="contact-whatsapp" disabled>
+            <MessageCircle size={18} />
+            WhatsApp
+          </button>
+        )}
       </div>
-      {!links.call && (
+      {!links.call && !links.whatsapp && (
         <small className="contact-unavailable">
           Contact number not provided
         </small>
