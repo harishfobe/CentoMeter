@@ -14,7 +14,7 @@
   margin: auto;
   padding: 12px 16px 0;
   border: 0;
-  background: #f7f7f6;
+  background: var(--canvas);
 }
 .view-home .home-discovery-layout > .map-column {
   display: block;
@@ -258,7 +258,7 @@
 }
 .home-popular-rank {
   flex-shrink: 0;
-  color: #b84406;
+  color: var(--brand);
   font-size: 13px;
   font-weight: 650;
 }
@@ -296,7 +296,7 @@
   color: #71717a;
 }
 .home-popular-save[aria-pressed="true"] {
-  color: #b84406;
+  color: var(--brand);
 }
 
 .home-discovery button {
@@ -304,7 +304,7 @@
 }
 .home-discovery :focus-visible,
 .home-map-footer :focus-visible {
-  outline: 3px solid #b84406;
+  outline: 3px solid var(--brand);
   outline-offset: 2px;
 }
 
@@ -385,7 +385,7 @@
 }
 
 .home-top-agents {
-  --agent-ink: #1c2522;
-  --agent-muted: #68736e;
-  --agent-line: #e3e9e5;
+  --agent-ink: var(--ink);
+  --agent-muted: var(--muted);
+  --agent-line: var(--line);
 }

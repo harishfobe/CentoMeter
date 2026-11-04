@@ -11,7 +11,6 @@ import { landNumber, toCents } from "./LandDetails";
 import { priceBasis } from "./Journeys";
 import { plotStatus, pricePerCent, pinPrice } from "./PlotUI";
 import { landPrice } from "./JourneyUX";
-import { SellerProfile, ContactButtons } from "./PropertyContact";
 import useOverlayBack from "./OverlayHistory";
 
 export function Wordmark() {
@@ -35,17 +34,18 @@ export function PriceCaption({ p, money }) {
 export function PropertyActionBar({ p, money, onVisit, className = "" }) {
   return (
     <div className={"sticky-property-bar direct-property-bar " + className}>
-      <div className="contact-bar-heading">
-        <SellerProfile p={p} />
-        <div className="sticky-price">
-          <span>{p.mode === "RENT" ? "Monthly rent" : "Total price"}</span>
-          <strong>{money(p.price)}</strong>
-          <small>
-            <PriceCaption p={p} money={money} />
-          </small>
-        </div>
+      <div className="sticky-price">
+        <span>{p.mode === "RENT" ? "Monthly rent" : "Total price"}</span>
+        <strong>{money(p.price)}</strong>
+        <small>
+          <PriceCaption p={p} money={money} />
+        </small>
       </div>
-      <ContactButtons p={p} onVisit={onVisit} />
+      {onVisit && (
+        <button type="button" className="primary" onClick={onVisit}>
+          Book site visit
+        </button>
+      )}
     </div>
   );
 }
@@ -222,22 +222,22 @@ export function SelectedPropertySheet({
           </p>
         </div>
         <div className="selection-actions">
-          <button type="button" className="secondary" onClick={onSimilar}>
-            See similar
-          </button>
-          <button type="button" className="primary" onClick={onOpen}>
-            View details
-            <ArrowUpRight size={15} />
-          </button>
           {onVisit && (
-            <button
-              type="button"
-              className="text-button selection-visit"
-              onClick={onVisit}
-            >
+            <button type="button" className="primary" onClick={onVisit}>
               Book site visit
             </button>
           )}
+          <button
+            type="button"
+            className={onVisit ? "secondary" : "primary"}
+            onClick={onOpen}
+          >
+            View details
+            <ArrowUpRight size={15} />
+          </button>
+          <button type="button" className="secondary" onClick={onSimilar}>
+            See similar
+          </button>
         </div>
         {locked && (
           <div className="selection-location-gate">

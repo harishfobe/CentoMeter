@@ -1162,10 +1162,10 @@ export default function App() {
                 <button
                   type="button"
                   className="mobile-search-trigger"
-                  aria-label="Open search suggestions"
+                  aria-label="Open search"
                   onClick={openSearch}
                 >
-                  <MapPin size={19} />
+                  <Search size={19} aria-hidden="true" />
                   <span>{query || "Locality, landmark or property"}</span>
                 </button>
                 <button
@@ -1421,16 +1421,19 @@ export default function App() {
                     {chosen && !isMobile && (
                       <div className="map-preview">{selectionPreview}</div>
                     )}
-                    <button
-                      className="map-save-search"
-                      onClick={() => {
-                        setSearchName(`${city} · ${mode}`);
-                        setModal("saveSearch");
-                      }}
-                    >
-                      <Bookmark size={14} />
-                      Save search
-                    </button>
+                    {route === "map" && !mapList && (
+                      <button
+                        className="map-save-search"
+                        aria-label="Save search"
+                        onClick={() => {
+                          setSearchName(`${city} · ${mode}`);
+                          setModal("saveSearch");
+                        }}
+                      >
+                        <Bookmark size={14} aria-hidden="true" />
+                        Save search
+                      </button>
+                    )}
                     <div className="map-footer-note">
                       Move the map to explore more places
                     </div>
@@ -1532,7 +1535,7 @@ export default function App() {
                         setModal("saveSearch");
                       }}
                     >
-                      <Bookmark size={14} /> Save search
+                      <Bookmark size={14} aria-hidden="true" /> Save search
                     </button>
                     <span>
                       {areaOnly || route !== "results"
@@ -1841,12 +1844,6 @@ export default function App() {
                     </p>
                   </>
                 )}
-                <button
-                  className="text-button optional-visit"
-                  onClick={() => requestVisit(detail)}
-                >
-                  Request a site visit
-                </button>
               </div>
               <aside className="contact-panel">
                 <p className="eyebrow">
@@ -1859,10 +1856,14 @@ export default function App() {
                 <Costs p={detail} money={money} />
                 <hr />
                 <SellerProfile p={detail} />
-                <ContactButtons
-                  p={detail}
-                  onVisit={() => requestVisit(detail)}
-                />
+                <ContactButtons p={detail} />
+                <button
+                  type="button"
+                  className="primary contact-visit"
+                  onClick={() => requestVisit(detail)}
+                >
+                  Book site visit
+                </button>
               </aside>
             </div>
             {similarProperties.length > 0 && (
@@ -2168,7 +2169,7 @@ export default function App() {
                   <button
                     key={key}
                     onClick={() =>
-                      key === "agent" ? navigate("agent") : setModal(key)
+                      key === "agents" ? navigate("agents") : setModal(key)
                     }
                   >
                     <Icon size={20} />

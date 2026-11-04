@@ -1,12 +1,12 @@
 /* CentoMeter / Refined Agent Experience — shared with editable Figma screens. */
 .agent-feature,
 .modal:has(.agent-detail) {
-  --agent-ink: #1c2522;
-  --agent-muted: #68736e;
-  --agent-line: #e3e9e5;
-  --agent-surface: #fff;
-  --agent-canvas: #f7f8f6;
-  --agent-accent: #c24a0e;
+  --agent-ink: var(--ink);
+  --agent-muted: var(--muted);
+  --agent-line: var(--line);
+  --agent-surface: var(--paper);
+  --agent-canvas: var(--canvas);
+  --agent-accent: var(--brand);
   color: var(--agent-ink);
 }
 .agent-feature {

@@ -12,16 +12,16 @@
   --brand-on: #ffffff;
   --orange: var(--brand);
   --orange-hover: var(--brand-hover);
-  --brand-action: #c44b05;
-  --brand-action-hover: #a83f04;
+  --brand-action: var(--brand);
+  --brand-action-hover: var(--brand-hover);
   --brand-deep: #9d3c04;
-  --brand-active: var(--brand-action);
+  --brand-active: var(--brand);
   --ink: #18181b;
-  --ink-alt: #18221f;
+  --ink-alt: #18181b;
   --charcoal: var(--ink);
   --navy: var(--ink);
   --navy-deep: var(--ink);
-  --muted: #52525b;
+  --muted: #71717a;
   --placeholder: #a1a1aa;
   --paper: #ffffff;
   --canvas: #f4f4f5;
@@ -244,9 +244,9 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  min-width: 40px;
-  height: 40px;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 9999px;
@@ -667,9 +667,9 @@ textarea:focus-visible {
     gap: 9px;
   }
   .search-controls .filter-button {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
   }
   .browse-tabs button {
     min-width: 0;

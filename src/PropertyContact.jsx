@@ -41,7 +41,7 @@ export function SellerProfile({ p }) {
     </div>
   );
 }
-export function ContactButtons({ p, onVisit }) {
+export function ContactButtons({ p }) {
   const links = contactLinks(p);
   return (
     <div className="direct-contact">
@@ -69,15 +69,6 @@ export function ContactButtons({ p, onVisit }) {
           </button>
         )}
       </div>
-      {onVisit && (
-        <button
-          type="button"
-          className="text-button optional-visit"
-          onClick={onVisit}
-        >
-          Book site visit
-        </button>
-      )}
       {!links.call && !links.whatsapp && (
         <small className="contact-unavailable">
           Contact number not provided

@@ -19,12 +19,12 @@
 }
 .agent-feature .primary,
 .agent-detail .primary {
-  background: #b84406;
+  background: var(--brand);
   color: white;
 }
 .agent-feature :focus-visible,
 .agent-detail :focus-visible {
-  outline: 3px solid #b84406;
+  outline: 3px solid var(--brand);
   outline-offset: 3px;
 }
 .agent-feature .agent-profile-heading {
@@ -474,7 +474,7 @@
   overflow-anchor: none;
 }
 .agent-photo-strip:focus-visible {
-  outline: 3px solid #b84406;
+  outline: 3px solid var(--brand);
   outline-offset: 3px;
 }
 
@@ -504,7 +504,7 @@
 
 /* Finder-only compact filtering. */
 .agent-finder.finder-refined {
-  --finder-accent: #b84406;
+  --finder-accent: var(--brand);
   padding-top: 8px;
 }
 .finder-refined .agent-finder-intro {
@@ -656,7 +656,7 @@
 }
 .finder-active button:last-child {
   border: 0;
-  color: #b84406 !important;
+  color: var(--brand) !important;
 }
 .finder-results {
   display: flex;
@@ -756,7 +756,7 @@
 .finder-sheet footer > button:last-child {
   border: 0;
   background: transparent;
-  color: #b84406;
+  color: var(--brand);
 }
 .finder-sheet-body {
   overflow-y: auto;
@@ -795,7 +795,7 @@
   flex-shrink: 0;
 }
 .finder-sheet footer .primary {
-  background: #b84406;
+  background: var(--brand);
   color: white;
   width: 100%;
   border-radius: 12px;
@@ -811,7 +811,7 @@
   min-height: 44px;
 }
 .finder-switch input {
-  accent-color: #b84406;
+  accent-color: var(--brand);
   width: 24px;
   height: 24px;
 }
@@ -828,7 +828,7 @@
 }
 .finder-refined :focus-visible,
 .finder-sheet :focus-visible {
-  outline: 3px solid #b84406;
+  outline: 3px solid var(--brand);
   outline-offset: 3px;
 }
 @media (min-width: 768px) {
@@ -930,7 +930,7 @@
 .finder-sheet-reset button {
   border: 0;
   background: transparent;
-  color: #b84406;
+  color: var(--brand);
   padding: 0 8px;
 }
 .finder-search button {
@@ -966,7 +966,7 @@
   flex-shrink: 0;
 }
 .agent-profile-explore > svg:first-child {
-  color: #b84406;
+  color: var(--brand);
 }
 .agent-profile-explore > span {
   display: grid;
@@ -1124,7 +1124,7 @@
   height: 5px;
   margin-top: 9px;
   border-radius: 999px;
-  background: #b84406;
+  background: var(--brand);
 }
 .agent-detail .agent-detail-amenities {
   display: flex;
