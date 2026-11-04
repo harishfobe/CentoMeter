@@ -427,46 +427,11 @@ img {
 .price-marker small {
   font-size: 11px;
 }
-.map-status {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  box-shadow: var(--shadow);
-  background: var(--paper);
-  padding: 10px 13px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  z-index: 400;
-}
-.live-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--success);
-  border-radius: 50%;
-}
-.leaflet-control-zoom {
-  border: 1px solid #e4e4e7 !important;
-  box-shadow: var(--shadow) !important;
-  border-radius: 10px !important;
-  overflow: hidden;
-  margin-top: 18px !important;
-  margin-right: 18px !important;
-}
-.leaflet-control-zoom a {
-  width: 36px !important;
-  height: 36px !important;
-  line-height: 36px !important;
-  color: var(--navy) !important;
-  font-weight: 400 !important;
-}
 .recenter {
   position: absolute;
   right: 18px;
-  top: 102px;
+  top: auto;
+  bottom: 52px;
   width: 38px;
   height: 38px;
   border-radius: 10px;
@@ -1771,24 +1736,9 @@ textarea {
     min-height: 380px;
     max-height: 610px;
   }
-  .map-status {
-    left: 15px;
-    top: 15px;
-    font-size: 11px;
-    padding: 10px 12px;
-  }
-  .leaflet-control-zoom {
-    margin-right: 15px !important;
-    margin-top: 15px !important;
-  }
-  .leaflet-control-zoom a {
-    width: 34px !important;
-    height: 34px !important;
-    line-height: 34px !important;
-  }
   .recenter {
     right: 15px;
-    top: 97px;
+    bottom: 52px;
     width: 36px;
     height: 36px;
   }
@@ -3591,7 +3541,6 @@ textarea {
     0 0 0 2.5px var(--pin-ring),
     0 4px 14px rgba(15, 23, 42, 0.22);
 }
-.app-shell .map-stage .map-status,
 .app-shell .map-stage .map-save-search {
   position: absolute;
   top: 12px;
@@ -3612,22 +3561,15 @@ textarea {
   line-height: 1.3;
   padding: 8px 11px;
 }
-.app-shell .map-stage .map-status {
-  left: 12px;
-  right: auto;
-  gap: 5px;
-}
 .app-shell .map-stage .map-save-search {
   right: 12px;
   left: auto;
   max-width: 116px;
   justify-content: center;
 }
-.app-shell .map-stage .leaflet-top.leaflet-right {
-  top: 50px;
-}
 .app-shell .map-stage .recenter {
-  top: 160px;
+  top: auto;
+  bottom: 52px;
 }
 @media (prefers-reduced-motion: reduce) {
   .leaflet-container .price-marker > span {

@@ -94,7 +94,6 @@ export default function MapView({
       viewport?.zoom || (window.innerWidth < 700 ? 11 : 12),
     );
     map.current = m;
-    if (!staticView) L.control.zoom({ position: "topright" }).addTo(m);
     markers.current = L.layerGroup().addTo(m);
     if (clustered && !staticView)
       clusters.current = L.markerClusterGroup({

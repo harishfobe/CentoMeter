@@ -1364,14 +1364,12 @@ export default function App() {
                       type="button"
                       className="agent-picks-toggle"
                       aria-pressed={agentPicks}
+                      title="Toggle agent picks"
                       onClick={() => setAgentPicks((v) => !v)}
                     >
-                      Agent picks
+                      <UsersRound size={17} aria-hidden="true" />
+                      <span>Agent picks</span>
                     </button>
-                    <div className="map-status">
-                      <span className="live-dot" />
-                      {visible.length} places in this area
-                    </div>
                     <button
                       className="recenter"
                       aria-label="Reset map to city"

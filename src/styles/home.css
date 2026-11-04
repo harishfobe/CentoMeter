@@ -34,13 +34,11 @@
   .map-stage
   :is(
     .agent-picks-toggle,
-    .map-status,
     .recenter,
     .map-list-toggle,
     .map-save-search,
     .map-footer-note,
     .map-preview,
-    .leaflet-control-zoom,
     .map-layer-toggle,
     .leaflet-control-layers
   ) {

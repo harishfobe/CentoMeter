@@ -342,18 +342,6 @@ textarea:focus-visible {
   font-family: var(--font-body);
   background: var(--canvas);
 }
-.leaflet-control-zoom {
-  border: 1px solid var(--line) !important;
-  border-radius: 12px !important;
-  overflow: hidden;
-  box-shadow: var(--shadow) !important;
-}
-.leaflet-control-zoom a {
-  color: var(--ink) !important;
-  border-color: var(--line) !important;
-  background: var(--paper) !important;
-}
-.map-status,
 .map-save-search,
 .recenter,
 .map-expand {
@@ -363,15 +351,8 @@ textarea:focus-visible {
   box-shadow: var(--shadow);
   border-radius: 12px;
 }
-.map-status {
-  border-radius: 9999px;
-}
 .map-save-search {
   border-radius: 9999px;
-}
-.live-dot {
-  background: var(--ink);
-  box-shadow: none;
 }
 .map-list-toggle {
   color: var(--paper);
@@ -717,9 +698,6 @@ textarea:focus-visible {
   }
   .explore-toolbar.property-type-toolbar {
     padding: 6px 12px 10px;
-  }
-  .map-status {
-    padding: 8px 10px;
   }
   .map-list-toggle {
     background: var(--ink);
