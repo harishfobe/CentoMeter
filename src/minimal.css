@@ -891,7 +891,7 @@ textarea:focus-visible {
   .mobile-property-price strong {
     color: var(--ink);
   }
-  .mobile-price-details > h2 {
+  .mobile-price-details > summary {
     color: var(--ink);
   }
   .modal {
