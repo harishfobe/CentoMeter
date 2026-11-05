@@ -1937,7 +1937,7 @@ textarea {
   }
   .detail-top .secondary {
     padding: 10px 12px;
-    min-height: 40px;
+    min-height: 44px;
     font-size: 11px;
   }
   .detail-gallery {
@@ -2539,7 +2539,7 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 36px;
+  min-height: 44px;
   padding: 7px 11px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -2584,7 +2584,7 @@ textarea {
 .post-panel .property-type-option,
 .property-types-compact .property-type-option {
   min-width: 0;
-  min-height: 42px;
+  min-height: 44px;
   padding: 8px;
   white-space: normal;
   font-size: 12px;
@@ -2611,7 +2611,7 @@ textarea {
     gap: 6px;
   }
   .property-type-toolbar .property-type-option {
-    min-height: 36px;
+    min-height: 44px;
     padding: 7px 9px;
     font-size: 11px;
     gap: 5px;
@@ -2623,7 +2623,7 @@ textarea {
   .post-panel .property-type-option,
   .property-types-compact .property-type-option {
     font-size: 11px;
-    min-height: 40px;
+    min-height: 44px;
     gap: 5px;
   }
   .map-only .map-stage {
@@ -2661,13 +2661,13 @@ textarea {
   gap: 5px;
   align-items: center;
   font-size: 12px;
-  min-height: 36px;
+  min-height: 44px;
 }
 .discovery-actions .text-button {
   display: flex;
   gap: 6px;
   align-items: center;
-  min-height: 40px;
+  min-height: 44px;
   font-size: 12px;
 }
 .filter-button {
