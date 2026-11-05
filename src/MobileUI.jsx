@@ -1,5 +1,6 @@
 import React from "react";
-import { MessageCircle, Phone, Zap } from "lucide-react";
+import { Phone, Zap } from "lucide-react";
+import WhatsAppIcon from "./components/WhatsAppIcon";
 import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
@@ -91,12 +92,12 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
               number={contact.whatsappNumber}
               message={contact.whatsappMessage}
             >
-              <MessageCircle size={16} aria-hidden="true" />
+              <WhatsAppIcon size={16} />
               <span>Chat on WhatsApp</span>
             </WhatsAppLink>
           ) : (
             <button type="button" className="sticky-contact-whatsapp" disabled>
-              <MessageCircle size={16} aria-hidden="true" />
+              <WhatsAppIcon size={16} />
               <span>Chat on WhatsApp</span>
             </button>
           )}

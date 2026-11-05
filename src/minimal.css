@@ -5,6 +5,13 @@
   font-weight: 100 900;
   font-display: swap;
 }
+@font-face {
+  font-family: Fraunces;
+  src: url("/fonts/Fraunces-Latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
 :root {
   --brand: #f96b13;
   --brand-hover: #dc5605;
@@ -42,7 +49,7 @@
   --space-7: 48px;
   --font-body:
     Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-heading: var(--font-body);
+  --font-heading: Fraunces, "Times New Roman", serif;
   color: var(--ink);
   background: var(--canvas);
   font-family: var(--font-body);
@@ -61,7 +68,9 @@ h1,
 h2,
 h3,
 .price,
-.mobile-property-price strong {
+.mobile-property-price strong,
+.wordmark {
+  font-family: var(--font-heading);
   font-weight: 800;
   letter-spacing: -0.035em;
 }
@@ -99,9 +108,14 @@ textarea:focus-visible {
 .wordmark {
   display: inline-block;
   color: var(--ink);
-  font: 800 28px/1.15 var(--font-body);
+  font: 800 28px/1.15 var(--font-heading);
   letter-spacing: -1.35px;
   white-space: nowrap;
+}
+.whatsapp-icon {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 .wordmark > span {
   color: var(--brand);

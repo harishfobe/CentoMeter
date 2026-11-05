@@ -561,6 +561,7 @@ img {
   display: block;
   overflow: hidden;
   text-align: left;
+  background: color-mix(in srgb, var(--muted) 10%, var(--canvas));
 }
 .property-image img {
   width: 100%;
@@ -3112,15 +3113,23 @@ textarea {
     margin-top: 0;
   }
 }
+.photo-unavailable {
+  background: color-mix(in srgb, var(--muted) 14%, var(--canvas));
+}
 .photo-unavailable:after {
-  content: "Photo unavailable";
+  content: "";
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  background: var(--canvas);
-  color: var(--muted);
-  font-size: 13px;
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--line) 80%, transparent) 25%,
+      transparent 25% 50%,
+      color-mix(in srgb, var(--line) 80%, transparent) 50% 75%,
+      transparent 75%
+    )
+    0 0 / 16px 16px;
+  pointer-events: none;
 }
 .photo-unavailable .badge {
   z-index: 1;

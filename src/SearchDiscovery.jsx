@@ -365,7 +365,7 @@ export default function SearchDiscovery({
             <div className="search-discovery-section">
               <h2>Popular localities</h2>
               <div
-                className="search-horizontal"
+                className="search-stack"
                 aria-label={`Localities in ${city}`}
               >
                 {localities.slice(0, 8).map((item) => (
@@ -397,7 +397,7 @@ export default function SearchDiscovery({
               <div className="search-discovery-section">
                 <h2>Top developers</h2>
                 <div
-                  className="search-horizontal"
+                  className="search-stack"
                   aria-label={`Developers in ${city}`}
                 >
                   {developers.map(({ name, count }) => (
@@ -431,7 +431,7 @@ export default function SearchDiscovery({
                   View all
                 </button>
               </div>
-              <div className="search-horizontal project-strip">
+              <div className="search-stack project-strip">
                 {projects.map((p) => (
                   <button
                     type="button"

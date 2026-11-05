@@ -487,7 +487,7 @@ export default function App() {
   const [profile, setProfile] = useState({
     name: "Aarav Sharma",
     email: "aarav@example.com",
-    phone: "+91 98765 43210",
+    phone: "",
   });
   const [alerts, setAlerts] = useState(true);
   const [contactSent, setContactSent] = useState(false);
@@ -1868,7 +1868,7 @@ export default function App() {
                 aria-label="Similar properties"
               >
                 <h2>Similar properties</h2>
-                <div className="search-horizontal">
+                <div className="property-card-stack">
                   {similarProperties.map((p) => (
                     <div key={p.id}>{renderCard(p, true)}</div>
                   ))}
@@ -2140,10 +2140,14 @@ export default function App() {
               </span>
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
-              <p className="profile-phone">
-                <Phone size={15} />
-                {profile.phone}
-              </p>
+              {profile.phone ? (
+                <p className="profile-phone">
+                  <Phone size={15} />
+                  {profile.phone}
+                </p>
+              ) : (
+                <p className="profile-phone muted">No phone on demo profile</p>
+              )}
               <span className="pill">DEMO PROFILE</span>
               <div className="profile-stats">
                 <button onClick={() => navigate("saved")}>
