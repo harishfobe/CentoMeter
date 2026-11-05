@@ -366,8 +366,9 @@ textarea:focus-visible {
   display: inline-flex;
   width: max-content;
   min-width: 64px;
-  height: 36px;
-  padding: 7px 12px;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 14px;
   gap: 0;
   color: var(--ink);
   background: var(--paper);
@@ -377,7 +378,8 @@ textarea:focus-visible {
   font-size: 12px;
   font-weight: 800;
   line-height: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
+  align-items: center;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -836,18 +838,6 @@ textarea:focus-visible {
     font-weight: 400;
     overflow-wrap: anywhere;
   }
-  .has-detail .mobile-detail-actions {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    height: auto;
-    box-shadow: none;
-    margin: 0;
-  }
   .detail-top {
     background: var(--paper);
     backdrop-filter: none;
@@ -914,8 +904,9 @@ textarea:focus-visible {
     gap: 4px;
   }
   .header-end > .icon-button {
-    width: 36px;
-    min-width: 36px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   .sticky-property-bar {
     gap: 8px;

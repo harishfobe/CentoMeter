@@ -1,0 +1,161 @@
+/**
+ * UI/UX craft remediations (see .cursor/rules/ui-ux-craft.mdc).
+ * Loaded last so tokenized interaction / elevation fixes win the cascade.
+ */
+
+:root {
+  /* Spring-like deceleration — prefer over ease-in-out / linear for UI motion. */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: var(--ease-spring);
+  /* Surface elevation via border contrast (not multi-layer shadows). */
+  --elevate-border: color-mix(in srgb, var(--ink) 8%, transparent);
+  --elevate-border-on-dark: color-mix(in srgb, var(--paper) 12%, transparent);
+}
+
+/* --- Tap highlight + tactile press (44px+ targets keep visual icons small) --- */
+button,
+a[href],
+[role="button"],
+[role="tab"],
+[role="option"],
+.chip,
+.property-type-option,
+.icon-button,
+.save-button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  button:enabled:active,
+  a[href]:active,
+  [role="button"]:not([aria-disabled="true"]):active,
+  .agent-feature button:active,
+  .agent-feature a:active,
+  .agent-detail button:active,
+  .agent-detail a:active {
+    scale: 0.98;
+  }
+}
+
+/* --- Z-index scale (lowest → highest) ---
+   map pins ≤400 · map controls 450 · agent-compare 500 · agent-back-top 900 ·
+   sheets/selection 1000 · sticky contact 1050 · modal scrim 2000 ·
+   toast / finder-toast 1400–2100 · finder-sheet 2100 · agent toast 10000 */
+.sticky-contact-bar {
+  z-index: 1050;
+}
+.finder-toast {
+  z-index: 1400;
+}
+.toast {
+  z-index: 2100;
+}
+
+/* Sticky contact CTAs: minimum 44×44 interactive targets */
+.sticky-contact-whatsapp {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 11px 14px;
+}
+.sticky-contact-call {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* Dark bar elevation: 1px top border contrast instead of heavy shadow */
+.sticky-contact-bar-inner {
+  border-top: 1px solid var(--elevate-border-on-dark);
+  box-shadow: none;
+}
+
+/* --- Mobile chrome under-44px remediations --- */
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+  .compact .save-button,
+  .property-grid .save-button,
+  .saved-grid .save-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+  }
+  .results-layout .list-map-button,
+  .search-scope .text-button,
+  .home-list-map-button {
+    min-height: 44px;
+  }
+  .app-shell .search-controls .filter-button,
+  .app-shell .search-controls .mobile-search-trigger {
+    min-height: 44px;
+  }
+  .app-shell .property-type-toolbar .property-type-option {
+    min-height: 44px;
+  }
+  .app-shell .intent-tabs,
+  .app-shell .intent-tabs button {
+    min-height: 44px;
+  }
+  /* Bottom nav icon hit area */
+  .bottom-nav button > span {
+    min-width: 44px;
+    min-height: 32px;
+    width: 44px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+  }
+  .bottom-nav .post-nav > span {
+    width: 44px;
+    height: 36px;
+    min-width: 44px;
+  }
+}
+
+/* Agent nav: solid brand token — no decorative gradient */
+.bottom-nav button.agent-nav > span,
+.bottom-nav button.agent-nav.active > span {
+  background: var(--brand);
+  box-shadow: none;
+  border: 2px solid var(--paper);
+}
+
+/* Cards / listings: prefer border elevation over soft multi-layer shadow */
+.property-card,
+.agent-card,
+.agent-listing {
+  border: 1px solid var(--elevate-border);
+  box-shadow: none;
+}
+
+/* Modal / sheet enter: spring deceleration (desktop center dialogs keep rise) */
+@media (prefers-reduced-motion: no-preference) {
+  .modal-scrim {
+    animation-timing-function: var(--ease-spring);
+  }
+  .modal {
+    animation-timing-function: var(--ease-spring);
+  }
+  @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+    .modal-scrim:not([data-motion-kind]) > .modal {
+      animation: craft-sheet-up 280ms var(--ease-spring) both;
+    }
+  }
+}
+
+@keyframes craft-sheet-up {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-scrim:not([data-motion-kind]) > .modal {
+    animation: none !important;
+  }
+}

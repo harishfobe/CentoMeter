@@ -15,7 +15,7 @@ test("press feedback uses scale and keeps control layout unchanged", async ({
   await page.mouse.move(point.x + point.width / 2, point.y + point.height / 2);
   await page.mouse.down();
   await page.waitForTimeout(150);
-  expect(await button.evaluate((e) => getComputedStyle(e).scale)).toBe("0.95");
+  expect(await button.evaluate((e) => getComputedStyle(e).scale)).toBe("0.98");
   expect(
     await button.evaluate((e) => ({
       width: e.offsetWidth,

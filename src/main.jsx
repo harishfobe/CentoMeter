@@ -11,6 +11,7 @@ import "./styles/refinement.css";
 import "./styles/interactions.css";
 import "./styles/home.css";
 import "./minimal.css";
+import "./styles/craft.css";
 createRoot(document.getElementById("root")).render(
   <ErrorBoundary>
     <App />

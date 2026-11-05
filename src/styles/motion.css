@@ -1,5 +1,7 @@
 :root {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: var(--ease-spring);
+  /* Reserved for continuous loops (shimmer); UI motion should use --ease-spring. */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 120ms;
   --t: 200ms;
@@ -198,7 +200,7 @@
   position: fixed;
   right: 18px;
   bottom: calc(90px + env(safe-area-inset-bottom));
-  z-index: 560;
+  z-index: 900;
   opacity: 0;
   visibility: hidden;
   border: 1px solid #e4e4e7;
@@ -364,10 +366,10 @@
   .agent-feature a:active,
   .agent-detail button:active,
   .agent-detail a:active {
-    scale: 0.95;
+    scale: 0.98;
   }
   .agent-listing:has(.property-copy:active) {
-    scale: 0.95;
+    scale: 0.98;
   }
   .agent-listing {
     transition:

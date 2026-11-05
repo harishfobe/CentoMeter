@@ -249,8 +249,10 @@ img {
   box-shadow: 0 0 0 2px #18181b;
 }
 .search-submit {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   background: var(--navy);
   color: white;
   display: grid;
@@ -300,7 +302,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  min-height: 39px;
+  min-height: 44px;
   background: var(--paper);
 }
 .chip:hover {
@@ -399,8 +401,10 @@ img {
   font-weight: 800;
   border: 1px solid #e4e4e7;
   border-radius: 30px;
-  height: 34px;
-  box-shadow: 0 3px 8px #18181b26;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 14px;
+  box-shadow: none;
   white-space: nowrap;
 }
 .price-marker > span:after {
@@ -422,7 +426,7 @@ img {
   transform: scale(1.12);
 }
 .price-marker.selected {
-  z-index: 999 !important;
+  z-index: 400 !important;
 }
 .price-marker small {
   font-size: 11px;
@@ -669,8 +673,10 @@ img {
 .compact .save-button {
   right: 10px;
   top: 10px;
-  width: 25px;
-  height: 25px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 .compact .badge {
   font-size: 11px;
@@ -1406,7 +1412,7 @@ textarea {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  animation: appear 0.16s;
+  animation: appear 0.16s var(--ease-spring);
 }
 .modal {
   background: var(--paper);
@@ -1417,7 +1423,7 @@ textarea {
   padding: 26px;
   border-radius: 20px;
   box-shadow: 0 25px 90px #18181b33;
-  animation: rise 0.2s;
+  animation: rise 0.2s var(--ease-spring);
 }
 .modal-heading {
   display: flex;
@@ -1525,10 +1531,10 @@ textarea {
   align-items: center;
   gap: 10px;
   font-size: 13px;
-  z-index: 1400;
+  z-index: 2100;
   max-width: 90vw;
   white-space: nowrap;
-  animation: appear 0.2s;
+  animation: appear 0.2s var(--ease-spring);
 }
 @keyframes rise {
   from {
@@ -2807,9 +2813,6 @@ textarea {
   padding: 12px;
   font-size: 12px;
 }
-.mobile-detail-actions {
-  display: none;
-}
 .results-layout {
   display: block;
 }
@@ -2854,22 +2857,6 @@ textarea {
     align-items: center;
     flex-wrap: wrap;
   }
-  .mobile-detail-actions {
-    position: fixed;
-    bottom: 72px;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: flex;
-    gap: 10px;
-    padding: 10px 16px;
-    background: var(--paper);
-    border-top: 1px solid var(--line);
-  }
-  .mobile-detail-actions button {
-    flex: 1;
-    min-height: 44px;
-  }
   .detail-page {
     padding-bottom: 90px;
   }
@@ -2882,7 +2869,8 @@ textarea {
   }
   .header > .icon-button,
   .header-end > .icon-button {
-    min-width: 36px;
+    min-width: 44px;
+    min-height: 44px;
   }
   .header-post {
     min-height: 44px;
@@ -3063,9 +3051,6 @@ textarea {
   .map-save-search {
     top: 58px;
   }
-  .mobile-detail-actions {
-    bottom: calc(72px + env(safe-area-inset-bottom));
-  }
   .detail-page {
     padding-bottom: 130px;
   }
@@ -3077,7 +3062,8 @@ textarea {
   }
   .header > .icon-button,
   .header-end > .icon-button {
-    min-width: 40px;
+    min-width: 44px;
+    min-height: 44px;
   }
   .property-copy .price small {
     font-size: 11px;

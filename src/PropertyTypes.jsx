@@ -81,7 +81,8 @@ export default function PropertyTypes({
               maxHeight: collapsed ? 0 : 240,
               opacity: collapsed ? 0 : 1,
               overflow: "hidden",
-              transition: "max-height 240ms ease, opacity 180ms ease",
+              transition:
+                "max-height 240ms var(--ease-spring), opacity 180ms var(--ease-spring)",
             }
           : undefined
       }
