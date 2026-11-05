@@ -112,8 +112,8 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
             <button
               type="button"
               className="sticky-contact-call"
-              aria-label="Call Now"
               disabled
+              aria-label="Call Now"
             >
               <Phone size={18} aria-hidden="true" />
             </button>
