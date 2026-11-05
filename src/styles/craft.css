@@ -28,16 +28,27 @@ a[href],
 @media (prefers-reduced-motion: no-preference) {
   button:enabled:active,
   a[href]:active,
-  [role="button"]:not([aria-disabled="true"]):active {
+  [role="button"]:not([aria-disabled="true"]):active,
+  .agent-feature button:active,
+  .agent-feature a:active,
+  .agent-detail button:active,
+  .agent-detail a:active {
     scale: 0.98;
   }
 }
 
 /* --- Z-index scale (lowest → highest) ---
-   map controls 450 · sheets/selection 1000 · sticky contact 1050 ·
-   header/detail chrome 900–950 · modal scrim 1100 · toast 1400 · agent toast 10000 */
+   map pins ≤400 · map controls 450 · agent-compare 500 · agent-back-top 900 ·
+   sheets/selection 1000 · sticky contact 1050 · modal scrim 2000 ·
+   toast / finder-toast 1400–2100 · finder-sheet 2100 · agent toast 10000 */
 .sticky-contact-bar {
   z-index: 1050;
+}
+.finder-toast {
+  z-index: 1400;
+}
+.toast {
+  z-index: 2100;
 }
 
 /* Sticky contact CTAs: minimum 44×44 interactive targets */
@@ -109,9 +120,10 @@ a[href],
   border: 2px solid var(--paper);
 }
 
-/* Cards: prefer border elevation over soft multi-layer shadow */
+/* Cards / listings: prefer border elevation over soft multi-layer shadow */
 .property-card,
-.agent-card {
+.agent-card,
+.agent-listing {
   border: 1px solid var(--elevate-border);
   box-shadow: none;
 }

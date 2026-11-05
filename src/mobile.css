@@ -831,7 +831,7 @@
   }
   .draft-tools .secondary,
   .draft-tools .text-button {
-    min-height: 40px;
+    min-height: 44px;
     padding: 8px 10px;
     font-size: var(--type-caption);
   }
@@ -1282,13 +1282,13 @@
     height: calc(48px + env(safe-area-inset-top));
   }
   .browse-tabs {
-    height: 36px;
+    height: 44px;
   }
   .browse-tabs button {
-    min-height: 36px;
+    min-height: 44px;
   }
   .property-type-toolbar .property-type-option {
-    min-height: 40px;
+    min-height: 44px;
     flex-direction: row;
   }
   .explore-heading {
@@ -1300,7 +1300,7 @@
   }
   .map-list-toggle {
     bottom: 17px;
-    min-height: 36px;
+    min-height: 44px;
     padding: 6px 14px;
   }
   .map-preview {
@@ -1442,7 +1442,7 @@
   border: 1px solid #e4e4e7;
   border-radius: 9999px;
   padding: 8px 12px;
-  min-height: 40px;
+  min-height: 44px;
   font-size: 0.75rem;
 }
 .price-unit-switch button[aria-pressed="true"],
@@ -1850,9 +1850,9 @@
 .app-shell .primary,
 .app-shell .contact-call,
 .search-discovery-footer button {
-  background: #c44b05;
-  border-color: #c44b05;
-  color: #fff;
+  background: var(--brand);
+  border-color: var(--brand);
+  color: var(--brand-on);
 }
 .map-save-search {
   gap: 5px;
@@ -2000,7 +2000,7 @@ a:focus-visible {
   box-shadow: 0 2px 8px #18181b12;
 }
 .app-shell .selection-card .selection-save[aria-pressed="true"] {
-  color: #c44b05;
+  color: var(--brand);
 }
 .app-shell .selection-card .sheet-close {
   right: 8px;

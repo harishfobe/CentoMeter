@@ -276,9 +276,9 @@
 }
 .agent-applied-filters button {
   font-size: 11px;
-  min-height: 34px;
+  min-height: 44px;
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 8px 12px;
 }
 .agent-feature .property-grid {
   gap: 18px;
@@ -287,7 +287,7 @@
   border: 1px solid var(--agent-line);
   border-radius: 18px;
   background: #fff;
-  box-shadow: 0 3px 16px #1c252206;
+  box-shadow: none;
   overflow: hidden;
 }
 .agent-listing .agent-photo-strip {
