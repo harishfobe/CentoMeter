@@ -139,7 +139,7 @@ export default function ListingDetailSheet({
       ["parking", "Parking", ""],
       ["ownershipType", "Ownership", ""],
       ["facing", "Facing", ""],
-      ["available", "Availability", ""],
+      ["available", "Dimensions", ""],
     ]
       .filter(([key]) => hasValue(p[key]))
       .map(([key, label, unit]) => [
