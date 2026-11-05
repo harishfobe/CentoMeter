@@ -1206,22 +1206,11 @@
   font-size: 13px;
   line-height: 1.4;
 }
-.agent-detail-description summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  min-height: 44px;
+.agent-detail-description h3 {
+  margin: 0;
   font-size: 15px;
-  font-weight: 650;
-  list-style: none;
-  cursor: pointer;
-}
-.agent-detail-description summary::-webkit-details-marker {
-  display: none;
-}
-.agent-detail-description[open] summary svg {
-  rotate: 180deg;
+  font-weight: 700;
+  line-height: 1.4;
 }
 .agent-detail-description p {
   margin: 8px 0 0;
