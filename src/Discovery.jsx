@@ -299,7 +299,7 @@ export function SmartFilters({
     </Modal>
   );
 }
-export function Costs({ p, money }) {
+export function Costs({ p, money, title }) {
   const known = (value) =>
     value !== null &&
     value !== undefined &&
@@ -338,9 +338,15 @@ export function Costs({ p, money }) {
           ["Asking price", p.price],
           ["Price per sq ft", Math.round(p.price / p.area)],
         ];
+  const heading =
+    title === undefined
+      ? p.mode === "RENT"
+        ? "Cost breakdown"
+        : "Price overview"
+      : title;
   return (
     <div className="cost-breakdown">
-      <h3>{p.mode === "RENT" ? "Cost breakdown" : "Price overview"}</h3>
+      {heading ? <h3>{heading}</h3> : null}
       {rows.map(([label, n]) => (
         <div key={label}>
           <span>{label}</span>
