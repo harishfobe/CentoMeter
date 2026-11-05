@@ -99,6 +99,10 @@ import { developerFor } from "./SearchSuggestions";
 import { mobileQuery } from "./MapInteractions";
 import { LandSummary } from "./LandDetails";
 import {
+  HouseVillaSummary,
+  isHouseOrVilla,
+} from "./HouseVillaDetails";
+import {
   priceBasis,
   areaBasis,
   nearText,
@@ -1708,6 +1712,20 @@ export default function App() {
                     p={detail}
                     onReport={() => setModal("report")}
                   />
+                ) : isHouseOrVilla(detail.type) ? (
+                  <>
+                    <HouseVillaSummary
+                      p={detail}
+                      onReport={() => setModal("report")}
+                    />
+                    <details className="advanced-filters" open>
+                      <summary>About the property</summary>
+                      <p className="description">
+                        {detail.description ||
+                          "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."}
+                      </p>
+                    </details>
+                  </>
                 ) : (
                   <>
                     <h2>A little more about this place</h2>
@@ -1734,7 +1752,7 @@ export default function App() {
                     </div>
                   </>
                 )}
-                {detail.type !== "Land" && (
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
                   <div className="listing-trust">
                     <span>
                       Listed by {detail.seller} · {detail.freshness} · Sample
@@ -1755,7 +1773,7 @@ export default function App() {
                     Preview sample floor plan
                   </button>
                 )}
-                {detail.type !== "Land" && (
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
                   <div className="property-facts">
                     {supportsFacing(detail.type) && hasValue(detail.facing) && (
                       <div>
@@ -1792,7 +1810,9 @@ export default function App() {
                       ))}
                   </div>
                 )}
-                {detail.type !== "Land" && <OptionalPropertyDetails p={detail} />}
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                  <OptionalPropertyDetails p={detail} />
+                )}
                 {detail.mode === "BUY" && (
                   <EmiCalculator key={detail.id} p={detail} />
                 )}

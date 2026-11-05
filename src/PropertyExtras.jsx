@@ -43,6 +43,8 @@ export function OptionalListingFields({ data, set }) {
 }
 export function OptionalPropertyDetails({ p }) {
   const date = Date.parse(p.postedAt || "");
+  const houseVilla =
+    p.type === "Villa" || p.type === "Independent House";
   const fields = [
     ["RERA number", p.reraNumber],
     ["Possession", p.possessionStatus],
@@ -55,7 +57,21 @@ export function OptionalPropertyDetails({ p }) {
         : null,
     ],
     ["Total floors", p.totalFloors],
-    ["Parking", p.parking],
+    houseVilla
+      ? [
+          "Car parking",
+          (() => {
+            const counted = Number(p.carParking ?? p.parkingSpaces);
+            if (Number.isFinite(counted) && counted >= 0) {
+              return counted === 1 ? "1 car" : `${counted} cars`;
+            }
+            const match = String(p.parking ?? "").match(/(\d+)/);
+            if (!match) return hasValue(p.parking) ? p.parking : null;
+            const cars = Number(match[1]);
+            return cars === 1 ? "1 car" : `${cars} cars`;
+          })(),
+        ]
+      : ["Parking", p.parking],
     ["Ownership", p.ownershipType],
     [
       "Posted",
