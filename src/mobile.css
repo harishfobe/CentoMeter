@@ -2895,22 +2895,33 @@ a:focus-visible {
   .sticky-contact-bar {
     display: block;
   }
-  .agent-detail {
-    padding-bottom: calc(9rem + env(safe-area-inset-bottom));
+  /* Listing sheet: full-height column; actions sticky above in-flow contact bar. */
+  .modal-scrim[data-motion-kind="listing"] > .modal {
+    height: 100%;
+    max-height: 100dvh;
   }
-  /* Keep Request location + Site visit/Save/Share fully above WhatsApp/Call. */
-  .modal:has(.sticky-contact-bar) .agent-detail-actions {
-    bottom: calc(7.25rem + env(safe-area-inset-bottom));
-    scroll-margin-bottom: calc(7.25rem + env(safe-area-inset-bottom));
+  .modal-scrim[data-motion-kind="listing"] .agent-detail {
+    padding-bottom: 12px;
+  }
+  .modal-scrim[data-motion-kind="listing"] .agent-detail-actions {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
     z-index: 1100;
   }
-  .modal:has(.sticky-contact-bar) .agent-detail-actions-primary {
+  .modal-scrim[data-motion-kind="listing"] .agent-detail-actions-primary {
     position: sticky;
+    bottom: 0;
     z-index: 1101;
   }
-  .modal:has(.sticky-contact-bar) .agent-detail-actions-secondary {
+  .modal-scrim[data-motion-kind="listing"] .agent-detail-actions-secondary {
     display: flex;
     justify-content: center;
+  }
+  .modal-scrim[data-motion-kind="listing"] .sticky-contact-bar {
+    position: relative;
+    inset: auto;
+    display: block;
   }
 }
 @media (min-width: 400px) {
