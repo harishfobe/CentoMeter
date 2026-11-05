@@ -1664,7 +1664,7 @@ export default function App() {
                   </button>
                 )}
                 <MobilePropertyPrice property={detail} money={money} />
-                {detail.type !== "Land" && (
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (
                       <div>

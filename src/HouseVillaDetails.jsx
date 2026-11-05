@@ -29,6 +29,16 @@ function sqftLabel(value) {
     : value;
 }
 
+function postedDateLabel(p) {
+  const date = Date.parse(p.postedAt || p.createdAt || "");
+  if (!Number.isFinite(date)) return null;
+  return new Date(date).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 /** Shared Property details rows for Villa / Independent House. */
 export function buildHouseVillaFacts(p, { includeStatus = true } = {}) {
   return [
@@ -54,6 +64,7 @@ export function buildHouseVillaFacts(p, { includeStatus = true } = {}) {
     ["Ownership", p.ownershipType],
     ["Facing", p.facing],
     ["Availability", p.available],
+    ["Posted date", postedDateLabel(p)],
     [includeStatus ? "Status" : null, includeStatus ? statusLabel(p.status) : null],
   ].filter(([label, value]) => label && hasValue(value));
 }
