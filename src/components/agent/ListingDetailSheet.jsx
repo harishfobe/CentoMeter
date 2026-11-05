@@ -274,7 +274,7 @@ export default function ListingDetailSheet({
             ))}
           </dl>
         ) : null}
-        <h3>Key facts</h3>
+        <h3>Property details</h3>
         <dl className="agent-facts">
           {facts.map(([k, v]) => (
             <div key={k}>
@@ -361,7 +361,7 @@ export default function ListingDetailSheet({
         )}
         <details className="agent-detail-section agent-detail-description" open>
           <summary>
-            Description <ChevronDown size={18} aria-hidden="true" />
+            Property details <ChevronDown size={18} aria-hidden="true" />
           </summary>
           <p>{p.description}</p>
         </details>

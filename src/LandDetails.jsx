@@ -47,9 +47,9 @@ export function LandSummary({ p }) {
   const highlights = landHighlights(p);
   const status = plotStatus(p);
   return (
-    <section className="land-summary" aria-label="Property description">
+    <section className="land-summary" aria-label="Property details">
       <div className="land-summary-heading">
-        <h2>Property description</h2>
+        <h2>Property details</h2>
         {status && <span className={"plot-status " + status}>{status}</span>}
       </div>
       {p.description?.trim() && (
