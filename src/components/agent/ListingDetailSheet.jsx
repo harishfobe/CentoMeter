@@ -412,6 +412,48 @@ export default function ListingDetailSheet({
             </p>
           )}
         </section>
+        <div className="agent-detail-actions">
+          <div className="agent-detail-actions-primary">
+            {point ? (
+              <a
+                className="primary"
+                href={
+                  "https://www.google.com/maps/dir/?api=1&destination=" +
+                  point.join(",")
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Get directions
+              </a>
+            ) : (
+              <button
+                className="primary"
+                disabled={state === "requested"}
+                onClick={() => setRequest(true)}
+              >
+                {state === "requested" ? "Requested" : "Request location"}
+              </button>
+            )}
+          </div>
+          <div className="agent-detail-actions-secondary">
+            <button className="secondary" onClick={() => setVisit(true)}>
+              Site visit
+            </button>
+            <button
+              className="secondary"
+              onClick={() => toggleStore("saved", p.id)}
+            >
+              {s.saved.includes(p.id) ? "Saved" : "Save"}
+            </button>
+            <button
+              className="secondary"
+              onClick={() => shareAgentLink(link, p.title)}
+            >
+              Share
+            </button>
+          </div>
+        </div>
         <section>
           <h3>Similar from this agent</h3>
           {relatedListings
@@ -451,48 +493,6 @@ export default function ListingDetailSheet({
           Report this listing
         </button>
       </article>
-      <div className="agent-detail-actions">
-        <div className="agent-detail-actions-primary">
-          {point ? (
-            <a
-              className="primary"
-              href={
-                "https://www.google.com/maps/dir/?api=1&destination=" +
-                point.join(",")
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Get directions
-            </a>
-          ) : (
-            <button
-              className="primary"
-              disabled={state === "requested"}
-              onClick={() => setRequest(true)}
-            >
-              {state === "requested" ? "Requested" : "Request location"}
-            </button>
-          )}
-        </div>
-        <div className="agent-detail-actions-secondary">
-          <button className="secondary" onClick={() => setVisit(true)}>
-            Site visit
-          </button>
-          <button
-            className="secondary"
-            onClick={() => toggleStore("saved", p.id)}
-          >
-            {s.saved.includes(p.id) ? "Saved" : "Save"}
-          </button>
-          <button
-            className="secondary"
-            onClick={() => shareAgentLink(link, p.title)}
-          >
-            Share
-          </button>
-        </div>
-      </div>
       <StickyContactBar property={p} agent={a} />
       {zoom && (
         <Modal title="Photo viewer" onClose={() => setZoom(false)}>

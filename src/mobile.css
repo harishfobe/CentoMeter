@@ -2895,7 +2895,7 @@ a:focus-visible {
   .sticky-contact-bar {
     display: block;
   }
-  /* Listing sheet: full-height column; actions sticky above in-flow contact bar. */
+  /* Listing sheet: full-height column; mid-content actions; footer contact bar. */
   .modal-scrim[data-motion-kind="listing"] > .modal {
     height: 100%;
     max-height: 100dvh;
@@ -2904,15 +2904,9 @@ a:focus-visible {
     padding-bottom: 12px;
   }
   .modal-scrim[data-motion-kind="listing"] .agent-detail-actions {
-    position: sticky;
-    bottom: 0;
+    position: relative;
     width: 100%;
-    z-index: 1100;
-  }
-  .modal-scrim[data-motion-kind="listing"] .agent-detail-actions-primary {
-    position: sticky;
-    bottom: 0;
-    z-index: 1101;
+    z-index: 1;
   }
   .modal-scrim[data-motion-kind="listing"] .agent-detail-actions-secondary {
     display: flex;

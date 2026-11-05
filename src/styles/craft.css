@@ -70,7 +70,7 @@ a[href],
   box-shadow: none;
 }
 
-/* Listing sheet: full viewport height; action bar sticky above in-flow contact. */
+/* Listing sheet: full viewport height; actions in content; contact in footer. */
 .modal-scrim[data-motion-kind="listing"] > .modal {
   height: 100%;
   max-height: 100dvh;
@@ -81,10 +81,12 @@ a[href],
   overflow: hidden;
 }
 .modal-scrim[data-motion-kind="listing"] .agent-detail-actions {
-  position: sticky;
-  bottom: 0;
+  position: relative;
   width: 100%;
-  z-index: 1100;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-actions-secondary {
+  display: flex;
+  justify-content: center;
 }
 .modal-scrim[data-motion-kind="listing"] .sticky-contact-bar {
   position: relative;
