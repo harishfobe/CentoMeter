@@ -3269,30 +3269,39 @@ textarea {
 .land-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0;
+  gap: 10px;
   margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--paper);
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
 }
 .land-facts > div {
-  padding: 13px 16px;
+  padding: 14px 16px;
   min-width: 0;
-  border-bottom: 1px solid var(--line);
+  border: 0;
+  border-radius: 14px;
+  background: var(--canvas);
 }
-.land-facts > div:nth-child(odd) {
-  border-right: 1px solid var(--line);
+.land-facts-secondary {
+  margin-top: 16px;
 }
-.land-facts > div:nth-last-child(1) {
-  border-bottom: 0;
+.land-listing-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
 }
-.land-facts > div:nth-last-child(2):nth-child(odd) {
-  border-bottom: 0;
-}
-.land-facts > div:last-child:nth-child(odd) {
-  grid-column: 1/-1;
-  border-right: 0;
+.land-listing-meta .text-button {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0;
+  color: var(--ink);
+  font-weight: 700;
 }
 .land-facts dt {
   font-size: 11px;

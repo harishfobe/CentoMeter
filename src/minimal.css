@@ -535,8 +535,8 @@ textarea:focus-visible {
 }
 .land-facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -546,8 +546,28 @@ textarea:focus-visible {
   min-width: 0;
   padding: 14px;
   border: 0 !important;
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--canvas);
+}
+.land-facts-secondary {
+  margin-top: 16px;
+}
+.land-listing-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.land-listing-meta .text-button {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0;
+  color: var(--ink);
+  font-weight: 700;
 }
 .land-facts dt {
   color: var(--muted);

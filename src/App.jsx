@@ -1704,7 +1704,10 @@ export default function App() {
                   </div>
                 )}
                 {detail.type === "Land" ? (
-                  <LandSummary p={detail} />
+                  <LandSummary
+                    p={detail}
+                    onReport={() => setModal("report")}
+                  />
                 ) : (
                   <>
                     <h2>A little more about this place</h2>
@@ -1731,17 +1734,19 @@ export default function App() {
                     </div>
                   </>
                 )}
-                <div className="listing-trust">
-                  <span>
-                    Listed by {detail.seller} · {detail.freshness} · Sample
-                  </span>
-                  <button
-                    className="text-button"
-                    onClick={() => setModal("report")}
-                  >
-                    Report listing
-                  </button>
-                </div>
+                {detail.type !== "Land" && (
+                  <div className="listing-trust">
+                    <span>
+                      Listed by {detail.seller} · {detail.freshness} · Sample
+                    </span>
+                    <button
+                      className="text-button"
+                      onClick={() => setModal("report")}
+                    >
+                      Report listing
+                    </button>
+                  </div>
+                )}
                 {!["Land", "PG"].includes(detail.type) && (
                   <button
                     className="secondary"
@@ -1787,7 +1792,7 @@ export default function App() {
                       ))}
                   </div>
                 )}
-                <OptionalPropertyDetails p={detail} />
+                {detail.type !== "Land" && <OptionalPropertyDetails p={detail} />}
                 {detail.mode === "BUY" && (
                   <EmiCalculator key={detail.id} p={detail} />
                 )}

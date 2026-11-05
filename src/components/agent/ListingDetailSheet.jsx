@@ -12,6 +12,7 @@ import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useRef } from "react";
 import { money, hasValue, emiPayment } from "../../PropertyModel";
 import { landArea, landDimensions } from "../../LandMeasurements";
+import { LandSummary } from "../../LandDetails";
 import { approvalLabels } from "../../PlotUI";
 import { EmiCalculator } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
@@ -274,97 +275,121 @@ export default function ListingDetailSheet({
             ))}
           </dl>
         ) : null}
-        <h3>Property details</h3>
-        <dl className="agent-facts">
-          {facts.map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
-        <section
-          className="agent-detail-section agent-trust-card"
-          aria-label="Legal and trust details"
-        >
-          <h3>Legal &amp; trust</h3>
-          <dl className="agent-trust-details">
-            {p.reraNo && (
-              <div>
-                <dt>RERA number</dt>
-                <dd>
-                  <span className="agent-rera-number">{p.reraNo}</span>
-                  <CopyButton
-                    className="text-button agent-rera-copy"
-                    value={p.reraNo}
-                    aria-label="Copy RERA number"
-                    successMessage="RERA number copied"
-                  >
-                    <Copy size={14} aria-hidden="true" /> Copy
-                  </CopyButton>
-                </dd>
-              </div>
+        {p.type === "Land" ? (
+          <LandSummary
+            p={p}
+            showDescription={false}
+            onReport={() => setReport(true)}
+          />
+        ) : (
+          <>
+            <h3>Property details</h3>
+            <dl className="agent-facts">
+              {facts.map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <section
+              className="agent-detail-section agent-trust-card"
+              aria-label="Legal and trust details"
+            >
+              <h3>Legal &amp; trust</h3>
+              <dl className="agent-trust-details">
+                {p.reraNo && (
+                  <div>
+                    <dt>RERA number</dt>
+                    <dd>
+                      <span className="agent-rera-number">{p.reraNo}</span>
+                      <CopyButton
+                        className="text-button agent-rera-copy"
+                        value={p.reraNo}
+                        aria-label="Copy RERA number"
+                        successMessage="RERA number copied"
+                      >
+                        <Copy size={14} aria-hidden="true" /> Copy
+                      </CopyButton>
+                    </dd>
+                  </div>
+                )}
+                <div>
+                  <dt>Availability confirmed</dt>
+                  <dd>
+                    <time dateTime={p.confirmedAt}>
+                      {new Date(p.confirmedAt).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </time>
+                  </dd>
+                </div>
+              </dl>
+              {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000 && (
+                <p className="agent-trust-note">Not recently confirmed</p>
+              )}
+              {approvalLabels(p).length > 0 && (
+                <div className="chips agent-detail-amenities">
+                  {approvalLabels(p).map((x) => (
+                    <span className="pill" key={x}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </section>
+            {p.highlights.length > 0 && (
+              <section
+                className="agent-detail-section"
+                aria-label="Listing highlights"
+              >
+                <h3>Highlights</h3>
+                <ul className="agent-detail-highlights">
+                  {p.highlights.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              </section>
             )}
-            <div>
-              <dt>Availability confirmed</dt>
-              <dd>
-                <time dateTime={p.confirmedAt}>
-                  {new Date(p.confirmedAt).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </time>
-              </dd>
-            </div>
-          </dl>
-          {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000 && (
-            <p className="agent-trust-note">Not recently confirmed</p>
-          )}
-          {approvalLabels(p).length > 0 && (
-            <div className="chips agent-detail-amenities">
-              {approvalLabels(p).map((x) => (
-                <span className="pill" key={x}>
-                  {x}
-                </span>
-              ))}
-            </div>
-          )}
-        </section>
-        {p.highlights.length > 0 && (
-          <section
-            className="agent-detail-section"
-            aria-label="Listing highlights"
-          >
-            <h3>Highlights</h3>
-            <ul className="agent-detail-highlights">
-              {p.highlights.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-          </section>
+            {p.amenities.length > 0 && (
+              <section
+                className="agent-detail-section"
+                aria-label="Listing amenities"
+              >
+                <h3>Amenities</h3>
+                <div className="chips agent-detail-amenities">
+                  {p.amenities.map((x) => (
+                    <span className="pill" key={x}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
+            <details
+              className="agent-detail-section agent-detail-description"
+              open
+            >
+              <summary>
+                Property details <ChevronDown size={18} aria-hidden="true" />
+              </summary>
+              <p>{p.description}</p>
+            </details>
+          </>
         )}
-        {p.amenities.length > 0 && (
-          <section
-            className="agent-detail-section"
-            aria-label="Listing amenities"
+        {p.type === "Land" && p.description?.trim() ? (
+          <details
+            className="agent-detail-section agent-detail-description"
+            open
           >
-            <h3>Amenities</h3>
-            <div className="chips agent-detail-amenities">
-              {p.amenities.map((x) => (
-                <span className="pill" key={x}>
-                  {x}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
-        <details className="agent-detail-section agent-detail-description" open>
-          <summary>
-            Property details <ChevronDown size={18} aria-hidden="true" />
-          </summary>
-          <p>{p.description}</p>
-        </details>
+            <summary>
+              Property details <ChevronDown size={18} aria-hidden="true" />
+            </summary>
+            <p>{p.description}</p>
+          </details>
+        ) : null}
         {(p.floorPlanUrl || p.videoUrl) && (
           <div className="agent-detail-resources">
             {p.floorPlanUrl && (
@@ -504,9 +529,11 @@ export default function ListingDetailSheet({
             </div>
           </div>
         </section>
-        <button className="text-button" onClick={() => setReport(true)}>
-          Report this listing
-        </button>
+        {p.type !== "Land" && (
+          <button className="text-button" onClick={() => setReport(true)}>
+            Report this listing
+          </button>
+        )}
       </article>
       <StickyContactBar property={p} agent={a} />
       {zoom && (
