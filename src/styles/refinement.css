@@ -699,10 +699,30 @@
 .agent-detail-actions {
   display: flex;
   flex-direction: column;
-  gap: 7px;
-  padding: 12px 0 16px;
+  gap: 8px;
+  padding: 12px 0 8px;
+  margin: 8px 0 20px;
   background: transparent;
   box-shadow: none;
+}
+.agent-detail-related {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 0 20px;
+}
+.agent-detail-related-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.agent-detail-related-group h3 {
+  margin: 0;
+}
+.agent-detail-related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .agent-detail-actions-primary > *,
 .agent-detail-actions-secondary > * {

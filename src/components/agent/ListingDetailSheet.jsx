@@ -454,40 +454,55 @@ export default function ListingDetailSheet({
             </button>
           </div>
         </div>
-        <section>
-          <h3>Similar from this agent</h3>
-          {relatedListings
-            .filter(
-              (x) =>
-                x.id !== p.id && x.agentId === p.agentId && x.type === p.type,
-            )
-            .slice(0, 3)
-            .map((x) => (
-              <button
-                className="secondary"
-                key={x.id}
-                onClick={() => onRelated?.(x)}
-              >
-                {x.title}
-              </button>
-            ))}
-          <h3>More in {p.locality}</h3>
-          {relatedListings
-            .filter(
-              (x) =>
-                x.id !== p.id && x.locality === p.locality && x.city === p.city,
-            )
-            .slice(0, 3)
-            .map((x) => (
-              <button
-                className="secondary"
-                key={x.id}
-                onClick={() => onRelated?.(x)}
-              >
-                {x.title} ·{" "}
-                {relatedAgents.find((a) => a.id === x.agentId)?.name}
-              </button>
-            ))}
+        <section
+          className="agent-detail-related"
+          aria-label="Related listings"
+        >
+          <div className="agent-detail-related-group">
+            <h3>Similar from this agent</h3>
+            <div className="agent-detail-related-list">
+              {relatedListings
+                .filter(
+                  (x) =>
+                    x.id !== p.id &&
+                    x.agentId === p.agentId &&
+                    x.type === p.type,
+                )
+                .slice(0, 3)
+                .map((x) => (
+                  <button
+                    className="secondary"
+                    key={x.id}
+                    onClick={() => onRelated?.(x)}
+                  >
+                    {x.title}
+                  </button>
+                ))}
+            </div>
+          </div>
+          <div className="agent-detail-related-group">
+            <h3>More in {p.locality}</h3>
+            <div className="agent-detail-related-list">
+              {relatedListings
+                .filter(
+                  (x) =>
+                    x.id !== p.id &&
+                    x.locality === p.locality &&
+                    x.city === p.city,
+                )
+                .slice(0, 3)
+                .map((x) => (
+                  <button
+                    className="secondary"
+                    key={x.id}
+                    onClick={() => onRelated?.(x)}
+                  >
+                    {x.title} ·{" "}
+                    {relatedAgents.find((a) => a.id === x.agentId)?.name}
+                  </button>
+                ))}
+            </div>
+          </div>
         </section>
         <button className="text-button" onClick={() => setReport(true)}>
           Report this listing

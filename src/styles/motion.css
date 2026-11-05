@@ -292,11 +292,22 @@
   width: 100%;
   flex-shrink: 0;
   z-index: 1;
-  margin: 4px 0 8px;
-  padding: 12px 0 16px;
+  margin: 8px 0 20px;
+  padding: 12px 0 8px;
   box-sizing: border-box;
   background: transparent;
   border-top: 0;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-related {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 .modal-scrim[data-motion-kind="listing"] .agent-detail-actions-primary {
   width: 100%;
