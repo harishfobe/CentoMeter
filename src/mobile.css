@@ -633,6 +633,8 @@
   .mobile-price-block {
     display: block;
     margin: 16px 0 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
   }
   .mobile-property-price {
     display: flex;
@@ -650,34 +652,6 @@
   .mobile-property-price > span {
     font-size: var(--type-label);
     color: var(--muted);
-  }
-  .mobile-price-details {
-    margin-top: 8px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 8px;
-  }
-  .mobile-price-details > summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 36px;
-    font-size: var(--type-label);
-    color: var(--brand-active);
-    list-style: none;
-    cursor: pointer;
-  }
-  .mobile-price-details > summary::-webkit-details-marker {
-    display: none;
-  }
-  .mobile-price-details[open] > summary svg {
-    transform: rotate(180deg);
-  }
-  .mobile-price-details .cost-breakdown {
-    margin-top: 4px;
-    padding: 12px;
-  }
-  .mobile-price-details .cost-breakdown h3 {
-    font-size: var(--type-body);
   }
   .detail-page .contact-panel {
     display: none;
@@ -1081,9 +1055,6 @@
   .draft-tools .secondary,
   .draft-tools .text-button,
   .listing-trust .text-button {
-    min-height: 44px;
-  }
-  .mobile-price-details > summary {
     min-height: 44px;
   }
   .land-highlight-options .chip,

@@ -1,6 +1,5 @@
 import React from "react";
-import { ChevronDown, MessageCircle, Phone, Zap } from "lucide-react";
-import { Costs } from "./Discovery";
+import { MessageCircle, Phone, Zap } from "lucide-react";
 import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
@@ -14,13 +13,6 @@ export function MobilePropertyPrice({ property: p, money }) {
           <PriceCaption p={p} money={money} />
         </span>
       </div>
-      <details className="mobile-price-details">
-        <summary>
-          Price details
-          <ChevronDown size={16} />
-        </summary>
-        <Costs p={p} money={money} />
-      </details>
     </div>
   );
 }
@@ -120,8 +112,8 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
             <button
               type="button"
               className="sticky-contact-call"
-              aria-label="Call Now"
               disabled
+              aria-label="Call Now"
             >
               <Phone size={18} aria-hidden="true" />
             </button>
