@@ -1709,13 +1709,16 @@ export default function App() {
                       p={detail}
                       onReport={() => setModal("report")}
                     />
-                    <details className="advanced-filters" open>
-                      <summary>About the property</summary>
+                    <section
+                      className="about-the-property"
+                      aria-label="About the property"
+                    >
+                      <h2>About the property</h2>
                       <p className="description">
                         {detail.description ||
                           "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."}
                       </p>
-                    </details>
+                    </section>
                   </>
                 ) : (
                   <>
@@ -1732,7 +1735,7 @@ export default function App() {
                 )}
                 {detail.type !== "Land" && detail.features.length > 0 && (
                   <>
-                    <h2>Made for everyday living</h2>
+                    <h2>Highlights</h2>
                     <div className="amenities">
                       {detail.features.map((a) => (
                         <span key={a}>
@@ -1758,7 +1761,7 @@ export default function App() {
                 )}
                 {!["Land", "PG"].includes(detail.type) && (
                   <button
-                    className="secondary"
+                    className="secondary detail-floor-plan"
                     onClick={() => setModal("floorPlan")}
                   >
                     Preview sample floor plan
