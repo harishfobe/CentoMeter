@@ -2898,10 +2898,19 @@ a:focus-visible {
   .agent-detail {
     padding-bottom: calc(9rem + env(safe-area-inset-bottom));
   }
-  /* Keep sticky detail CTAs fully clear of the fixed contact bar. */
+  /* Keep Request location + Site visit/Save/Share fully above WhatsApp/Call. */
   .modal:has(.sticky-contact-bar) .agent-detail-actions {
     bottom: calc(7.25rem + env(safe-area-inset-bottom));
     scroll-margin-bottom: calc(7.25rem + env(safe-area-inset-bottom));
+    z-index: 1100;
+  }
+  .modal:has(.sticky-contact-bar) .agent-detail-actions-primary {
+    position: sticky;
+    z-index: 1101;
+  }
+  .modal:has(.sticky-contact-bar) .agent-detail-actions-secondary {
+    display: flex;
+    justify-content: center;
   }
 }
 @media (min-width: 400px) {

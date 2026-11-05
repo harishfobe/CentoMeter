@@ -695,18 +695,16 @@
   line-height: 1.6;
 }
 .agent-detail-actions {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 7px;
   padding: 12px 0;
   background: #fff;
   box-shadow: 0 -10px 18px #ffffffed;
 }
-.agent-detail-actions > :first-child {
-  grid-column: 1/-1;
-}
-.agent-detail-actions > * {
-  min-width: 0 !important;
+.agent-detail-actions-primary > *,
+.agent-detail-actions-secondary > * {
+  min-width: 0;
   border: 1px solid var(--agent-line);
   border-radius: 11px;
   padding: 10px 6px;
@@ -718,7 +716,12 @@
   justify-content: center;
   line-height: 1.4;
 }
-.agent-detail-actions > .primary {
+.agent-detail-actions-secondary {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+.agent-detail-actions-primary > .primary {
   font-size: 13px;
   font-weight: 650;
   border-color: var(--agent-accent);
