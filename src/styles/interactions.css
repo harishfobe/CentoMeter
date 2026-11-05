@@ -109,7 +109,7 @@ a[href],
 /* Shadows are painted once; only the lift changes during interaction. */
 .property-card,
 .agent-card {
-  box-shadow: 0 3px 16px #18181b0a;
+  box-shadow: 0 3px 16px color-mix(in srgb, var(--ink) 4%, transparent);
 }
 @media (prefers-reduced-motion: no-preference) {
   .leaflet-container .price-marker > span {
@@ -146,7 +146,7 @@ a[href],
   gap: 20px;
 }
 .loading-card {
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 18px;
   padding: 16px;
   min-height: 336px;
@@ -375,7 +375,7 @@ a[href],
     box-shadow: 0 -6px 20px rgba(24, 24, 27, 0.12);
     touch-action: none;
     user-select: none;
-    transition: transform 240ms var(--ease-spring);
+    transition: transform 240ms var(--ease-out-expo);
     will-change: transform;
   }
   .map-list-toggle.map-sheet-peek.dragging {
@@ -391,7 +391,7 @@ a[href],
     background: var(--line);
     transform: scaleX(1);
     transform-origin: center;
-    transition: transform 160ms var(--ease-spring);
+    transition: transform 160ms var(--ease-out-expo);
   }
   .map-sheet-peek:active .map-sheet-grab,
   .map-sheet-peek.dragging .map-sheet-grab {
@@ -427,7 +427,7 @@ a[href],
 }
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   .map-list-mode .listing-panel {
-    animation: map-sheet-rise 280ms var(--ease-spring);
+    animation: map-sheet-rise 280ms var(--ease-out-expo);
   }
 }
 @media (prefers-reduced-motion: reduce) {

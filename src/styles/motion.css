@@ -1,7 +1,9 @@
 :root {
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out: var(--ease-spring);
-  /* Reserved for continuous loops (shimmer); UI motion should use --ease-spring. */
+  /* Expo-out deceleration (not bounce). --ease-spring kept as a compat alias. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: var(--ease-out-expo);
+  --ease-out: var(--ease-out-expo);
+  /* Reserved for continuous loops (shimmer); UI motion should use --ease-out-expo. */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 120ms;
   --t: 200ms;
@@ -168,8 +170,8 @@
   min-width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #fff3eb;
-  color: #9d3c04;
+  background: var(--brand-soft);
+  color: var(--brand-deep);
   font-size: 11px;
 }
 .agent-slim-bar {
@@ -181,7 +183,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  box-shadow: 0 5px 18px #18181b16;
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--ink) 9%, transparent);
   opacity: 0;
   pointer-events: none;
 }
@@ -203,10 +205,10 @@
   z-index: 900;
   opacity: 0;
   visibility: hidden;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--paper);
-  box-shadow: 0 4px 20px #18181b15;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--ink) 8%, transparent);
 }
 .agent-feature[data-back-top="true"] .agent-back-top {
   opacity: 1;
@@ -234,7 +236,7 @@
   display: block;
   width: 40px;
   height: 4px;
-  background: #a1a1aa;
+  background: var(--placeholder);
   border-radius: 999px;
   margin: auto;
 }
@@ -248,7 +250,7 @@
   content: "";
   position: fixed;
   inset: 0;
-  background: #18181b70;
+  background: color-mix(in srgb, var(--ink) 44%, transparent);
   z-index: -1;
   pointer-events: none;
 }
@@ -388,11 +390,11 @@
   align-items: center;
   gap: 12px;
   justify-content: space-between;
-  background: #18181b;
+  background: var(--ink);
   color: white;
   border-radius: 16px;
   padding: 8px 8px 8px 16px;
-  box-shadow: 0 5px 24px #18181b25;
+  box-shadow: 0 5px 24px color-mix(in srgb, var(--ink) 15%, transparent);
   pointer-events: auto;
   font-size: 14px;
 }
@@ -714,8 +716,8 @@
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  border: 1px solid #18181b;
-  background: #18181b;
+  border: 1px solid var(--ink);
+  background: var(--ink);
   opacity: 0;
   pointer-events: none;
 }

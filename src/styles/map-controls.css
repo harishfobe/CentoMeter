@@ -21,10 +21,10 @@
   font-weight: 650;
   white-space: nowrap;
   transition:
-    background-color 160ms var(--ease-spring),
-    color 160ms var(--ease-spring),
-    border-color 160ms var(--ease-spring),
-    transform 160ms var(--ease-spring);
+    background-color 160ms var(--ease-out-expo),
+    color 160ms var(--ease-out-expo),
+    border-color 160ms var(--ease-out-expo),
+    transform 160ms var(--ease-out-expo);
 }
 .map-stage .agent-picks-toggle svg {
   color: var(--brand-active);
