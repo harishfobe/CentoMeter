@@ -6,14 +6,18 @@ a[href],
   touch-action: manipulation;
 }
 @media (prefers-reduced-motion: no-preference) {
+  /* Press feedback on all pressables; hover lift is cards-only (frequency gate). */
   button,
   a[href],
-  [role="button"],
+  [role="button"] {
+    transition: scale var(--t-press, 120ms) var(--ease-out);
+  }
   .property-card,
-  .agent-card {
+  .agent-card,
+  .agent-listing {
     transition:
-      scale 120ms var(--ease-out),
-      translate 200ms var(--ease-out),
+      scale var(--t-press, 120ms) var(--ease-out),
+      translate var(--t, 200ms) var(--ease-out),
       opacity 160ms var(--ease-out);
   }
   button:enabled:active,
@@ -21,24 +25,22 @@ a[href],
   [role="button"]:not([aria-disabled="true"]):active,
   .agent-feature button:enabled:active,
   .agent-detail button:enabled:active {
-    scale: 0.98;
+    scale: var(--press-scale, 0.97);
     transition: none;
   }
   .agent-listing:has(.property-copy:active) {
-    scale: 0.98;
+    scale: var(--press-scale, 0.97);
   }
   .agent-feature .agent-listing .property-copy:enabled:active {
     scale: 1;
   }
   .property-image img {
-    transition: scale 320ms var(--ease-out);
+    transition: scale var(--t, 200ms) var(--ease-out);
   }
   @media (hover: hover) and (pointer: fine) {
-    button:enabled:not([aria-disabled="true"]):hover,
-    a[href]:hover,
-    [role="button"]:not([aria-disabled="true"]):hover,
     .property-card:hover,
-    .agent-card:hover {
+    .agent-card:hover,
+    .agent-listing:hover {
       translate: 0 -2px;
     }
     /* The parent card provides the lift for its main click target. */
@@ -244,8 +246,8 @@ a[href],
   .leaflet-container .leaflet-cluster-anim .leaflet-marker-icon,
   .leaflet-container.leaflet-cluster-anim .leaflet-marker-icon {
     transition:
-      transform 300ms var(--ease-out),
-      opacity 200ms var(--ease-out);
+      transform var(--t-sheet, 240ms) var(--ease-out),
+      opacity var(--t, 200ms) var(--ease-out);
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -427,7 +429,7 @@ a[href],
 }
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   .map-list-mode .listing-panel {
-    animation: map-sheet-rise 280ms var(--ease-out-expo);
+    animation: map-sheet-rise var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out));
   }
 }
 @media (prefers-reduced-motion: reduce) {

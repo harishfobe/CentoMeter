@@ -892,11 +892,11 @@
 @media (prefers-reduced-motion: no-preference) {
   .finder-refined .chip:active,
   .finder-sheet .chip:active {
-    scale: 0.95;
-    transition: scale 120ms var(--ease-out);
+    scale: var(--press-scale, 0.97);
+    transition: scale var(--t-press, 120ms) var(--ease-out);
   }
   .finder-sheet .modal {
-    animation: finder-sheet-in 280ms var(--ease-out);
+    animation: finder-sheet-in var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out));
   }
   .finder-sheet .modal-scrim {
     animation: finder-fade 200ms var(--ease-out);

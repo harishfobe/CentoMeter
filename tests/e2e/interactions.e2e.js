@@ -15,7 +15,7 @@ test("press feedback uses scale and keeps control layout unchanged", async ({
   await page.mouse.move(point.x + point.width / 2, point.y + point.height / 2);
   await page.mouse.down();
   await page.waitForTimeout(150);
-  expect(await button.evaluate((e) => getComputedStyle(e).scale)).toBe("0.98");
+  expect(await button.evaluate((e) => getComputedStyle(e).scale)).toBe("0.97");
   expect(
     await button.evaluate((e) => ({
       width: e.offsetWidth,
@@ -52,7 +52,7 @@ test("fine pointer hover lifts cards using translate only", async ({
   await card.hover();
   await page.waitForTimeout(220);
   expect(await card.evaluate((e) => getComputedStyle(e).translate)).toBe(
-    "0px -4px",
+    "0px -2px",
   );
   const properties = await card.evaluate((e) =>
     getComputedStyle(e)
