@@ -368,28 +368,26 @@ export default function ListingDetailSheet({
                 </div>
               </section>
             )}
-            <details
-              className="agent-detail-section agent-detail-description"
-              open
-            >
-              <summary>
-                Property details <ChevronDown size={18} aria-hidden="true" />
-              </summary>
-              <p>{p.description}</p>
-            </details>
           </>
         )}
-        {p.type === "Land" && p.description?.trim() ? (
-          <details
-            className="agent-detail-section agent-detail-description"
-            open
-          >
-            <summary>
-              Property details <ChevronDown size={18} aria-hidden="true" />
-            </summary>
-            <p>{p.description}</p>
-          </details>
-        ) : null}
+        <details
+          className="agent-detail-section agent-detail-description"
+          open
+        >
+          <summary>
+            About the property <ChevronDown size={18} aria-hidden="true" />
+          </summary>
+          <p>
+            {p.description?.trim() ||
+              (p.type === "Land"
+                ? `A well-connected land in ${p.locality || p.city}. Ask the agent about documents and visit availability.`
+                : p.type === "Commercial"
+                  ? `A flexible commercial space in ${p.locality || p.city} with practical access for everyday business use.`
+                  : p.type === "PG"
+                    ? `A practical PG option in ${p.locality || p.city}. Ask the agent about rooms, meals, and visit timing.`
+                    : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}
+          </p>
+        </details>
         {(p.floorPlanUrl || p.videoUrl) && (
           <div className="agent-detail-resources">
             {p.floorPlanUrl && (
