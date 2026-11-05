@@ -104,7 +104,7 @@
     min-height: 56px;
     gap: 3px;
     padding: 5px 0;
-    color: #71717a;
+    color: var(--muted);
   }
   .bottom-nav button > span {
     height: 30px;
@@ -398,10 +398,10 @@
     display: flex;
   }
   .compact .save-button {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
     right: 6px;
     top: 6px;
   }
@@ -424,7 +424,7 @@
     margin: 0;
   }
   .results-layout .list-map-button {
-    min-height: 40px;
+    min-height: 44px;
     font-size: var(--type-label);
     padding: 8px 12px;
   }
@@ -436,7 +436,7 @@
   }
   .search-scope .text-button {
     font-size: var(--type-label);
-    min-height: 40px;
+    min-height: 44px;
   }
   .sort-row {
     margin: 4px 0 14px;
@@ -459,7 +459,7 @@
     min-width: 0;
     max-width: 140px;
     font-size: var(--type-label);
-    min-height: 40px;
+    min-height: 44px;
   }
   .property-grid,
   .saved-grid {
@@ -522,10 +522,10 @@
   }
   .property-grid .save-button,
   .saved-grid .save-button {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
   }
   .page {
     padding: 20px var(--mobile-gutter) 24px;
@@ -573,7 +573,7 @@
     justify-content: center;
     gap: 6px;
     padding: 8px 10px;
-    min-height: 40px;
+    min-height: 44px;
     border: 1px solid var(--line);
     border-radius: 9px;
     font-size: var(--type-label);
@@ -727,7 +727,7 @@
   }
   .listing-trust .text-button {
     font-size: var(--type-caption);
-    min-height: 40px;
+    min-height: 44px;
     padding-left: 10px;
   }
   .nearby-grid {
@@ -864,7 +864,7 @@
     font-size: var(--type-label);
   }
   .land-highlight-options .chip {
-    min-height: 40px;
+    min-height: 44px;
     padding: 8px 10px;
     font-size: var(--type-label);
   }
@@ -1438,7 +1438,7 @@
   box-shadow: 0 4px 16px #18181b15;
 }
 .price-marker.type-land:not(.selected) > span {
-  border-bottom: 3px solid #10b981;
+  border-bottom: 3px solid var(--success);
 }
 .map-directions {
   position: absolute;
@@ -1580,7 +1580,7 @@
 }
 .seller-profile small {
   display: block;
-  color: #71717a;
+  color: var(--muted);
   margin-top: 2px;
   font-size: 12px;
 }
@@ -1625,7 +1625,7 @@
   display: block;
   text-align: center;
   margin-top: 6px;
-  color: #71717a;
+  color: var(--muted);
   font-size: 11px;
 }
 .optional-visit {
@@ -1640,7 +1640,7 @@
 .surroundings-heading small {
   display: block;
   margin-top: 4px;
-  color: #71717a;
+  color: var(--muted);
   font-size: 12px;
 }
 .detail-page .property-hotspots {
@@ -1704,10 +1704,10 @@
 }
 .hotspot-marker small {
   font-size: 11px;
-  color: #71717a;
+  color: var(--muted);
 }
 .hotspot-marker:focus-visible > span {
-  outline: 2px solid #f96b13;
+  outline: 2px solid var(--brand-fill);
   outline-offset: 2px;
 }
 .detail-page .map-directions {
@@ -1787,7 +1787,7 @@
   min-height: 44px;
   border-radius: 50%;
   background: #fff3eb;
-  border: 1px solid #f96b13;
+  border: 1px solid var(--brand-fill);
   color: #18181b;
 }
 .marker-cluster div {
@@ -1821,8 +1821,8 @@
 .app-shell .primary,
 .app-shell .contact-call,
 .search-discovery-footer button {
-  background: var(--brand);
-  border-color: var(--brand);
+  background: var(--brand-action);
+  border-color: var(--brand-action);
   color: var(--brand-on);
 }
 .map-save-search {
@@ -1980,7 +1980,7 @@ a:focus-visible {
   box-shadow: 0 2px 8px #18181b12;
 }
 .app-shell .selection-card .selection-save[aria-pressed="true"] {
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .app-shell .selection-card .sheet-close {
   right: 8px;
@@ -2010,7 +2010,7 @@ a:focus-visible {
 .app-shell .selection-card .selection-price span,
 .app-shell .selection-card .selection-price-caption {
   font-size: 12px;
-  color: #71717a;
+  color: var(--muted);
 }
 .app-shell .selection-card .selection-price-caption {
   margin-top: 3px;
@@ -2029,7 +2029,7 @@ a:focus-visible {
 .app-shell .selection-card .selection-specs li + li:before {
   content: "·";
   margin-right: 8px;
-  color: #a1a1aa;
+  color: var(--placeholder);
 }
 .app-shell .selection-card h2 {
   font-size: 15px;
@@ -2046,7 +2046,7 @@ a:focus-visible {
   font-size: 12px;
   line-height: 1.4;
   margin: 4px 0 0;
-  color: #71717a;
+  color: var(--muted);
 }
 .app-shell .selection-card .selection-location svg {
   flex: none;
@@ -2080,7 +2080,7 @@ a:focus-visible {
 }
 .app-shell .selection-card .selection-pager span {
   font-size: 11px;
-  color: #71717a;
+  color: var(--muted);
   text-align: center;
 }
 .app-shell .selection-card .selection-pager button {
@@ -2158,11 +2158,11 @@ a:focus-visible {
   border: 0;
   padding: 0;
   gap: 5px;
-  color: #71717a;
+  color: var(--muted);
   min-height: 44px;
 }
 .app-shell .explore-heading .header-location > svg:first-child {
-  color: #f96b13;
+  color: var(--brand-text);
 }
 .app-shell .explore-heading .header-location select {
   min-height: 44px;
@@ -2185,13 +2185,13 @@ a:focus-visible {
   min-height: 44px;
   padding: 8px 12px;
   background: #fff3eb;
-  border: 1px solid #f96b13;
+  border: 1px solid var(--brand-fill);
   border-radius: 12px;
   color: #a83c02;
   font-size: 13px;
   font-weight: 750;
   white-space: nowrap;
-  box-shadow: 0 2px 8px #f96b1312;
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--brand-fill) 7%, transparent);
 }
 .app-shell .header-end .header-post:hover {
   background: #ffe6d5;
@@ -2266,7 +2266,7 @@ a:focus-visible {
 .agent-listings small {
   display: block;
   margin-top: 3px;
-  color: #71717a;
+  color: var(--muted);
   font-size: 11px;
 }
 .agent-listings strong {
@@ -2317,8 +2317,8 @@ a:focus-visible {
 }
 .app-shell .header-end .header-post:hover {
   background: #29292e;
-  border-color: #f96b13;
-  box-shadow: 0 4px 14px #f96b1326;
+  border-color: var(--brand-text);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--brand-fill) 15%, transparent);
 }
 .app-shell .header-post .header-post-icon {
   display: grid;
@@ -2326,7 +2326,7 @@ a:focus-visible {
   width: 24px;
   height: 24px;
   flex: none;
-  background: #f96b13;
+  background: var(--brand-fill);
   color: #fff;
   border-radius: 8px;
 }
@@ -2406,7 +2406,7 @@ a:focus-visible {
   border: 1px solid #e4e4e7;
 }
 .creator-row small {
-  color: #71717a;
+  color: var(--muted);
 }
 .agent-profile-heading {
   display: flex;
@@ -2430,7 +2430,7 @@ a:focus-visible {
   align-items: center;
 }
 .agent-profile-heading a {
-  color: #9d3c04;
+  color: var(--brand-text);
   min-height: 44px;
 }
 .agent-profile-tabs {
@@ -2444,11 +2444,11 @@ a:focus-visible {
   border: 0;
   border-bottom: 2px solid transparent;
   background: var(--paper);
-  color: #71717a;
+  color: var(--muted);
   font-weight: 700;
 }
 .agent-profile-tabs [aria-selected="true"] {
-  border-bottom-color: #f96b13;
+  border-bottom-color: var(--brand-text);
   color: #18181b;
 }
 .agent-dashboard {
@@ -2477,7 +2477,7 @@ a:focus-visible {
 }
 .agent-link small {
   flex-basis: 100%;
-  color: #71717a;
+  color: var(--muted);
 }
 .agent-inbox {
   border-top: 1px solid #e4e4e7;
@@ -2531,7 +2531,7 @@ a:focus-visible {
 }
 .status-requested {
   background: #fff3eb;
-  color: #9d3c04;
+  color: var(--brand-text);
 }
 .status-declined,
 .status-expired {
@@ -2585,7 +2585,7 @@ a:focus-visible {
   width: 46px;
   height: 46px;
   background: var(--paper);
-  border: 2px solid #f96b13;
+  border: 2px solid var(--brand-fill);
   border-radius: 50%;
   box-shadow: 0 3px 12px #18181b30;
 }
@@ -2600,12 +2600,12 @@ a:focus-visible {
 }
 .bottom-nav .agent-nav {
   overflow: visible;
-  color: #9d3c04;
+  color: var(--brand-text);
 }
 .bottom-nav button.agent-nav > span,
 .bottom-nav button.agent-nav.active > span {
   position: relative;
-  background: var(--brand);
+  background: var(--brand-action);
   color: var(--brand-on);
   border: 2px solid var(--paper);
   border-radius: 18px;
@@ -2826,9 +2826,9 @@ a:focus-visible {
   min-height: 44px;
   min-width: 44px;
   padding: 11px 14px;
-  border: 1px solid var(--brand);
+  border: 1px solid var(--brand-action);
   border-radius: 12px;
-  background: var(--brand);
+  background: var(--brand-action);
   color: var(--brand-on);
   font-size: 12px;
   font-weight: 600;
@@ -2838,8 +2838,8 @@ a:focus-visible {
 }
 .sticky-contact-whatsapp:hover,
 .sticky-contact-whatsapp:active {
-  background: var(--brand-hover);
-  border-color: var(--brand-hover);
+  background: var(--brand-action-hover);
+  border-color: var(--brand-action-hover);
   color: var(--brand-on);
 }
 .sticky-contact-whatsapp:disabled {

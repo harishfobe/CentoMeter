@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T10:38:34Z",
+  "title": "Design System: CentoMeter",
+  "extensions": {
+    "colorMeta": {
+      "brand": {
+        "role": "primary",
+        "displayName": "Listing Orange",
+        "canonical": "#f96b13"
+      },
+      "brand-fill": {
+        "role": "primary",
+        "displayName": "Action Fill",
+        "canonical": "#c2410c"
+      },
+      "brand-text": {
+        "role": "primary",
+        "displayName": "Brand Text",
+        "canonical": "#9d3c04"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#18181b"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Zinc",
+        "canonical": "#63636c"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#ffffff"
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "canonical": "#f4f4f5"
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient",
+        "value": "0 4px 16px rgba(0,0,0,0.08)",
+        "purpose": "Rare elevation; prefer 1px borders at rest."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default UI deceleration; not bounce."
+      },
+      {
+        "name": "t-fast",
+        "value": "120ms",
+        "purpose": "Micro interactions"
+      },
+      {
+        "name": "t",
+        "value": "200ms",
+        "purpose": "Standard transitions"
+      },
+      {
+        "name": "t-slow",
+        "value": "320ms",
+        "purpose": "Sheet/reveal motion"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "max-width: 1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled commitment CTA with AA white-on-fill contrast.",
+      "html": "<button class=\"primary\">Chat on WhatsApp</button>",
+      "css": ".primary { background: var(--brand-action); color: var(--brand-on); min-height: 44px; border-radius: 12px; font-weight: 700; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Zinc Listing Desk",
+    "overview": "Operate-mode property product: light zinc surfaces, one orange action voice, flat border-led elevation, mobile-first 44px targets.",
+    "keyCharacteristics": [
+      "Zinc neutrals + single orange commitment color",
+      "Border-first elevation",
+      "44px touch targets",
+      "Expo-out motion with reduced-motion paths"
+    ],
+    "rules": [
+      {
+        "name": "The One Voice Rule",
+        "body": "Orange for commitment actions and brand marks only.",
+        "section": "colors"
+      },
+      {
+        "name": "The Contrast Rule",
+        "body": "Body text \u22654.5:1; CTAs use brand-fill with brand-on.",
+        "section": "colors"
+      },
+      {
+        "name": "The Border-First Rule",
+        "body": "Prefer 1px borders over soft shadows at rest.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do use brand-fill for filled CTAs with white labels.",
+      "Do keep interactive targets \u226544\u00d744 on mobile chrome."
+    ],
+    "donts": [
+      "Don't use vivid brand orange as small body text on white.",
+      "Don't stack soft shadow + thick border on resting cards."
+    ]
+  }
+}

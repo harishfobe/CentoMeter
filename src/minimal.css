@@ -6,31 +6,38 @@
   font-display: swap;
 }
 :root {
+  /* Accent orange kept for soft fills / non-text chrome. */
   --brand: #f96b13;
   --brand-hover: #dc5605;
   --brand-soft: #fff3eb;
   --brand-on: #ffffff;
+  /* Text/icons on light surfaces (≥4.5:1 on paper/canvas). */
+  --brand-text: #9d3c04;
+  /* Filled CTAs with white label (≥4.5:1). */
+  --brand-fill: #c2410c;
+  --brand-fill-hover: #9a3412;
   --orange: var(--brand);
   --orange-hover: var(--brand-hover);
-  --brand-action: var(--brand);
-  --brand-action-hover: var(--brand-hover);
-  --brand-deep: #9d3c04;
-  --brand-active: var(--brand);
+  --brand-action: var(--brand-fill);
+  --brand-action-hover: var(--brand-fill-hover);
+  --brand-deep: var(--brand-text);
+  --brand-active: var(--brand-fill);
   --ink: #18181b;
   --ink-alt: #18181b;
   --charcoal: var(--ink);
   --navy: var(--ink);
   --navy-deep: var(--ink);
-  --muted: #71717a;
-  --placeholder: #a1a1aa;
+  /* Muted/placeholder meet AA on paper and canvas. */
+  --muted: #63636c;
+  --placeholder: #63636c;
   --paper: #ffffff;
   --canvas: #f4f4f5;
   --line: #e4e4e7;
   --accent-border: var(--line);
   --focus-ring: var(--ink);
-  --success: #10b981;
-  --reserved: #f59e0b;
-  --sold: #ef4444;
+  --success: #047857;
+  --reserved: #b45309;
+  --sold: #b91c1c;
   --radius: 12px;
   --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   --space-1: 4px;
@@ -81,7 +88,7 @@ textarea {
 }
 input::placeholder,
 textarea::placeholder {
-  color: #71717a;
+  color: var(--placeholder);
   opacity: 1;
 }
 button:focus-visible,
@@ -104,7 +111,7 @@ textarea:focus-visible {
   white-space: nowrap;
 }
 .wordmark > span {
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .brand {
   letter-spacing: normal;
@@ -206,7 +213,7 @@ textarea:focus-visible {
   height: 46px;
 }
 .search-controls .search-box > svg {
-  color: var(--brand);
+  color: var(--brand-text);
   width: 20px;
   height: 20px;
 }
@@ -262,10 +269,10 @@ textarea:focus-visible {
 }
 .search-controls .filter-button.has-filter {
   background: var(--brand-soft);
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .filter-count {
-  background: var(--brand);
+  background: var(--brand-action);
   color: var(--paper);
   right: -3px;
   top: -4px;
@@ -292,7 +299,7 @@ textarea:focus-visible {
   font-weight: 700;
 }
 .browse-tabs .tab-indicator {
-  background: var(--brand);
+  background: var(--brand-action);
   height: 2px;
 }
 .property-type-options .property-type-option {
@@ -310,10 +317,10 @@ textarea:focus-visible {
 .property-type-options .property-type-option.selected {
   color: var(--ink);
   background: var(--brand-soft);
-  border-color: var(--brand);
+  border-color: var(--brand-fill);
 }
 .property-type-option.selected svg {
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .chip {
   border-radius: 9999px;
@@ -322,7 +329,7 @@ textarea:focus-visible {
 }
 .chip.active {
   background: var(--brand-soft);
-  border-color: var(--brand);
+  border-color: var(--brand-fill);
   color: var(--ink);
 }
 .stepper .active span {
@@ -385,7 +392,7 @@ textarea:focus-visible {
 }
 .price-marker.selected > span {
   color: var(--paper);
-  background: var(--brand);
+  background: var(--brand-action);
   border: 2px solid var(--paper);
   transform: translateX(-50%);
 }
@@ -427,8 +434,8 @@ textarea:focus-visible {
   border-radius: 3px;
 }
 .plot-map-legend .available {
-  border-color: #10b981;
-  background: #10b98140;
+  border-color: var(--success);
+  background: var(--success)40;
 }
 .plot-map-legend .reserved {
   border-color: #f59e0b;
@@ -473,7 +480,7 @@ textarea:focus-visible {
 }
 .save-button.is-saved,
 .saved-outline {
-  color: var(--brand);
+  color: var(--brand-text);
   background: var(--brand-soft);
   border-color: var(--line);
 }
@@ -490,7 +497,7 @@ textarea:focus-visible {
 }
 .bottom-nav button.active > span {
   background: var(--canvas);
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .bottom-nav .post-nav > span {
   background: var(--ink);
@@ -498,7 +505,7 @@ textarea:focus-visible {
   border-radius: 12px;
 }
 .bottom-nav .post-nav.active > span {
-  background: var(--brand);
+  background: var(--brand-action);
   color: var(--paper);
 }
 .detail-labels .pill {
@@ -651,7 +658,7 @@ textarea:focus-visible {
 }
 .activity-tabs button.active .activity-tab-icon {
   background: var(--canvas);
-  color: var(--brand);
+  color: var(--brand-text);
   transform: none;
 }
 .activity-tabs button.active .activity-tab-count {
@@ -713,7 +720,7 @@ textarea:focus-visible {
   .property-type-toolbar .property-type-option.selected {
     color: var(--ink);
     background: var(--brand-soft);
-    border-color: var(--brand);
+    border-color: var(--brand-fill);
   }
   .property-type-toolbar .property-type-option svg {
     display: none;
@@ -901,7 +908,7 @@ textarea:focus-visible {
     box-shadow: none;
   }
   .activity-tabs button.active .activity-tab-icon {
-    color: var(--brand);
+    color: var(--brand-text);
     background: var(--canvas);
   }
   .activity-tabs button.active .activity-tab-count {

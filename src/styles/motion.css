@@ -1,7 +1,9 @@
 :root {
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out: var(--ease-spring);
-  /* Reserved for continuous loops (shimmer); UI motion should use --ease-spring. */
+  /* Expo-out deceleration (not bounce). Alias keeps older call sites working. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: var(--ease-out-expo);
+  --ease-out: var(--ease-out-expo);
+  /* Reserved for continuous loops (shimmer); UI motion should use --ease-out-expo. */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 120ms;
   --t: 200ms;
@@ -70,7 +72,7 @@
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  background: var(--brand);
+  background: var(--brand-action);
   opacity: 0;
   scale: 1 1;
 }
@@ -94,7 +96,7 @@
   left: 0;
   width: 50%;
   height: 2px;
-  background: var(--brand);
+  background: var(--brand-action);
   scale: 0.9 1;
   transform-origin: center;
 }
@@ -152,7 +154,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--brand);
+  background: var(--brand-action);
   opacity: 0;
   scale: 0.2 1;
   transform-origin: left;
