@@ -10,11 +10,16 @@ const optionalFields = [
   ["postedAt", "Posted date", "date"],
 ];
 export function OptionalListingFields({ data, set }) {
+  const houseVilla =
+    data.type === "Villa" || data.type === "Independent House";
+  const fields = optionalFields.filter(
+    ([key]) => !(houseVilla && key === "parking"),
+  );
   return (
     <details className="advanced-filters">
       <summary>Additional property details (optional)</summary>
       <div className="form-columns">
-        {optionalFields.map(([key, label, type]) => (
+        {fields.map(([key, label, type]) => (
           <label key={key}>
             {label}
             <input
