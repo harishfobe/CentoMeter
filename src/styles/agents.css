@@ -19,7 +19,7 @@
 }
 .agent-feature .primary,
 .agent-detail .primary {
-  background: var(--brand);
+  background: var(--brand-action);
   color: white;
 }
 .agent-feature :focus-visible,
@@ -116,7 +116,7 @@
 .agent-filter-bar [aria-pressed="true"] {
   color: #9d3c04;
   background: #fff3eb;
-  border-color: #f96b13;
+  border-color: var(--brand-fill);
 }
 .agent-feature .property-grid {
   display: grid;
@@ -408,7 +408,7 @@
   min-height: 44px;
   border: 0;
   background: var(--paper);
-  color: #71717a;
+  color: var(--muted);
 }
 .agent-photo-dots button[aria-pressed="true"] {
   color: #9d3c04;
@@ -623,7 +623,7 @@
   position: absolute;
   top: -4px;
   right: -3px;
-  background: #f96b13;
+  background: var(--brand-fill);
   color: #18181b;
   border-radius: 999px;
   min-width: 18px;
@@ -686,7 +686,7 @@
 .finder-sheet .chip[aria-pressed="true"],
 .finder-sheet .chip[aria-checked="true"] {
   background: #fff3eb;
-  border-color: #f96b13;
+  border-color: var(--brand-fill);
   color: #9d3c04;
 }
 .finder-active {
@@ -706,7 +706,7 @@
 }
 .finder-active button:last-child {
   border: 0;
-  color: var(--brand) !important;
+  color: var(--brand-text) !important;
 }
 .finder-results {
   display: flex;
@@ -806,7 +806,7 @@
 .finder-sheet footer > button:last-child {
   border: 0;
   background: transparent;
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .finder-sheet-body {
   overflow-y: auto;
@@ -845,7 +845,7 @@
   flex-shrink: 0;
 }
 .finder-sheet footer .primary {
-  background: var(--brand);
+  background: var(--brand-action);
   color: white;
   width: 100%;
   border-radius: 12px;
@@ -861,7 +861,7 @@
   min-height: 44px;
 }
 .finder-switch input {
-  accent-color: var(--brand);
+  accent-color: var(--brand-fill);
   width: 24px;
   height: 24px;
 }
@@ -945,7 +945,7 @@
 .agent-feature .finder-sheet .chip[aria-pressed="true"],
 .agent-feature .finder-sheet .chip[aria-checked="true"] {
   background: #fff3eb;
-  border-color: #f96b13;
+  border-color: var(--brand-fill);
   color: #9d3c04;
 }
 .finder-sheet input:not([type="checkbox"]) {
@@ -980,7 +980,7 @@
 .finder-sheet-reset button {
   border: 0;
   background: transparent;
-  color: var(--brand);
+  color: var(--brand-text);
   padding: 0 8px;
 }
 .finder-search button {
@@ -1016,7 +1016,7 @@
   flex-shrink: 0;
 }
 .agent-profile-explore > svg:first-child {
-  color: var(--brand);
+  color: var(--brand-text);
 }
 .agent-profile-explore > span {
   display: grid;
@@ -1047,7 +1047,7 @@
 .agent-profile-footer .fine-print {
   max-width: 420px;
   margin: 0 auto;
-  color: #71717a;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
   text-align: center;
@@ -1189,7 +1189,7 @@
   height: 5px;
   margin-top: 9px;
   border-radius: 999px;
-  background: var(--brand);
+  background: var(--brand-action);
 }
 .agent-detail .agent-detail-amenities {
   display: flex;
