@@ -81,7 +81,7 @@ textarea {
 }
 input::placeholder,
 textarea::placeholder {
-  color: #71717a;
+  color: var(--muted);
   opacity: 1;
 }
 button:focus-visible,
@@ -427,15 +427,15 @@ textarea:focus-visible {
   border-radius: 3px;
 }
 .plot-map-legend .available {
-  border-color: #10b981;
+  border-color: var(--success);
   background: #10b98140;
 }
 .plot-map-legend .reserved {
-  border-color: #f59e0b;
+  border-color: var(--reserved);
   background: #f59e0b40;
 }
 .plot-map-legend .sold {
-  border-color: #ef4444;
+  border-color: var(--sold);
   background: #ef444440;
 }
 .property-card {

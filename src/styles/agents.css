@@ -1,14 +1,14 @@
 :root {
   --agent-space: 16px;
   --agent-radius: 16px;
-  --agent-shadow: 0 8px 30px #18181b12;
+  --agent-shadow: 0 8px 30px color-mix(in srgb, var(--ink) 7%, transparent);
   --ap-top: 0px;
 }
 .agent-feature {
   max-width: 1200px;
   margin: auto;
   padding-bottom: 120px;
-  color: #18181b;
+  color: var(--ink);
 }
 .agent-feature button,
 .agent-feature a,
@@ -75,13 +75,13 @@
   background: #fffffff5;
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 2px 12px #18181b09;
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--ink) 4%, transparent);
   margin-bottom: 20px;
 }
 .agent-slim-bar button,
 .agent-filter-bar button {
   background: var(--paper);
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 999px;
   padding: 8px 16px;
 }
@@ -114,9 +114,9 @@
   min-width: 170px;
 }
 .agent-filter-bar [aria-pressed="true"] {
-  color: #9d3c04;
-  background: #fff3eb;
-  border-color: #f96b13;
+  color: var(--brand-deep);
+  background: var(--brand-soft);
+  border-color: var(--brand);
 }
 .agent-feature .property-grid {
   display: grid;
@@ -170,7 +170,7 @@
   position: sticky;
   bottom: 82px;
   z-index: 500;
-  background: #18181b;
+  background: var(--ink);
   color: white;
   border-radius: 14px;
   padding: 12px;
@@ -277,7 +277,7 @@
 }
 .agent-skeleton {
   height: 220px;
-  background: linear-gradient(90deg, #f4f4f5, #fafafa, #f4f4f5);
+  background: linear-gradient(90deg, var(--canvas), #fafafa, var(--canvas));
   background-size: 200%;
   border-radius: 12px;
 }
@@ -384,7 +384,7 @@
   display: flex;
   gap: 12px;
   padding: 12px;
-  background: #f4f4f5;
+  background: var(--canvas);
   border-radius: 12px;
 }
 .agent-suggestions section {
@@ -408,10 +408,10 @@
   min-height: 44px;
   border: 0;
   background: var(--paper);
-  color: #71717a;
+  color: var(--muted);
 }
 .agent-photo-dots button[aria-pressed="true"] {
-  color: #9d3c04;
+  color: var(--brand-deep);
 }
 .modal .agent-filter-bar {
   flex-wrap: wrap;
@@ -426,8 +426,8 @@
   position: sticky;
   bottom: calc(78px + env(safe-area-inset-bottom));
   z-index: 500;
-  background: #fff;
-  border: 1px solid #e4e4e7;
+  background: var(--paper);
+  border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: none;
   padding: 12px;
@@ -451,7 +451,7 @@
 .agent-compare th,
 .agent-compare td {
   padding: 12px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   min-width: 140px;
   vertical-align: top;
 }
@@ -468,7 +468,7 @@
   max-height: 85dvh;
 }
 .agent-filter-sheet fieldset {
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 12px;
   padding: 12px;
 }
@@ -477,9 +477,9 @@
   font-weight: 650;
 }
 .agent-feature .chip[aria-pressed="true"] {
-  background: #18181b;
+  background: var(--ink);
   color: white;
-  border-color: #18181b;
+  border-color: var(--ink);
 }
 .agent-photo-placeholder {
   display: grid;
@@ -487,7 +487,7 @@
   min-height: 200px;
   min-width: 100%;
   color: #52525b;
-  background: #f4f4f5;
+  background: var(--canvas);
 }
 .agent-detail .secondary small {
   display: block;
@@ -538,11 +538,11 @@
   max-height: none;
   margin: 0;
   border-radius: 0;
-  background: #18181b;
+  background: var(--ink);
   color: white;
 }
 .modal:has(.agent-full-photo) .modal-heading {
-  background: #18181b;
+  background: var(--ink);
   color: white;
 }
 .modal .agent-full-photo {
@@ -569,7 +569,7 @@
   position: static;
   top: auto;
   z-index: 12;
-  background: #fff;
+  background: var(--paper);
 }
 .finder-search-row {
   display: flex;
@@ -579,7 +579,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 14px;
   height: 48px;
   padding: 0 12px;
@@ -602,7 +602,7 @@
 .finder-search button,
 .finder-refined button:not(.primary):not(.chip):not(.follow-button) {
   background: transparent;
-  color: #18181b;
+  color: var(--ink);
 }
 .finder-search button {
   border: 0;
@@ -613,7 +613,7 @@
 .finder-filter-trigger {
   height: 48px;
   width: 48px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 14px;
   position: relative;
   display: grid;
@@ -623,8 +623,8 @@
   position: absolute;
   top: -4px;
   right: -3px;
-  background: #f96b13;
-  color: #18181b;
+  background: var(--brand);
+  color: var(--ink);
   border-radius: 999px;
   min-width: 18px;
   height: 18px;
@@ -643,7 +643,7 @@
   top: 0;
   bottom: 0;
   width: 20px;
-  background: linear-gradient(90deg, transparent, #fff);
+  background: linear-gradient(90deg, transparent, var(--paper));
   pointer-events: none;
 }
 .finder-quick > div {
@@ -677,7 +677,7 @@
 }
 .finder-refined .chip,
 .finder-sheet .chip {
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 999px;
   color: #52525b;
   background: var(--paper);
@@ -685,9 +685,9 @@
 .finder-refined .chip[aria-pressed="true"],
 .finder-sheet .chip[aria-pressed="true"],
 .finder-sheet .chip[aria-checked="true"] {
-  background: #fff3eb;
-  border-color: #f96b13;
-  color: #9d3c04;
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand-deep);
 }
 .finder-active {
   display: flex;
@@ -701,7 +701,7 @@
   font-size: 12px;
   min-height: 44px;
   padding: 8px 12px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 12px;
 }
 .finder-active button:last-child {
@@ -729,9 +729,9 @@
   top: 52px;
   left: 0;
   right: 0;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--paper);
   z-index: 20;
   padding: 8px;
 }
@@ -744,7 +744,7 @@
   border-radius: 8px;
 }
 .finder-suggestions [aria-selected="true"] {
-  background: #fff3eb;
+  background: var(--brand-soft);
 }
 .finder-suggestions small {
   color: #52525b;
@@ -840,7 +840,7 @@
 }
 .finder-sheet footer {
   padding-top: 12px;
-  border-top: 1px solid #e4e4e7;
+  border-top: 1px solid var(--line);
   display: grid;
   flex-shrink: 0;
 }
@@ -870,8 +870,8 @@
   bottom: 100px;
   left: 50%;
   translate: -50% 0;
-  background: #18181b;
-  color: #fff;
+  background: var(--ink);
+  color: var(--paper);
   padding: 12px 16px;
   border-radius: 12px;
   z-index: 1400;
@@ -944,12 +944,12 @@
 }
 .agent-feature .finder-sheet .chip[aria-pressed="true"],
 .agent-feature .finder-sheet .chip[aria-checked="true"] {
-  background: #fff3eb;
-  border-color: #f96b13;
-  color: #9d3c04;
+  background: var(--brand-soft);
+  border-color: var(--brand);
+  color: var(--brand-deep);
 }
 .finder-sheet input:not([type="checkbox"]) {
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 12px;
   width: 100%;
   padding: 10px 12px;
@@ -996,7 +996,7 @@
   gap: 8px;
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid #e4e4e7;
+  border-top: 1px solid var(--line);
 }
 .agent-feature .agent-profile-explore {
   display: flex;
@@ -1005,10 +1005,10 @@
   width: 100%;
   min-height: 76px;
   padding: 16px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 16px;
   background: #fafafa;
-  color: #18181b;
+  color: var(--ink);
   text-align: left;
   white-space: normal;
 }
@@ -1047,7 +1047,7 @@
 .agent-profile-footer .fine-print {
   max-width: 420px;
   margin: 0 auto;
-  color: #71717a;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
   text-align: center;
@@ -1058,7 +1058,7 @@
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   margin: 20px 0 24px;
   padding: 16px 0;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 14px;
   background: #fafafa;
 }
@@ -1067,7 +1067,7 @@
   padding: 0 12px;
 }
 .agent-rental-costs > div + div {
-  border-left: 1px solid #e4e4e7;
+  border-left: 1px solid var(--line);
 }
 .agent-rental-costs dt {
   min-height: 34px;
@@ -1077,7 +1077,7 @@
 }
 .agent-rental-costs dd {
   margin: 8px 0 0;
-  color: #18181b;
+  color: var(--ink);
   font-size: 16px;
   font-weight: 650;
   line-height: 1.4;
@@ -1110,7 +1110,7 @@
 }
 .agent-trust-card {
   padding: 16px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 14px;
   background: #fafafa;
 }
@@ -1125,7 +1125,7 @@
   padding: 12px 0;
 }
 .agent-trust-details > div + div {
-  border-top: 1px solid #e4e4e7;
+  border-top: 1px solid var(--line);
 }
 .agent-trust-details > div:last-child {
   padding-bottom: 0;
@@ -1159,7 +1159,7 @@
   gap: 4px;
   min-height: 44px;
   padding: 8px;
-  color: #9d3c04;
+  color: var(--brand-deep);
   font-size: 12px;
 }
 .agent-trust-note {
@@ -1199,7 +1199,7 @@
 }
 .agent-detail-amenities .pill {
   padding: 8px 12px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 999px;
   background: #fafafa;
   color: #52525b;
@@ -1230,9 +1230,9 @@
   gap: 10px;
   min-height: 48px;
   padding: 12px;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 12px;
-  color: #18181b;
+  color: var(--ink);
   font-size: 13px;
   text-decoration: none;
 }

@@ -4,9 +4,10 @@
  */
 
 :root {
-  /* Spring-like deceleration — prefer over ease-in-out / linear for UI motion. */
-  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out: var(--ease-spring);
+  /* Expo-out deceleration — prefer over ease-in-out / linear for UI motion. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: var(--ease-out-expo);
+  --ease-out: var(--ease-out-expo);
   /* Surface elevation via border contrast (not multi-layer shadows). */
   --elevate-border: color-mix(in srgb, var(--ink) 8%, transparent);
   --elevate-border-on-dark: color-mix(in srgb, var(--paper) 12%, transparent);
@@ -156,14 +157,14 @@ a[href],
 /* Modal / sheet enter: spring deceleration (desktop center dialogs keep rise) */
 @media (prefers-reduced-motion: no-preference) {
   .modal-scrim {
-    animation-timing-function: var(--ease-spring);
+    animation-timing-function: var(--ease-out-expo);
   }
   .modal {
-    animation-timing-function: var(--ease-spring);
+    animation-timing-function: var(--ease-out-expo);
   }
   @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
     .modal-scrim:not([data-motion-kind]) > .modal {
-      animation: craft-sheet-up 280ms var(--ease-spring) both;
+      animation: craft-sheet-up 280ms var(--ease-out-expo) both;
     }
   }
 }
