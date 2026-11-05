@@ -891,9 +891,6 @@ textarea:focus-visible {
   .mobile-property-price strong {
     color: var(--ink);
   }
-  .mobile-price-details > h2 {
-    color: var(--ink);
-  }
   .modal {
     border-radius: 24px 24px 0 0;
   }

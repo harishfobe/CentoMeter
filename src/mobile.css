@@ -633,6 +633,8 @@
   .mobile-price-block {
     display: block;
     margin: 16px 0 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
   }
   .mobile-property-price {
     display: flex;
@@ -650,22 +652,6 @@
   .mobile-property-price > span {
     font-size: var(--type-label);
     color: var(--muted);
-  }
-  .mobile-price-details {
-    margin-top: 8px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 8px;
-  }
-  .mobile-price-details > h2 {
-    margin: 0 0 10px;
-    font-size: var(--type-section);
-    font-weight: 700;
-    line-height: 1.35;
-    color: var(--ink);
-  }
-  .mobile-price-details .cost-breakdown {
-    margin-top: 0;
-    padding: 12px;
   }
   .detail-page .contact-panel {
     display: none;
