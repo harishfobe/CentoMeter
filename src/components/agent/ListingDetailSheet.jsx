@@ -11,10 +11,34 @@ import useExpiryTick from "../../lib/useExpiryTick";
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useRef } from "react";
 import { money, hasValue, emiPayment } from "../../PropertyModel";
-import { landArea, landDimensions } from "../../LandMeasurements";
+import {
+  landArea,
+  landDimensions,
+  landNumber,
+  positive,
+} from "../../LandMeasurements";
 import { LandSummary } from "../../LandDetails";
 import { approvalLabels } from "../../PlotUI";
 import { EmiCalculator } from "../../PropertyExtras";
+
+const isHouseOrVilla = (type) =>
+  type === "Villa" || type === "Independent House";
+
+function carParkingLabel(p) {
+  const counted = Number(p.carParking ?? p.parkingSpaces);
+  if (Number.isFinite(counted) && counted >= 0) {
+    return counted === 1 ? "1 car" : `${counted} cars`;
+  }
+  const match = String(p.parking ?? "").match(/(\d+)/);
+  if (!match) return hasValue(p.parking) ? p.parking : null;
+  const cars = Number(match[1]);
+  return cars === 1 ? "1 car" : `${cars} cars`;
+}
+
+function houseDimensionsLabel(p) {
+  if (!positive(p.width) || !positive(p.length)) return null;
+  return `Width ${landNumber(p.width)} ft · Length ${landNumber(p.length)} ft`;
+}
 import { visitDates } from "../../JourneyUX";
 import { getExactLocation, accessStatus } from "../../lib/locationAccess";
 import {
@@ -117,12 +141,36 @@ export default function ListingDetailSheet({
     "?l=" +
     p.id +
     "&src=share";
+  const houseVilla = isHouseOrVilla(p.type);
   const facts = [
     ["Type", p.type],
     ["Beds", p.beds],
     ["Baths", p.baths],
-    ["Area", p.type === "Land" ? landArea(p.area) : p.area + " sq ft"],
-    ["Dimensions", p.type === "Land" ? landDimensions(p) : null],
+    [
+      houseVilla ? "Total area" : "Area",
+      p.type === "Land"
+        ? landArea(p.area)
+        : hasValue(p.area)
+          ? p.area + " sq ft"
+          : null,
+    ],
+    [
+      "Carpet area",
+      houseVilla && hasValue(p.carpetArea)
+        ? /^\d+(\.\d+)?$/.test(String(p.carpetArea).trim())
+          ? `${p.carpetArea} sq ft`
+          : p.carpetArea
+        : null,
+    ],
+    [
+      "Dimensions",
+      p.type === "Land"
+        ? landDimensions(p)
+        : houseVilla
+          ? houseDimensionsLabel(p)
+          : null,
+    ],
+    ["Car parking", houseVilla ? carParkingLabel(p) : null],
     ...[
       ["carpetArea", "Carpet area", " sq ft"],
       ["superArea", "Super built-up area", " sq ft"],
@@ -140,9 +188,13 @@ export default function ListingDetailSheet({
       ["parking", "Parking", ""],
       ["ownershipType", "Ownership", ""],
       ["facing", "Facing", ""],
-      ["available", "Dimensions", ""],
+      ["available", "Availability", ""],
     ]
-      .filter(([key]) => hasValue(p[key]))
+      .filter(([key]) => {
+        if (houseVilla && (key === "carpetArea" || key === "parking"))
+          return false;
+        return hasValue(p[key]);
+      })
       .map(([key, label, unit]) => [
         label,
         unit && /^\d+(\.\d+)?$/.test(String(p[key])) ? p[key] + unit : p[key],

@@ -228,6 +228,15 @@ export default function PostFlow({
     }
     if (
       step === 1 &&
+      ["Villa", "Independent House"].includes(data.type) &&
+      (data.length || data.width) &&
+      (!(Number(data.length) > 0) || !(Number(data.width) > 0))
+    ) {
+      setError("Enter a positive width and length.");
+      return;
+    }
+    if (
+      step === 1 &&
       (!data.title.trim() ||
         !(Number(data.price) > 0) ||
         !(Number(data.area) > 0) ||
@@ -408,7 +417,9 @@ export default function PostFlow({
                   <LandAreaFields data={data} set={set} />
                 ) : (
                   <label>
-                    Area (sq ft)
+                    {["Villa", "Independent House"].includes(data.type)
+                      ? "Total area (sq ft)"
+                      : "Area (sq ft)"}
                     <input
                       type="number"
                       min="1"
@@ -419,6 +430,60 @@ export default function PostFlow({
                   </label>
                 )}
               </div>
+              {["Villa", "Independent House"].includes(data.type) && (
+                <div className="form-columns">
+                  <label>
+                    Carpet area (sq ft)
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Enter carpet area"
+                      value={data.carpetArea ?? ""}
+                      onChange={(e) => set("carpetArea", e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Car parking
+                    <input
+                      type="number"
+                      min="0"
+                      max="20"
+                      placeholder="Number of cars"
+                      value={data.carParking ?? ""}
+                      onChange={(e) => set("carParking", e.target.value)}
+                    />
+                    <small>How many cars can be parked</small>
+                  </label>
+                </div>
+              )}
+              {["Villa", "Independent House"].includes(data.type) && (
+                <div className="form-columns">
+                  <label>
+                    Width (ft)
+                    <input
+                      type="number"
+                      min="0.01"
+                      step="any"
+                      inputMode="decimal"
+                      placeholder="Width"
+                      value={data.width || ""}
+                      onChange={(e) => set("width", e.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Length (ft)
+                    <input
+                      type="number"
+                      min="0.01"
+                      step="any"
+                      inputMode="decimal"
+                      placeholder="Length"
+                      value={data.length || ""}
+                      onChange={(e) => set("length", e.target.value)}
+                    />
+                  </label>
+                </div>
+              )}
               {data.type === "Land" && <LandFields data={data} set={set} />}
               {data.intent === "RENT" && (
                 <div className="form-columns">

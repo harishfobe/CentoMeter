@@ -15,7 +15,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -31,7 +34,11 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a1",
     "status": "sold",
     "confirmedAt": "2026-10-09T18:51:43.679Z",
@@ -39,10 +46,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.978444612193456, 77.63887363658311],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      12.978444612193456,
+      77.63887363658311
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -68,7 +81,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 0,
@@ -79,7 +95,11 @@
     "floor": "Ground",
     "facing": "South-East",
     "postedAt": "2026-10-13",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a2",
     "status": "under-offer",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
@@ -87,11 +107,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.460168555383753, 78.36583607018588],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      17.460168555383753,
+      78.36583607018588
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -99,7 +125,11 @@
     "pricePerSqft": 6577.9503105590065,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0002"
+    "reraNo": "DEMO-RERA-0002",
+    "carpetArea": 2512,
+    "carParking": 2,
+    "width": 40,
+    "length": 65
   },
   {
     "id": "al3",
@@ -114,14 +144,19 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Road access", "Corner plot"],
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
     "subtype": "Agricultural",
     "contactName": "Meera Kulkarni",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
     "postedAt": "2026-10-10",
-    "photos": ["/land.jpg"],
+    "photos": [
+      "/land.jpg"
+    ],
     "landType": "Agricultural",
     "agentId": "a3",
     "status": "available",
@@ -130,12 +165,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.509099614941285, 73.80517773516499],
-    "amenities": ["Road access", "Corner plot"],
+    "approx": [
+      18.509099614941285,
+      73.80517773516499
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -160,7 +201,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -171,7 +215,11 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
@@ -179,12 +227,22 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [13.033557787838117, 77.59625173810404],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      13.033557787838117,
+      77.59625173810404
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [],
     "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7614.545454545455,
-    "sample": true
+    "sample": true,
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
   },
   {
     "id": "al5",
@@ -202,7 +260,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -213,7 +274,11 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.679Z",
@@ -221,11 +286,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.391323916977043, 78.35334068784078],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      17.391323916977043,
+      78.35334068784078
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -233,7 +304,11 @@
     "pricePerSqft": 6571.0317460317465,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0005"
+    "reraNo": "DEMO-RERA-0005",
+    "carpetArea": 1966,
+    "carParking": 1,
+    "width": 35,
+    "length": 58
   },
   {
     "id": "al6",
@@ -248,14 +323,19 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Road access", "Corner plot"],
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
     "subtype": "Residential",
     "contactName": "Sneha Patil",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "South-East",
     "postedAt": "2026-10-14",
-    "photos": ["/land.jpg"],
+    "photos": [
+      "/land.jpg"
+    ],
     "landType": "Residential",
     "agentId": "a6",
     "status": "available",
@@ -264,12 +344,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.512387959230615, 73.7786889400955],
-    "amenities": ["Road access", "Corner plot"],
+    "approx": [
+      18.512387959230615,
+      73.7786889400955
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -294,7 +380,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -305,7 +394,11 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -313,10 +406,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.926465051353372, 77.67672323370444],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      12.926465051353372,
+      77.67672323370444
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -324,7 +423,11 @@
     "pricePerSqft": 7583.136094674556,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0007"
+    "reraNo": "DEMO-RERA-0007",
+    "carpetArea": 2636,
+    "carParking": 2,
+    "width": 41,
+    "length": 67
   },
   {
     "id": "al8",
@@ -332,7 +435,7 @@
     "locality": "Jubilee Hills",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Deccan Courtyard Villa \u2014 Rental",
+    "title": "Deccan Courtyard Villa — Rental",
     "price": 64000,
     "beds": 3,
     "baths": 3,
@@ -342,7 +445,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 198000,
@@ -353,7 +459,11 @@
     "floor": "Ground",
     "facing": "South",
     "postedAt": "2026-10-22",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -361,12 +471,24 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.432891624447443, 78.40768396526882],
-    "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details"],
+    "approx": [
+      17.432891624447443,
+      78.40768396526882
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
     "description": "A well-connected independent house in Jubilee Hills. Ask the agent about documents and visit availability.",
     "pricePerSqft": 26.229508196721312,
-    "sample": true
+    "sample": true,
+    "carpetArea": 1903,
+    "carParking": 1,
+    "width": 35,
+    "length": 57
   },
   {
     "id": "al9",
@@ -374,7 +496,7 @@
     "locality": "Indiranagar",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences \u2014 Rental",
+    "title": "Garden City Palm Residences — Rental",
     "price": 50000,
     "beds": 3,
     "baths": 2,
@@ -384,7 +506,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 126000,
@@ -398,7 +523,11 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -406,12 +535,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [12.979858379028027, 77.63803792567387],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      12.979858379028027,
+      77.63803792567387
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -427,7 +562,7 @@
     "locality": "Kokapet",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Deccan Grove Villas \u2014 Rental",
+    "title": "Deccan Grove Villas — Rental",
     "price": 93000,
     "beds": 4,
     "baths": 4,
@@ -437,7 +572,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 292500,
@@ -448,7 +586,11 @@
     "floor": "Ground",
     "facing": "North-West",
     "postedAt": "2026-10-24",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a2",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -456,10 +598,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [17.40110266533748, 78.33682896426235],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      17.40110266533748,
+      78.33682896426235
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -467,7 +615,11 @@
     "pricePerSqft": 28.181818181818183,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0010"
+    "reraNo": "DEMO-RERA-0010",
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
   },
   {
     "id": "al11",
@@ -484,7 +636,10 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Office",
     "maintenance": 1500,
     "deposit": 0,
@@ -494,7 +649,11 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
-    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a3",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -502,11 +661,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [18.573009781152518, 73.77380928359251],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      18.573009781152518,
+      73.77380928359251
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -522,7 +687,7 @@
     "locality": "JP Nagar",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Aaranya Villa \u2014 Rental",
+    "title": "Garden City Aaranya Villa — Rental",
     "price": 79000,
     "beds": 3,
     "baths": 3,
@@ -532,7 +697,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 204000,
@@ -543,7 +711,11 @@
     "floor": "Ground",
     "facing": "East",
     "postedAt": "2026-10-27",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -551,12 +723,25 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [12.90663651851404, 77.5907120423705],
-    "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "approx": [
+      12.90663651851404,
+      77.5907120423705
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
     "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 31.349206349206348,
-    "sample": true
+    "sample": true,
+    "carpetArea": 1966,
+    "carParking": 1,
+    "width": 35,
+    "length": 58
   },
   {
     "id": "al13",
@@ -574,7 +759,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1000,
     "deposit": 24000,
@@ -585,7 +773,11 @@
     "floor": "4+",
     "facing": "East",
     "postedAt": "2026-10-12",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -593,10 +785,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [17.438761863776943, 78.34800976468034],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      17.438761863776943,
+      78.34800976468034
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -626,7 +824,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -637,7 +838,11 @@
     "floor": "Ground",
     "facing": "South-West",
     "postedAt": "2026-10-27",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a6",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -645,11 +850,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [18.572270803636815, 73.77233252238062],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      18.572270803636815,
+      73.77233252238062
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -657,7 +868,11 @@
     "pricePerSqft": 7039.751552795031,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0014"
+    "reraNo": "DEMO-RERA-0014",
+    "carpetArea": 2512,
+    "carParking": 2,
+    "width": 40,
+    "length": 65
   },
   {
     "id": "al15",
@@ -674,7 +889,10 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Office",
     "maintenance": 2500,
     "deposit": 0,
@@ -684,7 +902,11 @@
     "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-21",
-    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -692,12 +914,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [12.986356986010742, 77.62722198196772],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      12.986356986010742,
+      77.62722198196772
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -723,7 +951,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 0,
@@ -734,7 +965,11 @@
     "floor": "Ground",
     "facing": "West",
     "postedAt": "2026-10-16",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -742,8 +977,14 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [17.44784306813277, 78.39179994319142],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      17.44784306813277,
+      78.39179994319142
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [],
     "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
     "pricePerSqft": 6508.522727272727,
@@ -765,7 +1006,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -781,7 +1025,11 @@
     "parking": "1 covered space",
     "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -789,11 +1037,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [12.978702022356588, 77.63942463257142],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      12.978702022356588,
+      77.63942463257142
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -816,14 +1070,19 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Road access", "Corner plot"],
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
     "subtype": "Residential",
     "contactName": "Rahul Reddy",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": ["/land.jpg"],
+    "photos": [
+      "/land.jpg"
+    ],
     "landType": "Residential",
     "agentId": "a2",
     "status": "available",
@@ -832,12 +1091,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [17.400818475359234, 78.38666865315625],
-    "amenities": ["Road access", "Corner plot"],
+    "approx": [
+      17.400818475359234,
+      78.38666865315625
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -852,7 +1117,7 @@
     "locality": "Balewadi",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Cedar Grove \u2014 Rental",
+    "title": "Sahyadri Cedar Grove — Rental",
     "price": 106000,
     "beds": 4,
     "baths": 4,
@@ -862,7 +1127,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 286500,
@@ -873,7 +1141,11 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a3",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -881,10 +1153,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [18.57582541114821, 73.7730375694197],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      18.57582541114821,
+      73.7730375694197
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -892,7 +1170,11 @@
     "pricePerSqft": 32.91925465838509,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0019"
+    "reraNo": "DEMO-RERA-0019",
+    "carpetArea": 2512,
+    "carParking": 2,
+    "width": 40,
+    "length": 65
   },
   {
     "id": "al20",
@@ -910,7 +1192,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 0,
@@ -921,7 +1206,11 @@
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-15",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -929,12 +1218,24 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [13.037557472013132, 77.59695709302993],
-    "amenities": ["Parking", "Lift access"],
-    "highlights": ["Clear property details"],
+    "approx": [
+      13.037557472013132,
+      77.59695709302993
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
     "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
     "pricePerSqft": 7619.393939393939,
-    "sample": true
+    "sample": true,
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
   },
   {
     "id": "al21",
@@ -942,7 +1243,7 @@
     "locality": "Madhapur",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Deccan Parkside Living \u2014 Rental",
+    "title": "Deccan Parkside Living — Rental",
     "price": 58000,
     "beds": 3,
     "baths": 2,
@@ -952,7 +1253,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 132000,
@@ -963,7 +1267,11 @@
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-23",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -971,12 +1279,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [17.450845076172737, 78.39644662757324],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      17.450845076172737,
+      78.39644662757324
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -992,7 +1306,7 @@
     "locality": "Shivajinagar",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Grove Villas \u2014 Rental",
+    "title": "Sahyadri Grove Villas — Rental",
     "price": 110500,
     "beds": 4,
     "baths": 4,
@@ -1002,7 +1316,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 2000,
     "deposit": 292500,
@@ -1013,7 +1330,11 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a6",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1021,10 +1342,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [18.533284111388095, 73.8448378399782],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      18.533284111388095,
+      73.8448378399782
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -1032,7 +1359,11 @@
     "pricePerSqft": 33.484848484848484,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0022"
+    "reraNo": "DEMO-RERA-0022",
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
   },
   {
     "id": "al23",
@@ -1050,7 +1381,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 1000,
     "deposit": 24000,
@@ -1061,7 +1395,11 @@
     "floor": "Ground",
     "facing": "North-East",
     "postedAt": "2026-10-19",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a7",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1069,11 +1407,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [12.925860776685669, 77.67649662539024],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      12.925860776685669,
+      77.67649662539024
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -1093,7 +1437,7 @@
     "locality": "Gachibowli",
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Deccan Central Square Workspace \u2014 Rental",
+    "title": "Deccan Central Square Workspace — Rental",
     "price": 70500,
     "baths": 1,
     "area": 1250,
@@ -1102,7 +1446,10 @@
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Office",
     "maintenance": 2500,
     "deposit": 165000,
@@ -1112,7 +1459,11 @@
     "floor": "Ground",
     "ac": "Yes",
     "postedAt": "2026-10-25",
-    "photos": ["/interior.jpg", "/apartment.jpg", "/villa.jpg"],
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a8",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1120,9 +1471,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [17.42371781679907, 78.33416820552968],
-    "amenities": ["Parking", "Balcony"],
-    "highlights": ["Clear property details", "Visits by appointment"],
+    "approx": [
+      17.42371781679907,
+      78.33416820552968
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
     "description": "A well-connected commercial in Gachibowli. Ask the agent about documents and visit availability.",
     "pricePerSqft": 56.4,
     "sample": true
@@ -1133,7 +1493,7 @@
     "locality": "Indiranagar",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences \u2014 Rental",
+    "title": "Garden City Palm Residences — Rental",
     "price": 66000,
     "beds": 3,
     "baths": 2,
@@ -1143,7 +1503,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 126000,
@@ -1157,7 +1520,11 @@
     "totalFloors": 8,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
-    "photos": ["/apartment.jpg", "/interior.jpg", "/villa.jpg"],
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
     "agentId": "a1",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1165,10 +1532,16 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.981288851279366, 77.6410841598026],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      12.981288851279366,
+      77.6410841598026
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -1194,7 +1567,10 @@
     "furnishing": "Unfurnished",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Parking", "Lift access"],
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
     "subtype": "Home",
     "maintenance": 3000,
     "deposit": 0,
@@ -1205,7 +1581,11 @@
     "floor": "Ground",
     "facing": "South-East",
     "postedAt": "2026-10-13",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a2",
     "status": "available",
     "confirmedAt": "2026-10-09T18:51:43.680Z",
@@ -1213,11 +1593,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.460934297238982, 78.36645446313433],
-    "amenities": ["Parking", "Lift access"],
+    "approx": [
+      17.460934297238982,
+      78.36645446313433
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -1225,7 +1611,11 @@
     "pricePerSqft": 6585.403726708075,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0026"
+    "reraNo": "DEMO-RERA-0026",
+    "carpetArea": 2512,
+    "carParking": 2,
+    "width": 40,
+    "length": 65
   },
   {
     "id": "al27",
@@ -1240,14 +1630,19 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Road access", "Corner plot"],
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
     "subtype": "Agricultural",
     "contactName": "Meera Kulkarni",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
     "postedAt": "2026-10-10",
-    "photos": ["/land.jpg"],
+    "photos": [
+      "/land.jpg"
+    ],
     "landType": "Agricultural",
     "agentId": "a3",
     "status": "available",
@@ -1256,12 +1651,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.502219907065452, 73.80588743837676],
-    "amenities": ["Road access", "Corner plot"],
+    "approx": [
+      18.502219907065452,
+      73.80588743837676
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -1276,7 +1677,7 @@
     "locality": "JP Nagar",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Aaranya Villa \u2014 Rental",
+    "title": "Garden City Aaranya Villa — Rental",
     "price": 95000,
     "beds": 3,
     "baths": 3,
@@ -1286,7 +1687,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 2500,
     "deposit": 204000,
@@ -1297,7 +1701,11 @@
     "floor": "Ground",
     "facing": "East",
     "postedAt": "2026-10-27",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a4",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1305,12 +1713,22 @@
       "mode": "hidden",
       "radiusM": 300
     },
-    "approx": [12.91003729018335, 77.5872763037861],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      12.91003729018335,
+      77.5872763037861
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [],
     "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
     "pricePerSqft": 37.698412698412696,
-    "sample": true
+    "sample": true,
+    "carpetArea": 1966,
+    "carParking": 1,
+    "width": 35,
+    "length": 58
   },
   {
     "id": "al29",
@@ -1328,7 +1746,10 @@
     "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
-    "features": ["Parking", "Balcony"],
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
     "subtype": "Home",
     "maintenance": 1500,
     "deposit": 0,
@@ -1339,7 +1760,11 @@
     "floor": "4+",
     "facing": "North",
     "postedAt": "2026-10-18",
-    "photos": ["/villa.jpg", "/interior.jpg", "/apartment.jpg"],
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
     "agentId": "a5",
     "status": "available",
     "confirmedAt": "2026-10-28T18:51:43.680Z",
@@ -1347,11 +1772,17 @@
       "mode": "radius",
       "radiusM": 500
     },
-    "approx": [17.390400054460912, 78.35418227158617],
-    "amenities": ["Parking", "Balcony"],
+    "approx": [
+      17.390400054460912,
+      78.35418227158617
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
     "highlights": [
       "Clear property details",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],
@@ -1359,7 +1790,11 @@
     "pricePerSqft": 6580.555555555556,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0029"
+    "reraNo": "DEMO-RERA-0029",
+    "carpetArea": 1966,
+    "carParking": 1,
+    "width": 35,
+    "length": 58
   },
   {
     "id": "al30",
@@ -1374,14 +1809,19 @@
     "tag": "Corner plot",
     "seller": "Agent",
     "available": "Within 30 days",
-    "features": ["Road access", "Corner plot"],
+    "features": [
+      "Road access",
+      "Corner plot"
+    ],
     "subtype": "Residential",
     "contactName": "Sneha Patil",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "South-East",
     "postedAt": "2026-10-14",
-    "photos": ["/land.jpg"],
+    "photos": [
+      "/land.jpg"
+    ],
     "landType": "Residential",
     "agentId": "a6",
     "status": "available",
@@ -1390,12 +1830,18 @@
       "mode": "hidden",
       "radiusM": 1000
     },
-    "approx": [18.514250874636463, 73.77193485296476],
-    "amenities": ["Road access", "Corner plot"],
+    "approx": [
+      18.514250874636463,
+      73.77193485296476
+    ],
+    "amenities": [
+      "Road access",
+      "Corner plot"
+    ],
     "highlights": [
       "Clear property details",
       "Visits by appointment",
-      "Illustrative listing \u2014 details to be verified",
+      "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
     ],

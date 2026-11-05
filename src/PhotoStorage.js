@@ -125,6 +125,10 @@ export function isBlankDraft(data) {
       "highlightNotes",
       "reraNumber",
       "parking",
+      "carParking",
+      "carpetArea",
+      "length",
+      "width",
       "ownershipType",
     ].some((key) => data[key] != null && String(data[key]).trim() !== "") &&
       !data.photos?.length &&
