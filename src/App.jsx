@@ -480,7 +480,7 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState("");
   const [savedToastId, setSavedToastId] = useState(null);
-  const [priceUnit, setPriceUnit] = useState("total");
+  const priceUnit = "total";
   const [visitDate, setVisitDate] = useState(() => visitDates()[0].value);
   const [sort, setSort] = useState("recommended");
   const [resetKey, setResetKey] = useState(0);
@@ -1225,28 +1225,6 @@ export default function App() {
               ))}
             </div>
             <div className="explore-toolbar property-type-toolbar">
-              {filters.type === "Land" && mode === "BUY" && (
-                <div
-                  className="price-unit-switch"
-                  role="group"
-                  aria-label="Land price unit"
-                >
-                  {[
-                    ["total", "Total"],
-                    ["cent", "/ Cent"],
-                    ["sqft", "/ Sq ft"],
-                  ].map(([unit, label]) => (
-                    <button
-                      key={unit}
-                      type="button"
-                      aria-pressed={priceUnit === unit}
-                      onClick={() => setPriceUnit(unit)}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              )}
               <PropertyTypes
                 mode={mode}
                 value={filters.type}
