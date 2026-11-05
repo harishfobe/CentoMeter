@@ -124,7 +124,7 @@ export function revealGalleryImage(image) {
         { opacity: 0.6, scale: 1.04 },
         { opacity: 1, scale: 1 },
       ],
-      { duration: 320 },
+      { duration: 240 },
     );
   });
 }

@@ -29,9 +29,11 @@
 .map-stage .agent-picks-toggle svg {
   color: var(--brand-active);
 }
-.map-stage .agent-picks-toggle:hover {
-  border-color: var(--line);
-  transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+  .map-stage .agent-picks-toggle:hover {
+    border-color: var(--line);
+    transform: translateY(-1px);
+  }
 }
 .map-stage .agent-picks-toggle[aria-pressed="true"] {
   border-color: var(--brand-active);

@@ -1,13 +1,19 @@
 :root {
-  /* Expo-out deceleration (not bounce). --ease-spring kept as a compat alias. */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: var(--ease-out-expo);
-  --ease-out: var(--ease-out-expo);
-  /* Reserved for continuous loops (shimmer); UI motion should use --ease-out-expo. */
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --t-fast: 120ms;
+  /* Emil / design-eng motion tokens. --ease-spring kept as a compat alias. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out-expo: var(--ease-out);
+  --ease-spring: var(--ease-out);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --t-press: 120ms;
+  --t-fast: 150ms;
   --t: 200ms;
-  --t-slow: 320ms;
+  --t-sheet: 240ms;
+  --t-exit: 160ms;
+  --t-slow: 240ms;
+  --press-scale: 0.97;
+  --enter-scale: 0.96;
+  --touch-min: 44px;
 }
 /* Static fallbacks: all movement is opt-in below. */
 .agent-motion-grid {
@@ -427,10 +433,10 @@
   .agent-feature a:active,
   .agent-detail button:active,
   .agent-detail a:active {
-    scale: 0.98;
+    scale: var(--press-scale, 0.97);
   }
   .agent-listing:has(.property-copy:active) {
-    scale: 0.98;
+    scale: var(--press-scale, 0.97);
   }
   .agent-listing {
     transition:
@@ -493,17 +499,18 @@
     animation: agent-burst 220ms var(--ease-out);
   }
   .modal-scrim[data-motion-kind="listing"]::before {
-    animation: agent-backdrop-in 280ms var(--ease-out);
+    animation: agent-backdrop-in var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out));
   }
   .modal-scrim[data-motion-kind="listing"] > .modal {
-    animation: agent-sheet-in 280ms var(--ease-out);
+    animation: agent-sheet-in var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out));
   }
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"]::before {
-    animation: agent-backdrop-out 200ms var(--ease-out) both;
+    animation: agent-backdrop-out var(--t-exit, 160ms) var(--ease-out) both;
     pointer-events: none;
   }
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"] > .modal {
-    animation: agent-sheet-out 200ms var(--ease-out) both;
+    animation: agent-sheet-out var(--t-exit, 160ms) var(--ease-drawer, var(--ease-out))
+      both;
   }
   .modal[data-dragging="true"] {
     animation: none !important;
@@ -521,21 +528,21 @@
       rotate var(--t) var(--ease-out);
   }
   .agent-success-check {
-    animation: agent-success-in 280ms var(--ease-out);
+    animation: agent-success-in var(--t-sheet, 240ms) var(--ease-out);
   }
   .agent-detail-actions .primary:disabled {
-    animation: agent-request-pulse 400ms var(--ease-out);
+    animation: agent-request-pulse 200ms var(--ease-out);
   }
   .agent-pin-drop {
-    animation: agent-pin-drop 300ms var(--ease-out);
+    animation: agent-pin-drop var(--t-sheet, 240ms) var(--ease-out);
   }
   .agent-toast {
     animation: agent-toast-in var(--t) var(--ease-out);
   }
   .agent-toast[data-exiting="true"] {
-    animation: agent-toast-in var(--t) var(--ease-out) reverse both;
+    animation: agent-toast-in var(--t-exit, 160ms) var(--ease-out) reverse both;
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .agent-listing:hover,
     .agent-card:hover {
       translate: 0 -2px;
@@ -578,13 +585,12 @@
   }
   @keyframes agent-badge-pop {
     0% {
-      scale: 0.8;
-    }
-    60% {
-      scale: 1.1;
+      scale: var(--enter-scale, 0.96);
+      opacity: 0;
     }
     100% {
       scale: 1;
+      opacity: 1;
     }
   }
   @keyframes agent-burst {
@@ -638,7 +644,7 @@
   @keyframes agent-success-in {
     from {
       opacity: 0;
-      scale: 0.85;
+      scale: var(--enter-scale, 0.96);
     }
     to {
       opacity: 1;
@@ -647,8 +653,7 @@
   }
   @keyframes agent-request-pulse {
     50% {
-      scale: 0.95;
-      opacity: 0.6;
+      opacity: 0.65;
     }
   }
   @keyframes agent-pin-drop {

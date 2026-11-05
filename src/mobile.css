@@ -1178,7 +1178,9 @@
   }
   .price-marker > span {
     font-size: 12px;
-    min-height: 34px;
+    min-height: var(--touch-min, 44px);
+    min-width: var(--touch-min, 44px);
+    padding: 10px 12px;
   }
   .price-marker small {
     font-size: 11px;

@@ -79,22 +79,13 @@ export default function PropertyTypes({
       className={
         "property-types" +
         (compact ? " property-types-compact" : "") +
-        (collapsed ? " property-types-collapsed" : "")
+        (collapsed ? " property-types-collapsed" : "") +
+        (allowAll && !compact ? " property-types-reveal" : "")
       }
       aria-label="Property type"
       aria-hidden={collapsed}
       inert={collapsed}
-      style={
-        allowAll && !compact
-          ? {
-              maxHeight: collapsed ? 0 : 240,
-              opacity: collapsed ? 0 : 1,
-              overflow: "hidden",
-              transition:
-                "max-height 240ms var(--ease-out-expo), opacity 180ms var(--ease-out-expo)",
-            }
-          : undefined
-      }
+      data-expanded={allowAll && !compact ? String(!collapsed) : undefined}
     >
       <div
         className="property-type-options"

@@ -164,7 +164,8 @@ a[href],
   }
   @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
     .modal-scrim:not([data-motion-kind]) > .modal {
-      animation: craft-sheet-up 280ms var(--ease-out-expo) both;
+      animation: craft-sheet-up var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out))
+        both;
     }
   }
 }
