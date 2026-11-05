@@ -193,9 +193,34 @@
   background: var(--paper);
   border: 0;
   border-top: 0;
-  padding: 12px 0 16px;
-  margin: 4px 0 8px;
+  padding: 12px 0 8px;
+  margin: 8px 0 20px;
   box-sizing: border-box;
+}
+.agent-detail-related {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 0 20px;
+}
+.agent-detail-related-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.agent-detail-related-group h3 {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.agent-detail-related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.agent-detail-related-list > .secondary {
+  width: 100%;
+  margin: 0;
 }
 .agent-detail-actions-primary {
   display: flex;
