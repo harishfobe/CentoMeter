@@ -66,9 +66,18 @@ export function observeOnce(element, callback) {
     callbacks.delete(element);
   };
 }
-/** Listing scroll is high-frequency — no entrance stagger (frequency gate). */
-export function useCardEntrance() {
-  return useRef(null);
+/** Listing scroll is high-frequency — mark entered without stagger (frequency gate). */
+export function useCardEntrance(_index = 0) {
+  const ref = useRef(null);
+  useEffect(
+    () =>
+      observeOnce(ref.current, () => {
+        if (!ref.current || ref.current.dataset.entered) return;
+        ref.current.dataset.entered = "true";
+      }),
+    [],
+  );
+  return ref;
 }
 export function useScrollPolish(ref) {
   useEffect(() => {
