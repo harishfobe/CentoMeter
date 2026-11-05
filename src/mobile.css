@@ -1394,19 +1394,11 @@
   position: relative;
 }
 
-.price-unit-switch,
 .quick-date-chips {
   display: flex;
   gap: 4px;
   flex-wrap: wrap;
 }
-.price-unit-switch {
-  border: 1px solid var(--line);
-  border-radius: 9999px;
-  padding: 3px;
-  align-self: flex-end;
-}
-.price-unit-switch button,
 .quick-date-chips button {
   background: var(--paper);
   color: var(--ink);
@@ -1416,7 +1408,6 @@
   min-height: 44px;
   font-size: 0.75rem;
 }
-.price-unit-switch button[aria-pressed="true"],
 .quick-date-chips button[aria-pressed="true"] {
   background: var(--ink);
   color: var(--paper);
@@ -1455,9 +1446,6 @@
   font-weight: 700;
 }
 .detail-top {
-  flex-wrap: wrap;
-}
-.property-type-toolbar:has(.price-unit-switch) {
   flex-wrap: wrap;
 }
 .toast {
@@ -1855,9 +1843,6 @@ a:focus-visible {
   .app-shell .header-end .icon-button {
     width: 44px;
     min-width: 44px;
-  }
-  .app-shell .price-unit-switch button {
-    min-height: 44px;
   }
 }
 
