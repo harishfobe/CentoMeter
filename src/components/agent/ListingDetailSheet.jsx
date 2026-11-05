@@ -451,7 +451,7 @@ export default function ListingDetailSheet({
           Report this listing
         </button>
         <div className="agent-detail-actions">
-          <>
+          <div className="agent-detail-actions-primary">
             {point ? (
               <a
                 className="primary"
@@ -473,22 +473,24 @@ export default function ListingDetailSheet({
                 {state === "requested" ? "Requested" : "Request location"}
               </button>
             )}
-          </>
-          <button className="secondary" onClick={() => setVisit(true)}>
-            Site visit
-          </button>
-          <button
-            className="secondary"
-            onClick={() => toggleStore("saved", p.id)}
-          >
-            {s.saved.includes(p.id) ? "Saved" : "Save"}
-          </button>
-          <button
-            className="secondary"
-            onClick={() => shareAgentLink(link, p.title)}
-          >
-            Share
-          </button>
+          </div>
+          <div className="agent-detail-actions-secondary">
+            <button className="secondary" onClick={() => setVisit(true)}>
+              Site visit
+            </button>
+            <button
+              className="secondary"
+              onClick={() => toggleStore("saved", p.id)}
+            >
+              {s.saved.includes(p.id) ? "Saved" : "Save"}
+            </button>
+            <button
+              className="secondary"
+              onClick={() => shareAgentLink(link, p.title)}
+            >
+              Share
+            </button>
+          </div>
         </div>
       </article>
       <StickyContactBar property={p} agent={a} />
