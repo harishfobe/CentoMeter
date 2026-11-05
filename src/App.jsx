@@ -87,9 +87,10 @@ import {
   propertyHotspots,
 } from "./PropertyContact";
 import PropertyTypes, { typeLabel } from "./PropertyTypes";
-import { MobilePropertyPrice, StickyContactBar } from "./MobileUI";
+import { MobilePropertyPrice } from "./MobileUI";
 import {
   Wordmark,
+  PropertyActionBar,
   SelectedPropertySheet,
   PriceCaption,
 } from "./MinimalUI";
@@ -1878,13 +1879,11 @@ export default function App() {
                 </div>
               </section>
             )}
-            <StickyContactBar
-              property={detail}
-              agent={
-                detail.agentId
-                  ? agents.find((a) => a.id === detail.agentId)
-                  : null
-              }
+            <PropertyActionBar
+              className="mobile-detail-actions"
+              p={detail}
+              money={money}
+              onVisit={() => requestVisit(detail)}
             />
           </section>
         )}
