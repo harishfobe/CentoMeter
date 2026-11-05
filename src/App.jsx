@@ -46,7 +46,6 @@ import {
   List,
   BedDouble,
   Bath,
-  Square,
   Phone,
   LogOut,
   Info,
@@ -104,7 +103,6 @@ import {
 } from "./HouseVillaDetails";
 import {
   priceBasis,
-  areaBasis,
   nearText,
   distanceKm,
   SearchLibrary,
@@ -1691,13 +1689,6 @@ export default function App() {
                         <span>Bathrooms</span>
                       </div>
                     )}
-                    <div>
-                      <Square />
-                      <strong>
-                        {Number(detail.area || 0).toLocaleString("en-IN")}
-                      </strong>
-                      <span>Sq ft · {areaBasis(detail)}</span>
-                    </div>
                     {detail.type !== "Land" && (
                       <div>
                         <KeyRound />
