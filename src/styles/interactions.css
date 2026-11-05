@@ -21,11 +21,11 @@ a[href],
   [role="button"]:not([aria-disabled="true"]):active,
   .agent-feature button:enabled:active,
   .agent-detail button:enabled:active {
-    scale: 0.95;
+    scale: 0.98;
     transition: none;
   }
   .agent-listing:has(.property-copy:active) {
-    scale: 0.95;
+    scale: 0.98;
   }
   .agent-feature .agent-listing .property-copy:enabled:active {
     scale: 1;

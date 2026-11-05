@@ -1,5 +1,7 @@
 :root {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: var(--ease-spring);
+  /* Reserved for continuous loops (shimmer); UI motion should use --ease-spring. */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 120ms;
   --t: 200ms;

@@ -2625,14 +2625,14 @@ a:focus-visible {
 .bottom-nav button.agent-nav > span,
 .bottom-nav button.agent-nav.active > span {
   position: relative;
-  background: linear-gradient(145deg, #f96b13, #dc5605);
-  color: white;
-  border: 3px solid white;
+  background: var(--brand);
+  color: var(--brand-on);
+  border: 2px solid var(--paper);
   border-radius: 18px;
   transform: translateY(-9px);
   width: 54px;
   height: 49px;
-  box-shadow: 0 5px 16px #f96b1338;
+  box-shadow: none;
 }
 .bottom-nav .agent-nav small {
   margin-top: -6px;
@@ -2739,7 +2739,7 @@ a:focus-visible {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 1050;
   pointer-events: none;
 }
 .sticky-contact-bar-inner {
@@ -2756,6 +2756,7 @@ a:focus-visible {
   padding-bottom: max(12px, env(safe-area-inset-bottom));
   background: var(--ink);
   border-radius: 16px 16px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--paper) 12%, transparent);
   color: var(--paper);
 }
 .sticky-contact-meta {
@@ -2841,8 +2842,9 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  min-height: 40px;
-  padding: 10px 14px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 11px 14px;
   border: 1px solid var(--brand);
   border-radius: 12px;
   background: var(--brand);
@@ -2867,10 +2869,10 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
   border: 1px solid var(--line);
   border-radius: 12px;
