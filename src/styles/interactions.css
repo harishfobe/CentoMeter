@@ -347,9 +347,13 @@ a[href],
   }
 }
 
-/* Map list peek sheet: the View list control becomes a bottom sheet peek on mobile. */
+/* Map list peek sheet: handle + paper body move as one sheet on mobile. */
+.map-sheet-root {
+  display: contents;
+}
 .map-sheet-grab,
-.map-sheet-count {
+.map-sheet-count,
+.map-sheet-body {
   display: none;
 }
 .map-sheet-row {
@@ -358,10 +362,26 @@ a[href],
   gap: 6px;
 }
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
-  .map-list-toggle.map-sheet-peek {
+  .map-sheet-root.map-sheet-peek {
+    display: block;
+    position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: 400;
+    touch-action: none;
+    user-select: none;
+    transition: transform 240ms var(--ease-out-expo);
+    will-change: transform;
+  }
+  .map-sheet-root.map-sheet-peek.dragging {
+    transition: none;
+  }
+  .map-list-toggle.map-sheet-peek {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
     width: 100%;
     transform: none;
     flex-direction: column;
@@ -375,14 +395,23 @@ a[href],
     border: 1px solid var(--line);
     border-bottom: 0;
     box-shadow: 0 -6px 20px rgba(24, 24, 27, 0.12);
-    touch-action: none;
-    user-select: none;
-    transition: transform 240ms var(--ease-out-expo);
-    will-change: transform;
+    z-index: auto;
   }
-  .map-list-toggle.map-sheet-peek.dragging {
-    transition: none;
+  .map-sheet-root.map-sheet-peek.dragging .map-list-toggle {
     box-shadow: 0 -10px 28px rgba(24, 24, 27, 0.2);
+  }
+  /* Continuous paper under the handle so drag never leaves a map gap. */
+  .map-sheet-body {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% - 1px);
+    height: 100dvh;
+    background: var(--paper);
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    pointer-events: none;
   }
   .map-sheet-grab {
     display: block;
@@ -396,7 +425,7 @@ a[href],
     transition: transform 160ms var(--ease-out-expo);
   }
   .map-sheet-peek:active .map-sheet-grab,
-  .map-sheet-peek.dragging .map-sheet-grab {
+  .map-sheet-root.dragging .map-sheet-grab {
     transform: scaleX(1.4444);
     background: var(--muted);
   }
@@ -433,7 +462,7 @@ a[href],
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .map-list-toggle.map-sheet-peek,
+  .map-sheet-root.map-sheet-peek,
   .map-sheet-grab {
     transition: none;
   }
