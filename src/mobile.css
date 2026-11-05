@@ -2589,7 +2589,7 @@ a:focus-visible {
   display: block;
 }
 .price-marker {
-  animation: agent-pin-reveal 0.3s var(--ease-out);
+  animation: agent-pin-reveal var(--t-sheet, 240ms) var(--ease-out);
 }
 .bottom-nav .agent-nav {
   overflow: visible;
