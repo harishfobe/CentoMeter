@@ -57,7 +57,7 @@
 }
 .home-map-footer p {
   margin: 4px 0 0;
-  color: var(--muted);
+  color: #71717a;
   font-size: 11px;
 }
 .home-map-footer .primary {
@@ -94,7 +94,7 @@
 }
 .home-section-heading p {
   margin: 4px 0 0;
-  color: var(--muted);
+  color: #71717a;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -155,7 +155,7 @@
 .home-project-developer {
   margin: 0;
   padding: 0 13px 13px;
-  color: var(--muted);
+  color: #71717a;
   font-size: 11px;
 }
 .home-spotlight {
@@ -258,7 +258,7 @@
 }
 .home-popular-rank {
   flex-shrink: 0;
-  color: var(--brand-text);
+  color: var(--brand);
   font-size: 13px;
   font-weight: 650;
 }
@@ -283,7 +283,7 @@
   font-weight: 600;
 }
 .home-popular-copy small {
-  color: var(--muted);
+  color: #71717a;
   font-size: 11px;
   line-height: 1.4;
 }
@@ -293,10 +293,10 @@
   height: 44px;
   display: grid;
   place-items: center;
-  color: var(--muted);
+  color: #71717a;
 }
 .home-popular-save[aria-pressed="true"] {
-  color: var(--brand-text);
+  color: var(--brand);
 }
 
 .home-discovery button {

@@ -468,7 +468,7 @@ img {
   transform: translateX(-50%);
   font-size: 11px;
   background: #ffffffdd;
-  color: var(--muted);
+  color: #71717a;
   padding: 2px 7px;
   white-space: nowrap;
   border-radius: 10px;
@@ -593,7 +593,7 @@ img {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: var(--muted);
+  color: #71717a;
   z-index: 1;
 }
 .save-button:hover,
@@ -645,7 +645,7 @@ img {
   margin-top: 13px;
   padding-top: 11px;
   border-top: 1px solid #f4f4f5;
-  color: var(--muted);
+  color: #71717a;
   font-size: 11px;
 }
 .property-specs > span {
@@ -698,7 +698,7 @@ img {
 .listing-disclaimer {
   text-align: center;
   font-size: 11px;
-  color: var(--muted);
+  color: #71717a;
   padding: 27px 8px 8px;
   line-height: 1.7;
 }
@@ -726,7 +726,7 @@ img {
   justify-content: center;
   flex-direction: column;
   gap: 4px;
-  color: var(--muted);
+  color: #71717a;
   position: relative;
 }
 .bottom-nav small {
@@ -976,7 +976,7 @@ img {
   gap: 8px;
 }
 .detail-specs svg {
-  color: var(--muted);
+  color: #71717a;
   width: 23px;
 }
 .detail-specs strong {
@@ -1082,7 +1082,7 @@ img {
   background: #f4f4f5;
   border: 1px solid #e4e4e7;
   border-radius: 10px;
-  color: var(--muted);
+  color: #71717a;
   font-size: 12px;
   line-height: 1.6;
 }
@@ -1503,7 +1503,7 @@ textarea {
   margin-top: 7px;
 }
 .notification-card small {
-  color: var(--muted);
+  color: #71717a;
   display: block;
   margin-top: 10px;
 }
@@ -2556,7 +2556,7 @@ textarea {
   height: 16px;
 }
 .property-type-option:hover {
-  border-color: var(--placeholder);
+  border-color: #a1a1aa;
   background: #f4f4f5;
   color: var(--navy);
 }
@@ -3135,8 +3135,8 @@ textarea {
 }
 /* Shared interactive states; the current palette is defined in minimal.css. */
 .primary {
-  background: var(--brand-action);
-  border-color: var(--brand-fill);
+  background: var(--brand);
+  border-color: var(--brand);
   color: var(--brand-on);
 }
 .primary:hover {
@@ -3149,7 +3149,7 @@ textarea {
 }
 .search-submit,
 .map-list-toggle {
-  background: var(--brand-action);
+  background: var(--brand);
   color: var(--brand-on);
 }
 .tab-indicator {
@@ -3161,16 +3161,16 @@ textarea {
   color: var(--charcoal);
 }
 .stepper .active span {
-  background: var(--brand-action);
-  border-color: var(--brand-fill);
+  background: var(--brand);
+  border-color: var(--brand);
   color: var(--brand-on);
 }
 .activity-tabs button.active .activity-tab-icon {
-  background: var(--brand-action);
+  background: var(--brand);
   color: var(--brand-on);
 }
 .price-marker.selected > span {
-  background: var(--brand-action);
+  background: var(--brand);
   border-color: var(--brand-active);
   color: var(--brand-on);
 }
@@ -3532,7 +3532,7 @@ textarea {
   --pin-text: var(--paper);
 }
 .leaflet-container .price-marker.selected > span {
-  background: var(--brand-action);
+  background: var(--brand);
   color: var(--paper);
   border: 2px solid var(--paper);
   transform: translateX(-50%);

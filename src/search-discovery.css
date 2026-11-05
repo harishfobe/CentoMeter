@@ -195,7 +195,7 @@
   border: 1px solid var(--brand);
   border-radius: 50%;
   background: var(--brand-soft);
-  color: var(--brand-text);
+  color: var(--brand);
 }
 .search-mini-card .add-circle {
   width: 23px;
@@ -206,11 +206,11 @@
   border: 1px solid var(--brand);
   border-radius: 50%;
   background: var(--brand-soft);
-  color: var(--brand-text);
+  color: var(--brand);
 }
 .search-chip-grid > button.selected,
 .search-mini-card.selected {
-  border-color: var(--brand-fill);
+  border-color: var(--brand);
   background: var(--brand-soft);
 }
 .search-horizontal {
@@ -260,7 +260,7 @@
 }
 .builder-card svg {
   min-width: 16px;
-  color: var(--brand-text);
+  color: var(--brand);
 }
 .section-head {
   display: flex;
@@ -354,7 +354,7 @@
   gap: 5px;
   border: 0;
   border-radius: 12px;
-  background: var(--brand-action);
+  background: var(--brand);
   color: var(--paper);
   font-size: 1rem;
   font-weight: 800;
@@ -405,10 +405,10 @@
   place-items: center;
   border-radius: 50%;
   background: var(--canvas);
-  color: var(--brand-text);
+  color: var(--brand);
 }
 .search-discovery-matches button > svg {
-  color: var(--brand-text);
+  color: var(--brand);
 }
 .search-discovery-empty {
   color: var(--muted);
@@ -442,7 +442,7 @@
   }
   .mobile-search-trigger svg {
     flex: none;
-    color: var(--brand-text);
+    color: var(--brand);
   }
   .mobile-search-trigger span {
     overflow: hidden;

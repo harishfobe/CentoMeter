@@ -140,7 +140,7 @@ a[href],
 /* Agent nav: solid brand token — no decorative gradient */
 .bottom-nav button.agent-nav > span,
 .bottom-nav button.agent-nav.active > span {
-  background: var(--brand-action);
+  background: var(--brand);
   box-shadow: none;
   border: 2px solid var(--paper);
 }
