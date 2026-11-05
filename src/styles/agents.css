@@ -185,7 +185,8 @@
 }
 .agent-detail-actions {
   position: sticky;
-  bottom: -24px;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -193,10 +194,11 @@
   background: var(--paper);
   border-top: 1px solid #e4e4e7;
   padding: 12px 0;
+  box-sizing: border-box;
 }
 .agent-detail-actions-primary {
   position: sticky;
-  bottom: inherit;
+  bottom: 0;
   z-index: 1101;
   display: flex;
   width: 100%;
@@ -282,16 +284,23 @@
   }
   .modal:has(.agent-detail) {
     position: fixed;
-    inset: 0 0 72px;
+    inset: 0;
     border-radius: 0;
-    max-height: none;
-    height: auto;
+    max-height: 100dvh;
+    height: 100%;
     width: 100%;
     margin: 0;
     padding: 16px;
   }
+  .modal-scrim[data-motion-kind="listing"] > .modal {
+    inset: 0;
+    height: 100%;
+    max-height: 100dvh;
+    padding: 0 16px;
+  }
   .agent-detail-actions {
-    bottom: -16px;
+    bottom: 0;
+    width: 100%;
   }
   .modal:has(.agent-detail) .modal-heading {
     top: -16px;
