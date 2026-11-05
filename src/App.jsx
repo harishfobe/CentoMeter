@@ -497,7 +497,9 @@ export default function App() {
     if (route !== "map") return;
     if (mapList) listingRef.current?.focus({ preventScroll: true });
     else if (wasMapList.current)
-      mapListToggle.current?.focus({ preventScroll: true });
+      mapListToggle.current
+        ?.querySelector?.("button")
+        ?.focus({ preventScroll: true });
     wasMapList.current = mapList;
   }, [route, mapList]);
   useEffect(() => {
@@ -585,29 +587,43 @@ export default function App() {
     setMapList(false);
     navigate("map");
   };
-  // Peek-sheet drag: the bar follows the finger, then opens the list or springs back.
+  // Peek-sheet drag: move the whole sheet root (handle + paper body) together.
   const sheetDrag = useRef(null);
   const suppressPeekClick = useRef(false);
+  const sheetHost = (el) => el?.closest?.(".map-sheet-root") || el;
   const sheetPointerDown = (e) => {
-    if (route !== "map" || (e.pointerType === "mouse" && e.button !== 0))
+    if (
+      route !== "map" ||
+      (e.pointerType === "mouse" && e.button !== 0) ||
+      !window.matchMedia(
+        "(max-width: 760px), (max-width: 1024px) and (pointer: coarse)",
+      ).matches
+    )
       return;
-    sheetDrag.current = { y: e.clientY, t: performance.now(), dy: 0, moved: 0 };
+    const host = sheetHost(e.currentTarget);
+    sheetDrag.current = {
+      y: e.clientY,
+      t: performance.now(),
+      dy: 0,
+      moved: 0,
+      host,
+    };
     e.currentTarget.setPointerCapture?.(e.pointerId);
-    e.currentTarget.classList.add("dragging");
+    host.classList.add("dragging");
   };
   const sheetPointerMove = (e) => {
     const d = sheetDrag.current;
     if (!d) return;
     d.dy = Math.min(0, e.clientY - d.y);
     d.moved = Math.max(d.moved, Math.abs(e.clientY - d.y));
-    e.currentTarget.style.transform = `translateY(${d.dy}px)`;
+    d.host.style.transform = `translateY(${d.dy}px)`;
   };
   const finishSheetDrag = (e, cancelled) => {
     const d = sheetDrag.current;
     if (!d) return;
     sheetDrag.current = null;
-    const el = e.currentTarget;
-    el.classList.remove("dragging");
+    const host = d.host;
+    host.classList.remove("dragging");
     const dist = -d.dy;
     const speed = dist / Math.max(1, performance.now() - d.t);
     const commit = !cancelled && (dist > 56 || (dist > 16 && speed > 0.5));
@@ -618,14 +634,14 @@ export default function App() {
       }, 100);
     }
     if (!commit) {
-      el.style.transform = "";
+      host.style.transform = "";
       return;
     }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       showList();
       return;
     }
-    el.style.transform = `translateY(${-Math.round(window.innerHeight * 0.3)}px)`;
+    host.style.transform = `translateY(${-Math.round(window.innerHeight * 0.3)}px)`;
     setTimeout(showList, 160);
   };
   useEffect(() => {
@@ -1360,43 +1376,59 @@ export default function App() {
                     >
                       <LocateFixed size={21} />
                     </button>
-                    <button
+                    <div
                       className={
-                        "map-list-toggle" +
+                        "map-sheet-root" +
                         (route === "map" ? " map-sheet-peek" : "")
                       }
                       ref={mapListToggle}
-                      aria-expanded={route === "map" && mapList}
-                      aria-controls={
-                        route === "map" ? "property-results" : undefined
-                      }
-                      onClick={() => {
-                        if (suppressPeekClick.current) {
-                          suppressPeekClick.current = false;
-                          return;
-                        }
-                        showList();
-                      }}
-                      onPointerDown={sheetPointerDown}
-                      onPointerMove={sheetPointerMove}
-                      onPointerUp={(e) => finishSheetDrag(e, false)}
-                      onPointerCancel={(e) => finishSheetDrag(e, true)}
                     >
-                      {route === "map" && (
-                        <span className="map-sheet-grab" aria-hidden="true" />
-                      )}
-                      <span className="map-sheet-row">
-                        <List size={16} aria-hidden="true" />
-                        {route === "results" ? "Show map" : "View list"}
+                      <button
+                        type="button"
+                        className={
+                          "map-list-toggle" +
+                          (route === "map" ? " map-sheet-peek" : "")
+                        }
+                        aria-expanded={route === "map" && mapList}
+                        aria-controls={
+                          route === "map" ? "property-results" : undefined
+                        }
+                        onClick={() => {
+                          if (suppressPeekClick.current) {
+                            suppressPeekClick.current = false;
+                            return;
+                          }
+                          showList();
+                        }}
+                        onPointerDown={sheetPointerDown}
+                        onPointerMove={sheetPointerMove}
+                        onPointerUp={(e) => finishSheetDrag(e, false)}
+                        onPointerCancel={(e) => finishSheetDrag(e, true)}
+                      >
                         {route === "map" && (
-                          <span className="map-sheet-count" aria-hidden="true">
-                            {visible.length}{" "}
-                            {visible.length === 1 ? "property" : "properties"}{" "}
-                            in this area
-                          </span>
+                          <span className="map-sheet-grab" aria-hidden="true" />
                         )}
-                      </span>
-                    </button>
+                        <span className="map-sheet-row">
+                          <List size={16} aria-hidden="true" />
+                          {route === "results" ? "Show map" : "View list"}
+                          {route === "map" && (
+                            <span
+                              className="map-sheet-count"
+                              aria-hidden="true"
+                            >
+                              {visible.length}{" "}
+                              {visible.length === 1
+                                ? "property"
+                                : "properties"}{" "}
+                              in this area
+                            </span>
+                          )}
+                        </span>
+                      </button>
+                      {route === "map" && (
+                        <div className="map-sheet-body" aria-hidden="true" />
+                      )}
+                    </div>
                     {chosen && !isMobile && (
                       <div className="map-preview">{selectionPreview}</div>
                     )}
