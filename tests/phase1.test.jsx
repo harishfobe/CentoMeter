@@ -15,7 +15,8 @@ import {
 } from "../src/JourneyUX";
 import { pinPrice } from "../src/PlotUI";
 import { Costs } from "../src/Discovery";
-import { PropertyActionBar, SelectedPropertySheet } from "../src/MinimalUI";
+import { SelectedPropertySheet } from "../src/MinimalUI";
+import { StickyContactBar } from "../src/MobileUI";
 import { isBlankDraft, persistDraft } from "../src/PhotoStorage";
 import properties from "../src/properties.json";
 const draft = {
@@ -101,11 +102,12 @@ describe("land rent display and visits", () => {
     ];
     expect(sortProperties(items, "low", "cent")[0].id).toBe("a");
   });
-  it("restores visit actions in the footer and map card", () => {
-    const bar = renderToStaticMarkup(
-      <PropertyActionBar p={p} money={money} onVisit={() => {}} />,
-    );
-    expect(bar).toContain("Book site visit");
+  it("shows sticky contact actions and keeps visit on the map card", () => {
+    const bar = renderToStaticMarkup(<StickyContactBar property={p} />);
+    expect(bar).toContain("Chat on WhatsApp");
+    expect(bar).toContain("Property Owner");
+    expect(bar).toContain("Direct Contact");
+    expect(bar).toContain("Zero Brokerage");
     const card = renderToStaticMarkup(
       <SelectedPropertySheet
         p={p}

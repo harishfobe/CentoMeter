@@ -7,6 +7,71 @@ function contactNumber(value) {
   const digits = indianMobile(value);
   return digits ? "91" + digits : null;
 }
+function initials(name) {
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (!parts.length) return "?";
+  return parts
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+/** Resolve agent vs owner contact presentation for the sticky contact bar. */
+export function resolveListingContact(p, agent = null) {
+  const isAgent = Boolean(
+    agent || p.agentId || p.seller === "Agent" || p.contactType === "agent",
+  );
+  const name =
+    agent?.name ||
+    p.contactName ||
+    (isAgent ? "Agent" : p.seller === "Builder" ? "Builder" : "Property owner");
+  const role = isAgent
+    ? agent?.verified
+      ? "Partner"
+      : "Agent"
+    : p.seller === "Builder"
+      ? "Builder"
+      : "Property Owner";
+  const callDigits = contactNumber(
+    p.contactPhone || p.phone || (isAgent ? null : p.whatsapp),
+  );
+  const whatsappNumber =
+    (agent && agent.whatsapp) ||
+    indianMobile(p.whatsapp || p.contactPhone || p.phone) ||
+    null;
+  const whatsappMessage = isAgent
+    ? "Hello, I am interested in " +
+      p.title +
+      " (" +
+      p.id +
+      ") on CentoMeter."
+    : "Hi, I saw your property on CentoMeter — " +
+      p.title +
+      " in " +
+      [p.locality, p.city].filter(Boolean).join(", ") +
+      ". Please share more details.";
+  const replyMins = agent?.responseTimeMins;
+  return {
+    isAgent,
+    name,
+    role,
+    avatar: agent?.avatar || null,
+    initials: initials(name),
+    callHref: callDigits ? "tel:+" + callDigits : null,
+    whatsappNumber,
+    whatsappHref: null,
+    whatsappMessage,
+    replyLabel:
+      replyMins == null
+        ? "10 mins"
+        : replyMins < 60
+          ? replyMins + " mins"
+          : Math.round(replyMins / 60) + " h",
+  };
+}
 function contactLinks(p) {
   const phone = contactNumber(p.contactPhone || p.phone);
   const whatsapp = contactNumber(p.whatsapp || p.contactPhone || p.phone);
