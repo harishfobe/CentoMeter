@@ -1085,6 +1085,21 @@
   overflow-wrap: anywhere;
 }
 
+.agent-detail .land-summary {
+  margin: 18px 0 24px;
+}
+.agent-detail .land-summary-heading h2 {
+  font-size: 18px;
+  font-weight: 700;
+}
+.agent-detail .land-highlights {
+  margin-top: 18px;
+}
+.agent-detail .land-highlights h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
 .agent-detail-section {
   margin: 24px 0;
 }
