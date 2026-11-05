@@ -184,22 +184,20 @@
   padding-bottom: 20px;
 }
 .agent-detail-actions {
-  position: sticky;
-  bottom: 0;
+  position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  z-index: 1100;
+  z-index: 1;
   background: var(--paper);
-  border-top: 1px solid #e4e4e7;
-  padding: 12px 0;
+  border: 0;
+  border-top: 0;
+  padding: 12px 0 16px;
+  margin: 4px 0 8px;
   box-sizing: border-box;
 }
 .agent-detail-actions-primary {
-  position: sticky;
-  bottom: 0;
-  z-index: 1101;
   display: flex;
   width: 100%;
 }
@@ -299,7 +297,6 @@
     padding: 0 16px;
   }
   .agent-detail-actions {
-    bottom: 0;
     width: 100%;
   }
   .modal:has(.agent-detail) .modal-heading {
