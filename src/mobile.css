@@ -398,10 +398,10 @@
     display: flex;
   }
   .compact .save-button {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
     right: 6px;
     top: 6px;
   }
@@ -424,7 +424,7 @@
     margin: 0;
   }
   .results-layout .list-map-button {
-    min-height: 40px;
+    min-height: 44px;
     font-size: var(--type-label);
     padding: 8px 12px;
   }
@@ -436,7 +436,7 @@
   }
   .search-scope .text-button {
     font-size: var(--type-label);
-    min-height: 40px;
+    min-height: 44px;
   }
   .sort-row {
     margin: 4px 0 14px;
@@ -459,7 +459,7 @@
     min-width: 0;
     max-width: 140px;
     font-size: var(--type-label);
-    min-height: 40px;
+    min-height: 44px;
   }
   .property-grid,
   .saved-grid {
@@ -522,10 +522,10 @@
   }
   .property-grid .save-button,
   .saved-grid .save-button {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
   }
   .page {
     padding: 20px var(--mobile-gutter) 24px;
@@ -573,7 +573,7 @@
     justify-content: center;
     gap: 6px;
     padding: 8px 10px;
-    min-height: 40px;
+    min-height: 44px;
     border: 1px solid var(--line);
     border-radius: 9px;
     font-size: var(--type-label);
@@ -727,7 +727,7 @@
   }
   .listing-trust .text-button {
     font-size: var(--type-caption);
-    min-height: 40px;
+    min-height: 44px;
     padding-left: 10px;
   }
   .nearby-grid {
@@ -864,7 +864,7 @@
     font-size: var(--type-label);
   }
   .land-highlight-options .chip {
-    min-height: 40px;
+    min-height: 44px;
     padding: 8px 10px;
     font-size: var(--type-label);
   }
@@ -971,7 +971,7 @@
     padding: 11px 13px;
   }
   .bhk-options .chip {
-    min-height: 42px;
+    min-height: 44px;
     padding: 9px 11px;
   }
   .activity-page {
