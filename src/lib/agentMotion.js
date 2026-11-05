@@ -27,8 +27,8 @@ export function animateMotion(element, keyframes, options = {}) {
   const animation = element.animate(keyframes, {
     fill: "backwards",
     duration: 200,
-    // Spring-like deceleration (stiffness≈400 / damping≈30 equivalent).
-    easing: "cubic-bezier(.16,1,.3,1)",
+    // Match --ease-out token (Emil strong ease-out).
+    easing: "cubic-bezier(0.23, 1, 0.32, 1)",
     ...options,
   });
   const stop = stopWhenOutside(element, animation);
@@ -66,26 +66,9 @@ export function observeOnce(element, callback) {
     callbacks.delete(element);
   };
 }
-export function useCardEntrance(index = 0) {
-  const ref = useRef(null);
-  useEffect(
-    () =>
-      observeOnce(ref.current, () => {
-        if (!ref.current) return;
-        if (ref.current.dataset.entered) return;
-        ref.current.dataset.entered = "true";
-        animateMotion(
-          ref.current,
-          [
-            { opacity: 0, translate: "0 12px" },
-            { opacity: 1, translate: "0 0" },
-          ],
-          { duration: 200, delay: index < 8 ? index * 30 : 0 },
-        );
-      }),
-    [index],
-  );
-  return ref;
+/** Listing scroll is high-frequency — no entrance stagger (frequency gate). */
+export function useCardEntrance() {
+  return useRef(null);
 }
 export function useScrollPolish(ref) {
   useEffect(() => {

@@ -797,7 +797,6 @@ img {
   max-width: 1160px;
   margin: 0 auto;
   padding: 28px 40px 40px;
-  animation: appear 0.25s var(--ease-out);
 }
 .page-intro {
   margin: 28px 0 32px;
