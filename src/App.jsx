@@ -46,7 +46,6 @@ import {
   List,
   BedDouble,
   Bath,
-  Square,
   Phone,
   LogOut,
   Info,
@@ -87,10 +86,9 @@ import {
   propertyHotspots,
 } from "./PropertyContact";
 import PropertyTypes, { typeLabel } from "./PropertyTypes";
-import { MobilePropertyPrice } from "./MobileUI";
+import { MobilePropertyPrice, StickyContactBar } from "./MobileUI";
 import {
   Wordmark,
-  PropertyActionBar,
   SelectedPropertySheet,
   PriceCaption,
 } from "./MinimalUI";
@@ -100,8 +98,11 @@ import { developerFor } from "./SearchSuggestions";
 import { mobileQuery } from "./MapInteractions";
 import { LandSummary } from "./LandDetails";
 import {
+  HouseVillaSummary,
+  isHouseOrVilla,
+} from "./HouseVillaDetails";
+import {
   priceBasis,
-  areaBasis,
   nearText,
   distanceKm,
   SearchLibrary,
@@ -479,14 +480,14 @@ export default function App() {
   const [modal, setModal] = useState(null);
   const [toast, setToast] = useState("");
   const [savedToastId, setSavedToastId] = useState(null);
-  const [priceUnit, setPriceUnit] = useState("total");
+  const priceUnit = "total";
   const [visitDate, setVisitDate] = useState(() => visitDates()[0].value);
   const [sort, setSort] = useState("recommended");
   const [resetKey, setResetKey] = useState(0);
   const [profile, setProfile] = useState({
     name: "Aarav Sharma",
     email: "aarav@example.com",
-    phone: "+91 98765 43210",
+    phone: "",
   });
   const [alerts, setAlerts] = useState(true);
   const [contactSent, setContactSent] = useState(false);
@@ -1224,28 +1225,6 @@ export default function App() {
               ))}
             </div>
             <div className="explore-toolbar property-type-toolbar">
-              {filters.type === "Land" && mode === "BUY" && (
-                <div
-                  className="price-unit-switch"
-                  role="group"
-                  aria-label="Land price unit"
-                >
-                  {[
-                    ["total", "Total"],
-                    ["cent", "/ Cent"],
-                    ["sqft", "/ Sq ft"],
-                  ].map(([unit, label]) => (
-                    <button
-                      key={unit}
-                      type="button"
-                      aria-pressed={priceUnit === unit}
-                      onClick={() => setPriceUnit(unit)}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              )}
               <PropertyTypes
                 mode={mode}
                 value={filters.type}
@@ -1663,7 +1642,7 @@ export default function App() {
                   </button>
                 )}
                 <MobilePropertyPrice property={detail} money={money} />
-                {detail.type !== "Land" && (
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (
                       <div>
@@ -1688,13 +1667,6 @@ export default function App() {
                         <span>Bathrooms</span>
                       </div>
                     )}
-                    <div>
-                      <Square />
-                      <strong>
-                        {Number(detail.area || 0).toLocaleString("en-IN")}
-                      </strong>
-                      <span>Sq ft · {areaBasis(detail)}</span>
-                    </div>
                     {detail.type !== "Land" && (
                       <div>
                         <KeyRound />
@@ -1705,7 +1677,27 @@ export default function App() {
                   </div>
                 )}
                 {detail.type === "Land" ? (
-                  <LandSummary p={detail} />
+                  <LandSummary
+                    p={detail}
+                    onReport={() => setModal("report")}
+                  />
+                ) : isHouseOrVilla(detail.type) ? (
+                  <>
+                    <HouseVillaSummary
+                      p={detail}
+                      onReport={() => setModal("report")}
+                    />
+                    <section
+                      className="about-the-property"
+                      aria-label="About the property"
+                    >
+                      <h2>About the property</h2>
+                      <p className="description">
+                        {detail.description ||
+                          "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."}
+                      </p>
+                    </section>
+                  </>
                 ) : (
                   <>
                     <h2>A little more about this place</h2>
@@ -1721,7 +1713,7 @@ export default function App() {
                 )}
                 {detail.type !== "Land" && detail.features.length > 0 && (
                   <>
-                    <h2>Made for everyday living</h2>
+                    <h2>Highlights</h2>
                     <div className="amenities">
                       {detail.features.map((a) => (
                         <span key={a}>
@@ -1732,26 +1724,28 @@ export default function App() {
                     </div>
                   </>
                 )}
-                <div className="listing-trust">
-                  <span>
-                    Listed by {detail.seller} · {detail.freshness} · Sample
-                  </span>
-                  <button
-                    className="text-button"
-                    onClick={() => setModal("report")}
-                  >
-                    Report listing
-                  </button>
-                </div>
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                  <div className="listing-trust">
+                    <span>
+                      Listed by {detail.seller} · {detail.freshness} · Sample
+                    </span>
+                    <button
+                      className="text-button"
+                      onClick={() => setModal("report")}
+                    >
+                      Report listing
+                    </button>
+                  </div>
+                )}
                 {!["Land", "PG"].includes(detail.type) && (
                   <button
-                    className="secondary"
+                    className="secondary detail-floor-plan"
                     onClick={() => setModal("floorPlan")}
                   >
                     Preview sample floor plan
                   </button>
                 )}
-                {detail.type !== "Land" && (
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
                   <div className="property-facts">
                     {supportsFacing(detail.type) && hasValue(detail.facing) && (
                       <div>
@@ -1788,7 +1782,9 @@ export default function App() {
                       ))}
                   </div>
                 )}
-                <OptionalPropertyDetails p={detail} />
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                  <OptionalPropertyDetails p={detail} />
+                )}
                 {detail.mode === "BUY" && (
                   <EmiCalculator key={detail.id} p={detail} />
                 )}
@@ -1872,18 +1868,20 @@ export default function App() {
                 aria-label="Similar properties"
               >
                 <h2>Similar properties</h2>
-                <div className="search-horizontal">
+                <div className="property-card-stack">
                   {similarProperties.map((p) => (
                     <div key={p.id}>{renderCard(p, true)}</div>
                   ))}
                 </div>
               </section>
             )}
-            <PropertyActionBar
-              className="mobile-detail-actions"
-              p={detail}
-              money={money}
-              onVisit={() => requestVisit(detail)}
+            <StickyContactBar
+              property={detail}
+              agent={
+                detail.agentId
+                  ? agents.find((a) => a.id === detail.agentId)
+                  : null
+              }
             />
           </section>
         )}
@@ -2142,10 +2140,14 @@ export default function App() {
               </span>
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
-              <p className="profile-phone">
-                <Phone size={15} />
-                {profile.phone}
-              </p>
+              {profile.phone ? (
+                <p className="profile-phone">
+                  <Phone size={15} />
+                  {profile.phone}
+                </p>
+              ) : (
+                <p className="profile-phone muted">No phone on demo profile</p>
+              )}
               <span className="pill">DEMO PROFILE</span>
               <div className="profile-stats">
                 <button onClick={() => navigate("saved")}>

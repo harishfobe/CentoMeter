@@ -36,13 +36,13 @@ export default function HomeDiscovery({
             Number(p.locality === last?.locality);
           return score(b) - score(a);
         })
-        .slice(0, 6);
+        .slice(0, 3);
       const spotlight =
         items.find((p) => ["Villa", "Independent House"].includes(p.type)) ||
         items[0];
       const projects = items
         .filter((p) => p.mode === "BUY" && p.seller === "Builder")
-        .slice(0, 6);
+        .slice(0, 3);
       const popular = [...items]
         .sort(
           (a, b) =>
@@ -85,7 +85,7 @@ export default function HomeDiscovery({
           See all agents <ArrowRight size={14} aria-hidden="true" />
         </button>
       </div>
-      <div className="home-agents-rail">
+      <div className="home-agents-stack">
         {localAgents.map((a) => (
           <AgentCard
             key={a.id}
@@ -150,7 +150,7 @@ export default function HomeDiscovery({
     <div className="home-discovery">
       <section aria-label="Suggested properties">
         {heading("Suggested for you", `Homes to explore in ${city}`)}
-        <div className="home-card-rail">{suggested.map(card)}</div>
+        <div className="home-card-stack">{suggested.map(card)}</div>
       </section>
       {spotlight && (
         <section aria-label="Spotlight property">
@@ -158,7 +158,7 @@ export default function HomeDiscovery({
           <article className="home-spotlight">
             <img
               src={photo(spotlight)}
-              alt={spotlight.title}
+              alt=""
               width="800"
               height="500"
               loading="lazy"
@@ -198,7 +198,7 @@ export default function HomeDiscovery({
       {projects.length > 0 && (
         <section aria-label="Property projects">
           {heading("Projects", "Sample developments from local builders")}
-          <div className="home-card-rail">
+          <div className="home-card-stack">
             {projects.map((p) => (
               <div className="home-project" key={p.id}>
                 {card(p)}

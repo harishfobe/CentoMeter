@@ -81,7 +81,7 @@ textarea {
 }
 input::placeholder,
 textarea::placeholder {
-  color: #71717a;
+  color: var(--muted);
   opacity: 1;
 }
 button:focus-visible,
@@ -102,6 +102,11 @@ textarea:focus-visible {
   font: 800 28px/1.15 var(--font-body);
   letter-spacing: -1.35px;
   white-space: nowrap;
+}
+.whatsapp-icon {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 .wordmark > span {
   color: var(--brand);
@@ -366,8 +371,9 @@ textarea:focus-visible {
   display: inline-flex;
   width: max-content;
   min-width: 64px;
-  height: 36px;
-  padding: 7px 12px;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 14px;
   gap: 0;
   color: var(--ink);
   background: var(--paper);
@@ -377,7 +383,8 @@ textarea:focus-visible {
   font-size: 12px;
   font-weight: 800;
   line-height: 20px;
-  box-shadow: var(--shadow);
+  box-shadow: none;
+  align-items: center;
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -425,15 +432,15 @@ textarea:focus-visible {
   border-radius: 3px;
 }
 .plot-map-legend .available {
-  border-color: #10b981;
+  border-color: var(--success);
   background: #10b98140;
 }
 .plot-map-legend .reserved {
-  border-color: #f59e0b;
+  border-color: var(--reserved);
   background: #f59e0b40;
 }
 .plot-map-legend .sold {
-  border-color: #ef4444;
+  border-color: var(--sold);
   background: #ef444440;
 }
 .property-card {
@@ -533,8 +540,8 @@ textarea:focus-visible {
 }
 .land-facts {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -544,8 +551,28 @@ textarea:focus-visible {
   min-width: 0;
   padding: 14px;
   border: 0 !important;
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--canvas);
+}
+.land-facts-secondary {
+  margin-top: 16px;
+}
+.land-listing-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.land-listing-meta .text-button {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: 0;
+  color: var(--ink);
+  font-weight: 700;
 }
 .land-facts dt {
   color: var(--muted);
@@ -836,18 +863,6 @@ textarea:focus-visible {
     font-weight: 400;
     overflow-wrap: anywhere;
   }
-  .has-detail .mobile-detail-actions {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    height: auto;
-    box-shadow: none;
-    margin: 0;
-  }
   .detail-top {
     background: var(--paper);
     backdrop-filter: none;
@@ -881,9 +896,6 @@ textarea:focus-visible {
   .mobile-property-price strong {
     color: var(--ink);
   }
-  .mobile-price-details > summary {
-    color: var(--ink);
-  }
   .modal {
     border-radius: 24px 24px 0 0;
   }
@@ -914,8 +926,9 @@ textarea:focus-visible {
     gap: 4px;
   }
   .header-end > .icon-button {
-    width: 36px;
-    min-width: 36px;
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
   }
   .sticky-property-bar {
     gap: 8px;

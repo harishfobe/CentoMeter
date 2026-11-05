@@ -46,15 +46,24 @@ export default function PropertyTypes({
   allowAll = false,
   compact = false,
 }) {
-  // On the browse page, reveal the property-type choices after Buy or Rent is
-  // selected. Compact filter-dialog controls remain visible as before.
-  const [expanded, setExpanded] = useState(!allowAll || compact);
+  // On the browse page, keep type pills collapsed until Buy/Rent is chosen
+  // (or a type filter is already active). Compact filter dialogs stay open.
+  const [expanded, setExpanded] = useState(
+    !allowAll || compact || (value && value !== "All"),
+  );
+
+  useEffect(() => {
+    if (!allowAll || compact) return;
+    if (value && value !== "All") setExpanded(true);
+  }, [allowAll, compact, value]);
 
   useEffect(() => {
     if (!allowAll || compact) return;
     const revealOnIntentClick = (event) => {
       const intent = event.target.closest('[aria-label="Property intent"]');
-      const button = intent?.querySelector ? event.target.closest('[role="tab"]') : null;
+      const button = intent?.querySelector
+        ? event.target.closest('[role="tab"]')
+        : null;
       if (!intent || !button) return;
       const selectedIntent = button.textContent.trim();
       if (selectedIntent === "BUY" || selectedIntent === "RENT")
@@ -81,7 +90,8 @@ export default function PropertyTypes({
               maxHeight: collapsed ? 0 : 240,
               opacity: collapsed ? 0 : 1,
               overflow: "hidden",
-              transition: "max-height 240ms ease, opacity 180ms ease",
+              transition:
+                "max-height 240ms var(--ease-out-expo), opacity 180ms var(--ease-out-expo)",
             }
           : undefined
       }

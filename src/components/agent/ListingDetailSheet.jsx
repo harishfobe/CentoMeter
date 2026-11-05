@@ -1,6 +1,6 @@
-import { ArrowUpRight, ChevronDown, Copy, FileImage, Play } from "lucide-react";
-import WhatsAppLink from "../WhatsAppLink";
+import { ArrowUpRight, Copy, FileImage, Play } from "lucide-react";
 import CopyButton from "../CopyButton";
+import { StickyContactBar } from "../../MobileUI";
 import useSheetDrag from "../../lib/useSheetDrag";
 import {
   animateMotion,
@@ -12,6 +12,11 @@ import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useRef } from "react";
 import { money, hasValue, emiPayment } from "../../PropertyModel";
 import { landArea, landDimensions } from "../../LandMeasurements";
+import { LandSummary } from "../../LandDetails";
+import {
+  isHouseOrVilla,
+  buildHouseVillaFacts,
+} from "../../HouseVillaDetails";
 import { approvalLabels } from "../../PlotUI";
 import { EmiCalculator } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
@@ -116,38 +121,53 @@ export default function ListingDetailSheet({
     "?l=" +
     p.id +
     "&src=share";
-  const facts = [
-    ["Type", p.type],
-    ["Beds", p.beds],
-    ["Baths", p.baths],
-    ["Area", p.type === "Land" ? landArea(p.area) : p.area + " sq ft"],
-    ["Dimensions", p.type === "Land" ? landDimensions(p) : null],
-    ...[
-      ["carpetArea", "Carpet area", " sq ft"],
-      ["superArea", "Super built-up area", " sq ft"],
-      ["roadWidth", "Road width", " ft"],
-      ["frontage", "Frontage", " ft"],
-      ["floor", "Floor", ""],
-      ["totalFloors", "Total floors", ""],
-      [
-        "propertyAge",
-        "Property age",
-        Number(p.propertyAge) === 1 ? " year" : " years",
-      ],
-      ["possessionStatus", "Possession", ""],
-      ["furnishing", "Furnishing", ""],
-      ["parking", "Parking", ""],
-      ["ownershipType", "Ownership", ""],
-      ["facing", "Facing", ""],
-      ["available", "Availability", ""],
-    ]
-      .filter(([key]) => hasValue(p[key]))
-      .map(([key, label, unit]) => [
-        label,
-        unit && /^\d+(\.\d+)?$/.test(String(p[key])) ? p[key] + unit : p[key],
-      ]),
-    ["Status", statusLabel(p.status)],
-  ].filter(([, v]) => hasValue(v));
+  const houseVilla = isHouseOrVilla(p.type);
+  const facts = houseVilla
+    ? buildHouseVillaFacts(p)
+    : [
+        ["Type", p.type],
+        ["Beds", p.beds],
+        ["Baths", p.baths],
+        [
+          "Area",
+          p.type === "Land"
+            ? landArea(p.area)
+            : hasValue(p.area)
+              ? p.area + " sq ft"
+              : null,
+        ],
+        [
+          "Dimensions",
+          p.type === "Land" ? landDimensions(p) : null,
+        ],
+        ...[
+          ["carpetArea", "Carpet area", " sq ft"],
+          ["superArea", "Super built-up area", " sq ft"],
+          ["roadWidth", "Road width", " ft"],
+          ["frontage", "Frontage", " ft"],
+          ["floor", "Floor", ""],
+          ["totalFloors", "Total floors", ""],
+          [
+            "propertyAge",
+            "Property age",
+            Number(p.propertyAge) === 1 ? " year" : " years",
+          ],
+          ["possessionStatus", "Possession", ""],
+          ["furnishing", "Furnishing", ""],
+          ["parking", "Parking", ""],
+          ["ownershipType", "Ownership", ""],
+          ["facing", "Facing", ""],
+          ["available", "Availability", ""],
+        ]
+          .filter(([key]) => hasValue(p[key]))
+          .map(([key, label, unit]) => [
+            label,
+            unit && /^\d+(\.\d+)?$/.test(String(p[key]))
+              ? p[key] + unit
+              : p[key],
+          ]),
+        ["Status", statusLabel(p.status)],
+      ].filter(([, v]) => hasValue(v));
   return (
     <Modal
       title={p.title}
@@ -274,97 +294,117 @@ export default function ListingDetailSheet({
             ))}
           </dl>
         ) : null}
-        <h3>Key facts</h3>
-        <dl className="agent-facts">
-          {facts.map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
-        <section
-          className="agent-detail-section agent-trust-card"
-          aria-label="Legal and trust details"
-        >
-          <h3>Legal &amp; trust</h3>
-          <dl className="agent-trust-details">
-            {p.reraNo && (
-              <div>
-                <dt>RERA number</dt>
-                <dd>
-                  <span className="agent-rera-number">{p.reraNo}</span>
-                  <CopyButton
-                    className="text-button agent-rera-copy"
-                    value={p.reraNo}
-                    aria-label="Copy RERA number"
-                    successMessage="RERA number copied"
-                  >
-                    <Copy size={14} aria-hidden="true" /> Copy
-                  </CopyButton>
-                </dd>
-              </div>
+        {p.type === "Land" ? (
+          <LandSummary
+            p={p}
+            showDescription={false}
+            onReport={() => setReport(true)}
+          />
+        ) : (
+          <>
+            <h3>Property details</h3>
+            <dl className="agent-facts">
+              {facts.map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
+            </dl>
+            <section
+              className="agent-detail-section agent-trust-card"
+              aria-label="Legal and trust details"
+            >
+              <h3>Legal &amp; trust</h3>
+              <dl className="agent-trust-details">
+                {p.reraNo && (
+                  <div>
+                    <dt>RERA number</dt>
+                    <dd>
+                      <span className="agent-rera-number">{p.reraNo}</span>
+                      <CopyButton
+                        className="text-button agent-rera-copy"
+                        value={p.reraNo}
+                        aria-label="Copy RERA number"
+                        successMessage="RERA number copied"
+                      >
+                        <Copy size={14} aria-hidden="true" /> Copy
+                      </CopyButton>
+                    </dd>
+                  </div>
+                )}
+                <div>
+                  <dt>Availability confirmed</dt>
+                  <dd>
+                    <time dateTime={p.confirmedAt}>
+                      {new Date(p.confirmedAt).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </time>
+                  </dd>
+                </div>
+              </dl>
+              {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000 && (
+                <p className="agent-trust-note">Not recently confirmed</p>
+              )}
+              {approvalLabels(p).length > 0 && (
+                <div className="chips agent-detail-amenities">
+                  {approvalLabels(p).map((x) => (
+                    <span className="pill" key={x}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </section>
+            {p.highlights.length > 0 && (
+              <section
+                className="agent-detail-section"
+                aria-label="Listing highlights"
+              >
+                <h3>Highlights</h3>
+                <ul className="agent-detail-highlights">
+                  {p.highlights.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              </section>
             )}
-            <div>
-              <dt>Availability confirmed</dt>
-              <dd>
-                <time dateTime={p.confirmedAt}>
-                  {new Date(p.confirmedAt).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                </time>
-              </dd>
-            </div>
-          </dl>
-          {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000 && (
-            <p className="agent-trust-note">Not recently confirmed</p>
-          )}
-          {approvalLabels(p).length > 0 && (
-            <div className="chips agent-detail-amenities">
-              {approvalLabels(p).map((x) => (
-                <span className="pill" key={x}>
-                  {x}
-                </span>
-              ))}
-            </div>
-          )}
+            {p.amenities.length > 0 && (
+              <section
+                className="agent-detail-section"
+                aria-label="Listing amenities"
+              >
+                <h3>Amenities</h3>
+                <div className="chips agent-detail-amenities">
+                  {p.amenities.map((x) => (
+                    <span className="pill" key={x}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
+          </>
+        )}
+        <section
+          className="agent-detail-section agent-detail-description about-the-property"
+          aria-label="About the property"
+        >
+          <h3>About the property</h3>
+          <p>
+            {p.description?.trim() ||
+              (p.type === "Land"
+                ? `A well-connected land in ${p.locality || p.city}. Ask the agent about documents and visit availability.`
+                : p.type === "Commercial"
+                  ? `A flexible commercial space in ${p.locality || p.city} with practical access for everyday business use.`
+                  : p.type === "PG"
+                    ? `A practical PG option in ${p.locality || p.city}. Ask the agent about rooms, meals, and visit timing.`
+                    : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}
+          </p>
         </section>
-        {p.highlights.length > 0 && (
-          <section
-            className="agent-detail-section"
-            aria-label="Listing highlights"
-          >
-            <h3>Highlights</h3>
-            <ul className="agent-detail-highlights">
-              {p.highlights.map((x) => (
-                <li key={x}>{x}</li>
-              ))}
-            </ul>
-          </section>
-        )}
-        {p.amenities.length > 0 && (
-          <section
-            className="agent-detail-section"
-            aria-label="Listing amenities"
-          >
-            <h3>Amenities</h3>
-            <div className="chips agent-detail-amenities">
-              {p.amenities.map((x) => (
-                <span className="pill" key={x}>
-                  {x}
-                </span>
-              ))}
-            </div>
-          </section>
-        )}
-        <details className="agent-detail-section agent-detail-description" open>
-          <summary>
-            Description <ChevronDown size={18} aria-hidden="true" />
-          </summary>
-          <p>{p.description}</p>
-        </details>
         {(p.floorPlanUrl || p.videoUrl) && (
           <div className="agent-detail-resources">
             {p.floorPlanUrl && (
@@ -412,46 +452,8 @@ export default function ListingDetailSheet({
             </p>
           )}
         </section>
-        <section>
-          <h3>Similar from this agent</h3>
-          {relatedListings
-            .filter(
-              (x) =>
-                x.id !== p.id && x.agentId === p.agentId && x.type === p.type,
-            )
-            .slice(0, 3)
-            .map((x) => (
-              <button
-                className="secondary"
-                key={x.id}
-                onClick={() => onRelated?.(x)}
-              >
-                {x.title}
-              </button>
-            ))}
-          <h3>More in {p.locality}</h3>
-          {relatedListings
-            .filter(
-              (x) =>
-                x.id !== p.id && x.locality === p.locality && x.city === p.city,
-            )
-            .slice(0, 3)
-            .map((x) => (
-              <button
-                className="secondary"
-                key={x.id}
-                onClick={() => onRelated?.(x)}
-              >
-                {x.title} ·{" "}
-                {relatedAgents.find((a) => a.id === x.agentId)?.name}
-              </button>
-            ))}
-        </section>
-        <button className="text-button" onClick={() => setReport(true)}>
-          Report this listing
-        </button>
         <div className="agent-detail-actions">
-          <>
+          <div className="agent-detail-actions-primary">
             {point ? (
               <a
                 className="primary"
@@ -473,31 +475,82 @@ export default function ListingDetailSheet({
                 {state === "requested" ? "Requested" : "Request location"}
               </button>
             )}
-          </>
-          <WhatsAppLink
-            className="secondary"
-            number={a.whatsapp}
-            message={"Hello, I am interested in " + p.title + " on CentoMeter."}
-          >
-            WhatsApp
-          </WhatsAppLink>
-          <button className="secondary" onClick={() => setVisit(true)}>
-            Site visit
-          </button>
-          <button
-            className="secondary"
-            onClick={() => toggleStore("saved", p.id)}
-          >
-            {s.saved.includes(p.id) ? "Saved" : "Save"}
-          </button>
-          <button
-            className="secondary"
-            onClick={() => shareAgentLink(link, p.title)}
-          >
-            Share
-          </button>
+          </div>
+          <div className="agent-detail-actions-secondary">
+            <button className="secondary" onClick={() => setVisit(true)}>
+              Site visit
+            </button>
+            <button
+              className="secondary"
+              onClick={() => toggleStore("saved", p.id)}
+            >
+              {s.saved.includes(p.id) ? "Saved" : "Save"}
+            </button>
+            <button
+              className="secondary"
+              onClick={() => shareAgentLink(link, p.title)}
+            >
+              Share
+            </button>
+          </div>
         </div>
+        <section
+          className="agent-detail-related"
+          aria-label="Related listings"
+        >
+          <div className="agent-detail-related-group">
+            <h3>Similar from this agent</h3>
+            <div className="agent-detail-related-list">
+              {relatedListings
+                .filter(
+                  (x) =>
+                    x.id !== p.id &&
+                    x.agentId === p.agentId &&
+                    x.type === p.type,
+                )
+                .slice(0, 3)
+                .map((x) => (
+                  <button
+                    className="secondary"
+                    key={x.id}
+                    onClick={() => onRelated?.(x)}
+                  >
+                    {x.title}
+                  </button>
+                ))}
+            </div>
+          </div>
+          <div className="agent-detail-related-group">
+            <h3>More in {p.locality}</h3>
+            <div className="agent-detail-related-list">
+              {relatedListings
+                .filter(
+                  (x) =>
+                    x.id !== p.id &&
+                    x.locality === p.locality &&
+                    x.city === p.city,
+                )
+                .slice(0, 3)
+                .map((x) => (
+                  <button
+                    className="secondary"
+                    key={x.id}
+                    onClick={() => onRelated?.(x)}
+                  >
+                    {x.title} ·{" "}
+                    {relatedAgents.find((a) => a.id === x.agentId)?.name}
+                  </button>
+                ))}
+            </div>
+          </div>
+        </section>
+        {p.type !== "Land" && (
+          <button className="text-button" onClick={() => setReport(true)}>
+            Report this listing
+          </button>
+        )}
       </article>
+      <StickyContactBar property={p} agent={a} />
       {zoom && (
         <Modal title="Photo viewer" onClose={() => setZoom(false)}>
           <img

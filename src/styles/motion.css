@@ -1,5 +1,9 @@
 :root {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Expo-out deceleration (not bounce). --ease-spring kept as a compat alias. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: var(--ease-out-expo);
+  --ease-out: var(--ease-out-expo);
+  /* Reserved for continuous loops (shimmer); UI motion should use --ease-out-expo. */
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --t-fast: 120ms;
   --t: 200ms;
@@ -166,8 +170,8 @@
   min-width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #fff3eb;
-  color: #9d3c04;
+  background: var(--brand-soft);
+  color: var(--brand-deep);
   font-size: 11px;
 }
 .agent-slim-bar {
@@ -179,7 +183,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  box-shadow: 0 5px 18px #18181b16;
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--ink) 9%, transparent);
   opacity: 0;
   pointer-events: none;
 }
@@ -198,13 +202,13 @@
   position: fixed;
   right: 18px;
   bottom: calc(90px + env(safe-area-inset-bottom));
-  z-index: 560;
+  z-index: 900;
   opacity: 0;
   visibility: hidden;
-  border: 1px solid #e4e4e7;
+  border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--paper);
-  box-shadow: 0 4px 20px #18181b15;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--ink) 8%, transparent);
 }
 .agent-feature[data-back-top="true"] .agent-back-top {
   opacity: 1;
@@ -232,7 +236,7 @@
   display: block;
   width: 40px;
   height: 4px;
-  background: #a1a1aa;
+  background: var(--placeholder);
   border-radius: 999px;
   margin: auto;
 }
@@ -246,31 +250,90 @@
   content: "";
   position: fixed;
   inset: 0;
-  background: #18181b70;
+  background: color-mix(in srgb, var(--ink) 44%, transparent);
   z-index: -1;
   pointer-events: none;
 }
 .modal-scrim[data-motion-kind="listing"] > .modal {
   position: fixed;
-  inset: auto 0 0;
+  inset: 0;
   width: 100%;
-  height: 94dvh;
-  max-height: 94dvh;
+  height: 100%;
+  max-height: 100dvh;
   margin: 0;
-  border-radius: 24px 24px 0 0;
-  overflow-y: auto;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   overscroll-behavior: contain;
-  padding: 0 18px 18px;
+  padding: 0 18px;
+  box-sizing: border-box;
 }
 .modal-scrim[data-motion-kind="listing"] .modal-heading {
+  position: sticky;
   top: 0;
   z-index: 701;
+  flex-shrink: 0;
   padding: 10px 0;
+  margin: 0;
   background: var(--paper);
 }
+.modal-scrim[data-motion-kind="listing"] .agent-drag-handle {
+  flex-shrink: 0;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 12px;
+}
+/* Actions sit in scroll content between Location on request and Similar. */
 .modal-scrim[data-motion-kind="listing"] .agent-detail-actions {
-  bottom: -18px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  position: relative;
+  width: 100%;
+  flex-shrink: 0;
+  z-index: 1;
+  margin: 8px 0 20px;
+  padding: 12px 0 8px;
+  box-sizing: border-box;
+  background: transparent;
+  border-top: 0;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-related {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-related-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-actions-primary {
+  width: 100%;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-actions-secondary {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+/* WhatsApp/Call locked to sheet footer — no overlap with mid-content actions. */
+.modal-scrim[data-motion-kind="listing"] .sticky-contact-bar {
+  position: relative;
+  inset: auto;
+  display: block;
+  flex-shrink: 0;
+  z-index: 1050;
+  pointer-events: auto;
+  width: 100%;
+}
+.modal-scrim[data-motion-kind="listing"] .sticky-contact-bar-inner {
+  max-width: none;
+  margin: 0;
+  border-radius: 0;
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
 }
 .agent-map-reveal {
   display: none;
@@ -327,11 +390,11 @@
   align-items: center;
   gap: 12px;
   justify-content: space-between;
-  background: #18181b;
+  background: var(--ink);
   color: white;
   border-radius: 16px;
   padding: 8px 8px 8px 16px;
-  box-shadow: 0 5px 24px #18181b25;
+  box-shadow: 0 5px 24px color-mix(in srgb, var(--ink) 15%, transparent);
   pointer-events: auto;
   font-size: 14px;
 }
@@ -364,10 +427,10 @@
   .agent-feature a:active,
   .agent-detail button:active,
   .agent-detail a:active {
-    scale: 0.95;
+    scale: 0.98;
   }
   .agent-listing:has(.property-copy:active) {
-    scale: 0.95;
+    scale: 0.98;
   }
   .agent-listing {
     transition:
@@ -475,7 +538,7 @@
   @media (hover: hover) {
     .agent-listing:hover,
     .agent-card:hover {
-      translate: 0 -4px;
+      translate: 0 -2px;
     }
   }
   @media (min-width: 1024px) {
@@ -653,8 +716,8 @@
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  border: 1px solid #18181b;
-  background: #18181b;
+  border: 1px solid var(--ink);
+  background: var(--ink);
   opacity: 0;
   pointer-events: none;
 }

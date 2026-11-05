@@ -8,7 +8,7 @@ import {
   toSqft,
 } from "./LandMeasurements";
 import { approvalLabels, plotStatus } from "./PlotUI";
-import { hasValue } from "./PropertyModel";
+import { hasValue, money } from "./PropertyModel";
 export { toCents, landNumber, landArea } from "./LandMeasurements";
 
 function ApprovalBadges({ p }) {
@@ -43,56 +43,111 @@ function landHighlights(p) {
   );
 }
 
-export function LandSummary({ p }) {
-  const highlights = landHighlights(p);
-  const status = plotStatus(p);
+function formatLandDate(value) {
+  const date = Date.parse(value || "");
+  if (!Number.isFinite(date)) return null;
+  return new Date(date).toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
+function FactCards({ items, className = "" }) {
+  const visible = items.filter((item) => item && hasValue(item.value));
+  if (!visible.length) return null;
   return (
-    <section className="land-summary" aria-label="Property description">
-      <div className="land-summary-heading">
-        <h2>Property description</h2>
-        {status && <span className={"plot-status " + status}>{status}</span>}
-      </div>
-      {p.description?.trim() && (
-        <p className="description land-description">{p.description}</p>
-      )}
-      <dl className="land-facts">
-        <div>
-          <dt>Plot area</dt>
+    <dl className={"land-facts " + className}>
+      {visible.map(({ label, value, hint }) => (
+        <div key={label}>
+          <dt>{label}</dt>
           <dd>
-            {positive(p.area) ? `${landNumber(p.area)} sq ft` : "Not specified"}
-            {positive(p.area) && (
-              <small>{landNumber(toCents(p.area))} cents</small>
-            )}
+            {value}
+            {hint ? <small>{hint}</small> : null}
           </dd>
         </div>
-        {positive(p.length) && positive(p.width) && (
-          <div>
-            <dt>Dimensions</dt>
-            <dd>
-              {landDimensions(p)}
-              <small>Length × Width</small>
-            </dd>
-          </div>
-        )}
-        {hasValue(p.landType || p.subtype) && (
-          <div>
-            <dt>Land type</dt>
-            <dd>{p.landType || p.subtype}</dd>
-          </div>
-        )}
-        {hasValue(p.facing) && (
-          <div>
-            <dt>Facing</dt>
-            <dd>{p.facing}</dd>
-          </div>
-        )}
-        {hasValue(p.roadWidth) && (
-          <div>
-            <dt>Road width</dt>
-            <dd>{p.roadWidth}</dd>
-          </div>
-        )}
-      </dl>
+      ))}
+    </dl>
+  );
+}
+
+export function LandSummary({
+  p,
+  onReport = null,
+  showDescription = true,
+  showStatus = true,
+}) {
+  const highlights = landHighlights(p);
+  const status = plotStatus(p);
+  const roadWidth = hasValue(p.roadWidth)
+    ? /^\d+(\.\d+)?$/.test(String(p.roadWidth).trim())
+      ? `${p.roadWidth} ft`
+      : p.roadWidth
+    : null;
+  const posted = formatLandDate(p.postedAt || p.createdAt);
+  const checked = formatLandDate(p.confirmedAt || p.postedAt || p.createdAt);
+  const primaryFacts = [
+    {
+      label: "Plot area",
+      value: positive(p.area) ? `${landNumber(p.area)} sq ft` : "Not specified",
+      hint: positive(p.area) ? `${landNumber(toCents(p.area))} cents` : null,
+    },
+    {
+      label: "Land type",
+      value: p.landType || p.subtype || null,
+    },
+    {
+      label: "Facing",
+      value: p.facing || null,
+    },
+    {
+      label: "Road width",
+      value: roadWidth,
+    },
+    ...(positive(p.length) && positive(p.width)
+      ? [
+          {
+            label: "Dimensions",
+            value: landDimensions(p),
+            hint: "Length × Width",
+          },
+        ]
+      : []),
+  ];
+  const secondaryFacts = [
+    {
+      label: "Possession",
+      value: p.possessionStatus || p.available || null,
+    },
+    {
+      label: "Ownership",
+      value: p.ownershipType || null,
+    },
+    {
+      label: "Posted",
+      value: posted,
+    },
+    {
+      label: "Price per sq ft",
+      value:
+        positive(p.area) && Number(p.price) > 0
+          ? money(Number(p.price) / Number(p.area)) +
+            (p.mode === "RENT" ? " / month" : "")
+          : null,
+    },
+  ];
+  return (
+    <section className="land-summary" aria-label="Property details">
+      <div className="land-summary-heading">
+        <h2>Property details</h2>
+        {showStatus && status ? (
+          <span className={"plot-status " + status}>{status}</span>
+        ) : null}
+      </div>
+      {showDescription && p.description?.trim() ? (
+        <p className="description land-description">{p.description}</p>
+      ) : null}
+      <FactCards items={primaryFacts} className="land-facts-primary" />
       <ApprovalBadges p={p} />
       {highlights.length > 0 && (
         <div className="land-highlights">
@@ -107,6 +162,19 @@ export function LandSummary({ p }) {
           </ul>
         </div>
       )}
+      <div className="land-listing-meta">
+        <span>
+          Listed by {p.seller || "Owner"}
+          {checked ? ` · Availability checked: ${checked}` : ""}
+          {" · Sample"}
+        </span>
+        {typeof onReport === "function" ? (
+          <button type="button" className="text-button" onClick={onReport}>
+            Report listing
+          </button>
+        ) : null}
+      </div>
+      <FactCards items={secondaryFacts} className="land-facts-secondary" />
     </section>
   );
 }

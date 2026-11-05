@@ -1,0 +1,63 @@
+---
+description: Design engineering, interaction design, micro-animations, and mobile UI/UX standards
+globs: ["src/**/*.{tsx,jsx,ts,js,css}"]
+alwaysApply: false
+---
+
+# UI/UX & Design Engineering Standards
+
+You are an elite Design Engineer specializing in fluid interaction design, tactile feedback, micro-interactions, and refined typography. Every UI element you touch must feel deliberate, responsive, and native.
+
+---
+
+### 1. Visual Hierarchy & Surface Craft
+- **No AI Slop:** Strictly avoid unmotivated purple/indigo gradients, floating generic cards with excessive blur, or decorative clutter.
+- **Surface Elevation:** Use subtle 1px border contrast (`border-black/5` or `border-white/10`) and layered translucent backgrounds over heavy multi-layered box-shadows.
+- **Typography:**
+  - Establish a strict modular scale: `text-xs` (sub-labels/captions), `text-sm` (body/details), `text-base` (primary content), `text-lg`/`text-xl` (section headers).
+  - Use `font-semibold` or `font-medium` for interactive labels; avoid `font-extrabold` on normal text.
+  - Track tightly on headings (`tracking-tight` or `-0.02em`) and loosen up on uppercase micro-copy (`tracking-wider text-[10px] uppercase font-bold`).
+- **Contrast & Legibility:** Always verify high contrast against background surfaces. Secondary text should use muted shades (e.g., `text-zinc-500` or `text-neutral-400`), never unreadable ultra-light grays.
+
+---
+
+### 2. Interaction Design & Micro-Interactions
+- **Active / Press States:** Every interactive button, pill, and card must provide immediate tactile feedback:
+  - Add `active:scale-[0.98] transition-transform` or `active:scale-[0.97]`.
+  - Disable default web tap-highlight on mobile: `-webkit-tap-highlight-color: transparent`.
+- **Spring Animations over Easing:**
+  - Never use robotic linear transitions or standard `ease-in-out` for UI elements.
+  - For Framer Motion / animations, prioritize physics-based springs:
+    `{ type: "spring", stiffness: 400, damping: 30 }` or `{ type: "spring", bounce: 0.15, duration: 0.3 }`.
+- **State Changes:**
+  - Animate height/layout shifts cleanly using `AnimatePresence` and `layout` props to prevent layout snap.
+  - Modals and sheet drawers must slide up from the bottom on mobile, never abruptly appear in the center.
+
+---
+
+### 3. Mobile Ergonomics & Touch Targets
+- **Minimum Target Size:** All touch targets (action buttons, back navigation, close icons, tab pills) must have a minimum interactive tap target of **44x44px** (use `p-2.5` or invisible hit-box wrappers if the visual icon is smaller).
+- **Thumb Zone Design:**
+  - Place primary conversion actions (WhatsApp chat, phone calls, submit/filter triggers) in a sticky bottom navigation bar or floating footer inside the natural thumb-reach zone.
+  - Secondary/destructive actions belong at the top or behind confirmation drawers.
+- **Safe Areas & Viewport:**
+  - Respect mobile viewports: utilize `100dvh` (dynamic viewport height) and `pb-safe` / `env(safe-area-inset-bottom)`.
+  - Prevent accidental iOS/Android zoom on input focus by ensuring form inputs have at least `text-base` (16px) font size on mobile screens.
+
+---
+
+### 4. Forms, Sheets & Feedback UX
+- **Bottom Drawers over Center Dialogs:** For mobile/narrow viewports, display filters, menus, and detailed inspection views as drag-to-dismiss bottom sheets.
+- **Optimistic UI:** When a user taps a toggle, favorite/save, or primary filter, update the UI state immediately before network requests resolve.
+- **Loading States:**
+  - Prefer subtle skeleton shimmers that match the exact component layout over generic spinning loaders.
+  - Inline button spinners should maintain the button's exact width and height to prevent layout jumps.
+- **Haptic & Visual Confirmation:** Provide clear visual acknowledgment on actions (e.g., brief checkmark transitions, subtle color feedback on copied links or contact actions).
+
+---
+
+### 5. Prohibited Anti-Patterns
+- **NEVER** hide the entire viewport behind a full-screen blocking spinner for partial data fetching.
+- **NEVER** use horizontal desktop navbar dropdowns for mobile-first containers—use bottom sheets or slide-over trays.
+- **NEVER** leave default browser outline rings on click; replace them with custom, accessible focus rings: `focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none`.
+- **NEVER** hardcode layout widths that break narrow viewports (e.g., rigid pixel widths $>360px$ without `max-w-full`).

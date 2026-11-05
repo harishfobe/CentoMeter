@@ -10,11 +10,16 @@ const optionalFields = [
   ["postedAt", "Posted date", "date"],
 ];
 export function OptionalListingFields({ data, set }) {
+  const houseVilla =
+    data.type === "Villa" || data.type === "Independent House";
+  const fields = optionalFields.filter(
+    ([key]) => !(houseVilla && key === "parking"),
+  );
   return (
     <details className="advanced-filters">
       <summary>Additional property details (optional)</summary>
       <div className="form-columns">
-        {optionalFields.map(([key, label, type]) => (
+        {fields.map(([key, label, type]) => (
           <label key={key}>
             {label}
             <input
@@ -38,6 +43,8 @@ export function OptionalListingFields({ data, set }) {
 }
 export function OptionalPropertyDetails({ p }) {
   const date = Date.parse(p.postedAt || "");
+  const houseVilla =
+    p.type === "Villa" || p.type === "Independent House";
   const fields = [
     ["RERA number", p.reraNumber],
     ["Possession", p.possessionStatus],
@@ -50,7 +57,21 @@ export function OptionalPropertyDetails({ p }) {
         : null,
     ],
     ["Total floors", p.totalFloors],
-    ["Parking", p.parking],
+    houseVilla
+      ? [
+          "Car parking",
+          (() => {
+            const counted = Number(p.carParking ?? p.parkingSpaces);
+            if (Number.isFinite(counted) && counted >= 0) {
+              return counted === 1 ? "1 car" : `${counted} cars`;
+            }
+            const match = String(p.parking ?? "").match(/(\d+)/);
+            if (!match) return hasValue(p.parking) ? p.parking : null;
+            const cars = Number(match[1]);
+            return cars === 1 ? "1 car" : `${cars} cars`;
+          })(),
+        ]
+      : ["Parking", p.parking],
     ["Ownership", p.ownershipType],
     [
       "Posted",
