@@ -1849,13 +1849,19 @@ a:focus-visible {
 .similar-properties {
   margin: 24px 0;
 }
-.similar-properties > .search-horizontal {
+.property-card-stack,
+.similar-properties > .property-card-stack {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
   margin: 12px 0 0;
   padding: 0 0 8px;
 }
-.similar-properties > .search-horizontal > div {
-  flex: 0 0 280px;
-  min-width: 0;
+@media (min-width: 760px) {
+  .property-card-stack,
+  .similar-properties > .property-card-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 .cost-breakdown > .form-columns {
   display: grid;

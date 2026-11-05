@@ -2,7 +2,8 @@ import WhatsAppLink from "./components/WhatsAppLink";
 import React from "react";
 import { exactLocation } from "./lib/locationAccess";
 import { indianMobile } from "./PropertyModel";
-import { Phone, MessageCircle, UserRound } from "lucide-react";
+import { Phone, UserRound } from "lucide-react";
+import WhatsAppIcon from "./components/WhatsAppIcon";
 function contactNumber(value) {
   const digits = indianMobile(value);
   return digits ? "91" + digits : null;
@@ -121,12 +122,12 @@ export function ContactButtons({ p }) {
         )}
         {links.whatsapp ? (
           <WhatsAppLink className="contact-whatsapp" href={links.whatsapp}>
-            <MessageCircle size={18} />
+            <WhatsAppIcon size={18} />
             WhatsApp
           </WhatsAppLink>
         ) : (
           <button className="contact-whatsapp" disabled>
-            <MessageCircle size={18} />
+            <WhatsAppIcon size={18} />
             WhatsApp
           </button>
         )}

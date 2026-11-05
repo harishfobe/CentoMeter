@@ -113,19 +113,13 @@
 }
 .search-discovery-shortcuts {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin: 16px 0 18px;
   padding: 0 20px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-snap-type: x proximity;
-}
-.search-discovery-shortcuts::-webkit-scrollbar,
-.search-horizontal::-webkit-scrollbar {
-  display: none;
 }
 .search-discovery-shortcuts button {
-  flex: none;
+  flex: 1 1 auto;
   min-height: 48px;
   display: flex;
   align-items: center;
@@ -213,18 +207,19 @@
   border-color: var(--brand);
   background: var(--brand-soft);
 }
-.search-horizontal {
-  display: flex;
-  gap: 12px;
-  margin: 0 -20px;
-  padding: 0 20px 3px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-snap-type: x proximity;
+.search-stack {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0 0 3px;
+}
+.search-stack.project-strip {
+  grid-template-columns: minmax(0, 1fr);
 }
 .search-mini-card {
-  width: 146px;
-  min-width: 146px;
+  width: auto;
+  min-width: 0;
   min-height: 60px;
   display: flex;
   flex-direction: column;
@@ -235,7 +230,6 @@
   background: var(--paper);
   color: var(--ink);
   text-align: left;
-  scroll-snap-align: start;
 }
 .mini-heading {
   display: flex;
@@ -281,8 +275,8 @@
 }
 .search-project {
   position: relative;
-  width: 164px;
-  min-width: 164px;
+  width: 100%;
+  min-width: 0;
   height: 150px;
   padding: 0;
   overflow: hidden;
@@ -291,7 +285,6 @@
   background: var(--ink);
   color: var(--paper);
   text-align: left;
-  scroll-snap-align: start;
 }
 .search-project img {
   width: 100%;
@@ -469,12 +462,6 @@
     padding-right: 14px;
   }
   .search-discovery-shortcuts {
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-  .search-horizontal {
-    margin-left: -14px;
-    margin-right: -14px;
     padding-left: 14px;
     padding-right: 14px;
   }

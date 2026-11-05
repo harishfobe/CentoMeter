@@ -1,6 +1,7 @@
 import WhatsAppLink from "../WhatsAppLink";
 import React from "react";
-import { MapPin, ShieldCheck, MessageCircle, Share2 } from "lucide-react";
+import { MapPin, ShieldCheck, Share2 } from "lucide-react";
+import WhatsAppIcon from "../WhatsAppIcon";
 import { responseLabel } from "../../lib/agents";
 import StatsRow from "./StatsRow";
 import { toggleStore, useAgentStore } from "../../lib/agentStore";
@@ -48,7 +49,7 @@ export default function AgentHeader({ agent: a, count, onShare }) {
             "Hello " + a.name + ", I am interested in your CentoMeter listings."
           }
         >
-          <MessageCircle size={17} aria-hidden="true" /> Message on WhatsApp
+          <WhatsAppIcon size={17} /> Message on WhatsApp
         </WhatsAppLink>
         <a
           className="secondary"
