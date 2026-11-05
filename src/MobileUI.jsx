@@ -1,5 +1,5 @@
 import React from "react";
-import { ChevronDown, MessageCircle, Phone, Zap } from "lucide-react";
+import { MessageCircle, Phone, Zap } from "lucide-react";
 import { Costs } from "./Discovery";
 import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
@@ -14,13 +14,10 @@ export function MobilePropertyPrice({ property: p, money }) {
           <PriceCaption p={p} money={money} />
         </span>
       </div>
-      <details className="mobile-price-details">
-        <summary>
-          Price details
-          <ChevronDown size={16} />
-        </summary>
-        <Costs p={p} money={money} />
-      </details>
+      <section className="mobile-price-details" aria-label="Price details">
+        <h2>Price details</h2>
+        <Costs p={p} money={money} title={null} />
+      </section>
     </div>
   );
 }
