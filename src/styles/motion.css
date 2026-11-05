@@ -273,6 +273,15 @@
 .modal-scrim[data-motion-kind="listing"] .agent-detail-actions {
   bottom: -18px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 1100;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-actions-primary {
+  position: sticky;
+  z-index: 1101;
+}
+.modal-scrim[data-motion-kind="listing"] .agent-detail-actions-secondary {
+  display: flex;
+  justify-content: center;
 }
 .agent-map-reveal {
   display: none;

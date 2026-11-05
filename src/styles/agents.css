@@ -187,16 +187,34 @@
   position: sticky;
   bottom: -24px;
   display: flex;
+  flex-direction: column;
   gap: 8px;
-  flex-wrap: wrap;
-  z-index: 700;
+  z-index: 1100;
   background: var(--paper);
   border-top: 1px solid #e4e4e7;
   padding: 12px 0;
 }
-.agent-detail-actions > * {
+.agent-detail-actions-primary {
+  position: sticky;
+  bottom: inherit;
+  z-index: 1101;
+  display: flex;
+  width: 100%;
+}
+.agent-detail-actions-primary > * {
   flex: 1;
-  min-width: 85px;
+  min-height: 44px;
+}
+.agent-detail-actions-secondary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.agent-detail-actions-secondary > * {
+  flex: 0 1 auto;
+  min-width: 88px;
   min-height: 44px;
 }
 .agent-location-map {
