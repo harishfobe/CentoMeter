@@ -2849,11 +2849,17 @@ a:focus-visible {
   text-decoration: none;
   white-space: nowrap;
 }
-.sticky-contact-whatsapp:hover,
 .sticky-contact-whatsapp:active {
   background: var(--brand-hover);
   border-color: var(--brand-hover);
   color: var(--brand-on);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sticky-contact-whatsapp:hover {
+    background: var(--brand-hover);
+    border-color: var(--brand-hover);
+    color: var(--brand-on);
+  }
 }
 .sticky-contact-whatsapp:disabled {
   opacity: 0.55;
@@ -2875,10 +2881,15 @@ a:focus-visible {
   text-decoration: none;
   flex-shrink: 0;
 }
-.sticky-contact-call:hover,
 .sticky-contact-call:active {
   background: var(--paper);
   color: var(--ink);
+}
+@media (hover: hover) and (pointer: fine) {
+  .sticky-contact-call:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
 }
 .sticky-contact-call:disabled {
   opacity: 0.55;
