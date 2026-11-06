@@ -83,7 +83,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -129,7 +131,16 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al3",
@@ -214,7 +225,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -253,7 +266,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al5",
@@ -273,7 +295,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -319,7 +343,16 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "al6",
@@ -339,7 +372,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -378,7 +413,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al7",
@@ -398,7 +442,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -444,7 +490,16 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "al8",
@@ -529,7 +584,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -574,7 +631,16 @@
     "carpetArea": 2636,
     "carParking": 2,
     "width": 41,
-    "length": 67
+    "length": 67,
+    "plotArea": 2747,
+    "builtUpArea": 3380,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al10",
@@ -594,7 +660,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -635,7 +703,16 @@
     "carpetArea": 1903,
     "carParking": 1,
     "width": 35,
-    "length": 57
+    "length": 57,
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "al11",
@@ -655,7 +732,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -700,7 +779,16 @@
     "carpetArea": 2636,
     "carParking": 2,
     "width": 41,
-    "length": 67
+    "length": 67,
+    "plotArea": 2747,
+    "builtUpArea": 3380,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al12",
@@ -720,7 +808,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -761,7 +851,16 @@
     "carpetArea": 1903,
     "carParking": 1,
     "width": 35,
-    "length": 57
+    "length": 57,
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "al13",
@@ -847,7 +946,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -892,7 +993,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al15",
@@ -972,7 +1082,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -1017,7 +1129,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al17",
@@ -1097,7 +1218,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -1139,7 +1262,16 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "al19",
@@ -1224,7 +1356,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1270,7 +1404,16 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al21",
@@ -1355,7 +1498,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1401,7 +1546,16 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al23",
@@ -1791,7 +1945,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1836,7 +1992,16 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al30",
@@ -1856,7 +2021,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1897,7 +2064,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al31",
@@ -1917,7 +2093,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1962,7 +2140,16 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al32",
@@ -1982,7 +2169,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -2023,7 +2212,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al33",
@@ -2106,7 +2304,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -2151,7 +2351,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al35",
@@ -2237,7 +2446,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -2282,7 +2493,16 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "al37",
@@ -2488,7 +2708,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2534,6 +2756,15 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   }
 ]

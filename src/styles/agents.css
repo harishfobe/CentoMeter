@@ -158,11 +158,35 @@
 .agent-detail .agent-listing-eyebrow {
   margin: 10px 0 4px;
 }
+.agent-detail .agent-land-title {
+  margin: 14px 0 6px;
+  color: var(--ink);
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  line-height: 1.3;
+}
+.agent-detail .agent-land-location {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.agent-detail .agent-land-location svg {
+  margin-top: 2px;
+  color: var(--brand);
+}
 .agent-detail .agent-land-emi {
   margin: 8px 0 20px;
 }
 .agent-detail .agent-land-emi > .secondary {
   width: 100%;
+}
+.agent-detail .house-villa-summary {
+  margin: 16px 0 20px;
 }
 .agent-listing-chips {
   display: flex;
