@@ -107,6 +107,69 @@ describe("posted listings", () => {
       expect(normalizePostedListing({ ...draft, ...patch })).toBe(null);
   });
 });
+describe("listing fit filters", () => {
+  it("matches possession Ready now to Ready to move listings", async () => {
+    const {
+      matchesPossessionFilter,
+      matchesFloorFilter,
+    } = await import("../src/listingFit.js");
+    expect(
+      matchesPossessionFilter(
+        { possessionStatus: "Ready to move", available: "Ready now" },
+        "Ready now",
+      ),
+    ).toBe(true);
+    expect(
+      matchesPossessionFilter(
+        { possessionStatus: "Ready to move" },
+        "Ready to move",
+      ),
+    ).toBe(true);
+    expect(
+      matchesPossessionFilter(
+        { possessionStatus: "Within 30 days" },
+        "Under construction",
+      ),
+    ).toBe(true);
+    expect(matchesFloorFilter("Ground", "Ground")).toBe(true);
+    expect(matchesFloorFilter("2", "1–3")).toBe(true);
+    expect(matchesFloorFilter("9", "4+")).toBe(true);
+    expect(matchesFloorFilter("2", "4+")).toBe(false);
+  });
+  it("matches commercial Building subtype and facilities from sample data", () => {
+    const commercial = {
+      type: "Commercial",
+      mode: "BUY",
+      price: 28000000,
+      beds: 0,
+      furnishing: "Semi-furnished",
+      available: "Ready now",
+      possessionStatus: "Ready to move",
+      subtype: "Building",
+      facilities: ["Parking", "CCTV"],
+      features: ["Parking", "CCTV"],
+      area: 4000,
+      seller: "Owner",
+    };
+    expect(
+      matches(commercial, {
+        ...filterDefaults,
+        type: "Commercial",
+        subtype: "Building",
+        feature: "Parking",
+        available: "Ready to move",
+      }),
+    ).toBe(true);
+    expect(
+      matches(commercial, {
+        ...filterDefaults,
+        type: "Commercial",
+        subtype: "Office",
+      }),
+    ).toBe(false);
+  });
+});
+
 describe("matches", () => {
   const p = {
     ...normalizePostedListing(draft),

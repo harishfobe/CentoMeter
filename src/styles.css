@@ -3651,6 +3651,19 @@ textarea {
   flex: 0 0 auto;
   color: var(--brand);
 }
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 550;
+}
+.checkbox-row input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
 .land-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
