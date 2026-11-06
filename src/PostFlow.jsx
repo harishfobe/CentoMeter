@@ -621,21 +621,23 @@ export default function PostFlow({
                 </label>
               )}
               <OptionalListingFields data={data} set={set} />
-              {
-                <label>
-                  Description
-                  <textarea
-                    rows="3"
-                    placeholder={
-                      data.type === "Land"
-                        ? "Describe access, nearby landmarks, approvals and land highlights"
-                        : "Describe the property and its highlights"
-                    }
-                    value={data.description}
-                    onChange={(e) => set("description", e.target.value)}
-                  />
-                </label>
-              }
+              <label>
+                About the property
+                <textarea
+                  rows="4"
+                  maxLength={2000}
+                  placeholder={
+                    data.type === "Land"
+                      ? "Describe access, nearby landmarks, approvals and what makes this land useful"
+                      : "Share extra details buyers should know — layout, neighbourhood, visit tips"
+                  }
+                  value={data.description}
+                  onChange={(e) => set("description", e.target.value)}
+                />
+                <small>
+                  Optional · up to 2000 characters · shown on the listing page
+                </small>
+              </label>
               <div>
                 <label>
                   Property photos{" "}
@@ -901,10 +903,17 @@ export default function PostFlow({
                 · {data.address}
               </p>
               {data.type === "Land" ? (
-                <LandSummary p={data} />
-              ) : (
-                <p>{data.description}</p>
-              )}
+                <LandSummary p={data} showDescription={false} />
+              ) : null}
+              {data.description?.trim() ? (
+                <section
+                  className="about-the-property"
+                  aria-label="About the property"
+                >
+                  <h3>About the property</h3>
+                  <p className="description">{data.description.trim()}</p>
+                </section>
+              ) : null}
               {data.type !== "Land" && supportsFacing(data.type) && (
                 <p>
                   <strong>Facing direction:</strong>{" "}

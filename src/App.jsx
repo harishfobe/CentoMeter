@@ -1695,38 +1695,33 @@ export default function App() {
                 {detail.type === "Land" ? (
                   <LandSummary
                     p={detail}
+                    showDescription={false}
                     onReport={() => setModal("report")}
                   />
                 ) : isHouseOrVilla(detail.type) ? (
-                  <>
-                    <HouseVillaSummary
-                      p={detail}
-                      onReport={() => setModal("report")}
-                    />
-                    <section
-                      className="about-the-property"
-                      aria-label="About the property"
-                    >
-                      <h2>About the property</h2>
-                      <p className="description">
-                        {detail.description ||
-                          "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."}
-                      </p>
-                    </section>
-                  </>
-                ) : (
-                  <>
-                    <h2>A little more about this place</h2>
-                    <p className="description">
-                      {detail.description ||
-                        (detail.type === "Commercial"
+                  <HouseVillaSummary
+                    p={detail}
+                    onReport={() => setModal("report")}
+                  />
+                ) : null}
+                <section
+                  className="about-the-property"
+                  aria-label="About the property"
+                >
+                  <h2>About the property</h2>
+                  <p className="description">
+                    {detail.description?.trim() ||
+                      (detail.type === "Land"
+                        ? `A well-connected plot in ${detail.locality || detail.city}. Ask about documents, access and visit timing.`
+                        : detail.type === "Commercial"
                           ? "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
                           : detail.type === "PG"
                             ? `${detail.occupancy} with ${String(detail.bathroom || "Not specified").toLowerCase()} bathroom. Meals: ${String(detail.meals || "Not specified").toLowerCase()}. Price shown${priceBasis(detail)}. AC: ${detail.ac}. Sample house rules: quiet hours 10 PM–7 AM; visitor registration required.`
-                            : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
-                    </p>
-                  </>
-                )}
+                            : isHouseOrVilla(detail.type)
+                              ? "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."
+                              : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
+                  </p>
+                </section>
                 {detail.type !== "Land" && detail.features.length > 0 && (
                   <>
                     <h2>Highlights</h2>

@@ -27,8 +27,9 @@ export async function savePostedListing({
       d.location,
       d.shareDefault?.radiusM || 500,
     );
+    const normalized = normalizePostedListing(listing, agent.name);
     listing = {
-      ...normalizePostedListing(listing, agent.name),
+      ...normalized,
       agentId: agent.id,
       privacy: d.shareDefault || { mode: "hidden", radiusM: 500 },
       shareDefault: d.shareDefault || {
@@ -37,6 +38,7 @@ export async function savePostedListing({
       },
       status: "available",
       confirmedAt: new Date().toISOString(),
+      description: normalized?.description || "",
       amenities: d.features || [],
       highlights: d.highlights || [],
       approx,

@@ -14,7 +14,7 @@ const draft = {
   title: "A posted home",
   price: "42000",
   area: "1200",
-  location: [12.97, 77.63],
+  location: [11.0168, 76.9558],
   intent: "RENT",
   type: "Apartment",
 };
@@ -83,10 +83,18 @@ describe("posted listings", () => {
       occupancy: "Twin sharing",
       features: ["Wi-Fi"],
       baths: "2",
+      description: "  Quiet lane with morning light.  ",
     });
     expect(p.deposit).toBe(24000);
     expect(p.baths).toBe(2);
     expect(p.occupancy).toBe("Twin sharing");
+    expect(p.description).toBe("Quiet lane with morning light.");
+  });
+  it("stores an empty About the property description when omitted", () => {
+    expect(normalizePostedListing(draft).description).toBe("");
+    expect(
+      normalizePostedListing({ ...draft, description: "   " }).description,
+    ).toBe("");
   });
   it("rejects invalid location and prices", () => {
     for (const patch of [
