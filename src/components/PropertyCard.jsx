@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Heart, MapPin, BedDouble, Bath, Square } from "lucide-react";
 import { money } from "../PropertyModel";
-import { typeLabel } from "../PropertyTypes";
+import { cardTypeLabel, typeLabel } from "../PropertyTypes";
 import { pinPrice } from "../PlotUI";
 import { landPrice } from "../JourneyUX";
 import { landArea } from "../LandDetails";
@@ -39,7 +39,8 @@ function PropertyCard({
             e.currentTarget.parentElement.classList.add("photo-unavailable");
           }}
         />
-        <span className="badge">{p.tag}</span>
+        {p.tag ? <span className="badge">{p.tag}</span> : null}
+        <span className="property-type-badge">{cardTypeLabel(p.type)}</span>
       </button>
       <button
         className={"save-button " + (saved ? "is-saved" : "")}

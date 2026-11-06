@@ -39,6 +39,13 @@ export const typeLabel = (type) =>
     ? "All properties"
     : propertyTypeDetails[propertyTypeKey(type)]?.label || type;
 
+/** Short label for property-card image overlays. */
+export const cardTypeLabel = (type) => {
+  if (type === "Villa") return "Villa";
+  if (type === "Independent House") return "House";
+  return propertyTypeDetails[propertyTypeKey(type)]?.mobileLabel || type || "";
+};
+
 export default function PropertyTypes({
   mode,
   value,

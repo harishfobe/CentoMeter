@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect, memo } from "react";
 import { Heart } from "lucide-react";
 import { money } from "../../PropertyModel";
 import { landPrice } from "../../JourneyUX";
+import { cardTypeLabel } from "../../PropertyTypes";
 import { recentlyConfirmed, statusLabel } from "../../lib/agents";
 import { accessStatus } from "../../lib/locationAccess";
 
@@ -37,67 +38,71 @@ function ListingCard({
         (["sold", "rented"].includes(p.status) ? "listing-inactive" : "")
       }
     >
-      <div
-        className="agent-photo-strip"
-        ref={strip}
-        tabIndex={0}
-        role="group"
-        aria-label={"Photos of " + p.title}
-        onKeyDown={(e) => {
-          if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
-            e.preventDefault();
-            strip.current?.scrollBy({
-              left:
-                (e.key === "ArrowRight" ? 1 : -1) * strip.current.clientWidth,
-              behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)")
-                .matches
-                ? "instant"
-                : "smooth",
-            });
+      <div className="agent-listing-media">
+        <div
+          className="agent-photo-strip"
+          ref={strip}
+          tabIndex={0}
+          role="group"
+          aria-label={"Photos of " + p.title}
+          onKeyDown={(e) => {
+            if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
+              e.preventDefault();
+              strip.current?.scrollBy({
+                left:
+                  (e.key === "ArrowRight" ? 1 : -1) * strip.current.clientWidth,
+                behavior: window.matchMedia?.(
+                  "(prefers-reduced-motion: reduce)",
+                ).matches
+                  ? "instant"
+                  : "smooth",
+              });
+            }
+          }}
+          onScroll={(e) =>
+            setIndex(
+              Math.round(
+                e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
+              ),
+            )
           }
-        }}
-        onScroll={(e) =>
-          setIndex(
-            Math.round(
-              e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
-            ),
-          )
-        }
-      >
-        {!photos.length && (
-          <div
-            className="agent-photo-placeholder"
-            role="img"
-            aria-label="No property photos"
-          >
-            No photos available
-          </div>
+        >
+          {!photos.length && (
+            <div
+              className="agent-photo-placeholder"
+              role="img"
+              aria-label="No property photos"
+            >
+              No photos available
+            </div>
+          )}
+          {photos.map((url, i) => (
+            <img
+              key={url + i}
+              loading="lazy"
+              decoding="async"
+              width="600"
+              height="400"
+              src={url}
+              onLoad={(e) => {
+                e.currentTarget.dataset.loaded = "true";
+                imageStops.current.push(revealGalleryImage(e.currentTarget));
+              }}
+              alt={p.title + " photo " + (i + 1)}
+            />
+          ))}
+        </div>
+        {photos.length > 0 && (
+          <span className="agent-photo-count" aria-hidden="true">
+            {index + 1} / {photos.length}
+          </span>
         )}
-        {photos.map((url, i) => (
-          <img
-            key={url + i}
-            loading="lazy"
-            decoding="async"
-            width="600"
-            height="400"
-            src={url}
-            onLoad={(e) => {
-              e.currentTarget.dataset.loaded = "true";
-              imageStops.current.push(revealGalleryImage(e.currentTarget));
-            }}
-            alt={p.title + " photo " + (i + 1)}
-          />
-        ))}
-      </div>
-      {photos.length > 0 && (
-        <span className="agent-photo-count" aria-hidden="true">
-          {index + 1} / {photos.length}
-        </span>
-      )}
-      <div className="agent-photo-dots" aria-hidden="true">
-        {photos.map((_, i) => (
-          <span key={i} data-active={index === i} />
-        ))}
+        <span className="property-type-badge">{cardTypeLabel(p.type)}</span>
+        <div className="agent-photo-dots" aria-hidden="true">
+          {photos.map((_, i) => (
+            <span key={i} data-active={index === i} />
+          ))}
+        </div>
       </div>
       <button
         className="save-button"
