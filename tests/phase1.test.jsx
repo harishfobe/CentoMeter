@@ -26,7 +26,7 @@ const draft = {
   intent: "RENT",
   price: 42000,
   area: 1200,
-  location: [12.972, 77.638],
+  location: [11.0168, 76.9558],
 };
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -66,15 +66,15 @@ describe("Phase 1 money and charges", () => {
 });
 describe("pin-derived service city", () => {
   it("ignores a stale selected city", () => {
-    expect(normalizePostedListing({ ...draft, city: "Pune" }).city).toBe(
-      "Bengaluru",
+    expect(normalizePostedListing({ ...draft, city: "Chennai" }).city).toBe(
+      "Coimbatore",
     );
-    expect(cityForLocation([17.43, 78.39])).toBe("Hyderabad");
+    expect(cityForLocation([13.0827, 80.2707])).toBe("Chennai");
   });
   it("rejects distant, invalid and just-outside-radius pins", () => {
     for (const point of [
       [28.61, 77.21],
-      [13.6, 77.638],
+      [11.7, 76.9558],
       [null, 77],
       [91, 0],
       null,
@@ -83,14 +83,14 @@ describe("pin-derived service city", () => {
     expect(normalizePostedListing({ ...draft, location: [28.61, 77.21] })).toBe(
       null,
     );
-    expect(cityForLocation([13.4, 77.638])).toBe("Bengaluru");
+    expect(cityForLocation([11.2, 76.9558])).toBe("Coimbatore");
   });
 });
 describe("land rent display and visits", () => {
   const p = {
     ...normalizePostedListing({ ...draft, type: "Land" }),
     locality: "Central",
-    city: "Bengaluru",
+    city: "Coimbatore",
   };
   it("keeps rent per month regardless of selected land unit", () => {
     for (const unit of ["total", "cent", "sqft"])

@@ -72,19 +72,19 @@ it("finder uses geolocation and explains the fallback", async () => {
   vi.stubGlobal("navigator", {
     geolocation: {
       getCurrentPosition: (success) =>
-        success({ coords: { latitude: 17.44, longitude: 78.35 } }),
+        success({ coords: { latitude: 13.09, longitude: 80.28 } }),
     },
   });
   render(<AgentFinder Modal={Modal} onNavigate={() => {}} />);
   fireEvent.click(screen.getByText("Near me"));
-  expect(screen.getByRole("status").textContent).toContain("Using Hyderabad");
+  expect(screen.getByRole("status").textContent).toContain("Using Chennai");
   cleanup();
   vi.stubGlobal("navigator", {
     geolocation: { getCurrentPosition: (_success, error) => error() },
   });
   render(<AgentFinder Modal={Modal} onNavigate={() => {}} />);
   fireEvent.click(screen.getByText("Near me"));
-  expect(screen.getByRole("status").textContent).toContain("Using Bengaluru");
+  expect(screen.getByRole("status").textContent).toContain("Using Coimbatore");
 });
 it("finder resets defaults, hides empty suggestions, and labels segments with units", async () => {
   render(<AgentFinder Modal={Modal} onNavigate={() => {}} />);

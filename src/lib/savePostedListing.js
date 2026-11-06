@@ -1,4 +1,8 @@
-import { cityForLocation, normalizePostedListing } from "../PropertyModel";
+import {
+  cityForLocation,
+  cityListLabel,
+  normalizePostedListing,
+} from "../PropertyModel";
 import { registerExactLocation } from "./locationAccess";
 import { updateStore } from "./agentStore";
 export async function savePostedListing({
@@ -10,9 +14,7 @@ export async function savePostedListing({
 }) {
   const pinCity = cityForLocation(d.location);
   if (!pinCity)
-    throw new Error(
-      "Choose a pin within 60 km of Bengaluru, Hyderabad or Pune.",
-    );
+    throw new Error("Choose a pin within 60 km of " + cityListLabel + ".");
   const id = agent
     ? editing?.agentId === agent.id
       ? editing.id

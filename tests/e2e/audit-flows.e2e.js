@@ -59,7 +59,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   ).toBeVisible();
   await page.getByRole("button", { name: "Filters, 0 active" }).click();
   const sheet = page.getByRole("dialog", { name: "Filters", exact: true });
-  await sheet.getByRole("button", { name: "Bengaluru", exact: true }).click();
+  await sheet.getByRole("button", { name: "Coimbatore", exact: true }).click();
   await sheet.getByRole("button", { name: "English", exact: true }).click();
   await sheet.getByRole("switch", { name: "Verified only" }).check();
   await shot(page, info, "finder-filters");

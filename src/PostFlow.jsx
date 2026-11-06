@@ -20,7 +20,13 @@ import {
   OptionalListingFields,
   OptionalPropertyDetails,
 } from "./PropertyExtras";
-import { centers, money, indianMobile, cityForLocation } from "./PropertyModel";
+import {
+  centers,
+  cityListLabel,
+  money,
+  indianMobile,
+  cityForLocation,
+} from "./PropertyModel";
 import { compressPhotos } from "./JourneyUX";
 import PropertyTypes, { typeLabel } from "./PropertyTypes";
 import { LandSummary, LandFields, LandAreaFields } from "./LandDetails";
@@ -248,7 +254,7 @@ export default function PostFlow({
       return;
     }
     if (step === 2 && !cityForLocation(data.location)) {
-      setError("Choose a pin within 60 km of Bengaluru, Hyderabad or Pune.");
+      setError("Choose a pin within 60 km of " + cityListLabel + ".");
       return;
     }
     if (step === 2 && (!data.address.trim() || !data.location)) {

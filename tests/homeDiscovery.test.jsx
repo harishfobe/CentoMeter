@@ -14,7 +14,7 @@ const home = properties[0];
 const builder = { ...properties[2], seller: "Builder", mode: "BUY" };
 const defaults = {
   items: [home, builder],
-  city: "Bengaluru",
+  city: "Coimbatore",
   saved: [],
   recent: [],
   onSave: vi.fn(),
@@ -113,7 +113,7 @@ it("ends Home with local agents, without a full-list footer or invented ratings"
     {
       id: "local",
       name: "Local Expert",
-      city: "Bengaluru",
+      city: "Coimbatore",
       handle: "local.expert",
       avatar: "/agent-ananya.svg",
       specialties: [],
@@ -125,7 +125,7 @@ it("ends Home with local agents, without a full-list footer or invented ratings"
     {
       id: "other",
       name: "Other City",
-      city: "Pune",
+      city: "Chennai",
       handle: "other",
       avatar: "/agent-ananya.svg",
       specialties: [],

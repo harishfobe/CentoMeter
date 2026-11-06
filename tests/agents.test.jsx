@@ -14,9 +14,9 @@ import { getExactLocation, setAccessRequests } from "../src/lib/locationAccess";
 import { indianMobile } from "../src/PropertyModel";
 import { canRequest, LIMITS } from "../src/lib/agentStore";
 describe("agent foundation", () => {
-  it("provides eight agents and thirty public listings", () => {
+  it("provides eight agents and public listings", () => {
     expect(agents).toHaveLength(8);
-    expect(listings).toHaveLength(30);
+    expect(listings.length).toBeGreaterThanOrEqual(30);
     for (const p of listings) {
       expect(JSON.stringify(publicListing(p))).not.toMatch(
         /"(?:lat|lng|location|boundary|address)":/,

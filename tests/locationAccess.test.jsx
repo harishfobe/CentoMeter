@@ -1,7 +1,7 @@
 import React from "react";
 import { describe, it, expect } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
-import properties from "../src/properties.json";
+import properties from "../src/data/agentListings.json";
 import {
   accessStatus,
   setAccessViewer,
