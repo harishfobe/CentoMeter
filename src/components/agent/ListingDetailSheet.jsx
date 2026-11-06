@@ -76,8 +76,6 @@ export default function ListingDetailSheet({
     ["maintenance", "Monthly maintenance"],
     ["brokerage", "Brokerage"],
   ].filter(([key]) => hasValue(p[key]));
-  const [photo, setPhoto] = useState(0);
-  useEffect(() => setPhoto(0), [p.id]);
   const point = getExactLocation(p.id, viewerId);
   const req = s.requests.find(
     (r) => r.propertyId === p.id && r.viewerId === viewerId,
@@ -170,13 +168,6 @@ export default function ListingDetailSheet({
         <div
           className="agent-photo-strip"
           ref={gallery}
-          onScroll={(e) =>
-            setPhoto(
-              Math.round(
-                e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
-              ),
-            )
-          }
           tabIndex="0"
           onKeyDown={(e) => {
             if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
@@ -215,11 +206,6 @@ export default function ListingDetailSheet({
             />
           ))}
         </div>
-        <p>
-          {photos.length
-            ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
-            : "No photos available"}
-        </p>
         {p.type === "Land" ? (
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND

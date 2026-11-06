@@ -100,11 +100,6 @@ function ListingCard({
             />
           ))}
         </div>
-        {photos.length > 0 && (
-          <span className="agent-photo-count" aria-hidden="true">
-            {index + 1} / {photos.length}
-          </span>
-        )}
         <span className="property-type-badge">{cardTypeLabel(p.type)}</span>
         <div className="agent-photo-dots" aria-hidden="true">
           {photos.map((_, i) => (
