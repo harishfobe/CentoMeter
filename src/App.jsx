@@ -100,6 +100,7 @@ import { mobileQuery } from "./MapInteractions";
 import { LandSummary } from "./LandDetails";
 import {
   HouseVillaSummary,
+  houseTypeEyebrow,
   isHouseOrVilla,
 } from "./HouseVillaDetails";
 import {
@@ -1635,6 +1636,8 @@ export default function App() {
                   <p className="detail-eyebrow">
                     {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
                   </p>
+                ) : isHouseOrVilla(detail.type) ? (
+                  <p className="detail-eyebrow">{houseTypeEyebrow(detail)}</p>
                 ) : (
                   <div className="detail-labels">
                     <span className="pill">
@@ -1645,7 +1648,7 @@ export default function App() {
                     </span>
                   </div>
                 )}
-                {detail.type === "Land" ? (
+                {detail.type === "Land" || isHouseOrVilla(detail.type) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
                 <h1>{detail.title}</h1>
@@ -1666,7 +1669,7 @@ export default function App() {
                     View agent profile
                   </button>
                 )}
-                {detail.type !== "Land" ? (
+                {detail.type !== "Land" && !isHouseOrVilla(detail.type) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
                 {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (

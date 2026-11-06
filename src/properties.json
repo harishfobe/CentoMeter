@@ -70,7 +70,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -98,7 +100,16 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "description": "An independent house in Peelamedu, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Peelamedu, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p3",
@@ -166,7 +177,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -194,7 +207,16 @@
     "carParking": 2,
     "width": 40,
     "length": 66,
-    "description": "A private villa in Race Course, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Race Course, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p5",
@@ -216,7 +238,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -244,7 +268,16 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "description": "An independent house in Gandhipuram, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Gandhipuram, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p6",
@@ -312,7 +345,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -340,7 +375,16 @@
     "carParking": 2,
     "width": 41,
     "length": 67,
-    "description": "A private villa in RS Puram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in RS Puram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2747,
+    "builtUpArea": 3380,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p8",
@@ -455,7 +499,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -483,7 +529,16 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "description": "An independent house in Race Course, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Race Course, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p11",
@@ -505,7 +560,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -533,7 +590,16 @@
     "carParking": 2,
     "width": 40,
     "length": 66,
-    "description": "A private villa in Gandhipuram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Gandhipuram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p12",
@@ -555,7 +621,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -583,7 +651,16 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "description": "An independent house in Singanallur, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Singanallur, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "Coimbatore-BUY-Commercial",
@@ -790,7 +867,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -818,7 +897,16 @@
     "carParking": 2,
     "width": 41,
     "length": 67,
-    "description": "A private villa in T Nagar, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in T Nagar, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2747,
+    "builtUpArea": 3380,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p15",
@@ -933,7 +1021,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -961,7 +1051,16 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "description": "An independent house in OMR, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in OMR, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p18",
@@ -983,7 +1082,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1011,7 +1112,16 @@
     "carParking": 2,
     "width": 40,
     "length": 66,
-    "description": "A private villa in Porur, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Porur, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p19",
@@ -1033,7 +1143,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -1061,7 +1173,16 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "description": "An independent house in Adyar, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Adyar, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p20",
@@ -1129,7 +1250,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1151,7 +1274,16 @@
     "width": 41,
     "length": 67,
     "reraNo": "DEMO-RERA-0022",
-    "description": "A private villa in Anna Nagar, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Anna Nagar, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2747,
+    "builtUpArea": 3380,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p22",
@@ -1219,7 +1351,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -1247,7 +1381,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in OMR, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in OMR, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p24",
@@ -1457,7 +1600,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1485,7 +1630,16 @@
     "carParking": 2,
     "width": 40,
     "length": 66,
-    "description": "A private villa in KK Nagar, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in KK Nagar, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p26",
@@ -1507,7 +1661,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -1535,7 +1691,16 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "description": "An independent house in Anna Nagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Anna Nagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p27",
@@ -1603,7 +1768,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1625,7 +1792,16 @@
     "width": 41,
     "length": 67,
     "reraNo": "DEMO-RERA-0029",
-    "description": "A private villa in Goripalayam, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Goripalayam, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2747,
+    "builtUpArea": 3380,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p29",
@@ -1693,7 +1869,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -1721,7 +1899,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in Thirunagar, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Thirunagar, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p31",
@@ -1838,7 +2025,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -1860,7 +2049,16 @@
     "width": 35,
     "length": 58,
     "reraNo": "DEMO-RERA-0034",
-    "description": "An independent house in Tallakulam, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Tallakulam, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p34",
@@ -1931,7 +2129,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -1959,7 +2159,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in Sellur, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Sellur, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p36",
@@ -1981,7 +2190,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -2003,7 +2214,16 @@
     "width": 35,
     "length": 57,
     "reraNo": "DEMO-RERA-0037",
-    "description": "An independent house in Thirunagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Thirunagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "Madurai-BUY-Commercial",
@@ -2164,7 +2384,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2192,7 +2414,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in Cantonment, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Cantonment, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p38",
@@ -2309,7 +2540,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -2331,7 +2564,16 @@
     "width": 35,
     "length": 58,
     "reraNo": "DEMO-RERA-0041",
-    "description": "An independent house in Woraiyur, Trichy with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Woraiyur, Trichy with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p41",
@@ -2402,7 +2644,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2430,7 +2674,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in K.K. Nagar East, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in K.K. Nagar East, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p43",
@@ -2452,7 +2705,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -2474,7 +2729,16 @@
     "width": 35,
     "length": 57,
     "reraNo": "DEMO-RERA-0044",
-    "description": "An independent house in Cantonment, Trichy with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Cantonment, Trichy with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p44",
@@ -2542,7 +2806,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2570,7 +2836,16 @@
     "carParking": 2,
     "width": 40,
     "length": 66,
-    "description": "A private villa in Srirangam, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Srirangam, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p46",
@@ -2632,7 +2907,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -2660,7 +2937,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in KK Nagar, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in KK Nagar, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p48",
@@ -2870,7 +3156,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2898,7 +3186,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in SIPCOT, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in SIPCOT, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p50",
@@ -2920,7 +3217,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 1500,
@@ -2942,7 +3241,16 @@
     "width": 35,
     "length": 57,
     "reraNo": "DEMO-RERA-0051",
-    "description": "An independent house in Bagalur Road, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Bagalur Road, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p51",
@@ -3010,7 +3318,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -3038,7 +3348,16 @@
     "carParking": 2,
     "width": 40,
     "length": 66,
-    "description": "A private villa in Zuzuvadi, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Zuzuvadi, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2640,
+    "builtUpArea": 3300,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p53",
@@ -3100,7 +3419,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -3128,7 +3449,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in Avalapalli, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Avalapalli, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p55",
@@ -3239,7 +3569,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -3267,7 +3599,16 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "description": "An independent house in Mathigiri, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Mathigiri, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 2030,
+    "builtUpArea": 2520,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "p58",
@@ -3338,7 +3679,9 @@
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Lift access",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -3366,7 +3709,16 @@
     "carParking": 2,
     "width": 40,
     "length": 65,
-    "description": "A private villa in Thorapalli, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
+    "description": "A private villa in Thorapalli, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
+    "plotArea": 2600,
+    "builtUpArea": 3220,
+    "propertyAge": 3,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Within 30 days"
   },
   {
     "id": "p60",
@@ -3388,7 +3740,9 @@
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Negotiable",
+      "Borewell"
     ],
     "subtype": "Home",
     "maintenance": 2500,
@@ -3416,7 +3770,16 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "description": "An independent house in Avalapalli, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
+    "description": "An independent house in Avalapalli, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
+    "plotArea": 1995,
+    "builtUpArea": 2440,
+    "propertyAge": 5,
+    "condition": "Resale",
+    "water": "Borewell + Corporation",
+    "negotiable": true,
+    "totalFloors": 2,
+    "floorsLabel": "G+1",
+    "possessionStatus": "Ready to move"
   },
   {
     "id": "Hosur-BUY-Commercial",

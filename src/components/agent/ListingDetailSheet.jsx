@@ -1,4 +1,4 @@
-import { ArrowUpRight, Copy, FileImage, Play } from "lucide-react";
+import { ArrowUpRight, Copy, FileImage, MapPin, Play } from "lucide-react";
 import CopyButton from "../CopyButton";
 import { StickyContactBar } from "../../MobileUI";
 import useSheetDrag from "../../lib/useSheetDrag";
@@ -14,6 +14,9 @@ import { money, hasValue, emiPayment } from "../../PropertyModel";
 import { landArea, landDimensions } from "../../LandMeasurements";
 import { LandSummary } from "../../LandDetails";
 import {
+  HouseVillaSummary,
+  houseBuyPriceMeta,
+  houseTypeEyebrow,
   isHouseOrVilla,
   buildHouseVillaFacts,
 } from "../../HouseVillaDetails";
@@ -275,6 +278,8 @@ export default function ListingDetailSheet({
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
           </p>
+        ) : houseVilla ? (
+          <p className="agent-listing-eyebrow">{houseTypeEyebrow(p)}</p>
         ) : null}
         <h2>
           {money(p.price)}
@@ -306,12 +311,28 @@ export default function ListingDetailSheet({
               </p>
             ) : null}
           </>
+        ) : houseVilla && p.mode === "BUY" ? (
+          <>
+            <p>
+              {(() => {
+                const meta = houseBuyPriceMeta(p);
+                return [meta.perSqft, meta.negotiable ? "Negotiable" : null]
+                  .filter(Boolean)
+                  .join(" · ");
+              })()}
+            </p>
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+          </>
         ) : (
           <p>
             {money(p.price / p.area)} / sq ft · {p.locality}
           </p>
         )}
-        {p.type !== "Land" && p.mode === "BUY" ? (
+        {!houseVilla && p.type !== "Land" && p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -319,7 +340,7 @@ export default function ListingDetailSheet({
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
-        ) : p.type !== "Land" && rentalCosts.length > 0 ? (
+        ) : !houseVilla && p.type !== "Land" && rentalCosts.length > 0 ? (
           <dl className="agent-rental-costs" aria-label="Rental costs">
             {rentalCosts.map(([key, label]) => (
               <div key={key}>
@@ -335,6 +356,89 @@ export default function ListingDetailSheet({
             showDescription={false}
             onReport={() => setReport(true)}
           />
+        ) : houseVilla ? (
+          <>
+            <HouseVillaSummary
+              p={p}
+              onReport={() => setReport(true)}
+            />
+            <section
+              className="agent-detail-section agent-trust-card"
+              aria-label="Legal and trust details"
+            >
+              <h3>Legal &amp; trust</h3>
+              <dl className="agent-trust-details">
+                {p.reraNo && (
+                  <div>
+                    <dt>RERA number</dt>
+                    <dd>
+                      <span className="agent-rera-number">{p.reraNo}</span>
+                      <CopyButton
+                        className="text-button agent-rera-copy"
+                        value={p.reraNo}
+                        aria-label="Copy RERA number"
+                        successMessage="RERA number copied"
+                      >
+                        <Copy size={14} aria-hidden="true" /> Copy
+                      </CopyButton>
+                    </dd>
+                  </div>
+                )}
+                <div>
+                  <dt>Availability confirmed</dt>
+                  <dd>
+                    <time dateTime={p.confirmedAt}>
+                      {new Date(p.confirmedAt).toLocaleDateString("en-IN", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </time>
+                  </dd>
+                </div>
+              </dl>
+              {Date.now() - Date.parse(p.confirmedAt) > 14 * 86400000 && (
+                <p className="agent-trust-note">Not recently confirmed</p>
+              )}
+              {approvalLabels(p).length > 0 && (
+                <div className="chips agent-detail-amenities">
+                  {approvalLabels(p).map((x) => (
+                    <span className="pill" key={x}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </section>
+            {p.highlights.length > 0 && (
+              <section
+                className="agent-detail-section"
+                aria-label="Listing highlights"
+              >
+                <h3>Highlights</h3>
+                <ul className="agent-detail-highlights">
+                  {p.highlights.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              </section>
+            )}
+            {p.amenities.length > 0 && (
+              <section
+                className="agent-detail-section"
+                aria-label="Listing amenities"
+              >
+                <h3>Amenities</h3>
+                <div className="chips agent-detail-amenities">
+                  {p.amenities.map((x) => (
+                    <span className="pill" key={x}>
+                      {x}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
+          </>
         ) : (
           <>
             <h3>Property details</h3>
@@ -475,6 +579,15 @@ export default function ListingDetailSheet({
             )}
           </div>
         )}
+        {houseVilla && p.mode === "BUY" ? (
+          <div className="agent-land-emi agent-house-emi">
+            <button className="secondary" onClick={() => setEmi((v) => !v)}>
+              From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
+              <small>20% down payment · 9% annual interest · 20 years</small>
+            </button>
+            {emi && <EmiCalculator p={p} />}
+          </div>
+        ) : null}
         <section className={"location-gate " + (point ? "is-unlocked" : "")}>
           <h3>{point ? "🔓 Location unlocked" : "🔒 Location on request"}</h3>
           <p role="status">
