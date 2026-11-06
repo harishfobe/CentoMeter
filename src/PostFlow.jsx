@@ -39,10 +39,30 @@ import {
   LandAreaFields,
   PlotLandAreaFields,
 } from "./LandDetails";
+import { HouseVillaSummary } from "./HouseVillaDetails";
+import {
+  CommercialFacilities,
+  CommercialHighlights,
+  CommercialIncomeBadge,
+  CommercialSummary,
+  usesCommercialDetailLayout,
+} from "./CommercialDetails";
 import { facingDirections, supportsFacing, readLocal } from "./Discovery";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
-import { isIndependentHouse, isVilla } from "./propertyTypeIds";
+import {
+  isApartment,
+  isIndependentHouse,
+  isVilla,
+} from "./propertyTypeIds";
+import {
+  COMMERCIAL_FACILITIES,
+  COMMERCIAL_SUBTYPES,
+  CONDITION_OPTIONS,
+  FURNISHING_OPTIONS,
+  POSSESSION_OPTIONS,
+  ROAD_ACCESS_OPTIONS,
+} from "./listingFit";
 export default function PostFlow({
   onExit,
   onComplete,
@@ -174,6 +194,24 @@ export default function PostFlow({
           (f) => !VILLA_AMENITIES.includes(f),
         );
       }
+      if (type !== "Commercial" && type !== d.type) {
+        next.shopCount = "";
+        next.monthlyRent = "";
+        next.floorsLabel = "";
+        next.roadAccess = "";
+        next.powerBackup = "";
+        next.waterSupply = "";
+        next.facilities = [];
+        if (type !== d.type) {
+          next.features = (next.features || []).filter(
+            (f) => !COMMERCIAL_FACILITIES.includes(f),
+          );
+        }
+      }
+      if (type === "Commercial" && type !== d.type) {
+        next.subtype = next.subtype || "Building";
+        next.beds = "";
+      }
       return next;
     });
     setError("");
@@ -203,16 +241,34 @@ export default function PostFlow({
               ? "A gated villa at Lakeside Enclave"
               : d.type === "Independent House"
                 ? "An independent house on Anna Nagar"
-                : "A sunlit home at Parkside",
-      price: d.intent === "RENT" ? "12000" : "7200000",
+                : d.type === "Commercial"
+                  ? "Income-generating Commercial Building"
+                  : "A sunlit home at Parkside",
+      price:
+        d.intent === "RENT"
+          ? "12000"
+          : d.type === "Commercial"
+            ? "28000000"
+            : "7200000",
       area:
         d.type === "PG"
           ? "180"
           : d.type === "Independent House" || d.type === "Villa"
             ? "1800"
-            : "1200",
+            : d.type === "Commercial"
+              ? "4000"
+              : "1200",
       builtUpArea:
-        d.type === "Independent House" || d.type === "Villa" ? "1800" : "",
+        d.type === "Independent House" ||
+        d.type === "Villa" ||
+        d.type === "Apartment" ||
+        d.type === "Commercial"
+          ? d.type === "Commercial"
+            ? "4000"
+            : d.type === "Apartment"
+              ? "1200"
+              : "1800"
+          : "",
       plotArea: d.type === "Independent House" ? "2400" : d.plotArea,
       water: d.type === "Independent House" ? "Siruvani" : d.water,
       roadWidth: d.type === "Independent House" ? "30" : d.roadWidth,
@@ -227,10 +283,57 @@ export default function PostFlow({
             ? "Gated community villa with shared amenities and 24/7 security."
             : d.type === "Independent House"
               ? "Standalone house on a private plot with road access."
-              : "A bright property close to everyday conveniences.",
+              : d.type === "Commercial"
+                ? "Income-generating commercial building with leased shops on a main road."
+                : "A bright property close to everyday conveniences.",
       photos: d.type === "Land" ? ["/land.jpg"] : ["/apartment.jpg"],
       location: centers[city],
       landType: d.type === "Land" ? "Residential" : d.landType,
+      subtype:
+        d.type === "Commercial"
+          ? "Building"
+          : d.type === "Land"
+            ? d.landType || "Residential"
+            : d.subtype,
+      shopCount: d.type === "Commercial" ? "6" : d.shopCount,
+      monthlyRent: d.type === "Commercial" ? "165000" : d.monthlyRent,
+      floorsLabel: d.type === "Commercial" ? "G+2" : d.floorsLabel,
+      totalFloors:
+        d.type === "Commercial"
+          ? "3"
+          : d.type === "Apartment"
+            ? "12"
+            : d.totalFloors,
+      floor: d.type === "Apartment" ? "5" : d.floor,
+      carpetArea:
+        d.type === "Apartment"
+          ? "960"
+          : d.type === "Independent House" || d.type === "Villa"
+            ? "1500"
+            : d.carpetArea,
+      balconies: d.type === "Apartment" ? "1" : d.balconies,
+      carParking:
+        d.type === "Commercial"
+          ? "Available"
+          : d.type === "Apartment" ||
+              d.type === "Independent House" ||
+              d.type === "Villa"
+            ? "1"
+            : d.carParking,
+      furnishing:
+        d.type === "Land" ? d.furnishing : "Semi-furnished",
+      condition:
+        d.type === "Land" ? d.condition : "Resale",
+      possessionStatus:
+        d.type === "Land" ? d.possessionStatus : "Ready to move",
+      ownershipType:
+        d.type === "Land" ? d.ownershipType : "Freehold",
+      negotiable: true,
+      roadAccess: d.type === "Commercial" ? "Main road" : d.roadAccess,
+      powerBackup: d.type === "Commercial" ? "Available" : d.powerBackup,
+      waterSupply: d.type === "Commercial" ? "Available" : d.waterSupply,
+      facilities:
+        d.type === "Commercial" ? [...COMMERCIAL_FACILITIES] : d.facilities,
       occupancy: "Private room",
       meals: "Not included",
       bathroom: "Attached",
@@ -239,9 +342,16 @@ export default function PostFlow({
       features:
         d.type === "Villa"
           ? ["Clubhouse", "Security", "Pool", "Power Backup"]
-          : ["Parking"],
+          : d.type === "Commercial"
+            ? [...COMMERCIAL_FACILITIES]
+            : ["Parking"],
       deposit: d.intent === "RENT" ? "24000" : "",
-      maintenance: d.intent === "RENT" ? "1000" : "",
+      maintenance:
+        d.intent === "RENT"
+          ? "1000"
+          : d.type === "Apartment"
+            ? "2500"
+            : d.maintenance || "",
     }));
     for (const key of ["title", "price", "address", "description"])
       dirty.current.add(key);
@@ -504,7 +614,10 @@ export default function PostFlow({
                   <LandAreaFields data={data} set={set} />
                 ) : (
                   <label>
-                    {isIndependentHouse(data.type) || isVilla(data.type)
+                    {isIndependentHouse(data.type) ||
+                    isVilla(data.type) ||
+                    isApartment(data.type) ||
+                    data.type === "Commercial"
                       ? "Built-up area (sq ft)"
                       : "Area (sq ft)"}
                     <input
@@ -516,7 +629,9 @@ export default function PostFlow({
                         const value = e.target.value;
                         if (
                           isIndependentHouse(data.type) ||
-                          isVilla(data.type)
+                          isVilla(data.type) ||
+                          isApartment(data.type) ||
+                          data.type === "Commercial"
                         ) {
                           dirty.current.add("area");
                           dirty.current.add("builtUpArea");
@@ -534,6 +649,176 @@ export default function PostFlow({
                   </label>
                 )}
               </div>
+              {data.type === "Commercial" && (
+                <>
+                  <div className="form-columns">
+                    <label>
+                      Space type
+                      <select
+                        value={data.subtype || "Building"}
+                        onChange={(e) => set("subtype", e.target.value)}
+                      >
+                        {COMMERCIAL_SUBTYPES.map((subtype) => (
+                          <option key={subtype}>{subtype}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Floors
+                      <input
+                        maxLength={12}
+                        placeholder="e.g. G+2"
+                        value={data.floorsLabel || ""}
+                        onChange={(e) => set("floorsLabel", e.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Number of shops
+                      <input
+                        type="number"
+                        min="0"
+                        max="200"
+                        placeholder="e.g. 6"
+                        value={data.shopCount ?? ""}
+                        onChange={(e) => set("shopCount", e.target.value)}
+                      />
+                    </label>
+                    {data.intent === "SELL" && (
+                      <label>
+                        Monthly rental income (₹)
+                        <input
+                          type="number"
+                          min="0"
+                          placeholder="e.g. 165000"
+                          value={data.monthlyRent ?? ""}
+                          onChange={(e) => set("monthlyRent", e.target.value)}
+                        />
+                      </label>
+                    )}
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Car parking
+                      <select
+                        value={data.carParking || ""}
+                        onChange={(e) => set("carParking", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option value="Available">Available</option>
+                        <option value="Not available">Not available</option>
+                      </select>
+                    </label>
+                    <label>
+                      Road access
+                      <select
+                        value={data.roadAccess || ""}
+                        onChange={(e) => set("roadAccess", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        {ROAD_ACCESS_OPTIONS.map((option) => (
+                          <option key={option}>{option}</option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Power backup
+                      <select
+                        value={data.powerBackup || ""}
+                        onChange={(e) => set("powerBackup", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option>Available</option>
+                        <option>Not available</option>
+                      </select>
+                    </label>
+                    <label>
+                      Water supply
+                      <select
+                        value={data.waterSupply || ""}
+                        onChange={(e) => set("waterSupply", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option>Available</option>
+                        <option>Not available</option>
+                      </select>
+                    </label>
+                  </div>
+                </>
+              )}
+              {isApartment(data.type) && (
+                <>
+                  <div className="form-columns">
+                    <label>
+                      Carpet area (sq ft)
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="Enter carpet area"
+                        value={data.carpetArea ?? ""}
+                        onChange={(e) => set("carpetArea", e.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Balconies
+                      <input
+                        type="number"
+                        min="0"
+                        max="20"
+                        placeholder="e.g. 1"
+                        value={data.balconies ?? ""}
+                        onChange={(e) => set("balconies", e.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Floor
+                      <input
+                        placeholder="e.g. 5"
+                        value={data.floor ?? ""}
+                        onChange={(e) => set("floor", e.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Total floors
+                      <input
+                        type="number"
+                        min="1"
+                        placeholder="e.g. 12"
+                        value={data.totalFloors ?? ""}
+                        onChange={(e) => set("totalFloors", e.target.value)}
+                      />
+                    </label>
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Car parking
+                      <input
+                        type="number"
+                        min="0"
+                        max="20"
+                        placeholder="Number of cars"
+                        value={data.carParking ?? ""}
+                        onChange={(e) => set("carParking", e.target.value)}
+                      />
+                    </label>
+                    <label>
+                      Monthly maintenance (₹)
+                      <input
+                        type="number"
+                        min="0"
+                        placeholder="e.g. 2500"
+                        value={data.maintenance ?? ""}
+                        onChange={(e) => set("maintenance", e.target.value)}
+                      />
+                    </label>
+                  </div>
+                </>
+              )}
               {isIndependentHouse(data.type) && (
                 <>
                   <PlotLandAreaFields data={data} set={set} />
@@ -686,15 +971,17 @@ export default function PostFlow({
                       onChange={(e) => set("deposit", e.target.value)}
                     />
                   </label>
-                  <label>
-                    Monthly maintenance (₹)
-                    <input
-                      type="number"
-                      min="0"
-                      value={data.maintenance ?? ""}
-                      onChange={(e) => set("maintenance", e.target.value)}
-                    />
-                  </label>
+                  {!isApartment(data.type) && (
+                    <label>
+                      Monthly maintenance (₹)
+                      <input
+                        type="number"
+                        min="0"
+                        value={data.maintenance ?? ""}
+                        onChange={(e) => set("maintenance", e.target.value)}
+                      />
+                    </label>
+                  )}
                 </div>
               )}
               {data.type === "PG" && (
@@ -736,7 +1023,48 @@ export default function PostFlow({
                   />
                 </label>
               )}
-              {!["Land", "Villa", "Independent House"].includes(data.type) && (
+              {data.type === "Commercial" ? (
+                <fieldset className="land-highlight-options">
+                  <legend>Facilities</legend>
+                  <div className="chips">
+                    {COMMERCIAL_FACILITIES.map((feature) => {
+                      const selected = (
+                        data.facilities?.length
+                          ? data.facilities
+                          : data.features || []
+                      ).includes(feature);
+                      return (
+                        <button
+                          type="button"
+                          key={feature}
+                          className={"chip " + (selected ? "active" : "")}
+                          aria-pressed={selected}
+                          onClick={() => {
+                            const current = data.facilities?.length
+                              ? data.facilities
+                              : data.features || [];
+                            const next = selected
+                              ? current.filter((x) => x !== feature)
+                              : [...current, feature];
+                            dirty.current.add("facilities");
+                            dirty.current.add("features");
+                            setData((d) => ({
+                              ...d,
+                              facilities: next,
+                              features: next,
+                            }));
+                            setError("");
+                          }}
+                        >
+                          {feature}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+              ) : !["Land", "Villa", "Independent House"].includes(
+                  data.type,
+                ) ? (
                 <fieldset className="land-highlight-options">
                   <legend>Amenities</legend>
                   <div className="chips">
@@ -772,7 +1100,7 @@ export default function PostFlow({
                     ))}
                   </div>
                 </fieldset>
-              )}
+              ) : null}
               {!["Land", "Commercial"].includes(data.type) && (
                 <label>
                   Bedrooms
@@ -804,14 +1132,109 @@ export default function PostFlow({
                   )}
                 </label>
               )}
+              {!["Land", "PG"].includes(data.type) && (
+                <div className="form-columns">
+                  <label>
+                    Furnishing
+                    <select
+                      value={data.furnishing || ""}
+                      onChange={(e) => set("furnishing", e.target.value)}
+                    >
+                      <option value="">Select</option>
+                      {FURNISHING_OPTIONS.map((option) => (
+                        <option key={option}>{option}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Condition
+                    <select
+                      value={data.condition || ""}
+                      onChange={(e) => set("condition", e.target.value)}
+                    >
+                      <option value="">Select</option>
+                      {CONDITION_OPTIONS.map((option) => (
+                        <option key={option}>{option}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+              )}
+              {!["Land", "PG"].includes(data.type) && (
+                <div className="form-columns">
+                  <label>
+                    Possession
+                    <select
+                      value={data.possessionStatus || ""}
+                      onChange={(e) => set("possessionStatus", e.target.value)}
+                    >
+                      <option value="">Select</option>
+                      {POSSESSION_OPTIONS.map((option) => (
+                        <option key={option}>{option}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    Ownership
+                    <select
+                      value={data.ownershipType || ""}
+                      onChange={(e) => set("ownershipType", e.target.value)}
+                    >
+                      <option value="">Select</option>
+                      <option>Freehold</option>
+                      <option>Leasehold</option>
+                    </select>
+                  </label>
+                </div>
+              )}
+              {data.intent === "SELL" && data.type !== "Land" && (
+                <label className="checkbox-row">
+                  <input
+                    type="checkbox"
+                    checked={
+                      data.negotiable === true ||
+                      /^yes$/i.test(String(data.negotiable || ""))
+                    }
+                    onChange={(e) => set("negotiable", e.target.checked)}
+                  />
+                  Price negotiable
+                </label>
+              )}
               {!isVilla(data.type) && (
-                <OptionalListingFields data={data} set={set} />
+                <OptionalListingFields
+                  data={data}
+                  set={set}
+                  hideFields={
+                    isApartment(data.type)
+                      ? [
+                          "possessionStatus",
+                          "totalFloors",
+                          "parking",
+                          "ownershipType",
+                        ]
+                      : data.type === "Commercial"
+                        ? [
+                            "possessionStatus",
+                            "totalFloors",
+                            "parking",
+                            "ownershipType",
+                          ]
+                        : isIndependentHouse(data.type)
+                          ? ["possessionStatus", "ownershipType", "parking"]
+                          : []
+                  }
+                />
               )}
               {isVilla(data.type) && (
                 <OptionalListingFields
                   data={data}
                   set={set}
-                  hideFields={["reraNumber"]}
+                  hideFields={[
+                    "reraNumber",
+                    "possessionStatus",
+                    "ownershipType",
+                    "parking",
+                  ]}
                 />
               )}
               <label>
@@ -1097,6 +1520,42 @@ export default function PostFlow({
               </p>
               {data.type === "Land" ? (
                 <LandSummary p={data} showDescription={false} />
+              ) : usesCommercialDetailLayout({
+                  ...data,
+                  mode: data.intent === "RENT" ? "RENT" : "BUY",
+                }) ? (
+                <>
+                  <CommercialIncomeBadge
+                    p={{
+                      ...data,
+                      mode: "BUY",
+                    }}
+                  />
+                  <CommercialSummary
+                    p={{
+                      ...data,
+                      mode: "BUY",
+                      facilities: data.facilities?.length
+                        ? data.facilities
+                        : data.features,
+                    }}
+                  />
+                  <CommercialHighlights
+                    p={{
+                      ...data,
+                      mode: "BUY",
+                    }}
+                  />
+                </>
+              ) : ["Apartment", "Independent House", "Villa"].includes(
+                  data.type,
+                ) ? (
+                <HouseVillaSummary
+                  p={{
+                    ...data,
+                    mode: data.intent === "RENT" ? "RENT" : "BUY",
+                  }}
+                />
               ) : null}
               {data.description?.trim() ? (
                 <section
@@ -1107,7 +1566,26 @@ export default function PostFlow({
                   <p className="description">{data.description.trim()}</p>
                 </section>
               ) : null}
-              {data.type !== "Land" && supportsFacing(data.type) && (
+              {usesCommercialDetailLayout({
+                ...data,
+                mode: data.intent === "RENT" ? "RENT" : "BUY",
+              }) ? (
+                <CommercialFacilities
+                  p={{
+                    ...data,
+                    mode: "BUY",
+                    facilities: data.facilities?.length
+                      ? data.facilities
+                      : data.features,
+                  }}
+                />
+              ) : null}
+              {data.type !== "Land" &&
+                !usesCommercialDetailLayout({
+                  ...data,
+                  mode: data.intent === "RENT" ? "RENT" : "BUY",
+                }) &&
+                supportsFacing(data.type) && (
                 <p>
                   <strong>Facing direction:</strong>{" "}
                   {data.facing || "Not specified"}

@@ -80,6 +80,28 @@ export function normalizePostedListing(d, profileName = "Property owner") {
   const projectName = text(d.projectName, text(d.communityName, ""));
   const plotArea = optionalNumber(d.plotArea);
   const builtUpArea = optionalNumber(d.builtUpArea);
+  const carpetArea = optionalNumber(d.carpetArea);
+  const balconies = optionalNumber(d.balconies);
+  const carParking = optionalNumber(d.carParking);
+  const shopCount = optionalNumber(d.shopCount ?? d.shops);
+  const monthlyRent = optionalNumber(d.monthlyRent ?? d.rentalIncome);
+  const totalFloors = optionalNumber(d.totalFloors);
+  const negotiable =
+    d.negotiable === true ||
+    d.negotiable === false ||
+    /^yes$/i.test(String(d.negotiable || "").trim()) ||
+    /^no$/i.test(String(d.negotiable || "").trim())
+      ? d.negotiable === true || /^yes$/i.test(String(d.negotiable || "").trim())
+      : undefined;
+  const possessionStatus = text(
+    d.possessionStatus,
+    text(d.available, type === "Land" ? "Ready now" : "Ready to move"),
+  );
+  const facilities = Array.isArray(d.facilities)
+    ? d.facilities.filter((x) => typeof x === "string")
+    : type === "Commercial" && Array.isArray(d.features)
+      ? d.features.filter((x) => typeof x === "string")
+      : undefined;
   return {
     ...d,
     id: String(d.id),
@@ -102,10 +124,12 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     features: Array.isArray(d.features)
       ? d.features.filter((x) => typeof x === "string")
       : [],
+    ...(facilities ? { facilities } : {}),
     photos: Array.isArray(d.photos)
       ? d.photos.filter((x) => typeof x === "string")
       : [],
     floor: text(d.floor),
+    floorsLabel: text(d.floorsLabel, ""),
     pets: text(d.pets),
     occupancy: text(d.occupancy),
     meals: text(d.meals),
@@ -114,11 +138,26 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     subtype: text(d.landType, text(d.subtype)),
     facing: text(d.facing),
     water: text(d.water, ""),
+    waterSupply: text(d.waterSupply, text(d.water, "")),
     roadWidth: optionalNumber(d.roadWidth),
+    roadAccess: text(d.roadAccess, ""),
+    powerBackup: text(d.powerBackup, ""),
     plotArea,
     builtUpArea:
       builtUpArea ??
-      (["Independent House", "Villa"].includes(type) ? Number(d.area) : null),
+      (["Independent House", "Villa", "Apartment", "Commercial"].includes(type)
+        ? Number(d.area)
+        : null),
+    carpetArea: carpetArea ?? undefined,
+    balconies: balconies ?? undefined,
+    carParking: carParking ?? undefined,
+    shopCount: shopCount ?? undefined,
+    monthlyRent: monthlyRent ?? undefined,
+    totalFloors: totalFloors ?? undefined,
+    condition: text(d.condition, ""),
+    ownershipType: text(d.ownershipType, ""),
+    possessionStatus,
+    negotiable,
     projectName: projectName || undefined,
     communityName: projectName || undefined,
     reraNumber: rera || undefined,
@@ -129,8 +168,18 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     contactName: text(d.contactName, profileName),
     tag: "Just posted",
     furnishing: text(d.furnishing, "Unfurnished"),
-    available: text(d.available, "Ready now"),
+    available: text(
+      d.available,
+      readyAvailableFromPossession(possessionStatus),
+    ),
   };
+}
+
+function readyAvailableFromPossession(possessionStatus) {
+  if (/within\s*30|under\s*construction/i.test(possessionStatus))
+    return "Within 30 days";
+  if (/ready/i.test(possessionStatus)) return "Ready now";
+  return "Ready now";
 }
 
 const postedTime = (p) => {

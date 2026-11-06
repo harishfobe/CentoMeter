@@ -2,6 +2,7 @@ import agents from "../data/agents.json";
 import listings from "../data/agentListings.json";
 import { sortProperties } from "../PropertyModel";
 import { landPrice } from "../JourneyUX";
+import { matchesPossessionFilter } from "../listingFit";
 export { agents, listings };
 // Edited/custom listings replace their sample record instead of creating duplicate cards.
 export const mergeListings = (base, custom = []) => [
@@ -83,7 +84,7 @@ export function filterListings(items, f, now = Date.now()) {
       (!f.beds ||
         (f.beds === "4+" ? p.beds >= 4 : Number(p.beds) === Number(f.beds))) &&
       (!f.furnishing || p.furnishing === f.furnishing) &&
-      (!f.possession || p.possessionStatus === f.possession) &&
+      matchesPossessionFilter(p, f.possession || "Any") &&
       (!f.min || landPrice(p, f.unit).amount >= f.min) &&
       (!f.max || landPrice(p, f.unit).amount <= f.max),
   );
