@@ -3343,12 +3343,150 @@ textarea {
   color: var(--muted);
   font-size: 12px;
 }
+.detail-eyebrow {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.land-price-block {
+  margin: 0 0 14px;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.land-property-price {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+.land-property-price strong {
+  display: block;
+}
+.land-property-price > span {
+  display: block;
+  line-height: 1.45;
+}
+.land-price-equivalent {
+  color: var(--placeholder, #a1a1aa) !important;
+  font-size: 12px !important;
+}
 .land-summary {
   margin: 22px 0;
 }
-.land-summary h2 {
+.land-summary-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px 0 12px;
+}
+.land-summary h2,
+.land-summary-heading h2 {
   font-size: 20px;
-  margin: 0 0 12px;
+  margin: 0;
+}
+.land-snapshot {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.land-snapshot > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  min-height: 64px;
+  padding: 10px 6px;
+  border-radius: 12px;
+  background: var(--canvas);
+  text-align: center;
+}
+.land-snapshot dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.land-snapshot dt {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+.land-approval-banner {
+  margin: 0 0 4px;
+}
+.land-approval-banner-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--brand) 28%, var(--line));
+  border-radius: 12px;
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+}
+.land-approval-banner-item + .land-approval-banner-item {
+  margin-top: 8px;
+}
+.land-approval-banner-item svg {
+  margin-top: 1px;
+  color: var(--brand);
+}
+.land-approval-banner-item strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.35;
+  color: var(--brand-deep);
+}
+.land-approval-banner-item p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.land-details-list {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  overflow: hidden;
+}
+.land-details-list > div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 16px;
+}
+.land-details-list > div + div {
+  border-top: 1px solid var(--line);
+}
+.land-details-list dt {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.land-details-list dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 .land-facts {
   display: grid;
@@ -3411,8 +3549,8 @@ textarea {
   margin-top: 18px;
 }
 .land-highlights h3 {
-  font-size: 14px;
-  margin: 0 0 9px;
+  font-size: 18px;
+  margin: 0 0 10px;
 }
 .land-highlights ul {
   display: flex;
@@ -3424,22 +3562,18 @@ textarea {
 }
 .land-highlights li {
   display: inline-flex;
-  align-items: flex-start;
-  gap: 6px;
+  align-items: center;
   max-width: 100%;
-  padding: 7px 10px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 9999px;
   background: var(--canvas);
-  color: var(--navy);
-  font-size: 12px;
-  line-height: 1.5;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
   overflow-wrap: anywhere;
   white-space: pre-line;
-}
-.land-highlights li svg {
-  color: var(--brand-active);
-  margin-top: 2px;
 }
 .land-highlights li span {
   min-width: 0;
@@ -3485,18 +3619,38 @@ textarea {
   width: 100%;
 }
 @media (max-width: 480px) {
+  .land-snapshot {
+    gap: 6px;
+  }
+  .land-snapshot > div {
+    min-height: 58px;
+    padding: 8px 4px;
+  }
+  .land-snapshot dd {
+    font-size: 12px;
+  }
+  .land-snapshot dt {
+    font-size: 10px;
+  }
+  .land-details-list > div {
+    padding: 12px 14px;
+  }
   .land-facts > div {
     padding: 12px;
   }
   .land-facts dd {
     font-size: 13px;
   }
-  .land-summary h2 {
+  .land-summary h2,
+  .land-summary-heading h2 {
     font-size: 18px;
   }
+  .land-highlights h3 {
+    font-size: 16px;
+  }
   .land-highlights li {
-    font-size: 11px;
-    padding: 6px 8px;
+    font-size: 12px;
+    padding: 7px 10px;
   }
 }
 @media (max-width: 600px) {

@@ -675,11 +675,37 @@
     font-size: var(--type-body);
     line-height: 1.7;
   }
-  .land-summary {
-    margin: 0 0 20px;
+  .detail-eyebrow {
+    margin: 0 0 8px;
+    font-size: 10px;
   }
-  .detail-page .land-summary h2 {
+  .detail-page .land-price-block {
     margin: 0 0 12px;
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .land-summary {
+    margin: 16px 0 20px;
+  }
+  .detail-page .land-summary h2,
+  .detail-page .land-summary-heading h2 {
+    margin: 0;
+  }
+  .land-snapshot {
+    gap: 6px;
+  }
+  .land-snapshot dd {
+    font-size: var(--type-label);
+  }
+  .land-snapshot dt {
+    font-size: var(--type-caption);
+  }
+  .land-details-list > div {
+    padding: 12px 14px;
+  }
+  .land-details-list dt,
+  .land-details-list dd {
+    font-size: var(--type-label);
   }
   .land-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -704,16 +730,16 @@
     margin-top: 16px;
   }
   .land-highlights h3 {
-    font-size: var(--type-body);
-    margin-bottom: 8px;
+    font-size: var(--type-heading, 1.125rem);
+    margin-bottom: 10px;
   }
   .land-highlights ul {
     gap: 7px;
   }
   .land-highlights li {
     font-size: var(--type-label);
-    line-height: 1.5;
-    padding: 7px 9px;
+    line-height: 1.4;
+    padding: 7px 11px;
   }
   .listing-trust {
     padding: 14px 0;

@@ -1083,6 +1083,15 @@
   font-size: 18px;
   font-weight: 700;
 }
+.agent-detail .land-snapshot {
+  margin-bottom: 12px;
+}
+.agent-detail .agent-land-price-equivalent {
+  margin: 2px 0 0;
+  color: var(--placeholder, #a1a1aa);
+  font-size: 12px;
+  line-height: 1.45;
+}
 .agent-detail .land-highlights {
   margin-top: 18px;
 }

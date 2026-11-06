@@ -146,7 +146,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Ananya Rao",
@@ -182,7 +186,15 @@
     ],
     "description": "Sample land in Saibaba Colony, Coimbatore. Illustrative listing for demos.",
     "sample": true,
-    "reraNo": "DEMO-RERA-0003"
+    "reraNo": "DEMO-RERA-0003",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "al4",
@@ -449,7 +461,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Residential",
     "contactName": "Rahul Reddy",
@@ -485,7 +501,15 @@
     ],
     "description": "Sample land in Velachery, Chennai. Illustrative listing for demos.",
     "sample": true,
-    "reraNo": "DEMO-RERA-0006"
+    "reraNo": "DEMO-RERA-0006",
+    "width": 35,
+    "length": 73,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "al9",
@@ -1699,7 +1723,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Residential",
     "contactName": "Kabir Shah",
@@ -1735,7 +1763,15 @@
     ],
     "description": "Sample land in Singanallur, Coimbatore. Illustrative listing for demos.",
     "sample": true,
-    "reraNo": "DEMO-RERA-0018"
+    "reraNo": "DEMO-RERA-0018",
+    "width": 35,
+    "length": 73,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "al29",

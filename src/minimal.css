@@ -533,10 +533,48 @@ textarea:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
+  margin: 20px 0 12px;
 }
 .land-summary-heading h2 {
   margin: 0 !important;
+}
+.land-snapshot {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0 0 14px;
+}
+.land-snapshot > div {
+  background: var(--canvas);
+  border-radius: 12px;
+}
+.land-snapshot dd {
+  color: var(--ink);
+  font-weight: 750;
+}
+.land-snapshot dt {
+  color: var(--muted);
+  font-weight: 500;
+}
+.land-approval-banner-item {
+  border-color: color-mix(in srgb, var(--brand) 28%, var(--line));
+  background: var(--brand-soft);
+}
+.land-approval-banner-item strong {
+  color: var(--brand-deep);
+}
+.land-details-list {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+.land-details-list dt {
+  color: var(--muted);
+  font-weight: 500;
+}
+.land-details-list dd {
+  color: var(--ink);
+  font-weight: 700;
 }
 .land-facts {
   display: grid;
@@ -591,10 +629,7 @@ textarea:focus-visible {
   border-radius: 9999px;
   background: var(--canvas);
   color: var(--ink);
-  font-weight: 400;
-}
-.land-highlights li svg {
-  color: var(--ink);
+  font-weight: 500;
 }
 .approval-badges {
   display: flex;
