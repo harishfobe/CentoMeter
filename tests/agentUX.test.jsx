@@ -55,7 +55,14 @@ it("renders price, area, price per sq ft, possession and status side by side", (
 it("handles zero photos without a counter and presents labelled detail facts", () => {
   render(
     <ListingDetailSheet
-      p={{ ...listings[0], photos: [], propertyAge: 2, roadWidth: 20 }}
+      p={{
+        ...listings[0],
+        type: "Commercial",
+        mode: "BUY",
+        photos: [],
+        propertyAge: 2,
+        roadWidth: 20,
+      }}
       agent={agents[0]}
       Modal={Modal}
       onClose={() => {}}
@@ -67,6 +74,30 @@ it("handles zero photos without a counter and presents labelled detail facts", (
   expect(screen.getByText("20 ft")).toBeTruthy();
   expect(screen.getByText(/20% down payment/)).toBeTruthy();
   expect(screen.queryByText("View photo full screen")).toBeNull();
+});
+it("buy apartment detail uses the gated-villa home layout", () => {
+  render(
+    <ListingDetailSheet
+      p={{
+        ...listings[0],
+        type: "Apartment",
+        mode: "BUY",
+        photos: [],
+        beds: 3,
+        baths: 2,
+        area: 1680,
+        facing: "North",
+        propertyAge: 2,
+      }}
+      agent={agents[0]}
+      Modal={Modal}
+      onClose={() => {}}
+    />,
+  );
+  expect(screen.getByText("FOR SALE · APARTMENT")).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Property details" })).toBeTruthy();
+  expect(screen.getByText("2 years")).toBeTruthy();
+  expect(screen.getByText(/20% down payment/)).toBeTruthy();
 });
 it("finder uses geolocation and explains the fallback", async () => {
   vi.stubGlobal("navigator", {

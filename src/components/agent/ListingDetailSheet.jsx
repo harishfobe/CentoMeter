@@ -13,7 +13,7 @@ import {
   HouseVillaSummary,
   houseBuyPriceMeta,
   houseTypeEyebrow,
-  isHouseOrVilla,
+  usesHomeDetailLayout,
   buildHouseVillaFacts,
 } from "../../HouseVillaDetails";
 import { approvalLabels, pricePerCent } from "../../PlotUI";
@@ -98,8 +98,8 @@ export default function ListingDetailSheet({
     "?l=" +
     p.id +
     "&src=share";
-  const houseVilla = isHouseOrVilla(p.type);
-  const facts = houseVilla
+  const homeDetail = usesHomeDetailLayout(p);
+  const facts = homeDetail
     ? buildHouseVillaFacts(p)
     : [
         ["Type", p.type],
@@ -224,7 +224,7 @@ export default function ListingDetailSheet({
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
           </p>
-        ) : houseVilla ? (
+        ) : homeDetail ? (
           <p className="agent-listing-eyebrow">{houseTypeEyebrow(p)}</p>
         ) : null}
         <h2>
@@ -257,7 +257,7 @@ export default function ListingDetailSheet({
               </p>
             ) : null}
           </>
-        ) : houseVilla && p.mode === "BUY" ? (
+        ) : homeDetail && p.mode === "BUY" ? (
           <>
             <p>
               {(() => {
@@ -278,7 +278,7 @@ export default function ListingDetailSheet({
             {money(p.price / p.area)} / sq ft · {p.locality}
           </p>
         )}
-        {!houseVilla && p.type !== "Land" && p.mode === "BUY" ? (
+        {!homeDetail && p.type !== "Land" && p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -286,7 +286,7 @@ export default function ListingDetailSheet({
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
-        ) : !houseVilla && p.type !== "Land" && rentalCosts.length > 0 ? (
+        ) : !homeDetail && p.type !== "Land" && rentalCosts.length > 0 ? (
           <dl className="agent-rental-costs" aria-label="Rental costs">
             {rentalCosts.map(([key, label]) => (
               <div key={key}>
@@ -302,7 +302,7 @@ export default function ListingDetailSheet({
             showDescription={false}
             onReport={() => setReport(true)}
           />
-        ) : houseVilla ? (
+        ) : homeDetail ? (
           <>
             <HouseVillaSummary
               p={p}
@@ -525,7 +525,7 @@ export default function ListingDetailSheet({
             )}
           </div>
         )}
-        {houseVilla && p.mode === "BUY" ? (
+        {homeDetail && p.mode === "BUY" ? (
           <div className="agent-land-emi agent-house-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI

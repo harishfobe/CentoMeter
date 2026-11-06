@@ -48,5 +48,8 @@ export const isIndependentHouse = (type) =>
 export const isVilla = (type) =>
   canonicalizePropertyType(type) === PROPERTY_TYPE.villa;
 
+export const isApartment = (type) =>
+  canonicalizePropertyType(type) === PROPERTY_TYPE.apartment;
+
 export const isHouseOrVillaType = (type) =>
   isIndependentHouse(type) || isVilla(type);

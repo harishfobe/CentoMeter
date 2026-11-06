@@ -101,7 +101,7 @@ import { LandSummary } from "./LandDetails";
 import {
   HouseVillaSummary,
   houseTypeEyebrow,
-  isHouseOrVilla,
+  usesHomeDetailLayout,
 } from "./HouseVillaDetails";
 import {
   priceBasis,
@@ -1636,7 +1636,7 @@ export default function App() {
                   <p className="detail-eyebrow">
                     {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
                   </p>
-                ) : isHouseOrVilla(detail.type) ? (
+                ) : usesHomeDetailLayout(detail) ? (
                   <p className="detail-eyebrow">{houseTypeEyebrow(detail)}</p>
                 ) : (
                   <div className="detail-labels">
@@ -1648,7 +1648,7 @@ export default function App() {
                     </span>
                   </div>
                 )}
-                {detail.type === "Land" || isHouseOrVilla(detail.type) ? (
+                {detail.type === "Land" || usesHomeDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
                 <h1>{detail.title}</h1>
@@ -1669,10 +1669,10 @@ export default function App() {
                     View agent profile
                   </button>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) ? (
+                {detail.type !== "Land" && !usesHomeDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (
                       <div>
@@ -1712,7 +1712,7 @@ export default function App() {
                     showDescription={false}
                     onReport={() => setModal("report")}
                   />
-                ) : isHouseOrVilla(detail.type) ? (
+                ) : usesHomeDetailLayout(detail) ? (
                   <HouseVillaSummary
                     p={detail}
                     onReport={() => setModal("report")}
@@ -1731,7 +1731,7 @@ export default function App() {
                           ? "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
                           : detail.type === "PG"
                             ? `${detail.occupancy} with ${String(detail.bathroom || "Not specified").toLowerCase()} bathroom. Meals: ${String(detail.meals || "Not specified").toLowerCase()}. Price shown${priceBasis(detail)}. AC: ${detail.ac}. Sample house rules: quiet hours 10 PM–7 AM; visitor registration required.`
-                            : isHouseOrVilla(detail.type)
+                            : usesHomeDetailLayout(detail)
                               ? "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."
                               : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
                   </p>
@@ -1749,7 +1749,7 @@ export default function App() {
                     </div>
                   </>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>
                       Listed by {detail.seller} · {detail.freshness} · Sample
@@ -1770,7 +1770,7 @@ export default function App() {
                     Preview sample floor plan
                   </button>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
                   <div className="property-facts">
                     {supportsFacing(detail.type) && hasValue(detail.facing) && (
                       <div>
@@ -1807,7 +1807,7 @@ export default function App() {
                       ))}
                   </div>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
                   <OptionalPropertyDetails p={detail} />
                 )}
                 {detail.mode === "BUY" && (

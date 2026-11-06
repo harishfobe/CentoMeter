@@ -5,7 +5,7 @@ import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
 import { pricePerCent } from "./PlotUI";
-import { houseBuyPriceMeta, isHouseOrVilla } from "./HouseVillaDetails";
+import { houseBuyPriceMeta, usesHomeDetailLayout } from "./HouseVillaDetails";
 
 function landBuyPriceMeta(p) {
   const pool = [
@@ -55,7 +55,7 @@ export function MobilePropertyPrice({ property: p, money }) {
       </div>
     );
   }
-  if (isHouseOrVilla(p.type) && p.mode === "BUY") {
+  if (usesHomeDetailLayout(p) && p.mode === "BUY") {
     const { perSqft, negotiable } = houseBuyPriceMeta(p);
     return (
       <div className="mobile-price-block land-price-block">

@@ -4,6 +4,7 @@ import { hasValue } from "./PropertyModel";
 import { statusLabel } from "./lib/agents";
 import {
   WATER_SOURCES,
+  isApartment,
   isHouseOrVillaType,
   isIndependentHouse,
   isVilla,
@@ -11,8 +12,16 @@ import {
 
 export const isHouseOrVilla = (type) => isHouseOrVillaType(type);
 
+/** Owner/agent detail layout shared by house, villa, and BUY apartments. */
+export function usesHomeDetailLayout(p) {
+  if (!p) return false;
+  if (isHouseOrVilla(p.type)) return true;
+  return isApartment(p.type) && p.mode === "BUY";
+}
+
 export function houseTypeEyebrow(p) {
   const mode = p.mode === "RENT" ? "FOR RENT" : "FOR SALE";
+  if (isApartment(p.type)) return `${mode} · APARTMENT`;
   const kind = isVilla(p.type) ? "GATED VILLA" : "INDEPENDENT HOUSE";
   return `${mode} · ${kind}`;
 }
@@ -280,7 +289,14 @@ export function HouseVillaSummary({
       value: hasValue(p.baths) ? String(p.baths) : null,
     },
     { label: "Facing", value: p.facing || null },
-    { label: "Floors", value: houseFloorsLabel(p) },
+    {
+      label: isApartment(p.type) ? "Floor" : "Floors",
+      value: isApartment(p.type)
+        ? hasValue(p.floor)
+          ? String(p.floor)
+          : houseFloorsLabel(p)
+        : houseFloorsLabel(p),
+    },
     { label: "Property age", value: houseAgeLabel(p) },
     { label: "Condition", value: p.condition || null },
     { label: "Car parking", value: carParkingLabel(p) },
