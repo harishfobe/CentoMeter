@@ -223,13 +223,13 @@ function AgentFinder({ onNavigate, Modal }) {
         <h1>Find your local expert</h1>
       </div>
       <div className="finder-sticky">
-        <div className="finder-search-row">
+        <div className="search-controls finder-search-row">
           <div
-            className="finder-search"
+            className="search-box finder-search"
             role="search"
             aria-label="Find an agent"
           >
-            <Search size={19} />
+            <Search size={20} aria-hidden="true" />
             <input
               aria-label="Name, area or language"
               role="combobox"
@@ -279,7 +279,12 @@ function AgentFinder({ onNavigate, Modal }) {
               }}
             />
             {input && (
-              <button aria-label="Clear search" onClick={() => choose("")}>
+              <button
+                type="button"
+                className="icon-button"
+                aria-label="Clear search"
+                onClick={() => choose("")}
+              >
                 <X size={16} />
               </button>
             )}
@@ -311,13 +316,20 @@ function AgentFinder({ onNavigate, Modal }) {
             )}
           </div>
           <button
-            className="finder-filter-trigger"
+            type="button"
+            className={
+              "filter-button finder-filter-trigger" +
+              (active.length ? " has-filter" : "")
+            }
             aria-haspopup="dialog"
             aria-label={`Filters, ${active.length} active`}
             onClick={() => setSheet("filters")}
           >
-            <SlidersHorizontal size={20} />
-            {active.length > 0 && <span>{active.length}</span>}
+            <SlidersHorizontal size={20} aria-hidden="true" />
+            <span>Filters</span>
+            {active.length > 0 && (
+              <b className="filter-count">{active.length}</b>
+            )}
           </button>
         </div>
         <div className="finder-quick">

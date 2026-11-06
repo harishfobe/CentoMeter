@@ -571,22 +571,15 @@
   z-index: 12;
   background: var(--paper);
 }
-.finder-search-row {
-  display: flex;
-  gap: 8px;
+/* Match Home search-controls chrome; keep finder-specific input/suggestions. */
+.finder-search-row.search-controls {
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 .finder-search {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  height: 48px;
-  padding: 0 12px;
-  min-width: 0;
-  flex: 1;
   position: relative;
-  color: #52525b;
+  color: var(--muted);
 }
 .finder-refined .finder-search input {
   width: 0;
@@ -595,42 +588,43 @@
   border: 0;
   background: transparent;
   padding: 0;
-  font-size: 14px;
   border-radius: 0;
   box-shadow: none;
 }
 .finder-search button,
-.finder-refined button:not(.primary):not(.chip):not(.follow-button) {
+.finder-refined
+  button:not(.primary):not(.chip):not(.follow-button):not(.filter-button) {
   background: transparent;
   color: var(--ink);
 }
-.finder-search button {
+.finder-search .icon-button {
   border: 0;
   padding: 0;
   flex-shrink: 0;
-  min-width: 32px;
 }
-.finder-filter-trigger {
-  height: 48px;
-  width: 48px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-.finder-filter-trigger span {
-  position: absolute;
-  top: -4px;
-  right: -3px;
-  background: var(--brand);
-  color: var(--ink);
-  border-radius: 999px;
-  min-width: 18px;
-  height: 18px;
-  font-size: 11px;
-  display: grid;
-  place-items: center;
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+  .finder-search-row.search-controls {
+    padding: 2px 4px 2px 10px;
+    border: 0;
+    background: var(--paper);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  }
+  .finder-search-row.search-controls .search-box {
+    height: 44px;
+    padding: 0 4px 0 6px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+  }
+  .finder-search-row.search-controls .filter-button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    border: 0;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+  }
 }
 .finder-quick {
   overflow: hidden;
@@ -982,9 +976,6 @@
   background: transparent;
   color: var(--brand);
   padding: 0 8px;
-}
-.finder-search button {
-  min-width: 44px;
 }
 .finder-sheet-reset {
   z-index: 4;
