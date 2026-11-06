@@ -114,6 +114,11 @@ function ListingCard({
         onFocus={preloadListingDetails}
         onClick={() => onOpen(p.id)}
       >
+        {p.type === "Land" ? (
+          <p className="agent-listing-eyebrow">
+            {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
+          </p>
+        ) : null}
         <div className="price">
           {money(price.amount)}
           <small>{p.mode === "RENT" ? "/mo" : price.suffix}</small>
