@@ -1,9 +1,10 @@
 import React from "react";
 import { landNumber, positive, toCents } from "./LandMeasurements";
-import { hasValue } from "./PropertyModel";
+import { hasValue, money } from "./PropertyModel";
 import { statusLabel } from "./lib/agents";
 import {
   WATER_SOURCES,
+  isApartment,
   isHouseOrVillaType,
   isIndependentHouse,
   isVilla,
@@ -11,8 +12,16 @@ import {
 
 export const isHouseOrVilla = (type) => isHouseOrVillaType(type);
 
+/** Owner/agent detail layout shared by house, villa, and BUY apartments. */
+export function usesHomeDetailLayout(p) {
+  if (!p) return false;
+  if (isHouseOrVilla(p.type)) return true;
+  return isApartment(p.type) && p.mode === "BUY";
+}
+
 export function houseTypeEyebrow(p) {
   const mode = p.mode === "RENT" ? "FOR RENT" : "FOR SALE";
+  if (isApartment(p.type)) return `${mode} · APARTMENT`;
   const kind = isVilla(p.type) ? "GATED VILLA" : "INDEPENDENT HOUSE";
   return `${mode} · ${kind}`;
 }
@@ -113,6 +122,70 @@ export function houseAgeLabel(p) {
   return `${age}${age === 1 ? " year" : " years"}`;
 }
 
+export function apartmentBalconiesLabel(p) {
+  if (hasValue(p.balconies)) {
+    const n = Number(p.balconies);
+    return Number.isFinite(n) ? String(n) : String(p.balconies).trim();
+  }
+  if (hasValue(p.balcony)) {
+    const n = Number(p.balcony);
+    return Number.isFinite(n) ? String(n) : String(p.balcony).trim();
+  }
+  const hit = featurePool(p).find((value) => /balcon/i.test(value));
+  if (!hit) return null;
+  const match = hit.match(/(\d+)/);
+  return match ? match[1] : "1";
+}
+
+/** e.g. "5 of 12" or "Ground of 8". */
+export function apartmentFloorLabel(p) {
+  const rawFloor = String(p.floor ?? "").trim();
+  const total = Number(p.totalFloors);
+  const hasTotal = Number.isFinite(total) && total > 0;
+  if (!rawFloor && !hasTotal) return null;
+  let floorText = rawFloor;
+  if (/^ground$/i.test(rawFloor)) floorText = "Ground";
+  else if (/^\d+\+$/.test(rawFloor)) floorText = rawFloor.replace(/\+$/, "");
+  if (floorText && hasTotal) return `${floorText} of ${total}`;
+  if (floorText) return floorText;
+  return hasTotal ? `of ${total}` : null;
+}
+
+export function apartmentMaintenanceLabel(p) {
+  if (!hasValue(p.maintenance) && p.maintenance !== 0) return null;
+  const amount = Number(p.maintenance);
+  if (!Number.isFinite(amount) || amount < 0) return String(p.maintenance);
+  return `${money(amount)} / month`;
+}
+
+/** Apartment Property details rows matching the TN listing reference. */
+export function buildApartmentDetailRows(p) {
+  const pool = featurePool(p);
+  return [
+    { label: "Built-up area", value: houseBuiltUpLabel(p) },
+    { label: "Carpet area", value: sqftLabel(p.carpetArea) },
+    { label: "Configuration", value: houseBedroomsLabel(p) },
+    {
+      label: "Bathrooms",
+      value: hasValue(p.baths) ? String(p.baths) : null,
+    },
+    { label: "Balconies", value: apartmentBalconiesLabel(p) },
+    { label: "Floor", value: apartmentFloorLabel(p) },
+    { label: "Facing", value: p.facing || null },
+    { label: "Furnishing", value: p.furnishing || null },
+    { label: "Property age", value: houseAgeLabel(p) },
+    { label: "Condition", value: p.condition || null },
+    { label: "Car parking", value: carParkingLabel(p) },
+    {
+      label: "Possession",
+      value: p.possessionStatus || p.available || null,
+    },
+    { label: "Ownership", value: p.ownershipType || null },
+    { label: "Maintenance", value: apartmentMaintenanceLabel(p) },
+    { label: "Price negotiable", value: isNegotiable(p, pool) },
+  ];
+}
+
 export function houseWaterLabel(p, pool = featurePool(p)) {
   if (hasValue(p.water)) return String(p.water).trim();
   const hit = pool.find((value) =>
@@ -200,6 +273,15 @@ export function houseBuyPriceMeta(p) {
 
 /** Shared Property details rows for Villa / Independent House (legacy consumers). */
 export function buildHouseVillaFacts(p, { includeStatus = true } = {}) {
+  if (isApartment(p.type)) {
+    return [
+      ...buildApartmentDetailRows(p).map(({ label, value }) => [label, value]),
+      [
+        includeStatus ? "Status" : null,
+        includeStatus ? statusLabel(p.status) : null,
+      ],
+    ].filter(([label, value]) => label && hasValue(value));
+  }
   return [
     ["Type", houseCardTypeTag(p.type) || p.type],
     ["Beds", p.beds],
@@ -261,36 +343,44 @@ export function HouseVillaSummary({
 }) {
   const pool = featurePool(p);
   const builtUp = houseBuiltUpLabel(p);
+  const apartment = isApartment(p.type);
   const snapshot = [
     { label: "Built-up", value: builtUp },
-    { label: "Bedrooms", value: houseBedroomsLabel(p) },
+    {
+      label: apartment ? "Configuration" : "Bedrooms",
+      value: houseBedroomsLabel(p),
+    },
     {
       label: "Bathrooms",
       value: hasValue(p.baths) ? String(p.baths) : null,
     },
-    { label: "Facing", value: p.facing || null },
+    apartment
+      ? { label: "Floor", value: apartmentFloorLabel(p) }
+      : { label: "Facing", value: p.facing || null },
   ];
-  const detailRows = [
-    { label: "Plot area", value: housePlotAreaLabel(p) },
-    { label: "Built-up area", value: builtUp },
-    { label: "Carpet area", value: sqftLabel(p.carpetArea) },
-    { label: "Bedrooms", value: houseBedroomsLabel(p) },
-    {
-      label: "Bathrooms",
-      value: hasValue(p.baths) ? String(p.baths) : null,
-    },
-    { label: "Facing", value: p.facing || null },
-    { label: "Floors", value: houseFloorsLabel(p) },
-    { label: "Property age", value: houseAgeLabel(p) },
-    { label: "Condition", value: p.condition || null },
-    { label: "Car parking", value: carParkingLabel(p) },
-    { label: "Water", value: houseWaterLabel(p, pool) },
-    {
-      label: "Possession",
-      value: p.possessionStatus || p.available || null,
-    },
-    { label: "Price negotiable", value: isNegotiable(p, pool) },
-  ];
+  const detailRows = apartment
+    ? buildApartmentDetailRows(p)
+    : [
+        { label: "Plot area", value: housePlotAreaLabel(p) },
+        { label: "Built-up area", value: builtUp },
+        { label: "Carpet area", value: sqftLabel(p.carpetArea) },
+        { label: "Bedrooms", value: houseBedroomsLabel(p) },
+        {
+          label: "Bathrooms",
+          value: hasValue(p.baths) ? String(p.baths) : null,
+        },
+        { label: "Facing", value: p.facing || null },
+        { label: "Floors", value: houseFloorsLabel(p) },
+        { label: "Property age", value: houseAgeLabel(p) },
+        { label: "Condition", value: p.condition || null },
+        { label: "Car parking", value: carParkingLabel(p) },
+        { label: "Water", value: houseWaterLabel(p, pool) },
+        {
+          label: "Possession",
+          value: p.possessionStatus || p.available || null,
+        },
+        { label: "Price negotiable", value: isNegotiable(p, pool) },
+      ];
   const hasContent =
     snapshot.some((item) => hasValue(item.value)) ||
     detailRows.some((item) => hasValue(item.value));
@@ -298,7 +388,10 @@ export function HouseVillaSummary({
 
   return (
     <section
-      className="land-summary house-villa-summary"
+      className={
+        "land-summary house-villa-summary" +
+        (apartment ? " apartment-summary" : "")
+      }
       aria-label={heading}
     >
       <SnapshotCards items={snapshot} />

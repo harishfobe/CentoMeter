@@ -157,3 +157,21 @@ it("keeps map-list properties when a hidden map emits collapsed bounds", () => {
     app.container.querySelectorAll("#property-results .property-card"),
   ).toHaveLength(count);
 });
+
+it("keeps home discovery listings when the preview map area is empty", () => {
+  history.replaceState(null, "", "#home");
+  const app = render(<App />);
+  const before = app.container.querySelectorAll(
+    ".home-discovery .property-card",
+  ).length;
+  expect(before).toBeGreaterThan(0);
+  act(() => mapCallbacks.bounds({ contains: () => false }));
+  expect(
+    app.container.querySelectorAll(".home-discovery .property-card"),
+  ).toHaveLength(before);
+  expect(
+    screen.queryByRole("button", {
+      name: /No properties in this view/,
+    }),
+  ).toBeNull();
+});

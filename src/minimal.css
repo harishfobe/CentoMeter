@@ -915,11 +915,8 @@ textarea:focus-visible {
     background: var(--paper);
     z-index: 1;
   }
-  .gallery-count {
-    bottom: 32px;
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 9999px;
+  .gallery-wrap .photo-swipe-dots {
+    bottom: 28px;
   }
   .land-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));

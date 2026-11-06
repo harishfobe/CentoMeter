@@ -52,7 +52,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Illustrative listing — details to be verified",
@@ -63,7 +66,13 @@
     "pricePerSqft": 7619,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0001"
+    "reraNo": "DEMO-RERA-0001",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "al2",
@@ -937,7 +946,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -950,7 +962,15 @@
     "pricePerSqft": 212,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0009"
+    "reraNo": "DEMO-RERA-0009",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "possessionStatus": "Ready to move",
+    "carParking": 1
   },
   {
     "id": "al14",
@@ -1038,26 +1058,27 @@
     "locality": "Tallakulam",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Meenakshi Trade Square 115",
-    "price": 15562000,
+    "title": "Income-generating Commercial Building",
+    "price": 24500000,
     "baths": 1,
-    "area": 1250,
+    "area": 3600,
     "image": "interior",
-    "tag": "Office space",
-    "furnishing": "Fully furnished",
+    "tag": "Commercial building",
+    "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "CCTV",
+      "Power backup",
+      "Water supply"
     ],
-    "subtype": "Office",
+    "subtype": "Building",
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
     "contactName": "Meera Kulkarni",
     "freshness": "Availability not recently confirmed",
-    "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
     "photos": [
@@ -1086,11 +1107,39 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "Sample commercial in Tallakulam, Madurai. Illustrative listing for demos.",
+    "description": "Income-generating commercial building in Tallakulam with leased shops and main-road access. Sample agent listing.",
     "pricePerSqft": 12450,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0011"
+    "reraNo": "DEMO-RERA-0011",
+    "builtUpArea": 3600,
+    "floorsLabel": "G+1",
+    "totalFloors": 2,
+    "shopCount": 5,
+    "monthlyRent": 140000,
+    "carParking": "Available",
+    "parkingAvailable": true,
+    "roadAccess": "Main road",
+    "powerBackup": "Available",
+    "waterSupply": "Available",
+    "possessionStatus": "Ready to move",
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply",
+      "Separate meters",
+      "Main road access"
+    ],
+    "commercialHighlights": [
+      "5 shops",
+      "Rental income",
+      "Main road access",
+      "Parking available"
+    ]
   },
   {
     "id": "al16",
@@ -1178,26 +1227,27 @@
     "locality": "Thillai Nagar",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Cauvery Trade Square 117",
-    "price": 15583000,
+    "title": "Income-generating Commercial Building",
+    "price": 26800000,
     "baths": 1,
-    "area": 1250,
+    "area": 3800,
     "image": "interior",
-    "tag": "Office space",
-    "furnishing": "Fully furnished",
+    "tag": "Commercial building",
+    "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "CCTV",
+      "Power backup",
+      "Water supply"
     ],
-    "subtype": "Office",
+    "subtype": "Building",
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
-    "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-27",
     "photos": [
@@ -1226,11 +1276,39 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "Sample commercial in Thillai Nagar, Trichy. Illustrative listing for demos.",
+    "description": "Income-generating commercial building in Thillai Nagar with six shops and steady rental income. Sample agent listing.",
     "pricePerSqft": 12466,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0011"
+    "reraNo": "DEMO-RERA-0011",
+    "builtUpArea": 3800,
+    "floorsLabel": "G+2",
+    "totalFloors": 3,
+    "shopCount": 6,
+    "monthlyRent": 155000,
+    "carParking": "Available",
+    "parkingAvailable": true,
+    "roadAccess": "Main road",
+    "powerBackup": "Available",
+    "waterSupply": "Available",
+    "possessionStatus": "Ready to move",
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply",
+      "Separate meters",
+      "Main road access"
+    ],
+    "commercialHighlights": [
+      "6 shops",
+      "Rental income",
+      "Main road access",
+      "Parking available"
+    ]
   },
   {
     "id": "al18",
@@ -1604,26 +1682,27 @@
     "locality": "Zuzuvadi",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Hillgate Trade Square 123",
-    "price": 17060000,
+    "title": "Income-generating Commercial Building",
+    "price": 29500000,
     "baths": 1,
-    "area": 1250,
+    "area": 4100,
     "image": "interior",
-    "tag": "Office space",
-    "furnishing": "Fully furnished",
+    "tag": "Commercial building",
+    "furnishing": "Semi-furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "CCTV",
+      "Power backup",
+      "Water supply"
     ],
-    "subtype": "Office",
+    "subtype": "Building",
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
     "contactName": "Arjun Desai",
     "freshness": "Availability not recently confirmed",
-    "floor": "4+",
     "ac": "Not specified",
     "postedAt": "2026-10-21",
     "photos": [
@@ -1653,11 +1732,39 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "Sample commercial in Zuzuvadi, Hosur. Illustrative listing for demos.",
+    "description": "Income-generating commercial building in Zuzuvadi with leased retail units and parking. Sample agent listing.",
     "pricePerSqft": 13648,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0015"
+    "reraNo": "DEMO-RERA-0015",
+    "builtUpArea": 4100,
+    "floorsLabel": "G+2",
+    "totalFloors": 3,
+    "shopCount": 6,
+    "monthlyRent": 170000,
+    "carParking": "Available",
+    "parkingAvailable": true,
+    "roadAccess": "Main road",
+    "powerBackup": "Available",
+    "waterSupply": "Available",
+    "possessionStatus": "Ready to move",
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply",
+      "Separate meters",
+      "Main road access"
+    ],
+    "commercialHighlights": [
+      "6 shops",
+      "Rental income",
+      "Main road access",
+      "Parking available"
+    ]
   },
   {
     "id": "al24",
@@ -1707,12 +1814,25 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [],
     "description": "Sample apartment in SIPCOT, Hosur. Illustrative listing for demos.",
     "pricePerSqft": 6838,
-    "sample": true
+    "sample": true,
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "al25",
@@ -1767,7 +1887,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -1779,7 +1902,13 @@
     "pricePerSqft": 7993,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0017"
+    "reraNo": "DEMO-RERA-0017",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "al26",
@@ -1829,12 +1958,25 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [],
     "description": "Sample apartment in Race Course, Coimbatore. Illustrative listing for demos.",
     "pricePerSqft": 6849,
-    "sample": true
+    "sample": true,
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "al27",
@@ -1889,7 +2031,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -1901,7 +2046,13 @@
     "pricePerSqft": 8005,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0017"
+    "reraNo": "DEMO-RERA-0017",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "al28",
@@ -2307,7 +2458,7 @@
     "contactName": "Sneha Iyer",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "7",
     "facing": "West",
     "postedAt": "2026-10-23",
     "photos": [
@@ -2328,7 +2479,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -2341,7 +2495,17 @@
     "pricePerSqft": 480,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0021"
+    "reraNo": "DEMO-RERA-0021",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "al34",
@@ -2742,7 +2906,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Illustrative listing — details to be verified",
@@ -2753,7 +2920,15 @@
     "pricePerSqft": 598,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0025"
+    "reraNo": "DEMO-RERA-0025",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "possessionStatus": "Ready to move",
+    "carParking": 1
   },
   {
     "id": "al40",

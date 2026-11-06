@@ -13,9 +13,19 @@ import {
   HouseVillaSummary,
   houseBuyPriceMeta,
   houseTypeEyebrow,
-  isHouseOrVilla,
+  usesHomeDetailLayout,
   buildHouseVillaFacts,
 } from "../../HouseVillaDetails";
+import {
+  CommercialFacilities,
+  CommercialHighlights,
+  CommercialIncomeBadge,
+  CommercialSummary,
+  commercialBuyPriceMeta,
+  commercialPostedLabel,
+  commercialTypeEyebrow,
+  usesCommercialDetailLayout,
+} from "../../CommercialDetails";
 import { approvalLabels, pricePerCent } from "../../PlotUI";
 import { EmiCalculator } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
@@ -36,6 +46,7 @@ import {
 } from "../../lib/agents";
 import { shareAgentLink } from "../../lib/agentShare";
 import LoadingSkeleton from "../LoadingSkeleton";
+import PhotoSwipeDots from "../PhotoSwipeDots";
 const ApprovedMap = lazy(() => import("./UnlockedMap"));
 export function UnlockedMap(props) {
   return (
@@ -71,13 +82,13 @@ export default function ListingDetailSheet({
 
   const [visitError, setVisitError] = useState("");
   const photos = Array.isArray(p.photos) ? p.photos : [];
+  const [photo, setPhoto] = useState(0);
+  useEffect(() => setPhoto(0), [p.id]);
   const rentalCosts = [
     ["deposit", "Deposit"],
     ["maintenance", "Monthly maintenance"],
     ["brokerage", "Brokerage"],
   ].filter(([key]) => hasValue(p[key]));
-  const [photo, setPhoto] = useState(0);
-  useEffect(() => setPhoto(0), [p.id]);
   const point = getExactLocation(p.id, viewerId);
   const req = s.requests.find(
     (r) => r.propertyId === p.id && r.viewerId === viewerId,
@@ -98,8 +109,9 @@ export default function ListingDetailSheet({
     "?l=" +
     p.id +
     "&src=share";
-  const houseVilla = isHouseOrVilla(p.type);
-  const facts = houseVilla
+  const homeDetail = usesHomeDetailLayout(p);
+  const commercialDetail = usesCommercialDetailLayout(p);
+  const facts = homeDetail
     ? buildHouseVillaFacts(p)
     : [
         ["Type", p.type],
@@ -167,65 +179,65 @@ export default function ListingDetailSheet({
         <span />
       </button>
       <article className="agent-detail agent-skeleton-shell">
-        <div
-          className="agent-photo-strip"
-          ref={gallery}
-          onScroll={(e) =>
-            setPhoto(
-              Math.round(
-                e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
-              ),
-            )
-          }
-          tabIndex="0"
-          onKeyDown={(e) => {
-            if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
-              e.preventDefault();
-              e.currentTarget.scrollBy({
-                left:
-                  e.currentTarget.clientWidth *
-                  (e.key === "ArrowRight" ? 1 : -1),
-                behavior: reducedMotion() ? "instant" : "smooth",
-              });
+        <div className="agent-detail-media">
+          <div
+            className="agent-photo-strip"
+            ref={gallery}
+            tabIndex="0"
+            onScroll={(e) =>
+              setPhoto(
+                Math.round(
+                  e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
+                ),
+              )
             }
-          }}
-        >
-          {!photos.length && (
-            <div
-              className="agent-photo-placeholder"
-              role="img"
-              aria-label="No property photos"
-            >
-              No photos available
-            </div>
-          )}
-          {photos.map((url, i) => (
-            <img
-              key={url + i}
-              src={url}
-              width="800"
-              height="500"
-              onLoad={(e) => {
-                e.currentTarget.dataset.loaded = "true";
-                imageStops.current.push(revealGalleryImage(e.currentTarget));
-              }}
-              draggable={false}
-              decoding="async"
-              alt={p.title + " photo " + (i + 1)}
-            />
-          ))}
+            onKeyDown={(e) => {
+              if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
+                e.preventDefault();
+                e.currentTarget.scrollBy({
+                  left:
+                    e.currentTarget.clientWidth *
+                    (e.key === "ArrowRight" ? 1 : -1),
+                  behavior: reducedMotion() ? "instant" : "smooth",
+                });
+              }
+            }}
+          >
+            {!photos.length && (
+              <div
+                className="agent-photo-placeholder"
+                role="img"
+                aria-label="No property photos"
+              >
+                No photos available
+              </div>
+            )}
+            {photos.map((url, i) => (
+              <img
+                key={url + i}
+                src={url}
+                width="800"
+                height="500"
+                onLoad={(e) => {
+                  e.currentTarget.dataset.loaded = "true";
+                  imageStops.current.push(revealGalleryImage(e.currentTarget));
+                }}
+                draggable={false}
+                decoding="async"
+                alt={p.title + " photo " + (i + 1)}
+              />
+            ))}
+          </div>
+          <PhotoSwipeDots count={photos.length} index={photo} />
         </div>
-        <p>
-          {photos.length
-            ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
-            : "No photos available"}
-        </p>
         {p.type === "Land" ? (
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
           </p>
-        ) : houseVilla ? (
+        ) : homeDetail ? (
           <p className="agent-listing-eyebrow">{houseTypeEyebrow(p)}</p>
+        ) : commercialDetail ? (
+          <p className="agent-listing-eyebrow">{commercialTypeEyebrow(p)}</p>
         ) : null}
         <h2>
           {money(p.price)}
@@ -257,7 +269,7 @@ export default function ListingDetailSheet({
               </p>
             ) : null}
           </>
-        ) : houseVilla && p.mode === "BUY" ? (
+        ) : homeDetail && p.mode === "BUY" ? (
           <>
             <p>
               {(() => {
@@ -273,12 +285,37 @@ export default function ListingDetailSheet({
               {[p.locality, p.city].filter(Boolean).join(", ")}
             </p>
           </>
+        ) : commercialDetail ? (
+          <>
+            <p>
+              {(() => {
+                const meta = commercialBuyPriceMeta(p);
+                return [meta.perSqft, meta.negotiable ? "Negotiable" : null]
+                  .filter(Boolean)
+                  .join(" · ");
+              })()}
+            </p>
+            <CommercialIncomeBadge p={p} />
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+            {commercialPostedLabel(p) ? (
+              <p className="muted commercial-posted">
+                {commercialPostedLabel(p)}
+              </p>
+            ) : null}
+          </>
         ) : (
           <p>
             {money(p.price / p.area)} / sq ft · {p.locality}
           </p>
         )}
-        {!houseVilla && p.type !== "Land" && p.mode === "BUY" ? (
+        {!homeDetail &&
+        !commercialDetail &&
+        p.type !== "Land" &&
+        p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -286,7 +323,10 @@ export default function ListingDetailSheet({
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
-        ) : !houseVilla && p.type !== "Land" && rentalCosts.length > 0 ? (
+        ) : !homeDetail &&
+          !commercialDetail &&
+          p.type !== "Land" &&
+          rentalCosts.length > 0 ? (
           <dl className="agent-rental-costs" aria-label="Rental costs">
             {rentalCosts.map(([key, label]) => (
               <div key={key}>
@@ -302,7 +342,7 @@ export default function ListingDetailSheet({
             showDescription={false}
             onReport={() => setReport(true)}
           />
-        ) : houseVilla ? (
+        ) : homeDetail ? (
           <>
             <HouseVillaSummary
               p={p}
@@ -356,7 +396,7 @@ export default function ListingDetailSheet({
                 </div>
               )}
             </section>
-            {p.highlights.length > 0 && (
+            {(p.highlights || []).length > 0 && (
               <section
                 className="agent-detail-section"
                 aria-label="Listing highlights"
@@ -369,21 +409,31 @@ export default function ListingDetailSheet({
                 </ul>
               </section>
             )}
-            {p.amenities.length > 0 && (
+            {(p.amenities || p.features || []).length > 0 && (
               <section
                 className="agent-detail-section"
                 aria-label="Listing amenities"
               >
                 <h3>Amenities</h3>
                 <div className="chips agent-detail-amenities">
-                  {p.amenities.map((x) => (
-                    <span className="pill" key={x}>
-                      {x}
-                    </span>
-                  ))}
+                  {(p.amenities?.length ? p.amenities : p.features || []).map(
+                    (x) => (
+                      <span className="pill" key={x}>
+                        {x}
+                      </span>
+                    ),
+                  )}
                 </div>
               </section>
             )}
+          </>
+        ) : commercialDetail ? (
+          <>
+            <CommercialSummary
+              p={p}
+              onReport={() => setReport(true)}
+            />
+            <CommercialHighlights p={p} />
           </>
         ) : (
           <>
@@ -490,6 +540,7 @@ export default function ListingDetailSheet({
                     : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}
           </p>
         </section>
+        {commercialDetail ? <CommercialFacilities p={p} /> : null}
         {p.type === "Land" && p.mode === "BUY" ? (
           <div className="agent-land-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
@@ -525,7 +576,7 @@ export default function ListingDetailSheet({
             )}
           </div>
         )}
-        {houseVilla && p.mode === "BUY" ? (
+        {(homeDetail || commercialDetail) && p.mode === "BUY" ? (
           <div className="agent-land-emi agent-house-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI

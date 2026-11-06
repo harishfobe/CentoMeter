@@ -55,7 +55,14 @@ it("renders price, area, price per sq ft, possession and status side by side", (
 it("handles zero photos without a counter and presents labelled detail facts", () => {
   render(
     <ListingDetailSheet
-      p={{ ...listings[0], photos: [], propertyAge: 2, roadWidth: 20 }}
+      p={{
+        ...listings[0],
+        type: "PG",
+        mode: "RENT",
+        photos: [],
+        propertyAge: 2,
+        roadWidth: 20,
+      }}
       agent={agents[0]}
       Modal={Modal}
       onClose={() => {}}
@@ -65,8 +72,91 @@ it("handles zero photos without a counter and presents labelled detail facts", (
   expect(screen.getByRole("img", { name: "No property photos" })).toBeTruthy();
   expect(screen.getByText("2 years")).toBeTruthy();
   expect(screen.getByText("20 ft")).toBeTruthy();
-  expect(screen.getByText(/20% down payment/)).toBeTruthy();
   expect(screen.queryByText("View photo full screen")).toBeNull();
+});
+it("buy commercial detail uses the income-building layout", () => {
+  render(
+    <ListingDetailSheet
+      p={{
+        ...listings[0],
+        type: "Commercial",
+        mode: "BUY",
+        photos: [],
+        title: "Income-generating Commercial Building",
+        subtype: "Building",
+        price: 28000000,
+        area: 4000,
+        builtUpArea: 4000,
+        floorsLabel: "G+2",
+        shopCount: 6,
+        monthlyRent: 165000,
+        carParking: "Available",
+        roadAccess: "Main road",
+        powerBackup: "Available",
+        waterSupply: "Available",
+        possessionStatus: "Ready to move",
+        condition: "Resale",
+        ownershipType: "Freehold",
+        negotiable: true,
+        facilities: ["Parking", "CCTV", "Power backup"],
+        commercialHighlights: ["6 shops", "Rental income"],
+        postedAt: "2024-11-06",
+      }}
+      agent={agents[0]}
+      Modal={Modal}
+      onClose={() => {}}
+    />,
+  );
+  expect(screen.getByText("FOR SALE · COMMERCIAL · BUILDING")).toBeTruthy();
+  expect(screen.getByText("₹2.8 Cr")).toBeTruthy();
+  expect(
+    document.querySelector(".commercial-income-badge")?.textContent,
+  ).toMatch(/Monthly rental income/);
+  expect(screen.getByRole("heading", { name: "Property details" })).toBeTruthy();
+  expect(screen.getAllByText("Commercial Building").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("G+2").length).toBeGreaterThan(0);
+  expect(screen.getByRole("heading", { name: "Highlights" })).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Facilities" })).toBeTruthy();
+  expect(screen.getByText(/20% down payment/)).toBeTruthy();
+});
+it("buy apartment detail uses the gated-villa home layout", () => {
+  render(
+    <ListingDetailSheet
+      p={{
+        ...listings[0],
+        type: "Apartment",
+        mode: "BUY",
+        photos: [],
+        beds: 3,
+        baths: 2,
+        area: 1680,
+        builtUpArea: 1680,
+        carpetArea: 1344,
+        balconies: 1,
+        floor: 5,
+        totalFloors: 12,
+        facing: "North",
+        furnishing: "Semi-furnished",
+        propertyAge: 2,
+        condition: "Resale",
+        carParking: 1,
+        possessionStatus: "Ready to move",
+        ownershipType: "Freehold",
+        maintenance: 2500,
+        negotiable: true,
+      }}
+      agent={agents[0]}
+      Modal={Modal}
+      onClose={() => {}}
+    />,
+  );
+  expect(screen.getByText("FOR SALE · APARTMENT")).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Property details" })).toBeTruthy();
+  expect(screen.getAllByText("Configuration").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("5 of 12").length).toBeGreaterThan(0);
+  expect(screen.getByText("₹2,500 / month")).toBeTruthy();
+  expect(screen.getByText("2 years")).toBeTruthy();
+  expect(screen.getByText(/20% down payment/)).toBeTruthy();
 });
 it("finder uses geolocation and explains the fallback", async () => {
   vi.stubGlobal("navigator", {

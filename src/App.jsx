@@ -101,8 +101,17 @@ import { LandSummary } from "./LandDetails";
 import {
   HouseVillaSummary,
   houseTypeEyebrow,
-  isHouseOrVilla,
+  usesHomeDetailLayout,
 } from "./HouseVillaDetails";
+import {
+  CommercialFacilities,
+  CommercialHighlights,
+  CommercialIncomeBadge,
+  CommercialSummary,
+  commercialPostedLabel,
+  commercialTypeEyebrow,
+  usesCommercialDetailLayout,
+} from "./CommercialDetails";
 import {
   priceBasis,
   nearText,
@@ -564,9 +573,15 @@ export default function App() {
     navigate("search");
   };
   const showList = () => {
-    setAreaOnly(true);
-    if (route === "map") setMapList(true);
-    else navigate("results");
+    // Map-area filtering stays on the map page only. Home / browse list
+    // always searches the full city, even if the preview map is empty.
+    if (route === "map") {
+      setAreaOnly(true);
+      setMapList(true);
+      return;
+    }
+    setAreaOnly(false);
+    navigate("results");
   };
   const openMap = () => {
     setMapList(false);
@@ -718,10 +733,10 @@ export default function App() {
       }),
     [filtered, bounds, locationRequests],
   );
+  // Restrict to the visible map area only on the map page. Home, search
+  // results, and filters always use the full city match set.
   const resultItems =
-    (route === "results" || (route === "map" && mapList)) && !areaOnly
-      ? filtered
-      : visible;
+    route === "map" && areaOnly ? visible : filtered;
   const sorted = useMemo(
     () => sortProperties(resultItems, sort, priceUnit),
     [resultItems, sort, priceUnit],
@@ -809,8 +824,9 @@ export default function App() {
   };
   const handleBounds = useCallback(
     (b) => {
-      // Hidden Leaflet panes can emit zero-size bounds. Keep the last visible area.
-      if (route !== "map" || !mapList) setBounds(b);
+      // Map-area filtering is map-page only. Skip home/results previews, and
+      // skip hidden map panes in list mode (they can emit collapsed bounds).
+      if (route === "map" && !mapList) setBounds(b);
     },
     [route, mapList],
   );
@@ -1326,7 +1342,7 @@ export default function App() {
                       onBounds={handleBounds}
                       resetKey={resetKey}
                     />
-                    {visible.length === 0 && (
+                    {route === "map" && visible.length === 0 && (
                       <button
                         className="empty-map-reset"
                         onClick={() => {
@@ -1534,7 +1550,7 @@ export default function App() {
                       <Bookmark size={14} aria-hidden="true" /> Save search
                     </button>
                     <span>
-                      {areaOnly || route !== "results"
+                      {route === "map" && areaOnly
                         ? "Within map area"
                         : "Across " + city}
                     </span>
@@ -1636,8 +1652,12 @@ export default function App() {
                   <p className="detail-eyebrow">
                     {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
                   </p>
-                ) : isHouseOrVilla(detail.type) ? (
+                ) : usesHomeDetailLayout(detail) ? (
                   <p className="detail-eyebrow">{houseTypeEyebrow(detail)}</p>
+                ) : usesCommercialDetailLayout(detail) ? (
+                  <p className="detail-eyebrow">
+                    {commercialTypeEyebrow(detail)}
+                  </p>
                 ) : (
                   <div className="detail-labels">
                     <span className="pill">
@@ -1648,14 +1668,25 @@ export default function App() {
                     </span>
                   </div>
                 )}
-                {detail.type === "Land" || isHouseOrVilla(detail.type) ? (
+                {detail.type === "Land" ||
+                usesHomeDetailLayout(detail) ||
+                usesCommercialDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
+                ) : null}
+                {usesCommercialDetailLayout(detail) ? (
+                  <CommercialIncomeBadge p={detail} />
                 ) : null}
                 <h1>{detail.title}</h1>
                 <p className="muted location-line">
                   <MapPin size={17} />
                   {detail.locality}, {detail.city}
                 </p>
+                {usesCommercialDetailLayout(detail) &&
+                  commercialPostedLabel(detail) && (
+                    <p className="muted commercial-posted">
+                      {commercialPostedLabel(detail)}
+                    </p>
+                  )}
                 {detail.agentId && (
                   <button
                     className="text-button agent-profile-link"
@@ -1669,10 +1700,14 @@ export default function App() {
                     View agent profile
                   </button>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) ? (
+                {detail.type !== "Land" &&
+                !usesHomeDetailLayout(detail) &&
+                !usesCommercialDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (
                       <div>
@@ -1712,11 +1747,19 @@ export default function App() {
                     showDescription={false}
                     onReport={() => setModal("report")}
                   />
-                ) : isHouseOrVilla(detail.type) ? (
+                ) : usesHomeDetailLayout(detail) ? (
                   <HouseVillaSummary
                     p={detail}
                     onReport={() => setModal("report")}
                   />
+                ) : usesCommercialDetailLayout(detail) ? (
+                  <CommercialSummary
+                    p={detail}
+                    onReport={() => setModal("report")}
+                  />
+                ) : null}
+                {usesCommercialDetailLayout(detail) ? (
+                  <CommercialHighlights p={detail} />
                 ) : null}
                 <section
                   className="about-the-property"
@@ -1731,25 +1774,72 @@ export default function App() {
                           ? "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
                           : detail.type === "PG"
                             ? `${detail.occupancy} with ${String(detail.bathroom || "Not specified").toLowerCase()} bathroom. Meals: ${String(detail.meals || "Not specified").toLowerCase()}. Price shown${priceBasis(detail)}. AC: ${detail.ac}. Sample house rules: quiet hours 10 PM–7 AM; visitor registration required.`
-                            : isHouseOrVilla(detail.type)
+                            : usesHomeDetailLayout(detail)
                               ? "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."
                               : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
                   </p>
                 </section>
-                {detail.type !== "Land" && detail.features.length > 0 && (
-                  <>
-                    <h2>Highlights</h2>
-                    <div className="amenities">
-                      {detail.features.map((a) => (
-                        <span key={a}>
-                          <CheckCircle2 size={16} />
-                          {a}
-                        </span>
-                      ))}
-                    </div>
-                  </>
-                )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {usesCommercialDetailLayout(detail) ? (
+                  <CommercialFacilities p={detail} />
+                ) : null}
+                {detail.type !== "Land" &&
+                  !usesCommercialDetailLayout(detail) &&
+                  (() => {
+                    const aptOrVilla =
+                      detail.type === "Apartment" || detail.type === "Villa";
+                    const highlightItems = aptOrVilla
+                      ? Array.isArray(detail.highlights)
+                        ? detail.highlights
+                        : []
+                      : detail.features || [];
+                    const amenityItems = aptOrVilla
+                      ? Array.isArray(detail.amenities) &&
+                        detail.amenities.length
+                        ? detail.amenities
+                        : detail.features || []
+                      : [];
+                    return (
+                      <>
+                        {highlightItems.length > 0 && (
+                          <>
+                            <h2>Highlights</h2>
+                            {aptOrVilla ? (
+                              <ul className="owner-listing-highlights">
+                                {highlightItems.map((item) => (
+                                  <li key={item}>{item}</li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <div className="amenities">
+                                {highlightItems.map((a) => (
+                                  <span key={a}>
+                                    <CheckCircle2 size={16} />
+                                    {a}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </>
+                        )}
+                        {amenityItems.length > 0 && (
+                          <>
+                            <h2>Amenities</h2>
+                            <div className="amenities">
+                              {amenityItems.map((a) => (
+                                <span key={a}>
+                                  <CheckCircle2 size={16} />
+                                  {a}
+                                </span>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </>
+                    );
+                  })()}
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>
                       Listed by {detail.seller} · {detail.freshness} · Sample
@@ -1770,7 +1860,9 @@ export default function App() {
                     Preview sample floor plan
                   </button>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <div className="property-facts">
                     {supportsFacing(detail.type) && hasValue(detail.facing) && (
                       <div>
@@ -1807,7 +1899,9 @@ export default function App() {
                       ))}
                   </div>
                 )}
-                {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <OptionalPropertyDetails p={detail} />
                 )}
                 {detail.mode === "BUY" && (
@@ -2309,12 +2403,9 @@ export default function App() {
         <SmartFilters
           Modal={Modal}
           items={candidates.filter((p) => {
+            if (route !== "map" || !areaOnly || !bounds) return true;
             const point = mapPoint(p, locationRequests);
-            return (
-              (route === "results" && !areaOnly) ||
-              !bounds ||
-              (point && bounds.contains(point))
-            );
+            return point && bounds.contains(point);
           })}
           filters={filters}
           mode={mode}
@@ -2323,6 +2414,7 @@ export default function App() {
             setFilters(f);
             setSelected(null);
             setModal(null);
+            if (route === "home") setAreaOnly(false);
           }}
         />
       )}
@@ -2722,7 +2814,7 @@ export default function App() {
                     nearPlace,
                     viewport: mapViewport.current,
                     bounds:
-                      (areaOnly || route !== "results") && bounds
+                      route === "map" && areaOnly && bounds
                         ? [
                             [bounds.getSouth(), bounds.getWest()],
                             [bounds.getNorth(), bounds.getEast()],
@@ -2748,7 +2840,7 @@ export default function App() {
             </label>
             <p>
               {city} · {mode} ·{" "}
-              {areaOnly || route !== "results"
+              {route === "map" && areaOnly
                 ? "Current map area"
                 : "Entire city"}
             </p>

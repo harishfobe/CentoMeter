@@ -5,7 +5,11 @@ import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
 import { pricePerCent } from "./PlotUI";
-import { houseBuyPriceMeta, isHouseOrVilla } from "./HouseVillaDetails";
+import { houseBuyPriceMeta, usesHomeDetailLayout } from "./HouseVillaDetails";
+import {
+  commercialBuyPriceMeta,
+  usesCommercialDetailLayout,
+} from "./CommercialDetails";
 
 function landBuyPriceMeta(p) {
   const pool = [
@@ -55,8 +59,25 @@ export function MobilePropertyPrice({ property: p, money }) {
       </div>
     );
   }
-  if (isHouseOrVilla(p.type) && p.mode === "BUY") {
+  if (usesHomeDetailLayout(p) && p.mode === "BUY") {
     const { perSqft, negotiable } = houseBuyPriceMeta(p);
+    return (
+      <div className="mobile-price-block land-price-block">
+        <div className="mobile-property-price land-property-price">
+          <strong>{money(p.price)}</strong>
+          {(perSqft || negotiable) && (
+            <span>
+              {[perSqft, negotiable ? "Negotiable" : null]
+                .filter(Boolean)
+                .join(" · ")}
+            </span>
+          )}
+        </div>
+      </div>
+    );
+  }
+  if (usesCommercialDetailLayout(p)) {
+    const { perSqft, negotiable } = commercialBuyPriceMeta(p);
     return (
       <div className="mobile-price-block land-price-block">
         <div className="mobile-property-price land-property-price">

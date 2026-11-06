@@ -1070,6 +1070,30 @@ img {
 .amenities svg {
   color: var(--success);
 }
+.owner-listing-highlights {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.owner-listing-highlights li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.owner-listing-highlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
 .detail-map {
   height: 260px;
   overflow: hidden;
@@ -2822,15 +2846,40 @@ textarea {
   flex: 0 0 100%;
   scroll-snap-align: start;
 }
-.gallery-count {
+.photo-swipe-dots {
   position: absolute;
-  left: 14px;
-  top: 14px;
-  background: color-mix(in srgb, var(--ink) 87%, transparent);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  left: 50%;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #ffffffd9;
+  translate: -50% 0;
+  pointer-events: none;
+}
+.photo-swipe-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #d4d4d8;
+  flex: 0 0 auto;
+  transition:
+    width 160ms ease,
+    background-color 160ms ease;
+}
+.photo-swipe-dots span[data-active="true"] {
+  width: 14px;
+  background: var(--brand);
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-swipe-dots span {
+    transition: none;
+  }
 }
 .cost-breakdown {
   margin-top: 20px;
@@ -3194,9 +3243,6 @@ textarea {
   .property-copy .price small {
     font-size: 11px;
   }
-  .gallery-count {
-    max-width: 90%;
-  }
   .profile-page .page-intro {
     margin-top: 0;
   }
@@ -3537,6 +3583,73 @@ textarea {
   line-height: 1.45;
   text-align: right;
   overflow-wrap: anywhere;
+}
+.commercial-income-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand) 14%, var(--paper));
+  color: var(--brand-deep);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+.commercial-income-badge strong {
+  font-weight: 750;
+  color: var(--brand-deep);
+}
+.commercial-posted {
+  margin: -4px 0 0;
+  font-size: 12px;
+}
+.commercial-highlights,
+.commercial-facilities {
+  margin: 22px 0;
+}
+.commercial-highlights h2,
+.commercial-facilities h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+.commercial-highlight-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.commercial-highlight-pills .pill {
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 550;
+}
+.commercial-facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.commercial-facilities-grid > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+.commercial-facilities-grid svg {
+  flex: 0 0 auto;
+  color: var(--brand);
 }
 .land-facts {
   display: grid;

@@ -588,14 +588,8 @@
     aspect-ratio: 16/10;
     object-fit: cover;
   }
-  .gallery-count {
-    left: auto;
-    right: 12px;
-    top: auto;
+  .gallery-wrap .photo-swipe-dots {
     bottom: 12px;
-    padding: 6px 9px;
-    font-size: var(--type-caption);
-    border-radius: 7px;
   }
   .detail-columns {
     display: block;
