@@ -141,6 +141,16 @@
 .agent-listing {
   position: relative;
 }
+.agent-listing-media {
+  position: relative;
+}
+.agent-listing .property-type-badge {
+  left: 12px;
+  bottom: 12px;
+}
+.agent-listing .agent-photo-count {
+  z-index: 1;
+}
 .agent-listing .property-copy {
   text-align: left;
   width: 100%;
