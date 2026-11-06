@@ -74,7 +74,8 @@ export function filterListings(items, f, now = Date.now()) {
       p.mode === f.mode &&
       (f.type === "All" ||
         (f.type === "House"
-          ? ["Villa", "Independent House"].includes(p.type)
+          ? // Legacy combined filter from older agent URLs.
+            ["Villa", "Independent House"].includes(p.type)
           : p.type === f.type)) &&
       (!f.available || !["sold", "rented"].includes(p.status)) &&
       (!f.recent || recentlyConfirmed(p, now)) &&

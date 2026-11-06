@@ -28,11 +28,21 @@ import {
   cityForLocation,
 } from "./PropertyModel";
 import { compressPhotos } from "./JourneyUX";
-import PropertyTypes, { typeLabel } from "./PropertyTypes";
-import { LandSummary, LandFields, LandAreaFields } from "./LandDetails";
+import PropertyTypes, {
+  typeLabel,
+  WATER_SOURCES,
+  VILLA_AMENITIES,
+} from "./PropertyTypes";
+import {
+  LandSummary,
+  LandFields,
+  LandAreaFields,
+  PlotLandAreaFields,
+} from "./LandDetails";
 import { facingDirections, supportsFacing, readLocal } from "./Discovery";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
+import { isIndependentHouse, isVilla } from "./propertyTypeIds";
 export default function PostFlow({
   onExit,
   onComplete,
@@ -135,22 +145,37 @@ export default function PostFlow({
     setError("");
   };
   const chooseType = (type) => {
-    setData((d) => ({
-      ...d,
-      type,
-      ...(type === "Land"
-        ? {
-            landType: d.landType || "Residential",
-            highlights: d.highlights || [],
-          }
-        : {}),
-      photos: (type === "Land") !== (d.type === "Land") ? [] : d.photos,
-      ...Object.fromEntries(
-        ["title", "description", "price"]
-          .filter((key) => !dirty.current.has(key))
-          .map((key) => [key, ""]),
-      ),
-    }));
+    setData((d) => {
+      const next = {
+        ...d,
+        type,
+        ...(type === "Land"
+          ? {
+              landType: d.landType || "Residential",
+              highlights: d.highlights || [],
+            }
+          : {}),
+        photos: (type === "Land") !== (d.type === "Land") ? [] : d.photos,
+        ...Object.fromEntries(
+          ["title", "description", "price"]
+            .filter((key) => !dirty.current.has(key))
+            .map((key) => [key, ""]),
+        ),
+      };
+      if (type !== "Independent House") {
+        next.water = type === d.type ? d.water : "";
+        if (type !== "Land") next.roadWidth = "";
+        if (type !== d.type) next.plotArea = "";
+      }
+      if (type !== "Villa" && type !== d.type) {
+        next.projectName = "";
+        next.reraNumber = "";
+        next.features = (d.features || []).filter(
+          (f) => !VILLA_AMENITIES.includes(f),
+        );
+      }
+      return next;
+    });
     setError("");
   };
   const chooseIntent = (intent) => {
@@ -174,14 +199,35 @@ export default function PostFlow({
           ? "A generous plot at Greenfield"
           : d.type === "PG"
             ? "A private room at Parkside PG"
-            : "A sunlit home at Parkside",
+            : d.type === "Villa"
+              ? "A gated villa at Lakeside Enclave"
+              : d.type === "Independent House"
+                ? "An independent house on Anna Nagar"
+                : "A sunlit home at Parkside",
       price: d.intent === "RENT" ? "12000" : "7200000",
-      area: d.type === "PG" ? "180" : "1200",
+      area:
+        d.type === "PG"
+          ? "180"
+          : d.type === "Independent House" || d.type === "Villa"
+            ? "1800"
+            : "1200",
+      builtUpArea:
+        d.type === "Independent House" || d.type === "Villa" ? "1800" : "",
+      plotArea: d.type === "Independent House" ? "2400" : d.plotArea,
+      water: d.type === "Independent House" ? "Siruvani" : d.water,
+      roadWidth: d.type === "Independent House" ? "30" : d.roadWidth,
+      projectName:
+        d.type === "Villa" ? "Lakeside Enclave" : d.projectName || "",
+      reraNumber: d.type === "Villa" ? "TN/RERA/SAMPLE/0001" : d.reraNumber,
       address: city + " — sample central location",
       description:
         d.type === "Land"
           ? "Residential plot with road access and open views."
-          : "A bright property close to everyday conveniences.",
+          : d.type === "Villa"
+            ? "Gated community villa with shared amenities and 24/7 security."
+            : d.type === "Independent House"
+              ? "Standalone house on a private plot with road access."
+              : "A bright property close to everyday conveniences.",
       photos: d.type === "Land" ? ["/land.jpg"] : ["/apartment.jpg"],
       location: centers[city],
       landType: d.type === "Land" ? "Residential" : d.landType,
@@ -190,7 +236,10 @@ export default function PostFlow({
       bathroom: "Attached",
       ac: "No",
       baths: 1,
-      features: ["Parking"],
+      features:
+        d.type === "Villa"
+          ? ["Clubhouse", "Security", "Pool", "Power Backup"]
+          : ["Parking"],
       deposit: d.intent === "RENT" ? "24000" : "",
       maintenance: d.intent === "RENT" ? "1000" : "",
     }));
@@ -240,6 +289,38 @@ export default function PostFlow({
     ) {
       setError("Enter a positive width and length.");
       return;
+    }
+    if (step === 1 && isIndependentHouse(data.type)) {
+      if (!(Number(data.plotArea) > 0)) {
+        setError("Enter the land area in cents or sq ft.");
+        return;
+      }
+      if (!WATER_SOURCES.includes(data.water)) {
+        setError("Select a water source (Siruvani, Corporation, or Borewell).");
+        return;
+      }
+      if (!(Number(data.roadWidth) > 0)) {
+        setError("Enter the road width in feet.");
+        return;
+      }
+    }
+    if (step === 1 && isVilla(data.type)) {
+      if (!String(data.projectName || "").trim()) {
+        setError("Enter the project or community name.");
+        return;
+      }
+      if (
+        !VILLA_AMENITIES.some((item) => (data.features || []).includes(item))
+      ) {
+        setError(
+          "Select at least one gated-community amenity (Clubhouse, Security, Pool, or Power Backup).",
+        );
+        return;
+      }
+      if (!String(data.reraNumber || "").trim()) {
+        setError("Enter the RERA registration number.");
+        return;
+      }
     }
     if (
       step === 1 &&
@@ -423,19 +504,122 @@ export default function PostFlow({
                   <LandAreaFields data={data} set={set} />
                 ) : (
                   <label>
-                    {["Villa", "Independent House"].includes(data.type)
-                      ? "Total area (sq ft)"
+                    {isIndependentHouse(data.type) || isVilla(data.type)
+                      ? "Built-up area (sq ft)"
                       : "Area (sq ft)"}
                     <input
                       type="number"
                       min="1"
                       placeholder="Enter area"
                       value={data.area}
-                      onChange={(e) => set("area", e.target.value)}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (
+                          isIndependentHouse(data.type) ||
+                          isVilla(data.type)
+                        ) {
+                          dirty.current.add("area");
+                          dirty.current.add("builtUpArea");
+                          setData((d) => ({
+                            ...d,
+                            area: value,
+                            builtUpArea: value,
+                          }));
+                          setError("");
+                          return;
+                        }
+                        set("area", value);
+                      }}
                     />
                   </label>
                 )}
               </div>
+              {isIndependentHouse(data.type) && (
+                <>
+                  <PlotLandAreaFields data={data} set={set} />
+                  <div className="form-columns">
+                    <label>
+                      Water source
+                      <select
+                        value={data.water || ""}
+                        onChange={(e) => set("water", e.target.value)}
+                        required
+                      >
+                        <option value="">Select</option>
+                        {WATER_SOURCES.map((source) => (
+                          <option key={source}>{source}</option>
+                        ))}
+                      </select>
+                    </label>
+                    <label>
+                      Road width (ft)
+                      <input
+                        type="number"
+                        min="1"
+                        step="any"
+                        inputMode="decimal"
+                        placeholder="e.g. 30"
+                        value={data.roadWidth ?? ""}
+                        onChange={(e) => set("roadWidth", e.target.value)}
+                        required
+                      />
+                    </label>
+                  </div>
+                </>
+              )}
+              {isVilla(data.type) && (
+                <>
+                  <label>
+                    Project / community name
+                    <input
+                      maxLength={80}
+                      placeholder="Gated community or layout name"
+                      value={data.projectName || ""}
+                      onChange={(e) => set("projectName", e.target.value)}
+                      required
+                    />
+                    <small>Inside a gated community / layout</small>
+                  </label>
+                  <fieldset className="land-highlight-options">
+                    <legend>Community amenities</legend>
+                    <div className="chips">
+                      {VILLA_AMENITIES.map((feature) => (
+                        <button
+                          type="button"
+                          key={feature}
+                          className={
+                            "chip " +
+                            ((data.features || []).includes(feature)
+                              ? "active"
+                              : "")
+                          }
+                          aria-pressed={(data.features || []).includes(feature)}
+                          onClick={() =>
+                            set(
+                              "features",
+                              (data.features || []).includes(feature)
+                                ? data.features.filter((x) => x !== feature)
+                                : [...(data.features || []), feature],
+                            )
+                          }
+                        >
+                          {feature}
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+                  <label>
+                    RERA registration number
+                    <input
+                      maxLength={40}
+                      placeholder="TN/RERA/…"
+                      value={data.reraNumber || ""}
+                      onChange={(e) => set("reraNumber", e.target.value)}
+                      required
+                    />
+                  </label>
+                </>
+              )}
               {["Villa", "Independent House"].includes(data.type) && (
                 <div className="form-columns">
                   <label>
@@ -541,53 +725,53 @@ export default function PostFlow({
                 </div>
               )}
               {data.type !== "Land" && (
-                <>
-                  <label>
-                    Bathrooms
-                    <input
-                      type="number"
-                      min="0"
-                      max="20"
-                      value={data.baths ?? ""}
-                      onChange={(e) => set("baths", e.target.value)}
-                    />
-                  </label>
-                  <fieldset className="land-highlight-options">
-                    <legend>Amenities</legend>
-                    <div className="chips">
-                      {[
-                        "Parking",
-                        "Lift access",
-                        "Balcony",
-                        "Wi-Fi",
-                        "Housekeeping",
-                        "Meals included",
-                      ].map((feature) => (
-                        <button
-                          type="button"
-                          key={feature}
-                          className={
-                            "chip " +
-                            ((data.features || []).includes(feature)
-                              ? "active"
-                              : "")
-                          }
-                          aria-pressed={(data.features || []).includes(feature)}
-                          onClick={() =>
-                            set(
-                              "features",
-                              (data.features || []).includes(feature)
-                                ? data.features.filter((x) => x !== feature)
-                                : [...(data.features || []), feature],
-                            )
-                          }
-                        >
-                          {feature}
-                        </button>
-                      ))}
-                    </div>
-                  </fieldset>
-                </>
+                <label>
+                  Bathrooms
+                  <input
+                    type="number"
+                    min="0"
+                    max="20"
+                    value={data.baths ?? ""}
+                    onChange={(e) => set("baths", e.target.value)}
+                  />
+                </label>
+              )}
+              {!["Land", "Villa", "Independent House"].includes(data.type) && (
+                <fieldset className="land-highlight-options">
+                  <legend>Amenities</legend>
+                  <div className="chips">
+                    {[
+                      "Parking",
+                      "Lift access",
+                      "Balcony",
+                      "Wi-Fi",
+                      "Housekeeping",
+                      "Meals included",
+                    ].map((feature) => (
+                      <button
+                        type="button"
+                        key={feature}
+                        className={
+                          "chip " +
+                          ((data.features || []).includes(feature)
+                            ? "active"
+                            : "")
+                        }
+                        aria-pressed={(data.features || []).includes(feature)}
+                        onClick={() =>
+                          set(
+                            "features",
+                            (data.features || []).includes(feature)
+                              ? data.features.filter((x) => x !== feature)
+                              : [...(data.features || []), feature],
+                          )
+                        }
+                      >
+                        {feature}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
               )}
               {!["Land", "Commercial"].includes(data.type) && (
                 <label>
@@ -620,7 +804,16 @@ export default function PostFlow({
                   )}
                 </label>
               )}
-              <OptionalListingFields data={data} set={set} />
+              {!isVilla(data.type) && (
+                <OptionalListingFields data={data} set={set} />
+              )}
+              {isVilla(data.type) && (
+                <OptionalListingFields
+                  data={data}
+                  set={set}
+                  hideFields={["reraNumber"]}
+                />
+              )}
               <label>
                 About the property
                 <textarea

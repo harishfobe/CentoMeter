@@ -19,8 +19,18 @@ export default function FilterBar({ f, onChange, onMore }) {
         value={f.type}
         onChange={(e) => onChange({ ...f, type: e.target.value, beds: "" })}
       >
-        {["All", "Apartment", "House", "Land", "Commercial", "PG"].map((x) => (
-          <option key={x}>{x}</option>
+        {[
+          "All",
+          "Apartment",
+          "Independent House",
+          "Villa",
+          "Land",
+          "Commercial",
+          "PG",
+        ].map((x) => (
+          <option key={x} value={x}>
+            {x === "Villa" ? "Gated Villa" : x}
+          </option>
         ))}
       </select>
       <select

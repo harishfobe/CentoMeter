@@ -1,14 +1,19 @@
 import React from "react";
-import { landNumber, positive } from "./LandMeasurements";
+import { landNumber, positive, toCents } from "./LandMeasurements";
 import { hasValue } from "./PropertyModel";
 import { statusLabel } from "./lib/agents";
+import {
+  WATER_SOURCES,
+  isHouseOrVillaType,
+  isIndependentHouse,
+  isVilla,
+} from "./propertyTypeIds";
 
-export const isHouseOrVilla = (type) =>
-  type === "Villa" || type === "Independent House";
+export const isHouseOrVilla = (type) => isHouseOrVillaType(type);
 
 export function houseTypeEyebrow(p) {
   const mode = p.mode === "RENT" ? "FOR RENT" : "FOR SALE";
-  const kind = p.type === "Villa" ? "VILLA" : "HOUSE";
+  const kind = isVilla(p.type) ? "GATED VILLA" : "INDEPENDENT HOUSE";
   return `${mode} · ${kind}`;
 }
 
@@ -111,9 +116,73 @@ export function houseAgeLabel(p) {
 export function houseWaterLabel(p, pool = featurePool(p)) {
   if (hasValue(p.water)) return String(p.water).trim();
   const hit = pool.find((value) =>
-    /borewell|corporation|water/i.test(value),
+    /borewell|corporation|siruvani|water/i.test(value),
   );
   return hit || null;
+}
+
+function landSqft(p) {
+  if (positive(p.plotArea)) return Number(p.plotArea);
+  if (positive(p.width) && positive(p.length)) {
+    return Math.round(Number(p.width) * Number(p.length));
+  }
+  return null;
+}
+
+export function houseLandCentsLabel(p) {
+  const sqft = landSqft(p);
+  if (!sqft) return null;
+  return landNumber(toCents(sqft));
+}
+
+/** Card image / type tag: Independent House vs Gated Villa. */
+export function houseCardTypeTag(type) {
+  if (isVilla(type)) return "Gated Villa";
+  if (isIndependentHouse(type)) return "Independent House";
+  return null;
+}
+
+/** Key spec line under the title on listing cards. */
+export function houseCardSpecLine(p) {
+  if (isIndependentHouse(p.type)) {
+    const cents = houseLandCentsLabel(p);
+    const built = Number(p.builtUpArea || p.superArea || p.area);
+    const parts = [];
+    if (cents) parts.push(`${cents} Cents Land`);
+    if (positive(built)) {
+      parts.push(`${Number(built).toLocaleString("en-IN")} sq.ft Built-up`);
+    }
+    return parts.length ? parts.join(" • ") : null;
+  }
+  if (isVilla(p.type)) {
+    const built = Number(p.builtUpArea || p.superArea || p.area);
+    const parts = [];
+    if (positive(built)) {
+      parts.push(`${Number(built).toLocaleString("en-IN")} sq.ft`);
+    }
+    const beds = Number(p.beds);
+    if (Number.isFinite(beds) && beds > 0) parts.push(`${beds} BHK`);
+    return parts.length ? parts.join(" • ") : null;
+  }
+  return null;
+}
+
+function waterChip(p) {
+  const raw = houseWaterLabel(p);
+  if (!raw) return null;
+  const hit = WATER_SOURCES.find((source) =>
+    new RegExp(source, "i").test(raw),
+  );
+  return hit || raw;
+}
+
+/** Highlight chips under card specs. */
+export function houseCardChips(p) {
+  if (isIndependentHouse(p.type)) {
+    return ["Private Land", waterChip(p)].filter(Boolean);
+  }
+  if (isVilla(p.type)) return ["Gated Community", "24/7 Security"];
+  return [];
 }
 
 export function houseBuyPriceMeta(p) {
@@ -132,7 +201,7 @@ export function houseBuyPriceMeta(p) {
 /** Shared Property details rows for Villa / Independent House (legacy consumers). */
 export function buildHouseVillaFacts(p, { includeStatus = true } = {}) {
   return [
-    ["Type", p.type],
+    ["Type", houseCardTypeTag(p.type) || p.type],
     ["Beds", p.beds],
     ["Baths", p.baths],
     ["Total area", sqftLabel(p.area)],

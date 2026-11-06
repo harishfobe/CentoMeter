@@ -5,6 +5,11 @@ import { Heart } from "lucide-react";
 import { money } from "../../PropertyModel";
 import { landPrice } from "../../JourneyUX";
 import { cardTypeLabel } from "../../PropertyTypes";
+import {
+  houseCardChips,
+  houseCardSpecLine,
+  isHouseOrVilla,
+} from "../../HouseVillaDetails";
 import { recentlyConfirmed, statusLabel } from "../../lib/agents";
 import { accessStatus } from "../../lib/locationAccess";
 
@@ -28,6 +33,9 @@ function ListingCard({
   useEffect(() => () => imageStops.current.forEach((stop) => stop()), []);
   const [index, setIndex] = useState(0);
   const price = landPrice(p, unit);
+  const houseVilla = isHouseOrVilla(p.type);
+  const houseSpec = houseVilla ? houseCardSpecLine(p) : null;
+  const houseChips = houseVilla ? houseCardChips(p) : [];
   return (
     <article
       ref={entrance}
@@ -123,6 +131,11 @@ function ListingCard({
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
           </p>
+        ) : houseVilla ? (
+          <p className="agent-listing-eyebrow">
+            {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} ·{" "}
+            {cardTypeLabel(p.type).toUpperCase()}
+          </p>
         ) : null}
         <div className="price">
           {money(price.amount)}
@@ -130,14 +143,18 @@ function ListingCard({
         </div>
         <h3>{p.title}</h3>
         <p>
-          {p.beds ? p.beds + " BHK · " : ""}
-          {p.area.toLocaleString("en-IN")} sq ft ·{" "}
-          {p.possessionStatus || p.available}
+          {houseSpec ||
+            `${p.beds ? p.beds + " BHK · " : ""}${p.area.toLocaleString("en-IN")} sq ft · ${p.possessionStatus || p.available}`}
         </p>
         <p>{p.locality}</p>
       </button>
       <div className="agent-listing-chips">
         <span className="pill">{statusLabel(p.status)}</span>
+        {houseChips.map((chip) => (
+          <span key={chip} className="pill">
+            {chip}
+          </span>
+        ))}
         {recentlyConfirmed(p) ? (
           <span className="pill agent-confirmed">Recently confirmed</span>
         ) : (

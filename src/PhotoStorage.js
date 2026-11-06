@@ -130,6 +130,11 @@ export function isBlankDraft(data) {
       "length",
       "width",
       "ownershipType",
+      "plotArea",
+      "builtUpArea",
+      "water",
+      "roadWidth",
+      "projectName",
     ].some((key) => data[key] != null && String(data[key]).trim() !== "") &&
       !data.photos?.length &&
       !data.location &&

@@ -2,11 +2,25 @@ import React, { useEffect, useState } from "react";
 import {
   Building2,
   House,
+  Home,
   Trees,
   BriefcaseBusiness,
   BedDouble,
   LayoutGrid,
 } from "lucide-react";
+import {
+  PROPERTY_TYPE,
+  canonicalizePropertyType,
+  WATER_SOURCES,
+  VILLA_AMENITIES,
+} from "./propertyTypeIds";
+
+export {
+  PROPERTY_TYPE,
+  canonicalizePropertyType,
+  WATER_SOURCES,
+  VILLA_AMENITIES,
+};
 
 // Labels can evolve without changing listing data or searches saved on this device.
 const propertyTypeDetails = {
@@ -16,34 +30,53 @@ const propertyTypeDetails = {
     Icon: Building2,
   },
   "Independent House": {
-    label: "House / Villa",
-    mobileLabel: "House / Villa",
+    label: "Independent House",
+    mobileLabel: "Independent House",
+    description: "Standalone plot with a private building",
     Icon: House,
+  },
+  Villa: {
+    label: "Gated Villa",
+    mobileLabel: "Gated Villa",
+    description: "Inside a gated community / layout",
+    Icon: Home,
   },
   Land: { label: "Plot / Land", mobileLabel: "Land", Icon: Trees },
   Commercial: { label: "Commercial", Icon: BriefcaseBusiness },
   PG: { label: "PG", Icon: BedDouble },
 };
-// Keep existing Villa listings and saved searches in the combined house category.
-const propertyTypeKey = (type) =>
-  type === "Villa" ? "Independent House" : type;
-export const matchesPropertyType = (listingType, filterType) =>
-  filterType === "All" ||
-  propertyTypeKey(listingType) === propertyTypeKey(filterType);
+
+export const matchesPropertyType = (listingType, filterType) => {
+  if (filterType === "All") return true;
+  // Legacy agent filter value "House" matched both; keep that for saved URLs only.
+  if (filterType === "House") {
+    return ["Independent House", "Villa"].includes(
+      canonicalizePropertyType(listingType),
+    );
+  }
+  return (
+    canonicalizePropertyType(listingType) ===
+    canonicalizePropertyType(filterType)
+  );
+};
+
 const typesFor = (mode) =>
   mode === "RENT"
-    ? ["Land", "Independent House", "Apartment", "Commercial", "PG"]
-    : ["Land", "Independent House", "Apartment", "Commercial"];
-export const typeLabel = (type) =>
-  type === "All"
-    ? "All properties"
-    : propertyTypeDetails[propertyTypeKey(type)]?.label || type;
+    ? ["Land", "Independent House", "Villa", "Apartment", "Commercial", "PG"]
+    : ["Land", "Independent House", "Villa", "Apartment", "Commercial"];
+
+export const typeLabel = (type) => {
+  if (type === "All") return "All properties";
+  const key = canonicalizePropertyType(type);
+  return propertyTypeDetails[key]?.label || type;
+};
 
 /** Short label for property-card image overlays. */
 export const cardTypeLabel = (type) => {
-  if (type === "Villa") return "Villa";
-  if (type === "Independent House") return "House";
-  return propertyTypeDetails[propertyTypeKey(type)]?.mobileLabel || type || "";
+  const key = canonicalizePropertyType(type);
+  if (key === PROPERTY_TYPE.villa) return "Gated Villa";
+  if (key === PROPERTY_TYPE.independent_house) return "Independent House";
+  return propertyTypeDetails[key]?.mobileLabel || type || "";
 };
 
 export default function PropertyTypes({
@@ -81,6 +114,7 @@ export default function PropertyTypes({
   }, [allowAll, compact]);
 
   const collapsed = allowAll && !compact && !expanded;
+  const selectedType = canonicalizePropertyType(value);
   return (
     <section
       className={
@@ -116,14 +150,16 @@ export default function PropertyTypes({
           </button>
         )}
         {typesFor(mode).map((type) => {
-          const { label, mobileLabel, Icon } = propertyTypeDetails[type];
-          const selected = propertyTypeKey(value) === type;
+          const { label, mobileLabel, Icon, description } =
+            propertyTypeDetails[type];
+          const selected = selectedType === type;
           return (
             <button
               type="button"
               className={"property-type-option" + (selected ? " selected" : "")}
-              aria-label={label}
+              aria-label={description ? `${label}. ${description}` : label}
               aria-pressed={selected}
+              title={description || label}
               key={type}
               onClick={() => {
                 if (!selected) onChange(type);

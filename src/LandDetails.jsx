@@ -303,6 +303,50 @@ export function LandAreaFields({ data, set }) {
     </div>
   );
 }
+
+/** Dual sq.ft / cents editor for Independent House land (stores `plotArea`). */
+export function PlotLandAreaFields({ data, set }) {
+  const [centInput, setCentInput] = useState(null);
+  const cents = positive(data.plotArea)
+    ? String(Number(toCents(data.plotArea).toFixed(4)))
+    : "";
+  return (
+    <div className="form-columns land-area-fields">
+      <label>
+        Land area (sq ft)
+        <input
+          type="number"
+          min="0.01"
+          step="any"
+          inputMode="decimal"
+          required
+          value={data.plotArea ?? ""}
+          onChange={(e) => set("plotArea", e.target.value)}
+        />
+      </label>
+      <label>
+        Land area (cents)
+        <input
+          type="number"
+          min="0.0001"
+          step="any"
+          inputMode="decimal"
+          required
+          value={centInput ?? cents}
+          onFocus={() => setCentInput(cents)}
+          onBlur={() => setCentInput(null)}
+          onChange={(e) => {
+            setCentInput(e.target.value);
+            set(
+              "plotArea",
+              e.target.value === "" ? "" : String(toSqft(e.target.value)),
+            );
+          }}
+        />
+      </label>
+    </div>
+  );
+}
 function landFormHighlights(data) {
   const supplied = Array.isArray(data.highlights)
     ? data.highlights

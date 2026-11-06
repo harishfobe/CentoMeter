@@ -1,10 +1,18 @@
 import React from "react";
 import { defaults } from "../../lib/agents";
+import PropertyTypes from "../../PropertyTypes";
 export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
   const set = (k, v) => onChange({ ...f, [k]: v });
   return (
     <Modal title="Listing filters" onClose={onClose}>
       <div className="form-stack">
+        <PropertyTypes
+          mode={f.mode}
+          value={f.type}
+          allowAll
+          compact
+          onChange={(type) => onChange({ ...f, type, beds: "" })}
+        />
         {[
           ["min", "Minimum ₹"],
           ["max", "Maximum ₹"],
