@@ -61,18 +61,20 @@ CentoMeter/
 │   ├── DESIGN-SPEC.md
 │   ├── USABILITY-TEST-PLAN.md
 │   ├── VALIDATION.md
-│   └── visual-reference/
+│   ├── visual-reference/
+│   └── archive/reports/    # Historical audits (may be outdated)
+├── tools/                  # Non-runtime design/perf helpers
 ├── public/                 # Logo, favicon, and illustrative property photos
 ├── src/
 │   ├── App.jsx             # Route composition and application interactions
 │   ├── MapViewImpl.jsx     # Deferred Leaflet map and teardown
 │   ├── PostFlow.jsx        # Listing editor and draft recovery
 │   ├── useListingStorage.js # Serialized listing persistence
-│   ├── components/        # Shared actions and agent UI
-│   ├── pages/             # Agent finder, profiles and dashboard
+│   ├── components/         # Shared actions and agent UI
+│   ├── pages/              # Agent finder, profiles and dashboard
+│   ├── data/               # Demo listings, agents, cities
 │   ├── Discovery.jsx       # Discovery filters, gallery, and related UI
 │   ├── Journeys.jsx        # Saved-search and visit workflows
-│   ├── properties.json     # Demonstration listing data
 │   ├── styles.css          # Responsive application styles
 │   └── main.jsx            # React entry point
 ├── index.html
@@ -97,4 +99,4 @@ Location gating is simulated. `private/demo-locations.json` contains synthetic d
 
 Agent WhatsApp values are distinct masked dummy values, not contact numbers. Demo floor plans and RERA identifiers are illustrative. GitHub Actions runs the build, lint, and tests on pushes and pull requests.
 
-For browser navigation checks, run `npx playwright install chromium` once, then `npm run test:e2e`. The suite runs Chromium at desktop, tablet and phone sizes, including audit flows at 360 px and 1280 px. See [the repository audit report](docs/reports/REPO_AUDIT_REPORT.md) for findings and validation. `npm run format` formats source and tests.
+For browser navigation checks, run `npx playwright install chromium` once, then `npm run test:e2e`. The suite runs Chromium at desktop, tablet and phone sizes, including audit flows at 360 px and 1280 px. See [the archived repository audit report](docs/archive/reports/REPO_AUDIT_REPORT.md) for historical findings (paths may be outdated). `npm run format` formats source and tests.

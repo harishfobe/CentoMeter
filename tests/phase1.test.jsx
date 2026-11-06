@@ -18,7 +18,7 @@ import { Costs } from "../src/Discovery";
 import { SelectedPropertySheet } from "../src/MinimalUI";
 import { StickyContactBar } from "../src/MobileUI";
 import { isBlankDraft, persistDraft } from "../src/PhotoStorage";
-import properties from "../src/properties.json";
+import properties from "../src/data/properties.json";
 const draft = {
   id: "rent",
   title: "Posted apartment",

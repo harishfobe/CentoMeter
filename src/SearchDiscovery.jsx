@@ -14,7 +14,7 @@ import {
   Trees,
   X,
 } from "lucide-react";
-import properties from "./properties.json";
+import properties from "./data/properties.json";
 import { nearText, priceBasis } from "./Journeys";
 import { readLocal, writeLocal } from "./Discovery";
 import {

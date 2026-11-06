@@ -53,7 +53,7 @@ import {
   Eye,
   Share2,
 } from "lucide-react";
-import properties from "./properties.json";
+import properties from "./data/properties.json";
 import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
 import { useAgentStore, viewerId } from "./lib/agentStore";
