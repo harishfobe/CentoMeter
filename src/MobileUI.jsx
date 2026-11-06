@@ -4,8 +4,56 @@ import WhatsAppIcon from "./components/WhatsAppIcon";
 import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
+import { pricePerCent } from "./PlotUI";
+
+function landBuyPriceMeta(p) {
+  const pool = [
+    ...(Array.isArray(p.features) ? p.features : []),
+    ...(Array.isArray(p.highlights) ? p.highlights : []),
+    p.tag,
+  ]
+    .filter((x) => typeof x === "string")
+    .map((x) => x.trim());
+  const negotiable =
+    p.negotiable === true ||
+    /^yes$/i.test(String(p.negotiable || "").trim()) ||
+    pool.some((value) => /negotiable/i.test(value));
+  const perSqft =
+    Number(p.area) > 0 && Number(p.price) > 0
+      ? "₹" +
+        Math.round(Number(p.price) / Number(p.area)).toLocaleString("en-IN") +
+        " / sqft"
+      : null;
+  return {
+    perSqft,
+    negotiable,
+    perCent: pricePerCent(p),
+  };
+}
 
 export function MobilePropertyPrice({ property: p, money }) {
+  if (p.type === "Land" && p.mode === "BUY") {
+    const { perSqft, negotiable, perCent } = landBuyPriceMeta(p);
+    return (
+      <div className="mobile-price-block land-price-block">
+        <div className="mobile-property-price land-property-price">
+          <strong>{money(p.price)}</strong>
+          {(perSqft || negotiable) && (
+            <span>
+              {[perSqft, negotiable ? "Negotiable" : null]
+                .filter(Boolean)
+                .join(" · ")}
+            </span>
+          )}
+          {perCent ? (
+            <span className="land-price-equivalent">
+              Equivalent: {money(perCent)} / Cent
+            </span>
+          ) : null}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="mobile-price-block">
       <div className="mobile-property-price">

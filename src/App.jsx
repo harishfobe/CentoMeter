@@ -1631,14 +1631,23 @@ export default function App() {
             <Gallery key={detail.id} p={detail} />
             <div className="detail-columns">
               <div>
-                <div className="detail-labels">
-                  <span className="pill">
-                    {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"}
-                  </span>
-                  <span className="muted">
-                    {typeLabel(detail.type)} · Sample listing
-                  </span>
-                </div>
+                {detail.type === "Land" ? (
+                  <p className="detail-eyebrow">
+                    {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
+                  </p>
+                ) : (
+                  <div className="detail-labels">
+                    <span className="pill">
+                      {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"}
+                    </span>
+                    <span className="muted">
+                      {typeLabel(detail.type)} · Sample listing
+                    </span>
+                  </div>
+                )}
+                {detail.type === "Land" ? (
+                  <MobilePropertyPrice property={detail} money={money} />
+                ) : null}
                 <h1>{detail.title}</h1>
                 <p className="muted location-line">
                   <MapPin size={17} />
@@ -1657,7 +1666,9 @@ export default function App() {
                     View agent profile
                   </button>
                 )}
-                <MobilePropertyPrice property={detail} money={money} />
+                {detail.type !== "Land" ? (
+                  <MobilePropertyPrice property={detail} money={money} />
+                ) : null}
                 {detail.type !== "Land" && !isHouseOrVilla(detail.type) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (

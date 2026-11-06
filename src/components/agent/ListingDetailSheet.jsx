@@ -17,7 +17,7 @@ import {
   isHouseOrVilla,
   buildHouseVillaFacts,
 } from "../../HouseVillaDetails";
-import { approvalLabels } from "../../PlotUI";
+import { approvalLabels, pricePerCent } from "../../PlotUI";
 import { EmiCalculator } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
 import { getExactLocation, accessStatus } from "../../lib/locationAccess";
@@ -273,9 +273,37 @@ export default function ListingDetailSheet({
           {money(p.price)}
           {p.mode === "RENT" ? "/mo" : ""}
         </h2>
-        <p>
-          {money(p.price / p.area)} / sq ft · {p.locality}
-        </p>
+        {p.type === "Land" && p.mode === "BUY" ? (
+          <>
+            <p>
+              {[
+                Number(p.area) > 0
+                  ? "₹" +
+                    Math.round(p.price / p.area).toLocaleString("en-IN") +
+                    " / sqft"
+                  : null,
+                p.negotiable === true ||
+                /^yes$/i.test(String(p.negotiable || "")) ||
+                [...(p.features || []), ...(p.highlights || [])].some((x) =>
+                  /negotiable/i.test(String(x)),
+                )
+                  ? "Negotiable"
+                  : null,
+              ]
+                .filter(Boolean)
+                .join(" · ")}
+            </p>
+            {pricePerCent(p) ? (
+              <p className="agent-land-price-equivalent">
+                Equivalent: {money(pricePerCent(p))} / Cent
+              </p>
+            ) : null}
+          </>
+        ) : (
+          <p>
+            {money(p.price / p.area)} / sq ft · {p.locality}
+          </p>
+        )}
         {p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>

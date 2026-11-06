@@ -117,7 +117,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Residential",
     "contactName": "Property owner",
@@ -132,7 +136,15 @@
     ],
     "landType": "Residential",
     "reraNo": "DEMO-RERA-0004",
-    "description": "A well-connected plot in Saibaba Colony, Coimbatore. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Saibaba Colony, Coimbatore. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p4",
@@ -347,7 +359,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Ananya Rao",
@@ -360,7 +376,15 @@
     ],
     "landType": "Agricultural",
     "reraNo": "DEMO-RERA-0009",
-    "description": "A well-connected plot in Peelamedu, Coimbatore. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Peelamedu, Coimbatore. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 35,
+    "length": 75,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p9",
@@ -813,7 +837,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Property owner",
@@ -826,7 +854,15 @@
     ],
     "landType": "Agricultural",
     "reraNo": "DEMO-RERA-0016",
-    "description": "A well-connected plot in Anna Nagar, Chennai. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Anna Nagar, Chennai. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 35,
+    "length": 75,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p16",
@@ -1230,7 +1266,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Rahul Reddy",
@@ -1248,7 +1288,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in Porur, Chennai. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Porur, Chennai. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "Chennai-BUY-Commercial",
@@ -1692,7 +1740,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Property owner",
@@ -1710,7 +1762,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in KK Nagar, Madurai. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in KK Nagar, Madurai. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p32",
@@ -1819,7 +1879,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Residential",
     "contactName": "Meera Kulkarni",
@@ -1837,7 +1901,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in Goripalayam, Madurai. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Goripalayam, Madurai. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 35,
+    "length": 73,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p35",
@@ -2139,7 +2211,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Riya Menon",
@@ -2157,7 +2233,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in Thillai Nagar, Trichy. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Thillai Nagar, Trichy. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p39",
@@ -2266,7 +2350,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Residential",
     "contactName": "Property owner",
@@ -2284,7 +2372,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in KK Nagar, Trichy. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in KK Nagar, Trichy. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 35,
+    "length": 73,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p42",
@@ -2583,7 +2679,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Riya Menon",
@@ -2601,7 +2701,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in K.K. Nagar East, Trichy. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in K.K. Nagar East, Trichy. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "Trichy-BUY-Commercial",
@@ -3039,7 +3147,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Agricultural",
     "contactName": "Property owner",
@@ -3057,7 +3169,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in SIPCOT, Hosur. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in SIPCOT, Hosur. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 40,
+    "length": 62,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p56",
@@ -3166,7 +3286,11 @@
     "available": "Within 30 days",
     "features": [
       "Road access",
-      "Corner plot"
+      "Corner plot",
+      "DTCP Approved",
+      "Borewell",
+      "Electricity connection",
+      "Negotiable"
     ],
     "subtype": "Residential",
     "contactName": "Arjun Desai",
@@ -3184,7 +3308,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected plot in Zuzuvadi, Hosur. Check access roads, nearby landmarks and document readiness before you visit."
+    "description": "A well-connected plot in Zuzuvadi, Hosur. Check access roads, nearby landmarks and document readiness before you visit.",
+    "width": 35,
+    "length": 73,
+    "water": "Borewell",
+    "electricity": "Available",
+    "negotiable": true,
+    "approvals": [
+      "DTCP"
+    ]
   },
   {
     "id": "p59",
