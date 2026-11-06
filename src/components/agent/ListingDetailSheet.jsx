@@ -16,6 +16,16 @@ import {
   usesHomeDetailLayout,
   buildHouseVillaFacts,
 } from "../../HouseVillaDetails";
+import {
+  CommercialFacilities,
+  CommercialHighlights,
+  CommercialIncomeBadge,
+  CommercialSummary,
+  commercialBuyPriceMeta,
+  commercialPostedLabel,
+  commercialTypeEyebrow,
+  usesCommercialDetailLayout,
+} from "../../CommercialDetails";
 import { approvalLabels, pricePerCent } from "../../PlotUI";
 import { EmiCalculator } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
@@ -100,6 +110,7 @@ export default function ListingDetailSheet({
     p.id +
     "&src=share";
   const homeDetail = usesHomeDetailLayout(p);
+  const commercialDetail = usesCommercialDetailLayout(p);
   const facts = homeDetail
     ? buildHouseVillaFacts(p)
     : [
@@ -225,6 +236,8 @@ export default function ListingDetailSheet({
           </p>
         ) : homeDetail ? (
           <p className="agent-listing-eyebrow">{houseTypeEyebrow(p)}</p>
+        ) : commercialDetail ? (
+          <p className="agent-listing-eyebrow">{commercialTypeEyebrow(p)}</p>
         ) : null}
         <h2>
           {money(p.price)}
@@ -272,12 +285,37 @@ export default function ListingDetailSheet({
               {[p.locality, p.city].filter(Boolean).join(", ")}
             </p>
           </>
+        ) : commercialDetail ? (
+          <>
+            <p>
+              {(() => {
+                const meta = commercialBuyPriceMeta(p);
+                return [meta.perSqft, meta.negotiable ? "Negotiable" : null]
+                  .filter(Boolean)
+                  .join(" · ");
+              })()}
+            </p>
+            <CommercialIncomeBadge p={p} />
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+            {commercialPostedLabel(p) ? (
+              <p className="muted commercial-posted">
+                {commercialPostedLabel(p)}
+              </p>
+            ) : null}
+          </>
         ) : (
           <p>
             {money(p.price / p.area)} / sq ft · {p.locality}
           </p>
         )}
-        {!homeDetail && p.type !== "Land" && p.mode === "BUY" ? (
+        {!homeDetail &&
+        !commercialDetail &&
+        p.type !== "Land" &&
+        p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -285,7 +323,10 @@ export default function ListingDetailSheet({
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
-        ) : !homeDetail && p.type !== "Land" && rentalCosts.length > 0 ? (
+        ) : !homeDetail &&
+          !commercialDetail &&
+          p.type !== "Land" &&
+          rentalCosts.length > 0 ? (
           <dl className="agent-rental-costs" aria-label="Rental costs">
             {rentalCosts.map(([key, label]) => (
               <div key={key}>
@@ -385,6 +426,14 @@ export default function ListingDetailSheet({
                 </div>
               </section>
             )}
+          </>
+        ) : commercialDetail ? (
+          <>
+            <CommercialSummary
+              p={p}
+              onReport={() => setReport(true)}
+            />
+            <CommercialHighlights p={p} />
           </>
         ) : (
           <>
@@ -491,6 +540,7 @@ export default function ListingDetailSheet({
                     : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}
           </p>
         </section>
+        {commercialDetail ? <CommercialFacilities p={p} /> : null}
         {p.type === "Land" && p.mode === "BUY" ? (
           <div className="agent-land-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
@@ -526,7 +576,7 @@ export default function ListingDetailSheet({
             )}
           </div>
         )}
-        {homeDetail && p.mode === "BUY" ? (
+        {(homeDetail || commercialDetail) && p.mode === "BUY" ? (
           <div className="agent-land-emi agent-house-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI

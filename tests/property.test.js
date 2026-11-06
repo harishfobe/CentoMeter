@@ -219,6 +219,88 @@ describe("EMI estimate", () => {
   });
 });
 
+describe("commercial property details", () => {
+  it("builds the reference commercial buy detail rows in order", async () => {
+    const {
+      buildCommercialDetailRows,
+      commercialTypeEyebrow,
+      commercialBuyPriceMeta,
+      commercialHighlightPills,
+      commercialFacilities,
+      usesCommercialDetailLayout,
+    } = await import("../src/CommercialDetails.jsx");
+    const listing = {
+      type: "Commercial",
+      mode: "BUY",
+      subtype: "Building",
+      area: 4000,
+      builtUpArea: 4000,
+      floorsLabel: "G+2",
+      shopCount: 6,
+      monthlyRent: 165000,
+      carParking: "Available",
+      roadAccess: "Main road",
+      powerBackup: "Available",
+      waterSupply: "Available",
+      possessionStatus: "Ready to move",
+      condition: "Resale",
+      ownershipType: "Freehold",
+      negotiable: true,
+      price: 28000000,
+      facilities: [
+        "Parking",
+        "CCTV",
+        "Power backup",
+        "Water supply",
+        "Separate meters",
+        "Main road access",
+      ],
+      commercialHighlights: [
+        "6 shops",
+        "Rental income",
+        "Main road access",
+        "Parking available",
+      ],
+    };
+    expect(usesCommercialDetailLayout(listing)).toBe(true);
+    expect(commercialTypeEyebrow(listing)).toBe(
+      "FOR SALE · COMMERCIAL · BUILDING",
+    );
+    expect(commercialBuyPriceMeta(listing)).toEqual({
+      perSqft: "₹7,000 / sqft",
+      negotiable: true,
+    });
+    const rows = buildCommercialDetailRows(listing).filter(
+      (row) => row.value != null,
+    );
+    expect(rows.map((row) => row.label)).toEqual([
+      "Property type",
+      "Built-up area",
+      "Number of floors",
+      "Number of shops",
+      "Monthly rental income",
+      "Car parking",
+      "Road access",
+      "Power backup",
+      "Water supply",
+      "Possession",
+      "Condition",
+      "Ownership",
+      "Price negotiable",
+    ]);
+    expect(rows.find((row) => row.label === "Monthly rental income").value).toBe(
+      "₹1.65 L / month",
+    );
+    expect(commercialHighlightPills(listing)).toEqual([
+      "6 shops",
+      "Rental income",
+      "Main road access",
+      "Parking available",
+    ]);
+    expect(commercialFacilities(listing)).toEqual(listing.facilities);
+  });
+});
+
 describe("apartment property details", () => {
   it("builds the reference apartment detail rows in order", async () => {
     const { buildApartmentDetailRows } = await import(

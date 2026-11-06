@@ -104,6 +104,15 @@ import {
   usesHomeDetailLayout,
 } from "./HouseVillaDetails";
 import {
+  CommercialFacilities,
+  CommercialHighlights,
+  CommercialIncomeBadge,
+  CommercialSummary,
+  commercialPostedLabel,
+  commercialTypeEyebrow,
+  usesCommercialDetailLayout,
+} from "./CommercialDetails";
+import {
   priceBasis,
   nearText,
   distanceKm,
@@ -1645,6 +1654,10 @@ export default function App() {
                   </p>
                 ) : usesHomeDetailLayout(detail) ? (
                   <p className="detail-eyebrow">{houseTypeEyebrow(detail)}</p>
+                ) : usesCommercialDetailLayout(detail) ? (
+                  <p className="detail-eyebrow">
+                    {commercialTypeEyebrow(detail)}
+                  </p>
                 ) : (
                   <div className="detail-labels">
                     <span className="pill">
@@ -1655,14 +1668,25 @@ export default function App() {
                     </span>
                   </div>
                 )}
-                {detail.type === "Land" || usesHomeDetailLayout(detail) ? (
+                {detail.type === "Land" ||
+                usesHomeDetailLayout(detail) ||
+                usesCommercialDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
+                ) : null}
+                {usesCommercialDetailLayout(detail) ? (
+                  <CommercialIncomeBadge p={detail} />
                 ) : null}
                 <h1>{detail.title}</h1>
                 <p className="muted location-line">
                   <MapPin size={17} />
                   {detail.locality}, {detail.city}
                 </p>
+                {usesCommercialDetailLayout(detail) &&
+                  commercialPostedLabel(detail) && (
+                    <p className="muted commercial-posted">
+                      {commercialPostedLabel(detail)}
+                    </p>
+                  )}
                 {detail.agentId && (
                   <button
                     className="text-button agent-profile-link"
@@ -1676,10 +1700,14 @@ export default function App() {
                     View agent profile
                   </button>
                 )}
-                {detail.type !== "Land" && !usesHomeDetailLayout(detail) ? (
+                {detail.type !== "Land" &&
+                !usesHomeDetailLayout(detail) &&
+                !usesCommercialDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
-                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (
                       <div>
@@ -1724,6 +1752,14 @@ export default function App() {
                     p={detail}
                     onReport={() => setModal("report")}
                   />
+                ) : usesCommercialDetailLayout(detail) ? (
+                  <CommercialSummary
+                    p={detail}
+                    onReport={() => setModal("report")}
+                  />
+                ) : null}
+                {usesCommercialDetailLayout(detail) ? (
+                  <CommercialHighlights p={detail} />
                 ) : null}
                 <section
                   className="about-the-property"
@@ -1743,7 +1779,11 @@ export default function App() {
                               : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
                   </p>
                 </section>
+                {usesCommercialDetailLayout(detail) ? (
+                  <CommercialFacilities p={detail} />
+                ) : null}
                 {detail.type !== "Land" &&
+                  !usesCommercialDetailLayout(detail) &&
                   (() => {
                     const aptOrVilla =
                       detail.type === "Apartment" || detail.type === "Villa";
@@ -1797,7 +1837,9 @@ export default function App() {
                       </>
                     );
                   })()}
-                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>
                       Listed by {detail.seller} · {detail.freshness} · Sample
@@ -1818,7 +1860,9 @@ export default function App() {
                     Preview sample floor plan
                   </button>
                 )}
-                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <div className="property-facts">
                     {supportsFacing(detail.type) && hasValue(detail.facing) && (
                       <div>
@@ -1855,7 +1899,9 @@ export default function App() {
                       ))}
                   </div>
                 )}
-                {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
+                {detail.type !== "Land" &&
+                  !usesHomeDetailLayout(detail) &&
+                  !usesCommercialDetailLayout(detail) && (
                   <OptionalPropertyDetails p={detail} />
                 )}
                 {detail.mode === "BUY" && (

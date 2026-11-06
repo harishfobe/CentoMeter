@@ -201,8 +201,23 @@
 .agent-detail .agent-land-emi > .secondary {
   width: 100%;
 }
-.agent-detail .house-villa-summary {
+.agent-detail .house-villa-summary,
+.agent-detail .commercial-summary {
   margin: 16px 0 20px;
+}
+.agent-detail .commercial-income-badge {
+  margin: 4px 0 12px;
+}
+.agent-detail .commercial-posted {
+  margin: 0 0 8px;
+}
+.agent-detail .commercial-highlights,
+.agent-detail .commercial-facilities {
+  margin: 16px 0 20px;
+}
+.agent-detail .commercial-highlights h2,
+.agent-detail .commercial-facilities h2 {
+  font-size: 17px;
 }
 .agent-listing-chips {
   display: flex;

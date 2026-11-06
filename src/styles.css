@@ -3584,6 +3584,73 @@ textarea {
   text-align: right;
   overflow-wrap: anywhere;
 }
+.commercial-income-badge {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--brand) 14%, var(--paper));
+  color: var(--brand-deep);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+.commercial-income-badge strong {
+  font-weight: 750;
+  color: var(--brand-deep);
+}
+.commercial-posted {
+  margin: -4px 0 0;
+  font-size: 12px;
+}
+.commercial-highlights,
+.commercial-facilities {
+  margin: 22px 0;
+}
+.commercial-highlights h2,
+.commercial-facilities h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+}
+.commercial-highlight-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.commercial-highlight-pills .pill {
+  margin: 0;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--canvas);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 550;
+}
+.commercial-facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.commercial-facilities-grid > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.35;
+}
+.commercial-facilities-grid svg {
+  flex: 0 0 auto;
+  color: var(--brand);
+}
 .land-facts {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
