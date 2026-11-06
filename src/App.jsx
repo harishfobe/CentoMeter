@@ -1743,19 +1743,60 @@ export default function App() {
                               : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
                   </p>
                 </section>
-                {detail.type !== "Land" && detail.features.length > 0 && (
-                  <>
-                    <h2>Highlights</h2>
-                    <div className="amenities">
-                      {detail.features.map((a) => (
-                        <span key={a}>
-                          <CheckCircle2 size={16} />
-                          {a}
-                        </span>
-                      ))}
-                    </div>
-                  </>
-                )}
+                {detail.type !== "Land" &&
+                  (() => {
+                    const aptOrVilla =
+                      detail.type === "Apartment" || detail.type === "Villa";
+                    const highlightItems = aptOrVilla
+                      ? Array.isArray(detail.highlights)
+                        ? detail.highlights
+                        : []
+                      : detail.features || [];
+                    const amenityItems = aptOrVilla
+                      ? Array.isArray(detail.amenities) &&
+                        detail.amenities.length
+                        ? detail.amenities
+                        : detail.features || []
+                      : [];
+                    return (
+                      <>
+                        {highlightItems.length > 0 && (
+                          <>
+                            <h2>Highlights</h2>
+                            {aptOrVilla ? (
+                              <ul className="owner-listing-highlights">
+                                {highlightItems.map((item) => (
+                                  <li key={item}>{item}</li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <div className="amenities">
+                                {highlightItems.map((a) => (
+                                  <span key={a}>
+                                    <CheckCircle2 size={16} />
+                                    {a}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </>
+                        )}
+                        {amenityItems.length > 0 && (
+                          <>
+                            <h2>Amenities</h2>
+                            <div className="amenities">
+                              {amenityItems.map((a) => (
+                                <span key={a}>
+                                  <CheckCircle2 size={16} />
+                                  {a}
+                                </span>
+                              ))}
+                            </div>
+                          </>
+                        )}
+                      </>
+                    );
+                  })()}
                 {detail.type !== "Land" && !usesHomeDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>

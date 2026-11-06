@@ -52,7 +52,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Illustrative listing — details to be verified",
@@ -943,7 +946,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -1721,7 +1727,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [],
     "description": "Sample apartment in SIPCOT, Hosur. Illustrative listing for demos.",
@@ -1791,7 +1800,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -1859,7 +1871,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [],
     "description": "Sample apartment in Race Course, Coimbatore. Illustrative listing for demos.",
@@ -1929,7 +1944,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -2374,7 +2392,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Clear property details",
@@ -2798,7 +2819,10 @@
     ],
     "amenities": [
       "Parking",
-      "Balcony"
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
     ],
     "highlights": [
       "Illustrative listing — details to be verified",

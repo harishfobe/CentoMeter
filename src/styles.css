@@ -1070,6 +1070,30 @@ img {
 .amenities svg {
   color: var(--success);
 }
+.owner-listing-highlights {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.owner-listing-highlights li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.owner-listing-highlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
 .detail-map {
   height: 260px;
   overflow: hidden;

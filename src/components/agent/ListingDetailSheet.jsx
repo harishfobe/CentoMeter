@@ -355,7 +355,7 @@ export default function ListingDetailSheet({
                 </div>
               )}
             </section>
-            {p.highlights.length > 0 && (
+            {(p.highlights || []).length > 0 && (
               <section
                 className="agent-detail-section"
                 aria-label="Listing highlights"
@@ -368,18 +368,20 @@ export default function ListingDetailSheet({
                 </ul>
               </section>
             )}
-            {p.amenities.length > 0 && (
+            {(p.amenities || p.features || []).length > 0 && (
               <section
                 className="agent-detail-section"
                 aria-label="Listing amenities"
               >
                 <h3>Amenities</h3>
                 <div className="chips agent-detail-amenities">
-                  {p.amenities.map((x) => (
-                    <span className="pill" key={x}>
-                      {x}
-                    </span>
-                  ))}
+                  {(p.amenities?.length ? p.amenities : p.features || []).map(
+                    (x) => (
+                      <span className="pill" key={x}>
+                        {x}
+                      </span>
+                    ),
+                  )}
                 </div>
               </section>
             )}

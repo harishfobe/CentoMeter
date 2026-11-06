@@ -54,7 +54,14 @@
     "balconies": 1,
     "condition": "Resale",
     "negotiable": true,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p2",
@@ -351,7 +358,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p7",
@@ -523,7 +537,14 @@
     "ownershipType": "Freehold",
     "negotiable": true,
     "possessionStatus": "Ready to move",
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p10",
@@ -913,7 +934,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p14",
@@ -1085,7 +1113,14 @@
     "ownershipType": "Freehold",
     "negotiable": true,
     "possessionStatus": "Ready to move",
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p17",
@@ -1336,7 +1371,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p21",
@@ -1457,7 +1499,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p23",
@@ -1905,7 +1954,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p28",
@@ -2026,7 +2082,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p30",
@@ -2202,7 +2265,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p33",
@@ -2749,7 +2819,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p40",
@@ -3037,7 +3114,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p45",
@@ -3158,7 +3242,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p47",
@@ -3600,7 +3691,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p52",
@@ -3721,7 +3819,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p54",
@@ -3891,7 +3996,14 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "amenities": [
+      "Parking",
+      "Balcony",
+      "Lift",
+      "Power Backup",
+      "Security"
+    ]
   },
   {
     "id": "p57",
