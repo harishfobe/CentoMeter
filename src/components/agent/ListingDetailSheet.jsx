@@ -1,4 +1,4 @@
-import { ArrowUpRight, Copy, FileImage, Play } from "lucide-react";
+import { ArrowUpRight, Copy, FileImage, MapPin, Play } from "lucide-react";
 import CopyButton from "../CopyButton";
 import { StickyContactBar } from "../../MobileUI";
 import useSheetDrag from "../../lib/useSheetDrag";
@@ -202,6 +202,7 @@ export default function ListingDetailSheet({
           }}
           onPointerUp={(e) => {
             if (
+              p.type !== "Land" &&
               gesture.current &&
               Math.abs(e.clientY - gesture.current.y) > 60 &&
               Math.abs(e.clientX - gesture.current.x) < 40 &&
@@ -257,11 +258,19 @@ export default function ListingDetailSheet({
             />
           ))}
         </div>
-        <p>
-          {photos.length
-            ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
-            : "No photos available"}
-        </p>
+        {p.type === "Land" ? (
+          photos.length > 1 ? (
+            <p className="agent-photo-count-label" aria-live="polite">
+              {Math.min(photo + 1, photos.length)}/{photos.length}
+            </p>
+          ) : null
+        ) : (
+          <p>
+            {photos.length
+              ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
+              : "No photos available"}
+          </p>
+        )}
         {p.type !== "Land" ? (
           <button
             className="secondary"
@@ -306,11 +315,20 @@ export default function ListingDetailSheet({
               </p>
             ) : null}
           </>
-        ) : (
+        ) : p.type !== "Land" ? (
           <p>
             {money(p.price / p.area)} / sq ft · {p.locality}
           </p>
-        )}
+        ) : null}
+        {p.type === "Land" ? (
+          <>
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+          </>
+        ) : null}
         {p.type !== "Land" && p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
