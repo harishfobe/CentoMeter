@@ -9,7 +9,7 @@ import {
   within,
 } from "@testing-library/react";
 import HomeDiscovery from "../src/components/HomeDiscovery";
-import properties from "../src/properties.json";
+import properties from "../src/data/properties.json";
 const home = properties[0];
 const builder = { ...properties[2], seller: "Builder", mode: "BUY" };
 const defaults = {

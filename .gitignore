@@ -7,3 +7,5 @@ coverage/
 test-results/
 playwright-report/
 artifacts/
+.agents/
+skills-lock.json

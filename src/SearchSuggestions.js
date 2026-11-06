@@ -1,4 +1,4 @@
-import properties from "./properties.json";
+import properties from "./data/properties.json";
 import { featuredAreas, sampleBuilders } from "./data/cities";
 
 const buildersById = new Map();

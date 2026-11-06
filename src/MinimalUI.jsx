@@ -31,24 +31,6 @@ export function PriceCaption({ p, money }) {
           " / sq ft"
         : null;
 }
-export function PropertyActionBar({ p, money, onVisit, className = "" }) {
-  return (
-    <div className={"sticky-property-bar direct-property-bar " + className}>
-      <div className="sticky-price">
-        <span>{p.mode === "RENT" ? "Monthly rent" : "Total price"}</span>
-        <strong>{money(p.price)}</strong>
-        <small>
-          <PriceCaption p={p} money={money} />
-        </small>
-      </div>
-      {onVisit && (
-        <button type="button" className="primary" onClick={onVisit}>
-          Book site visit
-        </button>
-      )}
-    </div>
-  );
-}
 export function SelectedPropertySheet({
   p,
   money,
