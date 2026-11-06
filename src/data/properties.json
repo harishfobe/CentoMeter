@@ -105,11 +105,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p3",
@@ -179,7 +180,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -216,7 +220,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Kovai Courtyard",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p5",
@@ -273,11 +284,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p6",
@@ -347,7 +359,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -384,7 +399,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Kovai Garden Walk",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p8",
@@ -534,11 +556,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p11",
@@ -562,7 +585,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -599,7 +625,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Kovai Maple Court",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p12",
@@ -656,11 +689,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "Coimbatore-BUY-Commercial",
@@ -869,7 +903,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -906,7 +943,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Marina Horizon Towers",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p15",
@@ -1056,11 +1100,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p18",
@@ -1084,7 +1129,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1121,7 +1169,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Marina Olive Grove",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p19",
@@ -1178,11 +1233,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p20",
@@ -1252,7 +1308,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1283,7 +1342,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Marina Palm Residences",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p22",
@@ -1353,7 +1419,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -1390,7 +1459,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Marina Lakeview Retreat",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p24",
@@ -1602,7 +1678,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1639,7 +1718,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Meenakshi Greenfield Plot",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p26",
@@ -1696,11 +1782,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p27",
@@ -1770,7 +1857,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -1801,7 +1891,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Meenakshi Sunrise Heights",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p29",
@@ -1871,7 +1968,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -1908,7 +2008,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Meenakshi Silver Oaks",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p31",
@@ -2054,11 +2161,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p34",
@@ -2131,7 +2239,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2168,7 +2279,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Meenakshi Lotus Nest",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p36",
@@ -2219,11 +2337,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "Madurai-BUY-Commercial",
@@ -2386,7 +2505,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2423,7 +2545,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Cauvery Pearl Apartments",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p38",
@@ -2569,11 +2698,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p41",
@@ -2646,7 +2776,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2683,7 +2816,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Cauvery Cedar Grove",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p43",
@@ -2734,11 +2874,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p44",
@@ -2808,7 +2949,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -2845,7 +2989,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Cauvery Greenfield Plot",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p46",
@@ -2909,7 +3060,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -2946,7 +3100,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Cauvery Garden Walk",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p48",
@@ -3158,7 +3319,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -3195,7 +3359,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Hillgate Orchid Enclave",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p50",
@@ -3246,11 +3417,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p51",
@@ -3320,7 +3492,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 3000,
@@ -3357,7 +3532,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Hillgate Riverfront Homes",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p53",
@@ -3421,7 +3603,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -3458,7 +3643,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Hillgate Horizon Towers",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p55",
@@ -3604,11 +3796,12 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "p58",
@@ -3681,7 +3874,10 @@
       "Parking",
       "Lift access",
       "Negotiable",
-      "Borewell"
+      "Borewell",
+      "Clubhouse",
+      "Security",
+      "Power Backup"
     ],
     "subtype": "Home",
     "maintenance": 2000,
@@ -3718,7 +3914,14 @@
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Within 30 days"
+    "possessionStatus": "Within 30 days",
+    "projectName": "Hillgate Sapphire Court",
+    "amenities": [
+      "Clubhouse",
+      "Security",
+      "Pool",
+      "Power Backup"
+    ]
   },
   {
     "id": "p60",
@@ -3775,11 +3978,12 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell + Corporation",
+    "water": "Borewell",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
-    "possessionStatus": "Ready to move"
+    "possessionStatus": "Ready to move",
+    "roadWidth": 30
   },
   {
     "id": "Hosur-BUY-Commercial",

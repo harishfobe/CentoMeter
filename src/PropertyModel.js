@@ -1,7 +1,12 @@
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import { centers as cityCenters, cityListLabel } from "./data/cities";
+import { canonicalizePropertyType } from "./propertyTypeIds";
 export const centers = cityCenters;
 export { cityListLabel };
+export {
+  PROPERTY_TYPE,
+  canonicalizePropertyType,
+} from "./propertyTypeIds";
 export function money(value) {
   if (value == null || (typeof value === "string" && !value.trim())) return "—";
   let n;
@@ -58,6 +63,7 @@ export function normalizePostedListing(d, profileName = "Property owner") {
   const [lat, lng] = d.location.map(Number);
   const city = cityForLocation([lat, lng]);
   if (!city) return null;
+  const canonical = canonicalizePropertyType(d.type);
   const type = [
     "Apartment",
     "Independent House",
@@ -65,11 +71,15 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     "Land",
     "Commercial",
     "PG",
-  ].includes(d.type)
-    ? d.type
+  ].includes(canonical)
+    ? canonical
     : "Apartment";
   const description =
     typeof d.description === "string" ? d.description.trim() : "";
+  const rera = text(d.reraNumber, text(d.reraNo, ""));
+  const projectName = text(d.projectName, text(d.communityName, ""));
+  const plotArea = optionalNumber(d.plotArea);
+  const builtUpArea = optionalNumber(d.builtUpArea);
   return {
     ...d,
     id: String(d.id),
@@ -103,6 +113,16 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     ac: text(d.ac),
     subtype: text(d.landType, text(d.subtype)),
     facing: text(d.facing),
+    water: text(d.water, ""),
+    roadWidth: optionalNumber(d.roadWidth),
+    plotArea,
+    builtUpArea:
+      builtUpArea ??
+      (["Independent House", "Villa"].includes(type) ? Number(d.area) : null),
+    projectName: projectName || undefined,
+    communityName: projectName || undefined,
+    reraNumber: rera || undefined,
+    reraNo: rera || undefined,
     image:
       type === "Land" ? "land" : type === "Apartment" ? "apartment" : "villa",
     seller: text(d.seller, "Owner"),

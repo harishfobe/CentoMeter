@@ -13,7 +13,7 @@ export const facingDirections = [
   "North-West",
 ];
 export const supportsFacing = (type) =>
-  ["Land", "Independent House", "Villa", "Apartment"].includes(type);
+  ["Land", "Independent House", "Villa", "Apartment"].includes(type); // house + villa stay distinct
 export const filterDefaults = {
   type: "All",
   min: 0,

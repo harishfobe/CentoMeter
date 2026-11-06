@@ -9,11 +9,12 @@ const optionalFields = [
   ["ownershipType", "Ownership type", "text"],
   ["postedAt", "Posted date", "date"],
 ];
-export function OptionalListingFields({ data, set }) {
+export function OptionalListingFields({ data, set, hideFields = [] }) {
   const houseVilla =
     data.type === "Villa" || data.type === "Independent House";
   const fields = optionalFields.filter(
-    ([key]) => !(houseVilla && key === "parking"),
+    ([key]) =>
+      !(houseVilla && key === "parking") && !hideFields.includes(key),
   );
   return (
     <details className="advanced-filters">

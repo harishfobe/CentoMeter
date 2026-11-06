@@ -6,6 +6,11 @@ import { pinPrice } from "../PlotUI";
 import { landPrice } from "../JourneyUX";
 import { landArea } from "../LandDetails";
 import { priceBasis, areaBasis } from "../Journeys";
+import {
+  houseCardChips,
+  houseCardSpecLine,
+  isHouseOrVilla,
+} from "../HouseVillaDetails";
 function PropertyCard({
   p,
   saved,
@@ -14,6 +19,9 @@ function PropertyCard({
   compact = false,
   priceUnit = "total",
 }) {
+  const houseVilla = isHouseOrVilla(p.type);
+  const houseSpec = houseVilla ? houseCardSpecLine(p) : null;
+  const houseChips = houseVilla ? houseCardChips(p) : [];
   return (
     <article
       className={"property-card " + (compact ? "compact compact-wrapper" : "")}
@@ -67,29 +75,42 @@ function PropertyCard({
           <MapPin size={13} />
           {p.locality}, {p.city}
         </p>
-        <div className="property-specs">
-          {!["Land", "Commercial", "PG"].includes(p.type) && (
+        {houseSpec ? (
+          <p className="property-house-spec">{houseSpec}</p>
+        ) : (
+          <div className="property-specs">
+            {!["Land", "Commercial", "PG"].includes(p.type) && (
+              <span>
+                <BedDouble />
+                {p.beds === 0 ? "Studio" : p.beds + " BHK"}
+              </span>
+            )}
+            {p.type === "PG" && <span>{p.occupancy}</span>}
+            {p.baths > 0 && (
+              <span>
+                <Bath />
+                {p.baths} baths
+              </span>
+            )}
             <span>
-              <BedDouble />
-              {p.beds === 0 ? "Studio" : p.beds + " BHK"}
+              <Square />
+              {p.type === "Land"
+                ? landArea(p.area)
+                : Number(p.area || 0).toLocaleString("en-IN") +
+                  " sq ft · " +
+                  areaBasis(p)}
             </span>
-          )}
-          {p.type === "PG" && <span>{p.occupancy}</span>}
-          {p.baths > 0 && (
-            <span>
-              <Bath />
-              {p.baths} baths
-            </span>
-          )}
-          <span>
-            <Square />
-            {p.type === "Land"
-              ? landArea(p.area)
-              : Number(p.area || 0).toLocaleString("en-IN") +
-                " sq ft · " +
-                areaBasis(p)}
-          </span>
-        </div>
+          </div>
+        )}
+        {houseChips.length > 0 && (
+          <div className="property-card-chips" aria-label="Highlights">
+            {houseChips.map((chip) => (
+              <span key={chip} className="pill">
+                {chip}
+              </span>
+            ))}
+          </div>
+        )}
       </button>
     </article>
   );

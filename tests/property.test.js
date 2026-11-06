@@ -115,7 +115,18 @@ describe("matches", () => {
     features: ["Parking"],
     facing: "East",
   };
-  it("accepts combined house/villa and exact bedrooms", () =>
+  it("keeps Independent House and Villa as distinct filters", () => {
+    expect(
+      matches(p, {
+        ...filterDefaults,
+        type: "Villa",
+        beds: "2,3",
+        min: 40000,
+        max: 50000,
+        feature: "Parking",
+        facing: "East",
+      }),
+    ).toBe(true);
     expect(
       matches(p, {
         ...filterDefaults,
@@ -126,7 +137,21 @@ describe("matches", () => {
         feature: "Parking",
         facing: "East",
       }),
-    ).toBe(true));
+    ).toBe(false);
+  });
+  it("still honors legacy House filter for both types", () => {
+    expect(
+      matches(p, {
+        ...filterDefaults,
+        type: "House",
+        beds: "2,3",
+        min: 40000,
+        max: 50000,
+        feature: "Parking",
+        facing: "East",
+      }),
+    ).toBe(true);
+  });
   it("rejects mismatched type, budget, bedrooms and facing", () => {
     for (const patch of [
       { type: "Land" },
@@ -191,5 +216,42 @@ describe("EMI estimate", () => {
     expect(emiPayment(-1, 9, 20)).toBe(null);
     expect(emiPayment(1000, 9, 0)).toBe(null);
     expect(emiPayment(1000, 31, 20)).toBe(null);
+  });
+});
+
+describe("house vs villa differentiation", () => {
+  it("canonicalizes independent_house and villa ids", async () => {
+    const { canonicalizePropertyType, PROPERTY_TYPE } = await import(
+      "../src/propertyTypeIds.js"
+    );
+    expect(canonicalizePropertyType("independent_house")).toBe(
+      PROPERTY_TYPE.independent_house,
+    );
+    expect(canonicalizePropertyType("villa")).toBe(PROPERTY_TYPE.villa);
+  });
+  it("builds distinct card specs and chips", async () => {
+    const {
+      houseCardTypeTag,
+      houseCardSpecLine,
+      houseCardChips,
+    } = await import("../src/HouseVillaDetails.jsx");
+    const house = {
+      type: "Independent House",
+      plotArea: 1995,
+      builtUpArea: 2440,
+      water: "Borewell",
+      beds: 3,
+    };
+    const villa = { type: "Villa", builtUpArea: 3300, beds: 4 };
+    expect(houseCardTypeTag(house.type)).toBe("Independent House");
+    expect(houseCardSpecLine(house)).toMatch(/Cents Land/);
+    expect(houseCardSpecLine(house)).toMatch(/Built-up/);
+    expect(houseCardChips(house)).toEqual(["Private Land", "Borewell"]);
+    expect(houseCardTypeTag(villa.type)).toBe("Gated Villa");
+    expect(houseCardSpecLine(villa)).toBe("3,300 sq.ft • 4 BHK");
+    expect(houseCardChips(villa)).toEqual([
+      "Gated Community",
+      "24/7 Security",
+    ]);
   });
 });
