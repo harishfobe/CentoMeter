@@ -99,34 +99,15 @@ test("tab switching remembers the listing scroll position", async ({
   expect(Math.abs((await page.evaluate(() => scrollY)) - y)).toBeLessThan(3);
 });
 
-test("gallery touch drag opens the full-screen viewer", async ({ page }) => {
+test("agent listing gallery has no full-screen photo control", async ({
+  page,
+}) => {
   await page.goto("/#agent/ananya.rao?mode=BUY&available=false");
   await page.waitForTimeout(400);
   await page.locator(".property-copy").first().click();
   await expect(page.locator(".agent-detail")).toBeVisible();
-  await page
-    .locator(".modal:has(.agent-detail)")
-    .evaluate((el) =>
-      Promise.all(el.getAnimations().map((a) => a.finished.catch(() => {}))),
-    );
-  const gallery = page.locator(".agent-detail .agent-photo-strip"),
-    box = await gallery.boundingBox();
-  const x = box.x + box.width / 2,
-    y = box.y + Math.min(90, box.height / 2);
-  const cdp = await page.context().newCDPSession(page);
-  await cdp.send("Input.dispatchTouchEvent", {
-    type: "touchStart",
-    touchPoints: [{ x, y }],
-  });
-  await cdp.send("Input.dispatchTouchEvent", {
-    type: "touchMove",
-    touchPoints: [{ x, y: y + 90 }],
-  });
-  await cdp.send("Input.dispatchTouchEvent", {
-    type: "touchEnd",
-    touchPoints: [],
-  });
+  await expect(page.getByText("View photo full screen")).toHaveCount(0);
   await expect(
     page.getByRole("dialog", { name: "Photo viewer", exact: true }),
-  ).toBeVisible();
+  ).toHaveCount(0);
 });

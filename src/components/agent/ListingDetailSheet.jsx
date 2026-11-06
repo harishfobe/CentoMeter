@@ -2,11 +2,7 @@ import { ArrowUpRight, Copy, FileImage, MapPin, Play } from "lucide-react";
 import CopyButton from "../CopyButton";
 import { StickyContactBar } from "../../MobileUI";
 import useSheetDrag from "../../lib/useSheetDrag";
-import {
-  animateMotion,
-  reducedMotion,
-  revealGalleryImage,
-} from "../../lib/agentMotion";
+import { reducedMotion, revealGalleryImage } from "../../lib/agentMotion";
 import useExpiryTick from "../../lib/useExpiryTick";
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useRef } from "react";
@@ -67,7 +63,6 @@ export default function ListingDetailSheet({
   const gallery = useRef(null),
     imageStops = useRef([]);
   useEffect(() => () => imageStops.current.forEach((stop) => stop()), []);
-  const gesture = useRef(null);
   const s = useAgentStore();
   const [request, setRequest] = useState(false),
     [report, setReport] = useState(false),
@@ -82,7 +77,6 @@ export default function ListingDetailSheet({
     ["brokerage", "Brokerage"],
   ].filter(([key]) => hasValue(p[key]));
   const [photo, setPhoto] = useState(0);
-  const [zoom, setZoom] = useState(false);
   useEffect(() => setPhoto(0), [p.id]);
   const point = getExactLocation(p.id, viewerId);
   const req = s.requests.find(
@@ -95,26 +89,6 @@ export default function ListingDetailSheet({
     if (point && !wasUnlocked.current) notifyAgent("Location unlocked");
     wasUnlocked.current = !!point;
   }, [!!point]);
-  useEffect(() => {
-    if (!zoom) return;
-    const image = document.querySelector(".agent-full-photo");
-    const source = gallery.current?.querySelectorAll("img")[photo];
-    if (!image || !source) return;
-    const from = source.getBoundingClientRect(),
-      to = image.getBoundingClientRect();
-    animateMotion(
-      image,
-      [
-        {
-          translate: `${from.x - to.x}px ${from.y - to.y}px`,
-          scale: from.width / Math.max(1, to.width),
-          opacity: 0.5,
-        },
-        { translate: "0 0", scale: 1, opacity: 1 },
-      ],
-      { duration: 280 },
-    );
-  }, [zoom]);
 
   const link =
     location.origin +
@@ -196,25 +170,6 @@ export default function ListingDetailSheet({
         <div
           className="agent-photo-strip"
           ref={gallery}
-          onPointerDown={(e) => {
-            gesture.current = { x: e.clientX, y: e.clientY };
-            e.currentTarget.setPointerCapture?.(e.pointerId);
-          }}
-          onPointerCancel={() => {
-            gesture.current = null;
-          }}
-          onPointerUp={(e) => {
-            if (
-              gesture.current &&
-              Math.abs(e.clientY - gesture.current.y) > 60 &&
-              Math.abs(e.clientX - gesture.current.x) < 40 &&
-              photos.length
-            ) {
-              setZoom(true);
-            }
-            gesture.current = null;
-          }}
-
           onScroll={(e) =>
             setPhoto(
               Math.round(
@@ -265,15 +220,6 @@ export default function ListingDetailSheet({
             ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
             : "No photos available"}
         </p>
-        {p.type !== "Land" ? (
-          <button
-            className="secondary"
-            disabled={!photos.length}
-            onClick={() => setZoom(true)}
-          >
-            View photo full screen
-          </button>
-        ) : null}
         {p.type === "Land" ? (
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
@@ -708,17 +654,6 @@ export default function ListingDetailSheet({
         )}
       </article>
       <StickyContactBar property={p} agent={a} />
-      {zoom && (
-        <Modal title="Photo viewer" onClose={() => setZoom(false)}>
-          <img
-            className="agent-full-photo"
-            width="800"
-            height="500"
-            src={photos[photo]}
-            alt={p.title}
-          />
-        </Modal>
-      )}
       {request && (
         <RequestLocationSheet
           p={p}

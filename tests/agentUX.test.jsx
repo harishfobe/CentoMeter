@@ -66,7 +66,7 @@ it("handles zero photos without a counter and presents labelled detail facts", (
   expect(screen.getByText("2 years")).toBeTruthy();
   expect(screen.getByText("20 ft")).toBeTruthy();
   expect(screen.getByText(/20% down payment/)).toBeTruthy();
-  expect(screen.getByText("View photo full screen").disabled).toBe(true);
+  expect(screen.queryByText("View photo full screen")).toBeNull();
 });
 it("finder uses geolocation and explains the fallback", async () => {
   vi.stubGlobal("navigator", {
