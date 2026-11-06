@@ -63,7 +63,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await sheet.getByRole("button", { name: "English", exact: true }).click();
   await sheet.getByRole("switch", { name: "Verified only" }).check();
   await shot(page, info, "finder-filters");
-  await sheet.getByRole("button", { name: /Show \d+ agents/ }).click();
+  await sheet.getByRole("button", { name: /Show \d+ agents?/ }).click();
   await expect(sheet).toHaveCount(0);
   await page.getByRole("button", { name: "Clear all", exact: true }).click();
   await expect(page.locator(".agent-grid .agent-card")).toHaveCount(8);
@@ -186,7 +186,7 @@ test("editing an agent sample replaces the existing card instead of creating a d
     .locator(".agent-listing, .request-card")
     .filter({
       has: page.getByRole("heading", {
-        name: "Garden City Palm Residences",
+        name: "Kovai Palm Residences",
         exact: true,
       }),
     })
