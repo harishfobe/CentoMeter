@@ -68,6 +68,8 @@ export function normalizePostedListing(d, profileName = "Property owner") {
   ].includes(d.type)
     ? d.type
     : "Apartment";
+  const description =
+    typeof d.description === "string" ? d.description.trim() : "";
   return {
     ...d,
     id: String(d.id),
@@ -86,6 +88,7 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     maintenance: optionalNumber(d.maintenance),
     brokerage: numeric(d.brokerage),
     freshness: "Just now",
+    description,
     features: Array.isArray(d.features)
       ? d.features.filter((x) => typeof x === "string")
       : [],

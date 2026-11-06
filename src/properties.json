@@ -47,7 +47,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in RS Puram, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p2",
@@ -96,7 +97,8 @@
     "carpetArea": 1903,
     "carParking": 1,
     "width": 35,
-    "length": 57
+    "length": 57,
+    "description": "An independent house in Peelamedu, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p3",
@@ -129,7 +131,8 @@
       "/land.jpg"
     ],
     "landType": "Residential",
-    "reraNo": "DEMO-RERA-0004"
+    "reraNo": "DEMO-RERA-0004",
+    "description": "A well-connected plot in Saibaba Colony, Coimbatore. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p4",
@@ -178,7 +181,8 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "description": "A private villa in Race Course, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p5",
@@ -227,7 +231,8 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "description": "An independent house in Gandhipuram, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p6",
@@ -272,7 +277,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Singanallur, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p7",
@@ -321,7 +327,8 @@
     "carpetArea": 2636,
     "carParking": 2,
     "width": 41,
-    "length": 67
+    "length": 67,
+    "description": "A private villa in RS Puram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p8",
@@ -352,7 +359,8 @@
       "/land.jpg"
     ],
     "landType": "Agricultural",
-    "reraNo": "DEMO-RERA-0009"
+    "reraNo": "DEMO-RERA-0009",
+    "description": "A well-connected plot in Peelamedu, Coimbatore. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p9",
@@ -400,7 +408,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Saibaba Colony, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p10",
@@ -449,7 +458,8 @@
     "carpetArea": 1903,
     "carParking": 1,
     "width": 35,
-    "length": 57
+    "length": 57,
+    "description": "An independent house in Race Course, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p11",
@@ -498,7 +508,8 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "description": "A private villa in Gandhipuram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p12",
@@ -547,7 +558,8 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "description": "An independent house in Singanallur, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "Coimbatore-BUY-Commercial",
@@ -590,7 +602,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in RS Puram, Coimbatore with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "Coimbatore-RENT-PG",
@@ -640,7 +653,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A practical PG stay in Peelamedu, Coimbatore. Ask about rooms, meals, house rules and the best time to visit."
   },
   {
     "id": "Coimbatore-RENT-Commercial",
@@ -683,7 +697,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in Saibaba Colony, Coimbatore with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "p13",
@@ -728,7 +743,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Adyar, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p14",
@@ -777,7 +793,8 @@
     "carpetArea": 2636,
     "carParking": 2,
     "width": 41,
-    "length": 67
+    "length": 67,
+    "description": "A private villa in T Nagar, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p15",
@@ -808,7 +825,8 @@
       "/land.jpg"
     ],
     "landType": "Agricultural",
-    "reraNo": "DEMO-RERA-0016"
+    "reraNo": "DEMO-RERA-0016",
+    "description": "A well-connected plot in Anna Nagar, Chennai. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p16",
@@ -856,7 +874,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Velachery, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p17",
@@ -905,7 +924,8 @@
     "carpetArea": 1903,
     "carParking": 1,
     "width": 35,
-    "length": 57
+    "length": 57,
+    "description": "An independent house in OMR, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p18",
@@ -954,7 +974,8 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "description": "A private villa in Porur, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p19",
@@ -1003,7 +1024,8 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "description": "An independent house in Adyar, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p20",
@@ -1048,7 +1070,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in T Nagar, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p21",
@@ -1091,7 +1114,8 @@
     "carParking": 2,
     "width": 41,
     "length": 67,
-    "reraNo": "DEMO-RERA-0022"
+    "reraNo": "DEMO-RERA-0022",
+    "description": "A private villa in Anna Nagar, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p22",
@@ -1136,7 +1160,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Velachery, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p23",
@@ -1185,7 +1210,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in OMR, Chennai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p24",
@@ -1221,7 +1247,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in Porur, Chennai. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "Chennai-BUY-Commercial",
@@ -1264,7 +1291,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in Velachery, Chennai with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "Chennai-RENT-PG",
@@ -1314,7 +1342,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A practical PG stay in OMR, Chennai. Ask about rooms, meals, house rules and the best time to visit."
   },
   {
     "id": "Chennai-RENT-Commercial",
@@ -1357,7 +1386,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in Porur, Chennai with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "p25",
@@ -1406,7 +1436,8 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "description": "A private villa in KK Nagar, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p26",
@@ -1455,7 +1486,8 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "description": "An independent house in Anna Nagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p27",
@@ -1500,7 +1532,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Tallakulam, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p28",
@@ -1543,7 +1576,8 @@
     "carParking": 2,
     "width": 41,
     "length": 67,
-    "reraNo": "DEMO-RERA-0029"
+    "reraNo": "DEMO-RERA-0029",
+    "description": "A private villa in Goripalayam, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p29",
@@ -1588,7 +1622,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Sellur, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p30",
@@ -1637,7 +1672,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in Thirunagar, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p31",
@@ -1673,7 +1709,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in KK Nagar, Madurai. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p32",
@@ -1718,7 +1755,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Anna Nagar, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p33",
@@ -1761,7 +1799,8 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "reraNo": "DEMO-RERA-0034"
+    "reraNo": "DEMO-RERA-0034",
+    "description": "An independent house in Tallakulam, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p34",
@@ -1797,7 +1836,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in Goripalayam, Madurai. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p35",
@@ -1846,7 +1886,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in Sellur, Madurai with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p36",
@@ -1889,7 +1930,8 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "reraNo": "DEMO-RERA-0037"
+    "reraNo": "DEMO-RERA-0037",
+    "description": "An independent house in Thirunagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "Madurai-BUY-Commercial",
@@ -1932,7 +1974,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in KK Nagar, Madurai with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "Madurai-RENT-PG",
@@ -1982,7 +2025,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A practical PG stay in Anna Nagar, Madurai. Ask about rooms, meals, house rules and the best time to visit."
   },
   {
     "id": "Madurai-RENT-Commercial",
@@ -2025,7 +2069,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in Tallakulam, Madurai with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "p37",
@@ -2074,7 +2119,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in Cantonment, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p38",
@@ -2110,7 +2156,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in Thillai Nagar, Trichy. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p39",
@@ -2155,7 +2202,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Srirangam, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p40",
@@ -2198,7 +2246,8 @@
     "carParking": 1,
     "width": 35,
     "length": 58,
-    "reraNo": "DEMO-RERA-0041"
+    "reraNo": "DEMO-RERA-0041",
+    "description": "An independent house in Woraiyur, Trichy with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p41",
@@ -2234,7 +2283,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in KK Nagar, Trichy. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p42",
@@ -2283,7 +2333,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in K.K. Nagar East, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p43",
@@ -2326,7 +2377,8 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "reraNo": "DEMO-RERA-0044"
+    "reraNo": "DEMO-RERA-0044",
+    "description": "An independent house in Cantonment, Trichy with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p44",
@@ -2371,7 +2423,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Thillai Nagar, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p45",
@@ -2420,7 +2473,8 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "description": "A private villa in Srirangam, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p46",
@@ -2459,7 +2513,8 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "reraNo": "DEMO-RERA-0047"
+    "reraNo": "DEMO-RERA-0047",
+    "description": "A comfortable 3-bedroom apartment in Woraiyur, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p47",
@@ -2508,7 +2563,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in KK Nagar, Trichy with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p48",
@@ -2544,7 +2600,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in K.K. Nagar East, Trichy. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "Trichy-BUY-Commercial",
@@ -2587,7 +2644,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in Woraiyur, Trichy with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "Trichy-RENT-PG",
@@ -2637,7 +2695,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A practical PG stay in KK Nagar, Trichy. Ask about rooms, meals, house rules and the best time to visit."
   },
   {
     "id": "Trichy-RENT-Commercial",
@@ -2680,7 +2739,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in K.K. Nagar East, Trichy with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "p49",
@@ -2729,7 +2789,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in SIPCOT, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p50",
@@ -2772,7 +2833,8 @@
     "carParking": 1,
     "width": 35,
     "length": 57,
-    "reraNo": "DEMO-RERA-0051"
+    "reraNo": "DEMO-RERA-0051",
+    "description": "An independent house in Bagalur Road, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p51",
@@ -2817,7 +2879,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A comfortable 3-bedroom apartment in Mathigiri, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p52",
@@ -2866,7 +2929,8 @@
     "carpetArea": 2574,
     "carParking": 2,
     "width": 40,
-    "length": 66
+    "length": 66,
+    "description": "A private villa in Zuzuvadi, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p53",
@@ -2905,7 +2969,8 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "reraNo": "DEMO-RERA-0054"
+    "reraNo": "DEMO-RERA-0054",
+    "description": "A comfortable 3-bedroom apartment in Thorapalli, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p54",
@@ -2954,7 +3019,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in Avalapalli, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p55",
@@ -2990,7 +3056,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in SIPCOT, Hosur. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p56",
@@ -3029,7 +3096,8 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "reraNo": "DEMO-RERA-0057"
+    "reraNo": "DEMO-RERA-0057",
+    "description": "A comfortable 3-bedroom apartment in Bagalur Road, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
   },
   {
     "id": "p57",
@@ -3078,7 +3146,8 @@
     "carpetArea": 1966,
     "carParking": 1,
     "width": 35,
-    "length": 58
+    "length": 58,
+    "description": "An independent house in Mathigiri, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "p58",
@@ -3114,7 +3183,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A well-connected plot in Zuzuvadi, Hosur. Check access roads, nearby landmarks and document readiness before you visit."
   },
   {
     "id": "p59",
@@ -3163,7 +3233,8 @@
     "carpetArea": 2512,
     "carParking": 2,
     "width": 40,
-    "length": 65
+    "length": 65,
+    "description": "A private villa in Thorapalli, Hosur with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents."
   },
   {
     "id": "p60",
@@ -3212,7 +3283,8 @@
     "carpetArea": 1903,
     "carParking": 1,
     "width": 35,
-    "length": 57
+    "length": 57,
+    "description": "An independent house in Avalapalli, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents."
   },
   {
     "id": "Hosur-BUY-Commercial",
@@ -3255,7 +3327,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in SIPCOT, Hosur with practical frontage for everyday business use. Sample details are illustrative."
   },
   {
     "id": "Hosur-RENT-PG",
@@ -3305,7 +3378,8 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A practical PG stay in Bagalur Road, Hosur. Ask about rooms, meals, house rules and the best time to visit."
   },
   {
     "id": "Hosur-RENT-Commercial",
@@ -3348,6 +3422,7 @@
       "Illustrative listing — details to be verified",
       "Good access to local services",
       "Flexible visit requests"
-    ]
+    ],
+    "description": "A flexible commercial space in Mathigiri, Hosur with practical frontage for everyday business use. Sample details are illustrative."
   }
 ]

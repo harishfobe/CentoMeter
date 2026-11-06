@@ -16,13 +16,14 @@ const draft = {
   price: 10000000,
   area: 1200,
   beds: 2,
-  location: [12.97, 77.6],
+  location: [11.0168, 76.9558],
   photos: [],
   address: "private",
+  description: " Corner unit with park views. ",
 };
 beforeEach(() => {
   vi.clearAllMocks();
-  mocks.registerExactLocation.mockResolvedValue([12.98, 77.61]);
+  mocks.registerExactLocation.mockResolvedValue([11.02, 76.96]);
 });
 it("does not publish an agent listing to the public store if persistence fails", async () => {
   const saveListings = vi.fn().mockResolvedValue({ ok: false });
@@ -48,6 +49,7 @@ it("publishes an agent listing only after persistence succeeds and strips privat
     saveListings,
   });
   expect(next[0].agentId).toBe("a1");
+  expect(next[0].description).toBe("Corner unit with park views.");
   expect(next[0]).not.toHaveProperty("address");
   expect(next[0]).not.toHaveProperty("location");
   expect(mocks.updateStore).toHaveBeenCalledTimes(1);
