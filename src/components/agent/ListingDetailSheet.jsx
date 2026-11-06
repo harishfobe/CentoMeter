@@ -262,13 +262,20 @@ export default function ListingDetailSheet({
             ? `${Math.min(photo + 1, photos.length)}/${photos.length}`
             : "No photos available"}
         </p>
-        <button
-          className="secondary"
-          disabled={!photos.length}
-          onClick={() => setZoom(true)}
-        >
-          View photo full screen
-        </button>
+        {p.type !== "Land" ? (
+          <button
+            className="secondary"
+            disabled={!photos.length}
+            onClick={() => setZoom(true)}
+          >
+            View photo full screen
+          </button>
+        ) : null}
+        {p.type === "Land" ? (
+          <p className="agent-listing-eyebrow">
+            {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
+          </p>
+        ) : null}
         <h2>
           {money(p.price)}
           {p.mode === "RENT" ? "/mo" : ""}
@@ -304,7 +311,7 @@ export default function ListingDetailSheet({
             {money(p.price / p.area)} / sq ft · {p.locality}
           </p>
         )}
-        {p.mode === "BUY" ? (
+        {p.type !== "Land" && p.mode === "BUY" ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -312,7 +319,7 @@ export default function ListingDetailSheet({
             </button>
             {emi && <EmiCalculator p={p} />}
           </>
-        ) : rentalCosts.length > 0 ? (
+        ) : p.type !== "Land" && rentalCosts.length > 0 ? (
           <dl className="agent-rental-costs" aria-label="Rental costs">
             {rentalCosts.map(([key, label]) => (
               <div key={key}>
@@ -433,6 +440,15 @@ export default function ListingDetailSheet({
                     : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}
           </p>
         </section>
+        {p.type === "Land" && p.mode === "BUY" ? (
+          <div className="agent-land-emi">
+            <button className="secondary" onClick={() => setEmi((v) => !v)}>
+              From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
+              <small>20% down payment · 9% annual interest · 20 years</small>
+            </button>
+            {emi && <EmiCalculator p={p} />}
+          </div>
+        ) : null}
         {(p.floorPlanUrl || p.videoUrl) && (
           <div className="agent-detail-resources">
             {p.floorPlanUrl && (

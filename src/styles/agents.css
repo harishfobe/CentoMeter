@@ -146,6 +146,24 @@
   width: 100%;
   padding: 14px;
 }
+.agent-listing-eyebrow {
+  margin: 0 0 6px;
+  color: #71717a;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.agent-detail .agent-listing-eyebrow {
+  margin: 10px 0 4px;
+}
+.agent-detail .agent-land-emi {
+  margin: 8px 0 20px;
+}
+.agent-detail .agent-land-emi > .secondary {
+  width: 100%;
+}
 .agent-listing-chips {
   display: flex;
   flex-wrap: wrap;
