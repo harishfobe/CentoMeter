@@ -1,6 +1,10 @@
 import React from "react";
 import { defaults } from "../../lib/agents";
 import PropertyTypes from "../../PropertyTypes";
+import {
+  FURNISHING_OPTIONS,
+  POSSESSION_OPTIONS,
+} from "../../listingFit";
 export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
   const set = (k, v) => onChange({ ...f, [k]: v });
   return (
@@ -32,12 +36,8 @@ export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
           ...(!["Land", "Commercial", "PG"].includes(f.type)
             ? [["beds", "Bedrooms", ["", "1", "2", "3", "4+"]]]
             : []),
-          [
-            "furnishing",
-            "Furnishing",
-            ["", "Unfurnished", "Semi-furnished", "Fully furnished"],
-          ],
-          ["possession", "Possession", ["", "Ready", "Under construction"]],
+          ["furnishing", "Furnishing", ["", ...FURNISHING_OPTIONS]],
+          ["possession", "Possession", ["", ...POSSESSION_OPTIONS]],
         ].map(([k, l, opts]) => (
           <label key={k}>
             {l}

@@ -40,7 +40,8 @@ textarea:focus {
   outline-offset: 1px;
 }
 button {
-  transition: none;
+  /* Press/hover motion is owned by interactions.css under reduced-motion gates. */
+  transition: scale var(--t-press, 120ms) var(--ease-out);
 }
 h1,
 h2,
@@ -275,11 +276,17 @@ img {
   font-size: 14px;
   font-weight: 600;
 }
-.filter-button:hover,
 .filter-button.has-filter {
   background: var(--brand-soft);
   border-color: var(--brand-active);
   color: var(--brand-active);
+}
+@media (hover: hover) and (pointer: fine) {
+  .filter-button:hover {
+    background: var(--brand-soft);
+    border-color: var(--brand-active);
+    color: var(--brand-active);
+  }
 }
 .explore-toolbar {
   display: flex;
@@ -360,8 +367,10 @@ img {
 .intent-tabs button.active {
   color: var(--brand-active);
 }
-.intent-tabs button:hover {
-  background: var(--canvas);
+@media (hover: hover) and (pointer: fine) {
+  .intent-tabs button:hover {
+    background: var(--canvas);
+  }
 }
 .tab-indicator {
   position: absolute;
@@ -858,8 +867,10 @@ img {
   font-size: 13px;
   padding: 8px 0;
 }
-.back-button:hover {
-  color: var(--brand-active);
+@media (hover: hover) and (pointer: fine) {
+  .back-button:hover {
+    color: var(--brand-active);
+  }
 }
 .primary,
 .secondary {
@@ -878,18 +889,20 @@ img {
   color: white;
   border: 1px solid var(--navy);
 }
-.primary:hover {
-  background: var(--brand-active);
-  border-color: var(--brand-active);
-}
 .secondary {
   border: 1px solid var(--line);
   background: var(--paper);
   color: var(--ink);
 }
-.secondary:hover {
-  background: var(--brand-soft);
-  border-color: var(--line);
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover {
+    background: var(--brand-active);
+    border-color: var(--brand-active);
+  }
+  .secondary:hover {
+    background: var(--brand-soft);
+    border-color: var(--line);
+  }
 }
 .text-button {
   color: var(--brand-active);
@@ -2868,13 +2881,12 @@ textarea {
   border-radius: 999px;
   background: #d4d4d8;
   flex: 0 0 auto;
-  transition:
-    width 160ms ease,
-    background-color 160ms ease;
+  transform-origin: center;
+  transition: scale 160ms var(--ease-out);
 }
 .photo-swipe-dots span[data-active="true"] {
-  width: 14px;
   background: var(--brand);
+  scale: 2.333 1;
 }
 @media (prefers-reduced-motion: reduce) {
   .photo-swipe-dots span {
@@ -3650,6 +3662,19 @@ textarea {
 .commercial-facilities-grid svg {
   flex: 0 0 auto;
   color: var(--brand);
+}
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 550;
+}
+.checkbox-row input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
 }
 .land-facts {
   display: grid;

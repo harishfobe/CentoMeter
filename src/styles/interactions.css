@@ -25,6 +25,7 @@ a[href],
   [role="button"]:not([aria-disabled="true"]):active,
   .agent-feature button:enabled:active,
   .agent-detail button:enabled:active {
+    /* Instant press; releasing drops :active so the base ease-out runs. */
     scale: var(--press-scale, 0.97);
     transition: none;
   }

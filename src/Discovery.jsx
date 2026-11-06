@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import PropertyTypes, { matchesPropertyType, typeLabel } from "./PropertyTypes";
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import PhotoSwipeDots from "./components/PhotoSwipeDots";
+import {
+  AVAILABILITY_FILTER_OPTIONS,
+  COMMERCIAL_FACILITIES,
+  COMMERCIAL_SUBTYPES,
+  FURNISHING_OPTIONS,
+  matchesFloorFilter,
+  matchesPossessionFilter,
+} from "./listingFit";
 
 export const facingDirections = [
   "North",
@@ -60,6 +68,11 @@ export const removeLocal = (key) => {
 };
 export function matches(p, f) {
   f = { ...filterDefaults, ...f };
+  const facilityPool = [
+    ...(Array.isArray(p.features) ? p.features : []),
+    ...(Array.isArray(p.amenities) ? p.amenities : []),
+    ...(Array.isArray(p.facilities) ? p.facilities : []),
+  ];
   return (
     matchesPropertyType(p.type, f.type) &&
     (!f.min || p.price >= f.min) &&
@@ -76,15 +89,22 @@ export function matches(p, f) {
               : f.unit === "cent"
                 ? SQFT_PER_CENT
                 : 1)) &&
-    (f.feature === "Any" || (p.features || []).includes(f.feature)) &&
+    (f.feature === "Any" ||
+      facilityPool.some(
+        (item) => String(item).toLowerCase() === String(f.feature).toLowerCase(),
+      )) &&
     (f.subtype === "Any" || p.subtype === f.subtype) &&
     (f.occupancy === "Any" || p.occupancy === f.occupancy) &&
     (f.meals === "Any" || p.meals === f.meals) &&
-    (f.available === "Any" || p.available === f.available) &&
+    matchesPossessionFilter(
+      p,
+      f.available === "Any" ? "Any" : f.available,
+    ) &&
     (f.seller === "Any" || p.seller === f.seller) &&
-    ["pets", "floor", "bathroom", "ac", "facing"].every(
+    ["pets", "bathroom", "ac", "facing"].every(
       (k) => !f[k] || f[k] === "Any" || p[k] === f[k],
-    )
+    ) &&
+    matchesFloorFilter(p.floor, f.floor)
   );
 }
 export const activeFilters = (f) =>
@@ -194,11 +214,7 @@ export function SmartFilters({
         {(f.type === "All" || supportsFacing(f.type)) &&
           select("facing", "Facing direction", facingDirections)}
         {f.type !== "Land" &&
-          select("furnishing", "Furnishing", [
-            "Unfurnished",
-            "Semi-furnished",
-            "Fully furnished",
-          ])}
+          select("furnishing", "Furnishing", FURNISHING_OPTIONS)}
         <div className="form-columns">
           <label>
             Minimum area
@@ -238,8 +254,8 @@ export function SmartFilters({
           </>
         ) : f.type === "Commercial" ? (
           <>
-            {select("subtype", "Space type", ["Office", "Shop", "Warehouse"])}
-            {select("feature", "Facilities", ["Parking", "Lift access"])}
+            {select("subtype", "Space type", COMMERCIAL_SUBTYPES)}
+            {select("feature", "Facilities", COMMERCIAL_FACILITIES)}
           </>
         ) : f.type === "PG" ? (
           <>
@@ -281,7 +297,9 @@ export function SmartFilters({
         {select(
           "available",
           mode === "RENT" ? "Move-in availability" : "Possession",
-          ["Ready now", "Within 30 days"],
+          mode === "RENT"
+            ? AVAILABILITY_FILTER_OPTIONS
+            : ["Ready to move", "Within 30 days", "Under construction"],
         )}
         {select("seller", "Listed by", ["Owner", "Agent", "Builder"])}
         <div className="modal-actions">

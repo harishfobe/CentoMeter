@@ -148,7 +148,6 @@ textarea:focus-visible {
   color: var(--brand-on);
   box-shadow: none;
 }
-.primary:hover,
 .primary:active {
   background: var(--brand-action-hover);
   border-color: var(--brand-action-hover);
@@ -159,19 +158,26 @@ textarea:focus-visible {
   border: 1px solid var(--line);
   color: var(--ink);
 }
-.secondary:hover,
-.icon-button:hover {
-  background: var(--canvas);
-  border-color: var(--line);
-}
 .text-button,
 .back-button {
   color: var(--ink);
 }
-.text-button:hover {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover {
+    background: var(--brand-action-hover);
+    border-color: var(--brand-action-hover);
+    color: var(--brand-on);
+  }
+  .secondary:hover,
+  .icon-button:hover {
+    background: var(--canvas);
+    border-color: var(--line);
+  }
+  .text-button:hover {
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 }
 .pill,
 .badge {
