@@ -219,6 +219,59 @@ describe("EMI estimate", () => {
   });
 });
 
+describe("apartment property details", () => {
+  it("builds the reference apartment detail rows in order", async () => {
+    const { buildApartmentDetailRows } = await import(
+      "../src/HouseVillaDetails.jsx"
+    );
+    const rows = buildApartmentDetailRows({
+      type: "Apartment",
+      mode: "BUY",
+      area: 1150,
+      builtUpArea: 1150,
+      carpetArea: 920,
+      beds: 2,
+      baths: 2,
+      balconies: 1,
+      floor: 5,
+      totalFloors: 12,
+      facing: "East",
+      furnishing: "Semi-furnished",
+      propertyAge: 3,
+      condition: "Resale",
+      carParking: 1,
+      possessionStatus: "Ready to move",
+      ownershipType: "Freehold",
+      maintenance: 2500,
+      negotiable: true,
+    }).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Built-up area",
+      "Carpet area",
+      "Configuration",
+      "Bathrooms",
+      "Balconies",
+      "Floor",
+      "Facing",
+      "Furnishing",
+      "Property age",
+      "Condition",
+      "Car parking",
+      "Possession",
+      "Ownership",
+      "Maintenance",
+      "Price negotiable",
+    ]);
+    expect(rows.find((row) => row.label === "Floor").value).toBe("5 of 12");
+    expect(rows.find((row) => row.label === "Configuration").value).toBe(
+      "2 BHK",
+    );
+    expect(rows.find((row) => row.label === "Maintenance").value).toBe(
+      "₹2,500 / month",
+    );
+  });
+});
+
 describe("house vs villa differentiation", () => {
   it("canonicalizes independent_house and villa ids", async () => {
     const { canonicalizePropertyType, PROPERTY_TYPE } = await import(

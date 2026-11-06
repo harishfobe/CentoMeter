@@ -86,8 +86,20 @@ it("buy apartment detail uses the gated-villa home layout", () => {
         beds: 3,
         baths: 2,
         area: 1680,
+        builtUpArea: 1680,
+        carpetArea: 1344,
+        balconies: 1,
+        floor: 5,
+        totalFloors: 12,
         facing: "North",
+        furnishing: "Semi-furnished",
         propertyAge: 2,
+        condition: "Resale",
+        carParking: 1,
+        possessionStatus: "Ready to move",
+        ownershipType: "Freehold",
+        maintenance: 2500,
+        negotiable: true,
       }}
       agent={agents[0]}
       Modal={Modal}
@@ -96,6 +108,9 @@ it("buy apartment detail uses the gated-villa home layout", () => {
   );
   expect(screen.getByText("FOR SALE · APARTMENT")).toBeTruthy();
   expect(screen.getByRole("heading", { name: "Property details" })).toBeTruthy();
+  expect(screen.getAllByText("Configuration").length).toBeGreaterThan(0);
+  expect(screen.getAllByText("5 of 12").length).toBeGreaterThan(0);
+  expect(screen.getByText("₹2,500 / month")).toBeTruthy();
   expect(screen.getByText("2 years")).toBeTruthy();
   expect(screen.getByText(/20% down payment/)).toBeTruthy();
 });

@@ -63,7 +63,13 @@
     "pricePerSqft": 7619,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0001"
+    "reraNo": "DEMO-RERA-0001",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "al2",
@@ -950,7 +956,15 @@
     "pricePerSqft": 212,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0009"
+    "reraNo": "DEMO-RERA-0009",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "possessionStatus": "Ready to move",
+    "carParking": 1
   },
   {
     "id": "al14",
@@ -1712,7 +1726,17 @@
     "highlights": [],
     "description": "Sample apartment in SIPCOT, Hosur. Illustrative listing for demos.",
     "pricePerSqft": 6838,
-    "sample": true
+    "sample": true,
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "al25",
@@ -1779,7 +1803,13 @@
     "pricePerSqft": 7993,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0017"
+    "reraNo": "DEMO-RERA-0017",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "al26",
@@ -1834,7 +1864,17 @@
     "highlights": [],
     "description": "Sample apartment in Race Course, Coimbatore. Illustrative listing for demos.",
     "pricePerSqft": 6849,
-    "sample": true
+    "sample": true,
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "al27",
@@ -1901,7 +1941,13 @@
     "pricePerSqft": 8005,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0017"
+    "reraNo": "DEMO-RERA-0017",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "al28",
@@ -2307,7 +2353,7 @@
     "contactName": "Sneha Iyer",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "7",
     "facing": "West",
     "postedAt": "2026-10-23",
     "photos": [
@@ -2341,7 +2387,17 @@
     "pricePerSqft": 480,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0021"
+    "reraNo": "DEMO-RERA-0021",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "al34",
@@ -2753,7 +2809,15 @@
     "pricePerSqft": 598,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0025"
+    "reraNo": "DEMO-RERA-0025",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "possessionStatus": "Ready to move",
+    "carParking": 1
   },
   {
     "id": "al40",

@@ -48,7 +48,13 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in RS Puram, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in RS Puram, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "negotiable": true,
+    "carParking": 1
   },
   {
     "id": "p2",
@@ -320,7 +326,7 @@
     "contactName": "Ananya Rao",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "5",
     "facing": "North",
     "postedAt": "2026-10-20",
     "photos": [
@@ -335,7 +341,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Singanallur, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Singanallur, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1840,
+    "carpetArea": 1472,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p7",
@@ -499,7 +515,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Saibaba Colony, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Saibaba Colony, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "possessionStatus": "Ready to move",
+    "carParking": 1
   },
   {
     "id": "p10",
@@ -864,7 +888,7 @@
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "5",
     "facing": "North",
     "postedAt": "2026-10-20",
     "photos": [
@@ -879,7 +903,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Adyar, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Adyar, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1840,
+    "carpetArea": 1472,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p14",
@@ -1043,7 +1077,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Velachery, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Velachery, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "possessionStatus": "Ready to move",
+    "carParking": 1
   },
   {
     "id": "p17",
@@ -1269,7 +1311,7 @@
     "contactName": "Rahul Reddy",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "7",
     "facing": "South",
     "postedAt": "2026-10-20",
     "photos": [
@@ -1284,7 +1326,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in T Nagar, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in T Nagar, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1840,
+    "carpetArea": 1472,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p21",
@@ -1380,7 +1432,7 @@
     "contactName": "Rahul Reddy",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "9",
     "facing": "East",
     "postedAt": "2026-10-20",
     "photos": [
@@ -1395,7 +1447,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Velachery, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Velachery, Chennai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p23",
@@ -1818,7 +1880,7 @@
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "7",
     "facing": "South",
     "postedAt": "2026-10-20",
     "photos": [
@@ -1833,7 +1895,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Tallakulam, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Tallakulam, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1840,
+    "carpetArea": 1472,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p28",
@@ -1929,7 +2001,7 @@
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "9",
     "facing": "East",
     "postedAt": "2026-10-20",
     "photos": [
@@ -1944,7 +2016,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Sellur, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Sellur, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p30",
@@ -2110,7 +2192,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Anna Nagar, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Anna Nagar, Madurai. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p33",
@@ -2647,7 +2739,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Srirangam, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Srirangam, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p40",
@@ -2910,7 +3012,7 @@
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "7",
     "facing": "West",
     "postedAt": "2026-10-20",
     "photos": [
@@ -2925,7 +3027,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Thillai Nagar, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Thillai Nagar, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p45",
@@ -3027,7 +3139,7 @@
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "9",
     "facing": "South",
     "postedAt": "2026-10-20",
     "photos": [
@@ -3036,7 +3148,17 @@
       "/villa.jpg"
     ],
     "reraNo": "DEMO-RERA-0047",
-    "description": "A comfortable 3-bedroom apartment in Woraiyur, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Woraiyur, Trichy. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p47",
@@ -3453,7 +3575,7 @@
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "7",
     "facing": "West",
     "postedAt": "2026-10-20",
     "photos": [
@@ -3468,7 +3590,17 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A comfortable 3-bedroom apartment in Mathigiri, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Mathigiri, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p52",
@@ -3570,7 +3702,7 @@
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
-    "floor": "4+",
+    "floor": "9",
     "facing": "South",
     "postedAt": "2026-10-20",
     "photos": [
@@ -3579,7 +3711,17 @@
       "/villa.jpg"
     ],
     "reraNo": "DEMO-RERA-0054",
-    "description": "A comfortable 3-bedroom apartment in Thorapalli, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Thorapalli, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1680,
+    "carpetArea": 1344,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p54",
@@ -3739,7 +3881,17 @@
       "/villa.jpg"
     ],
     "reraNo": "DEMO-RERA-0057",
-    "description": "A comfortable 3-bedroom apartment in Bagalur Road, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents."
+    "description": "A comfortable 3-bedroom apartment in Bagalur Road, Hosur. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
+    "builtUpArea": 1760,
+    "carpetArea": 1408,
+    "balconies": 1,
+    "condition": "Resale",
+    "ownershipType": "Freehold",
+    "negotiable": true,
+    "propertyAge": 3,
+    "possessionStatus": "Ready to move",
+    "totalFloors": 12,
+    "carParking": 1
   },
   {
     "id": "p57",
