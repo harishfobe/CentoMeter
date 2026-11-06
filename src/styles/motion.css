@@ -60,32 +60,7 @@
   aspect-ratio: 8/5;
   animation: none;
 }
-.agent-photo-dots {
-  height: 24px;
-  gap: 5px;
-  align-items: center;
-  pointer-events: none;
-}
-.agent-photo-dots span {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: #d4d4d8;
-  position: relative;
-}
-.agent-photo-dots span::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 999px;
-  background: var(--brand);
-  opacity: 0;
-  scale: 1 1;
-}
-.agent-photo-dots span[data-active="true"]::after {
-  opacity: 1;
-  scale: 2.3 1;
-}
+/* Photo swipe dots unified via .photo-swipe-dots in styles.css */
 .agent-motion-tabs {
   position: relative;
   isolation: isolate;
@@ -450,8 +425,7 @@
   .agent-profile-heading h1 {
     animation-delay: 40ms;
   }
-  .agent-tab-indicator,
-  .agent-photo-dots span::after {
+  .agent-tab-indicator {
     transition:
       translate var(--t) var(--ease-out),
       scale var(--t-fast) var(--ease-out),

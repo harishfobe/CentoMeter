@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropertyTypes, { matchesPropertyType, typeLabel } from "./PropertyTypes";
 import { SQFT_PER_CENT } from "./LandMeasurements";
+import PhotoSwipeDots from "./components/PhotoSwipeDots";
 
 export const facingDirections = [
   "North",
@@ -394,12 +395,7 @@ export function Gallery({ p }) {
           />
         ))}
       </div>
-      {images.length > 1 && (
-        <span className="gallery-count">
-          {index + 1} / {images.length} ·{" "}
-          {p.photos?.length ? "Listing photos" : "Sample photos"}
-        </span>
-      )}
+      <PhotoSwipeDots count={images.length} index={index} />
     </div>
   );
 }

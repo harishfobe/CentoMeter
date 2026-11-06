@@ -13,6 +13,7 @@ import {
 import { recentlyConfirmed, statusLabel } from "../../lib/agents";
 import { accessStatus } from "../../lib/locationAccess";
 
+import PhotoSwipeDots from "../PhotoSwipeDots";
 import LocationPrivacyChip from "./LocationPrivacyChip";
 function ListingCard({
   p,
@@ -101,11 +102,7 @@ function ListingCard({
           ))}
         </div>
         <span className="property-type-badge">{cardTypeLabel(p.type)}</span>
-        <div className="agent-photo-dots" aria-hidden="true">
-          {photos.map((_, i) => (
-            <span key={i} data-active={index === i} />
-          ))}
-        </div>
+        <PhotoSwipeDots count={photos.length} index={index} />
       </div>
       <button
         className="save-button"

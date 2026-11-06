@@ -2822,15 +2822,40 @@ textarea {
   flex: 0 0 100%;
   scroll-snap-align: start;
 }
-.gallery-count {
+.photo-swipe-dots {
   position: absolute;
-  left: 14px;
-  top: 14px;
-  background: color-mix(in srgb, var(--ink) 87%, transparent);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 12px;
+  left: 50%;
+  bottom: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #ffffffd9;
+  translate: -50% 0;
+  pointer-events: none;
+}
+.photo-swipe-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #d4d4d8;
+  flex: 0 0 auto;
+  transition:
+    width 160ms ease,
+    background-color 160ms ease;
+}
+.photo-swipe-dots span[data-active="true"] {
+  width: 14px;
+  background: var(--brand);
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-swipe-dots span {
+    transition: none;
+  }
 }
 .cost-breakdown {
   margin-top: 20px;
@@ -3193,9 +3218,6 @@ textarea {
   }
   .property-copy .price small {
     font-size: 11px;
-  }
-  .gallery-count {
-    max-width: 90%;
   }
   .profile-page .page-intro {
     margin-top: 0;

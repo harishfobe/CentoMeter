@@ -141,15 +141,21 @@
 .agent-listing {
   position: relative;
 }
-.agent-listing-media {
+.agent-listing-media,
+.agent-detail-media {
   position: relative;
 }
 .agent-listing .property-type-badge {
   left: 12px;
   bottom: 12px;
 }
-.agent-listing .agent-photo-count {
-  z-index: 1;
+.agent-listing .photo-swipe-dots,
+.agent-detail-media .photo-swipe-dots {
+  bottom: 12px;
+}
+.agent-listing .property-type-badge ~ .photo-swipe-dots {
+  /* Keep dots centered; type badge stays bottom-left */
+  bottom: 12px;
 }
 .agent-listing .property-copy {
   text-align: left;
@@ -450,21 +456,6 @@
   min-width: 110px;
 }
 
-.agent-photo-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-}
-.agent-photo-dots button {
-  min-width: 44px;
-  min-height: 44px;
-  border: 0;
-  background: var(--paper);
-  color: var(--muted);
-}
-.agent-photo-dots button[aria-pressed="true"] {
-  color: var(--brand-deep);
-}
 .modal .agent-filter-bar {
   flex-wrap: wrap;
   overflow: visible;

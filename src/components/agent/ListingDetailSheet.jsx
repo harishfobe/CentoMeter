@@ -36,6 +36,7 @@ import {
 } from "../../lib/agents";
 import { shareAgentLink } from "../../lib/agentShare";
 import LoadingSkeleton from "../LoadingSkeleton";
+import PhotoSwipeDots from "../PhotoSwipeDots";
 const ApprovedMap = lazy(() => import("./UnlockedMap"));
 export function UnlockedMap(props) {
   return (
@@ -71,6 +72,8 @@ export default function ListingDetailSheet({
 
   const [visitError, setVisitError] = useState("");
   const photos = Array.isArray(p.photos) ? p.photos : [];
+  const [photo, setPhoto] = useState(0);
+  useEffect(() => setPhoto(0), [p.id]);
   const rentalCosts = [
     ["deposit", "Deposit"],
     ["maintenance", "Monthly maintenance"],
@@ -165,46 +168,56 @@ export default function ListingDetailSheet({
         <span />
       </button>
       <article className="agent-detail agent-skeleton-shell">
-        <div
-          className="agent-photo-strip"
-          ref={gallery}
-          tabIndex="0"
-          onKeyDown={(e) => {
-            if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
-              e.preventDefault();
-              e.currentTarget.scrollBy({
-                left:
-                  e.currentTarget.clientWidth *
-                  (e.key === "ArrowRight" ? 1 : -1),
-                behavior: reducedMotion() ? "instant" : "smooth",
-              });
+        <div className="agent-detail-media">
+          <div
+            className="agent-photo-strip"
+            ref={gallery}
+            tabIndex="0"
+            onScroll={(e) =>
+              setPhoto(
+                Math.round(
+                  e.currentTarget.scrollLeft / e.currentTarget.clientWidth,
+                ),
+              )
             }
-          }}
-        >
-          {!photos.length && (
-            <div
-              className="agent-photo-placeholder"
-              role="img"
-              aria-label="No property photos"
-            >
-              No photos available
-            </div>
-          )}
-          {photos.map((url, i) => (
-            <img
-              key={url + i}
-              src={url}
-              width="800"
-              height="500"
-              onLoad={(e) => {
-                e.currentTarget.dataset.loaded = "true";
-                imageStops.current.push(revealGalleryImage(e.currentTarget));
-              }}
-              draggable={false}
-              decoding="async"
-              alt={p.title + " photo " + (i + 1)}
-            />
-          ))}
+            onKeyDown={(e) => {
+              if (["ArrowLeft", "ArrowRight"].includes(e.key)) {
+                e.preventDefault();
+                e.currentTarget.scrollBy({
+                  left:
+                    e.currentTarget.clientWidth *
+                    (e.key === "ArrowRight" ? 1 : -1),
+                  behavior: reducedMotion() ? "instant" : "smooth",
+                });
+              }
+            }}
+          >
+            {!photos.length && (
+              <div
+                className="agent-photo-placeholder"
+                role="img"
+                aria-label="No property photos"
+              >
+                No photos available
+              </div>
+            )}
+            {photos.map((url, i) => (
+              <img
+                key={url + i}
+                src={url}
+                width="800"
+                height="500"
+                onLoad={(e) => {
+                  e.currentTarget.dataset.loaded = "true";
+                  imageStops.current.push(revealGalleryImage(e.currentTarget));
+                }}
+                draggable={false}
+                decoding="async"
+                alt={p.title + " photo " + (i + 1)}
+              />
+            ))}
+          </div>
+          <PhotoSwipeDots count={photos.length} index={photo} />
         </div>
         {p.type === "Land" ? (
           <p className="agent-listing-eyebrow">
