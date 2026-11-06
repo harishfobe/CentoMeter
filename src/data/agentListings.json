@@ -1,11 +1,11 @@
 [
   {
     "id": "al1",
-    "city": "Bengaluru",
-    "locality": "Indiranagar",
+    "city": "Coimbatore",
+    "locality": "RS Puram",
     "mode": "BUY",
     "type": "Apartment",
-    "title": "Garden City Palm Residences",
+    "title": "Kovai Palm Residences",
     "price": 12800000,
     "beds": 3,
     "baths": 2,
@@ -43,12 +43,12 @@
     "status": "sold",
     "confirmedAt": "2026-10-09T18:51:43.679Z",
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      12.978444612193456,
-      77.63887363658311
+      11.014554187436,
+      76.964420698464
     ],
     "amenities": [
       "Parking",
@@ -59,20 +59,20 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 7619.047619047619,
+    "description": "Sample apartment in RS Puram, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 7619,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0001"
   },
   {
     "id": "al2",
-    "city": "Hyderabad",
-    "locality": "Kondapur",
+    "city": "Coimbatore",
+    "locality": "Peelamedu",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Deccan Cedar Grove",
-    "price": 21181000,
+    "title": "Kovai Cedar Grove",
+    "price": 21214000,
     "beds": 4,
     "baths": 4,
     "area": 3220,
@@ -89,7 +89,7 @@
     "maintenance": 3000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Rahul Reddy",
+    "contactName": "Ananya Rao",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -100,16 +100,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a2",
-    "status": "under-offer",
-    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "agentId": "a1",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      17.460168555383753,
-      78.36583607018588
+      11.025458123071,
+      76.959329722609
     ],
     "amenities": [
       "Parking",
@@ -121,8 +121,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 6577.9503105590065,
+    "description": "Sample villa in Peelamedu, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 6588,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0002",
@@ -133,12 +133,12 @@
   },
   {
     "id": "al3",
-    "city": "Pune",
-    "locality": "Kothrud",
+    "city": "Coimbatore",
+    "locality": "Saibaba Colony",
     "mode": "BUY",
     "type": "Land",
-    "title": "Sahyadri Greenfield Plot",
-    "price": 6972000,
+    "title": "Kovai Plot 103",
+    "price": 7038000,
     "area": 2460,
     "image": "land",
     "tag": "Corner plot",
@@ -149,7 +149,7 @@
       "Corner plot"
     ],
     "subtype": "Agricultural",
-    "contactName": "Meera Kulkarni",
+    "contactName": "Ananya Rao",
     "freshness": "Availability not recently confirmed",
     "roadWidth": "40 ft",
     "facing": "North-West",
@@ -158,16 +158,16 @@
       "/land.jpg"
     ],
     "landType": "Agricultural",
-    "agentId": "a3",
+    "agentId": "a1",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      18.509099614941285,
-      73.80517773516499
+      11.015495317986,
+      76.956831696576
     ],
     "amenities": [
       "Road access",
@@ -180,19 +180,18 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 2834.1463414634145,
+    "description": "Sample land in Saibaba Colony, Coimbatore. Illustrative listing for demos.",
     "sample": true,
     "reraNo": "DEMO-RERA-0003"
   },
   {
     "id": "al4",
-    "city": "Bengaluru",
-    "locality": "Hebbal",
+    "city": "Coimbatore",
+    "locality": "RS Puram",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Garden City Grove Villas",
-    "price": 25128000,
+    "title": "Kovai Courtyard Villa",
+    "price": 25227000,
     "beds": 4,
     "baths": 4,
     "area": 3300,
@@ -209,7 +208,7 @@
     "maintenance": 2000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Riya Menon",
+    "contactName": "Ananya Rao",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
@@ -220,24 +219,24 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a4",
+    "agentId": "a1",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      13.033557787838117,
-      77.59625173810404
+      11.024984968659,
+      76.955582996308
     ],
     "amenities": [
       "Parking",
       "Lift access"
     ],
     "highlights": [],
-    "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 7614.545454545455,
+    "description": "Sample villa in RS Puram, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 7645,
     "sample": true,
     "carpetArea": 2574,
     "carParking": 2,
@@ -246,12 +245,12 @@
   },
   {
     "id": "al5",
-    "city": "Hyderabad",
-    "locality": "Narsingi",
+    "city": "Coimbatore",
+    "locality": "Peelamedu",
     "mode": "BUY",
     "type": "Independent House",
-    "title": "Deccan Aaranya Villa",
-    "price": 16559000,
+    "title": "Kovai Greenfield Plot",
+    "price": 16691000,
     "beds": 3,
     "baths": 3,
     "area": 2520,
@@ -268,7 +267,7 @@
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Arjun Desai",
+    "contactName": "Ananya Rao",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
@@ -279,16 +278,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a5",
+    "agentId": "a1",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.679Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      17.391323916977043,
-      78.35334068784078
+      11.010735379906,
+      76.94997787617
     ],
     "amenities": [
       "Parking",
@@ -300,8 +299,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 6571.0317460317465,
+    "description": "Sample independent house in Peelamedu, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 6623,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0005",
@@ -312,12 +311,137 @@
   },
   {
     "id": "al6",
-    "city": "Pune",
-    "locality": "Bavdhan",
+    "city": "Chennai",
+    "locality": "Adyar",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Marina Avenue Homes",
+    "price": 25248000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Rahul Reddy",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "South-West",
+    "postedAt": "2026-10-15",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a2",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      13.085289874669,
+      80.278201516429
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [],
+    "description": "Sample villa in Adyar, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 7651,
+    "sample": true,
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
+  },
+  {
+    "id": "al7",
+    "city": "Chennai",
+    "locality": "OMR",
+    "mode": "BUY",
+    "type": "Independent House",
+    "title": "Marina Garden Walk",
+    "price": 16712000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2520,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Rahul Reddy",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "North",
+    "postedAt": "2026-10-18",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a2",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      13.07041167347,
+      80.277603240386
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample independent house in OMR, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 6632,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0005",
+    "carpetArea": 1966,
+    "carParking": 1,
+    "width": 35,
+    "length": 58
+  },
+  {
+    "id": "al8",
+    "city": "Chennai",
+    "locality": "Velachery",
     "mode": "BUY",
     "type": "Land",
-    "title": "Sahyadri Orchard Enclave",
-    "price": 7435000,
+    "title": "Marina Plot 108",
+    "price": 7621000,
     "area": 2540,
     "image": "land",
     "tag": "Corner plot",
@@ -328,7 +452,7 @@
       "Corner plot"
     ],
     "subtype": "Residential",
-    "contactName": "Sneha Patil",
+    "contactName": "Rahul Reddy",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "South-East",
@@ -337,16 +461,16 @@
       "/land.jpg"
     ],
     "landType": "Residential",
-    "agentId": "a6",
+    "agentId": "a2",
     "status": "available",
-    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      18.512387959230615,
-      73.7786889400955
+      13.081626652981,
+      80.271420969069
     ],
     "amenities": [
       "Road access",
@@ -359,19 +483,18 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 2927.165354330709,
+    "description": "Sample land in Velachery, Chennai. Illustrative listing for demos.",
     "sample": true,
     "reraNo": "DEMO-RERA-0006"
   },
   {
-    "id": "al7",
-    "city": "Bengaluru",
-    "locality": "Bellandur",
+    "id": "al9",
+    "city": "Chennai",
+    "locality": "Adyar",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Garden City Lakeview Retreat",
-    "price": 25631000,
+    "title": "Marina Orchid Enclave",
+    "price": 25850000,
     "beds": 4,
     "baths": 4,
     "area": 3380,
@@ -388,7 +511,7 @@
     "maintenance": 2000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Vikram Shah",
+    "contactName": "Rahul Reddy",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -399,16 +522,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a7",
+    "agentId": "a2",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      12.926465051353372,
-      77.67672323370444
+      13.097494305309,
+      80.269598774693
     ],
     "amenities": [
       "Parking",
@@ -419,8 +542,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 7583.136094674556,
+    "description": "Sample villa in Adyar, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 7648,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0007",
@@ -430,13 +553,13 @@
     "length": 67
   },
   {
-    "id": "al8",
-    "city": "Hyderabad",
-    "locality": "Jubilee Hills",
+    "id": "al10",
+    "city": "Chennai",
+    "locality": "OMR",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Deccan Courtyard Villa — Rental",
-    "price": 64000,
+    "title": "Marina Silver Oaks",
+    "price": 316000,
     "beds": 3,
     "baths": 3,
     "area": 2440,
@@ -453,7 +576,7 @@
     "maintenance": 1500,
     "deposit": 198000,
     "brokerage": 0,
-    "contactName": "Kavya Nair",
+    "contactName": "Rahul Reddy",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -464,16 +587,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a8",
+    "agentId": "a2",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      17.432891624447443,
-      78.40768396526882
+      13.080908868436,
+      80.267414586756
     ],
     "amenities": [
       "Parking",
@@ -482,8 +605,8 @@
     "highlights": [
       "Clear property details"
     ],
-    "description": "A well-connected independent house in Jubilee Hills. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 26.229508196721312,
+    "description": "Sample independent house in OMR, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 130,
     "sample": true,
     "carpetArea": 1903,
     "carParking": 1,
@@ -491,13 +614,139 @@
     "length": 57
   },
   {
-    "id": "al9",
-    "city": "Bengaluru",
-    "locality": "Indiranagar",
+    "id": "al11",
+    "city": "Madurai",
+    "locality": "KK Nagar",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Meenakshi Maple Court",
+    "price": 25871000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3380,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Meera Kulkarni",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a3",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      9.930889585606,
+      78.128365515594
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample villa in KK Nagar, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 7654,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0007",
+    "carpetArea": 2636,
+    "carParking": 2,
+    "width": 41,
+    "length": 67
+  },
+  {
+    "id": "al12",
+    "city": "Madurai",
+    "locality": "Tallakulam",
+    "mode": "RENT",
+    "type": "Independent House",
+    "title": "Meenakshi Riverfront Homes",
+    "price": 337000,
+    "beds": 3,
+    "baths": 3,
+    "area": 2440,
+    "image": "villa",
+    "tag": "Owner listed",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 198000,
+    "brokerage": 0,
+    "contactName": "Meera Kulkarni",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South",
+    "postedAt": "2026-10-22",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a3",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      9.918262726763,
+      78.124103818392
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "Sample independent house in Tallakulam, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 138,
+    "sample": true,
+    "carpetArea": 1903,
+    "carParking": 1,
+    "width": 35,
+    "length": 57
+  },
+  {
+    "id": "al13",
+    "city": "Madurai",
+    "locality": "Anna Nagar",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences — Rental",
-    "price": 50000,
+    "title": "Meenakshi Parkside Living",
+    "price": 356000,
     "beds": 3,
     "baths": 2,
     "area": 1680,
@@ -514,7 +763,7 @@
     "maintenance": 1500,
     "deposit": 126000,
     "brokerage": 0,
-    "contactName": "Ananya Rao",
+    "contactName": "Meera Kulkarni",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -528,16 +777,16 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "agentId": "a1",
+    "agentId": "a3",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      12.979858379028027,
-      77.63803792567387
+      9.930676198812,
+      78.126524605625
     ],
     "amenities": [
       "Parking",
@@ -550,20 +799,20 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 29.761904761904763,
+    "description": "Sample apartment in Anna Nagar, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 212,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0009"
   },
   {
-    "id": "al10",
-    "city": "Hyderabad",
-    "locality": "Kokapet",
+    "id": "al14",
+    "city": "Madurai",
+    "locality": "KK Nagar",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Deccan Grove Villas — Rental",
-    "price": 93000,
+    "title": "Meenakshi Horizon Towers",
+    "price": 432000,
     "beds": 4,
     "baths": 4,
     "area": 3300,
@@ -580,7 +829,7 @@
     "maintenance": 3000,
     "deposit": 292500,
     "brokerage": 0,
-    "contactName": "Rahul Reddy",
+    "contactName": "Meera Kulkarni",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -591,16 +840,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a2",
+    "agentId": "a3",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      17.40110266533748,
-      78.33682896426235
+      9.915112644856,
+      78.118545289921
     ],
     "amenities": [
       "Parking",
@@ -611,8 +860,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Kokapet. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 28.181818181818183,
+    "description": "Sample villa in KK Nagar, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 131,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0010",
@@ -622,13 +871,13 @@
     "length": 66
   },
   {
-    "id": "al11",
-    "city": "Pune",
-    "locality": "Baner",
+    "id": "al15",
+    "city": "Madurai",
+    "locality": "Tallakulam",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Sahyadri Central Square Workspace",
-    "price": 15190000,
+    "title": "Meenakshi Trade Square 115",
+    "price": 15562000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
@@ -656,14 +905,14 @@
     ],
     "agentId": "a3",
     "status": "available",
-    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      18.573009781152518,
-      73.77380928359251
+      9.930948252708,
+      78.116209921474
     ],
     "amenities": [
       "Parking",
@@ -675,20 +924,145 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected commercial in Baner. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 12152,
+    "description": "Sample commercial in Tallakulam, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 12450,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0011"
   },
   {
-    "id": "al12",
-    "city": "Bengaluru",
-    "locality": "JP Nagar",
+    "id": "al16",
+    "city": "Trichy",
+    "locality": "Cantonment",
+    "mode": "RENT",
+    "type": "Villa",
+    "title": "Cauvery Amber Villa",
+    "price": 453000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 3000,
+    "deposit": 292500,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-West",
+    "postedAt": "2026-10-24",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a4",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      10.803027819095,
+      78.71417065579
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample villa in Cantonment, Trichy. Illustrative listing for demos.",
+    "pricePerSqft": 137,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0010",
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
+  },
+  {
+    "id": "al17",
+    "city": "Trichy",
+    "locality": "Thillai Nagar",
+    "mode": "BUY",
+    "type": "Commercial",
+    "title": "Cauvery Trade Square 117",
+    "price": 15583000,
+    "baths": 1,
+    "area": 1250,
+    "image": "interior",
+    "tag": "Office space",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Office",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability not recently confirmed",
+    "floor": "4+",
+    "ac": "Not specified",
+    "postedAt": "2026-10-27",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a4",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      10.784904855812,
+      78.71038425928
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample commercial in Thillai Nagar, Trichy. Illustrative listing for demos.",
+    "pricePerSqft": 12466,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0011"
+  },
+  {
+    "id": "al18",
+    "city": "Trichy",
+    "locality": "Srirangam",
     "mode": "RENT",
     "type": "Independent House",
-    "title": "Garden City Aaranya Villa — Rental",
-    "price": 79000,
+    "title": "Cauvery Olive Grove",
+    "price": 505000,
     "beds": 3,
     "baths": 3,
     "area": 2520,
@@ -718,14 +1092,14 @@
     ],
     "agentId": "a4",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      12.90663651851404,
-      77.5907120423705
+      10.803120132131,
+      78.705068463881
     ],
     "amenities": [
       "Parking",
@@ -735,8 +1109,8 @@
       "Clear property details",
       "Visits by appointment"
     ],
-    "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 31.349206349206348,
+    "description": "Sample independent house in Srirangam, Trichy. Illustrative listing for demos.",
+    "pricePerSqft": 200,
     "sample": true,
     "carpetArea": 1966,
     "carParking": 1,
@@ -744,13 +1118,144 @@
     "length": 58
   },
   {
-    "id": "al13",
-    "city": "Hyderabad",
-    "locality": "Gachibowli",
+    "id": "al19",
+    "city": "Trichy",
+    "locality": "Cantonment",
     "mode": "RENT",
     "type": "PG",
-    "title": "Private room in Gachibowli",
-    "price": 18000,
+    "title": "Cauvery PG Stay 119",
+    "price": 477000,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1000,
+    "deposit": 24000,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "East",
+    "postedAt": "2026-10-12",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a4",
+    "status": "available",
+    "confirmedAt": null,
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      10.785595567284,
+      78.705861688655
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample pg in Cantonment, Trichy. Illustrative listing for demos.",
+    "pricePerSqft": 2650,
+    "sample": true,
+    "occupancy": "Private room",
+    "meals": "Not included",
+    "bathroom": "Attached",
+    "ac": "No",
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0013"
+  },
+  {
+    "id": "al20",
+    "city": "Trichy",
+    "locality": "Thillai Nagar",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Cauvery Teakwood Homes",
+    "price": 23160000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3220,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Riya Menon",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "South-West",
+    "postedAt": "2026-10-27",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a4",
+    "status": "available",
+    "confirmedAt": null,
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      10.797902176234,
+      78.699987064173
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample villa in Thillai Nagar, Trichy. Illustrative listing for demos.",
+    "pricePerSqft": 7193,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0014",
+    "carpetArea": 2512,
+    "carParking": 2,
+    "width": 40,
+    "length": 65
+  },
+  {
+    "id": "al21",
+    "city": "Hosur",
+    "locality": "SIPCOT",
+    "mode": "RENT",
+    "type": "PG",
+    "title": "Hillgate PG Stay 121",
+    "price": 498000,
     "beds": 1,
     "baths": 1,
     "area": 180,
@@ -779,15 +1284,15 @@
       "/villa.jpg"
     ],
     "agentId": "a5",
-    "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      17.438761863776943,
-      78.34800976468034
+      12.729464007548,
+      77.833570047677
     ],
     "amenities": [
       "Parking",
@@ -798,8 +1303,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected apartment in Gachibowli. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 100,
+    "description": "Sample pg in SIPCOT, Hosur. Illustrative listing for demos.",
+    "pricePerSqft": 2767,
     "sample": true,
     "occupancy": "Private room",
     "meals": "Not included",
@@ -809,13 +1314,13 @@
     "reraNo": "DEMO-RERA-0013"
   },
   {
-    "id": "al14",
-    "city": "Pune",
-    "locality": "Balewadi",
+    "id": "al22",
+    "city": "Hosur",
+    "locality": "Bagalur Road",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Sahyadri Cedar Grove",
-    "price": 22668000,
+    "title": "Hillgate Cedar Grove",
+    "price": 23181000,
     "beds": 4,
     "baths": 4,
     "area": 3220,
@@ -832,7 +1337,7 @@
     "maintenance": 2000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Sneha Patil",
+    "contactName": "Arjun Desai",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -843,16 +1348,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a6",
-    "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "agentId": "a5",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      18.572270803636815,
-      73.77233252238062
+      12.743887633325,
+      77.83299005851
     ],
     "amenities": [
       "Parking",
@@ -864,8 +1369,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 7039.751552795031,
+    "description": "Sample villa in Bagalur Road, Hosur. Illustrative listing for demos.",
+    "pricePerSqft": 7199,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0014",
@@ -875,13 +1380,13 @@
     "length": 65
   },
   {
-    "id": "al15",
-    "city": "Bengaluru",
-    "locality": "Indiranagar",
+    "id": "al23",
+    "city": "Hosur",
+    "locality": "Zuzuvadi",
     "mode": "BUY",
     "type": "Commercial",
-    "title": "Garden City Central Square Workspace",
-    "price": 16514000,
+    "title": "Hillgate Trade Square 123",
+    "price": 17060000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
@@ -897,7 +1402,7 @@
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Vikram Shah",
+    "contactName": "Arjun Desai",
     "freshness": "Availability not recently confirmed",
     "floor": "4+",
     "ac": "Not specified",
@@ -907,16 +1412,16 @@
       "/apartment.jpg",
       "/villa.jpg"
     ],
-    "agentId": "a7",
+    "agentId": "a5",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      12.986356986010742,
-      77.62722198196772
+      12.725250720498,
+      77.82795025236
     ],
     "amenities": [
       "Parking",
@@ -929,20 +1434,20 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected commercial in Indiranagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 13211.2,
+    "description": "Sample commercial in Zuzuvadi, Hosur. Illustrative listing for demos.",
+    "pricePerSqft": 13648,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0015"
   },
   {
-    "id": "al16",
-    "city": "Hyderabad",
-    "locality": "Madhapur",
+    "id": "al24",
+    "city": "Hosur",
+    "locality": "SIPCOT",
     "mode": "BUY",
     "type": "Apartment",
-    "title": "Deccan Parkside Living",
-    "price": 11455000,
+    "title": "Hillgate Courtyard Villa",
+    "price": 12034000,
     "beds": 3,
     "baths": 2,
     "area": 1760,
@@ -959,7 +1464,7 @@
     "maintenance": 2500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Kavya Nair",
+    "contactName": "Arjun Desai",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -970,34 +1475,34 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "agentId": "a8",
+    "agentId": "a5",
     "status": "available",
-    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      17.44784306813277,
-      78.39179994319142
+      12.741902445816,
+      77.824600281228
     ],
     "amenities": [
       "Parking",
       "Balcony"
     ],
     "highlights": [],
-    "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 6508.522727272727,
+    "description": "Sample apartment in SIPCOT, Hosur. Illustrative listing for demos.",
+    "pricePerSqft": 6838,
     "sample": true
   },
   {
-    "id": "al17",
-    "city": "Bengaluru",
-    "locality": "Indiranagar",
+    "id": "al25",
+    "city": "Hosur",
+    "locality": "Bagalur Road",
     "mode": "BUY",
     "type": "Apartment",
-    "title": "Garden City Palm Residences",
-    "price": 12816000,
+    "title": "Hillgate Greenfield Plot",
+    "price": 13428000,
     "beds": 3,
     "baths": 2,
     "area": 1680,
@@ -1014,7 +1519,7 @@
     "maintenance": 1500,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Ananya Rao",
+    "contactName": "Arjun Desai",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -1030,16 +1535,16 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "agentId": "a1",
+    "agentId": "a5",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      12.978702022356588,
-      77.63942463257142
+      12.753781838061,
+      77.823490248907
     ],
     "amenities": [
       "Parking",
@@ -1051,20 +1556,142 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 7628.571428571428,
+    "description": "Sample apartment in Bagalur Road, Hosur. Illustrative listing for demos.",
+    "pricePerSqft": 7993,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0017"
   },
   {
-    "id": "al18",
-    "city": "Hyderabad",
-    "locality": "Manikonda",
+    "id": "al26",
+    "city": "Coimbatore",
+    "locality": "Race Course",
+    "mode": "BUY",
+    "type": "Apartment",
+    "title": "Kovai Avenue Homes",
+    "price": 12055000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1760,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 2500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Kabir Shah",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "West",
+    "postedAt": "2026-10-16",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a6",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      11.008911870296,
+      76.966094183974
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [],
+    "description": "Sample apartment in Race Course, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 6849,
+    "sample": true
+  },
+  {
+    "id": "al27",
+    "city": "Coimbatore",
+    "locality": "Gandhipuram",
+    "mode": "BUY",
+    "type": "Apartment",
+    "title": "Kovai Garden Walk",
+    "price": 13449000,
+    "beds": 3,
+    "baths": 2,
+    "area": 1680,
+    "image": "apartment",
+    "tag": "New arrival",
+    "furnishing": "Semi-furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Balcony"
+    ],
+    "subtype": "Home",
+    "maintenance": 1500,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Kabir Shah",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North",
+    "possessionStatus": "Ready to move",
+    "propertyAge": 2,
+    "totalFloors": 8,
+    "parking": "1 covered space",
+    "ownershipType": "Freehold",
+    "postedAt": "2026-10-20",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a6",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      11.02354564894,
+      76.960562344366
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample apartment in Gandhipuram, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 8005,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0017"
+  },
+  {
+    "id": "al28",
+    "city": "Coimbatore",
+    "locality": "Singanallur",
     "mode": "BUY",
     "type": "Land",
-    "title": "Deccan Orchard Enclave",
-    "price": 6962000,
+    "title": "Kovai Plot 128",
+    "price": 7628000,
     "area": 2540,
     "image": "land",
     "tag": "Corner plot",
@@ -1075,7 +1702,7 @@
       "Corner plot"
     ],
     "subtype": "Residential",
-    "contactName": "Rahul Reddy",
+    "contactName": "Kabir Shah",
     "freshness": "Availability checked: 12 Oct 2026",
     "roadWidth": "20 ft",
     "facing": "North-East",
@@ -1084,16 +1711,16 @@
       "/land.jpg"
     ],
     "landType": "Residential",
-    "agentId": "a2",
+    "agentId": "a6",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      17.400818475359234,
-      78.38666865315625
+      11.010894439586,
+      76.963291307382
     ],
     "amenities": [
       "Road access",
@@ -1106,19 +1733,18 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected land in Manikonda. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 2740.9448818897636,
+    "description": "Sample land in Singanallur, Coimbatore. Illustrative listing for demos.",
     "sample": true,
     "reraNo": "DEMO-RERA-0018"
   },
   {
-    "id": "al19",
-    "city": "Pune",
-    "locality": "Balewadi",
+    "id": "al29",
+    "city": "Coimbatore",
+    "locality": "Race Course",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Cedar Grove — Rental",
-    "price": 106000,
+    "title": "Kovai Orchid Enclave",
+    "price": 805000,
     "beds": 4,
     "baths": 4,
     "area": 3220,
@@ -1135,7 +1761,7 @@
     "maintenance": 2000,
     "deposit": 286500,
     "brokerage": 0,
-    "contactName": "Meera Kulkarni",
+    "contactName": "Kabir Shah",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
@@ -1146,16 +1772,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a3",
+    "agentId": "a6",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      18.57582541114821,
-      73.7730375694197
+      11.020652914026,
+      76.955876545011
     ],
     "amenities": [
       "Parking",
@@ -1166,8 +1792,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Balewadi. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 32.91925465838509,
+    "description": "Sample villa in Race Course, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 250,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0019",
@@ -1177,13 +1803,13 @@
     "length": 65
   },
   {
-    "id": "al20",
-    "city": "Bengaluru",
-    "locality": "Hebbal",
+    "id": "al30",
+    "city": "Coimbatore",
+    "locality": "Gandhipuram",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Garden City Grove Villas",
-    "price": 25144000,
+    "title": "Kovai Silver Oaks",
+    "price": 25876000,
     "beds": 4,
     "baths": 4,
     "area": 3300,
@@ -1200,7 +1826,7 @@
     "maintenance": 2000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Riya Menon",
+    "contactName": "Kabir Shah",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
@@ -1211,16 +1837,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a4",
+    "agentId": "a6",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      13.037557472013132,
-      77.59695709302993
+      11.008808759655,
+      76.952045354501
     ],
     "amenities": [
       "Parking",
@@ -1229,8 +1855,8 @@
     "highlights": [
       "Clear property details"
     ],
-    "description": "A well-connected villa in Hebbal. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 7619.393939393939,
+    "description": "Sample villa in Gandhipuram, Coimbatore. Illustrative listing for demos.",
+    "pricePerSqft": 7841,
     "sample": true,
     "carpetArea": 2574,
     "carParking": 2,
@@ -1238,13 +1864,139 @@
     "length": 66
   },
   {
-    "id": "al21",
-    "city": "Hyderabad",
-    "locality": "Madhapur",
+    "id": "al31",
+    "city": "Chennai",
+    "locality": "Anna Nagar",
+    "mode": "RENT",
+    "type": "Villa",
+    "title": "Marina Maple Court",
+    "price": 826000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3220,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 286500,
+    "brokerage": 0,
+    "contactName": "Sneha Iyer",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "South-West",
+    "postedAt": "2026-10-16",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a7",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      13.081892775504,
+      80.280725178307
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample villa in Anna Nagar, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 257,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0019",
+    "carpetArea": 2512,
+    "carParking": 2,
+    "width": 40,
+    "length": 65
+  },
+  {
+    "id": "al32",
+    "city": "Chennai",
+    "locality": "T Nagar",
+    "mode": "BUY",
+    "type": "Villa",
+    "title": "Marina Riverfront Homes",
+    "price": 25897000,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 0,
+    "brokerage": 0,
+    "contactName": "Sneha Iyer",
+    "freshness": "Availability not recently confirmed",
+    "pets": "Not specified",
+    "floor": "4+",
+    "facing": "South-West",
+    "postedAt": "2026-10-15",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a7",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      13.092878062275,
+      80.27800025078
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details"
+    ],
+    "description": "Sample villa in T Nagar, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 7848,
+    "sample": true,
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
+  },
+  {
+    "id": "al33",
+    "city": "Chennai",
+    "locality": "Porur",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Deccan Parkside Living — Rental",
-    "price": 58000,
+    "title": "Marina Parkside Living",
+    "price": 844000,
     "beds": 3,
     "baths": 2,
     "area": 1760,
@@ -1261,7 +2013,7 @@
     "maintenance": 2500,
     "deposit": 132000,
     "brokerage": 0,
-    "contactName": "Arjun Desai",
+    "contactName": "Sneha Iyer",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
@@ -1272,16 +2024,16 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "agentId": "a5",
+    "agentId": "a7",
     "status": "available",
-    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      17.450845076172737,
-      78.39644662757324
+      13.080289755756,
+      80.270640725159
     ],
     "amenities": [
       "Parking",
@@ -1294,20 +2046,20 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected apartment in Madhapur. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 32.95454545454545,
+    "description": "Sample apartment in Porur, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 480,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0021"
   },
   {
-    "id": "al22",
-    "city": "Pune",
-    "locality": "Shivajinagar",
+    "id": "al34",
+    "city": "Chennai",
+    "locality": "Anna Nagar",
     "mode": "RENT",
     "type": "Villa",
-    "title": "Sahyadri Grove Villas — Rental",
-    "price": 110500,
+    "title": "Marina Horizon Towers",
+    "price": 929500,
     "beds": 4,
     "baths": 4,
     "area": 3300,
@@ -1324,7 +2076,7 @@
     "maintenance": 2000,
     "deposit": 292500,
     "brokerage": 0,
-    "contactName": "Sneha Patil",
+    "contactName": "Sneha Iyer",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -1335,16 +2087,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a6",
+    "agentId": "a7",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      18.533284111388095,
-      73.8448378399782
+      13.092493258395,
+      80.272002264564
     ],
     "amenities": [
       "Parking",
@@ -1355,8 +2107,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Shivajinagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 33.484848484848484,
+    "description": "Sample villa in Anna Nagar, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 282,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0022",
@@ -1366,13 +2118,13 @@
     "length": 66
   },
   {
-    "id": "al23",
-    "city": "Bengaluru",
-    "locality": "Bellandur",
+    "id": "al35",
+    "city": "Chennai",
+    "locality": "T Nagar",
     "mode": "RENT",
     "type": "PG",
-    "title": "Private room in Bellandur",
-    "price": 23000,
+    "title": "Marina PG Stay 135",
+    "price": 875000,
     "beds": 1,
     "baths": 1,
     "area": 180,
@@ -1389,7 +2141,7 @@
     "maintenance": 1000,
     "deposit": 24000,
     "brokerage": 0,
-    "contactName": "Vikram Shah",
+    "contactName": "Sneha Iyer",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -1402,14 +2154,14 @@
     ],
     "agentId": "a7",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      12.925860776685669,
-      77.67649662539024
+      13.075651060828,
+      80.267575271347
     ],
     "amenities": [
       "Parking",
@@ -1421,8 +2173,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Bellandur. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 127.77777777777777,
+    "description": "Sample pg in T Nagar, Chennai. Illustrative listing for demos.",
+    "pricePerSqft": 4861,
     "sample": true,
     "occupancy": "Private room",
     "meals": "Not included",
@@ -1432,13 +2184,144 @@
     "reraNo": "DEMO-RERA-0023"
   },
   {
-    "id": "al24",
-    "city": "Hyderabad",
-    "locality": "Gachibowli",
+    "id": "al36",
+    "city": "Madurai",
+    "locality": "Goripalayam",
+    "mode": "RENT",
+    "type": "Villa",
+    "title": "Meenakshi Amber Villa",
+    "price": 950500,
+    "beds": 4,
+    "baths": 4,
+    "area": 3300,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 2000,
+    "deposit": 292500,
+    "brokerage": 0,
+    "contactName": "Vikram Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/villa.jpg",
+      "/interior.jpg",
+      "/apartment.jpg"
+    ],
+    "agentId": "a8",
+    "status": "sold",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "radius",
+      "radiusM": 300
+    },
+    "approx": [
+      9.927594138579,
+      78.129046024442
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample villa in Goripalayam, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 288,
+    "sample": true,
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0022",
+    "carpetArea": 2574,
+    "carParking": 2,
+    "width": 40,
+    "length": 66
+  },
+  {
+    "id": "al37",
+    "city": "Madurai",
+    "locality": "Sellur",
+    "mode": "RENT",
+    "type": "PG",
+    "title": "Meenakshi PG Stay 137",
+    "price": 896000,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
+    "image": "villa",
+    "tag": "Premium home",
+    "furnishing": "Unfurnished",
+    "seller": "Agent",
+    "available": "Within 30 days",
+    "features": [
+      "Parking",
+      "Lift access"
+    ],
+    "subtype": "Home",
+    "maintenance": 1000,
+    "deposit": 24000,
+    "brokerage": 0,
+    "contactName": "Vikram Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "pets": "Allowed",
+    "floor": "Ground",
+    "facing": "North-East",
+    "postedAt": "2026-10-19",
+    "photos": [
+      "/apartment.jpg",
+      "/interior.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a8",
+    "status": "rented",
+    "confirmedAt": "2026-10-09T18:51:43.679Z",
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 500
+    },
+    "approx": [
+      9.91529543666,
+      78.127701531636
+    ],
+    "amenities": [
+      "Parking",
+      "Lift access"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Illustrative listing — details to be verified",
+      "Good access to local services",
+      "Flexible visit requests"
+    ],
+    "description": "Sample pg in Sellur, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 4978,
+    "sample": true,
+    "occupancy": "Private room",
+    "meals": "Not included",
+    "bathroom": "Attached",
+    "ac": "No",
+    "floorPlanUrl": "/demo-floor-plan.svg",
+    "reraNo": "DEMO-RERA-0023"
+  },
+  {
+    "id": "al38",
+    "city": "Madurai",
+    "locality": "Thirunagar",
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Deccan Central Square Workspace — Rental",
-    "price": 70500,
+    "title": "Meenakshi Trade Square 138",
+    "price": 976500,
     "baths": 1,
     "area": 1250,
     "image": "interior",
@@ -1454,7 +2337,7 @@
     "maintenance": 2500,
     "deposit": 165000,
     "brokerage": 0,
-    "contactName": "Kavya Nair",
+    "contactName": "Vikram Nair",
     "freshness": "Availability checked: 12 Oct 2026",
     "floor": "Ground",
     "ac": "Yes",
@@ -1466,14 +2349,14 @@
     ],
     "agentId": "a8",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
       "mode": "hidden",
       "radiusM": 1000
     },
     "approx": [
-      17.42371781679907,
-      78.33416820552968
+      9.923557618664,
+      78.124922022006
     ],
     "amenities": [
       "Parking",
@@ -1483,18 +2366,18 @@
       "Clear property details",
       "Visits by appointment"
     ],
-    "description": "A well-connected commercial in Gachibowli. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 56.4,
+    "description": "Sample commercial in Thirunagar, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 781,
     "sample": true
   },
   {
-    "id": "al25",
-    "city": "Bengaluru",
-    "locality": "Indiranagar",
+    "id": "al39",
+    "city": "Madurai",
+    "locality": "Goripalayam",
     "mode": "RENT",
     "type": "Apartment",
-    "title": "Garden City Palm Residences — Rental",
-    "price": 66000,
+    "title": "Meenakshi Sapphire Court",
+    "price": 1005000,
     "beds": 3,
     "baths": 2,
     "area": 1680,
@@ -1511,7 +2394,7 @@
     "maintenance": 1500,
     "deposit": 126000,
     "brokerage": 0,
-    "contactName": "Ananya Rao",
+    "contactName": "Vikram Nair",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -1525,16 +2408,16 @@
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "agentId": "a1",
+    "agentId": "a8",
     "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "hidden",
+      "mode": "radius",
       "radiusM": 300
     },
     "approx": [
-      12.981288851279366,
-      77.6410841598026
+      9.912075589617,
+      78.119582993373
     ],
     "amenities": [
       "Parking",
@@ -1545,20 +2428,20 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected apartment in Indiranagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 39.285714285714285,
+    "description": "Sample apartment in Goripalayam, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 598,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0025"
   },
   {
-    "id": "al26",
-    "city": "Hyderabad",
-    "locality": "Kondapur",
+    "id": "al40",
+    "city": "Madurai",
+    "locality": "Sellur",
     "mode": "BUY",
     "type": "Villa",
-    "title": "Deccan Cedar Grove",
-    "price": 21205000,
+    "title": "Meenakshi Teakwood Homes",
+    "price": 22177000,
     "beds": 4,
     "baths": 4,
     "area": 3220,
@@ -1575,7 +2458,7 @@
     "maintenance": 3000,
     "deposit": 0,
     "brokerage": 0,
-    "contactName": "Rahul Reddy",
+    "contactName": "Vikram Nair",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
@@ -1586,16 +2469,16 @@
       "/interior.jpg",
       "/apartment.jpg"
     ],
-    "agentId": "a2",
+    "agentId": "a8",
     "status": "available",
-    "confirmedAt": "2026-10-09T18:51:43.680Z",
+    "confirmedAt": null,
     "privacy": {
-      "mode": "radius",
+      "mode": "hidden",
       "radiusM": 500
     },
     "approx": [
-      17.460934297238982,
-      78.36645446313433
+      9.925042438477,
+      78.119180769502
     ],
     "amenities": [
       "Parking",
@@ -1607,8 +2490,8 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A well-connected villa in Kondapur. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 6585.403726708075,
+    "description": "Sample villa in Sellur, Madurai. Illustrative listing for demos.",
+    "pricePerSqft": 6887,
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0026",
@@ -1616,238 +2499,5 @@
     "carParking": 2,
     "width": 40,
     "length": 65
-  },
-  {
-    "id": "al27",
-    "city": "Pune",
-    "locality": "Kothrud",
-    "mode": "BUY",
-    "type": "Land",
-    "title": "Sahyadri Greenfield Plot",
-    "price": 6996000,
-    "area": 2460,
-    "image": "land",
-    "tag": "Corner plot",
-    "seller": "Agent",
-    "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
-    "subtype": "Agricultural",
-    "contactName": "Meera Kulkarni",
-    "freshness": "Availability not recently confirmed",
-    "roadWidth": "40 ft",
-    "facing": "North-West",
-    "postedAt": "2026-10-10",
-    "photos": [
-      "/land.jpg"
-    ],
-    "landType": "Agricultural",
-    "agentId": "a3",
-    "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
-    "privacy": {
-      "mode": "hidden",
-      "radiusM": 1000
-    },
-    "approx": [
-      18.502219907065452,
-      73.80588743837676
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
-    ],
-    "description": "A well-connected land in Kothrud. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 2843.9024390243903,
-    "sample": true,
-    "reraNo": "DEMO-RERA-0027"
-  },
-  {
-    "id": "al28",
-    "city": "Bengaluru",
-    "locality": "JP Nagar",
-    "mode": "RENT",
-    "type": "Independent House",
-    "title": "Garden City Aaranya Villa — Rental",
-    "price": 95000,
-    "beds": 3,
-    "baths": 3,
-    "area": 2520,
-    "image": "villa",
-    "tag": "Owner listed",
-    "furnishing": "Semi-furnished",
-    "seller": "Agent",
-    "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
-    "subtype": "Home",
-    "maintenance": 2500,
-    "deposit": 204000,
-    "brokerage": 0,
-    "contactName": "Riya Menon",
-    "freshness": "Availability checked: 12 Oct 2026",
-    "pets": "Allowed",
-    "floor": "Ground",
-    "facing": "East",
-    "postedAt": "2026-10-27",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
-    "agentId": "a4",
-    "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
-    "privacy": {
-      "mode": "hidden",
-      "radiusM": 300
-    },
-    "approx": [
-      12.91003729018335,
-      77.5872763037861
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [],
-    "description": "A well-connected independent house in JP Nagar. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 37.698412698412696,
-    "sample": true,
-    "carpetArea": 1966,
-    "carParking": 1,
-    "width": 35,
-    "length": 58
-  },
-  {
-    "id": "al29",
-    "city": "Hyderabad",
-    "locality": "Narsingi",
-    "mode": "BUY",
-    "type": "Independent House",
-    "title": "Deccan Aaranya Villa",
-    "price": 16583000,
-    "beds": 3,
-    "baths": 3,
-    "area": 2520,
-    "image": "villa",
-    "tag": "Owner listed",
-    "furnishing": "Semi-furnished",
-    "seller": "Agent",
-    "available": "Ready now",
-    "features": [
-      "Parking",
-      "Balcony"
-    ],
-    "subtype": "Home",
-    "maintenance": 1500,
-    "deposit": 0,
-    "brokerage": 0,
-    "contactName": "Arjun Desai",
-    "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
-    "floor": "4+",
-    "facing": "North",
-    "postedAt": "2026-10-18",
-    "photos": [
-      "/villa.jpg",
-      "/interior.jpg",
-      "/apartment.jpg"
-    ],
-    "agentId": "a5",
-    "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
-    "privacy": {
-      "mode": "radius",
-      "radiusM": 500
-    },
-    "approx": [
-      17.390400054460912,
-      78.35418227158617
-    ],
-    "amenities": [
-      "Parking",
-      "Balcony"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
-    ],
-    "description": "A well-connected independent house in Narsingi. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 6580.555555555556,
-    "sample": true,
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0029",
-    "carpetArea": 1966,
-    "carParking": 1,
-    "width": 35,
-    "length": 58
-  },
-  {
-    "id": "al30",
-    "city": "Pune",
-    "locality": "Bavdhan",
-    "mode": "BUY",
-    "type": "Land",
-    "title": "Sahyadri Orchard Enclave",
-    "price": 7459000,
-    "area": 2540,
-    "image": "land",
-    "tag": "Corner plot",
-    "seller": "Agent",
-    "available": "Within 30 days",
-    "features": [
-      "Road access",
-      "Corner plot"
-    ],
-    "subtype": "Residential",
-    "contactName": "Sneha Patil",
-    "freshness": "Availability checked: 12 Oct 2026",
-    "roadWidth": "20 ft",
-    "facing": "South-East",
-    "postedAt": "2026-10-14",
-    "photos": [
-      "/land.jpg"
-    ],
-    "landType": "Residential",
-    "agentId": "a6",
-    "status": "available",
-    "confirmedAt": "2026-10-28T18:51:43.680Z",
-    "privacy": {
-      "mode": "hidden",
-      "radiusM": 1000
-    },
-    "approx": [
-      18.514250874636463,
-      73.77193485296476
-    ],
-    "amenities": [
-      "Road access",
-      "Corner plot"
-    ],
-    "highlights": [
-      "Clear property details",
-      "Visits by appointment",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
-    ],
-    "description": "A well-connected land in Bavdhan. Ask the agent about documents and visit availability.",
-    "pricePerSqft": 2936.6141732283463,
-    "sample": true,
-    "reraNo": "DEMO-RERA-0030"
   }
 ]

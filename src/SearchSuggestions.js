@@ -1,33 +1,5 @@
 import properties from "./properties.json";
-
-// These featured areas are only shown when the city has matching sample listings.
-const featuredAreas = {
-  Bengaluru: ["Whitefield", "Indiranagar", "Koramangala", "Hebbal", "JP Nagar"],
-  Hyderabad: ["Gachibowli", "Kondapur", "Madhapur", "Jubilee Hills", "Kokapet"],
-  Pune: ["Baner", "Balewadi", "Wakad", "Kothrud", "Aundh"],
-};
-
-// Sample builder labels give each demo city a useful developer directory.
-const sampleBuilders = {
-  Bengaluru: [
-    "Northline Estates",
-    "Suncrest Living",
-    "Meridian Spaces",
-    "Grove Developments",
-  ],
-  Hyderabad: [
-    "Lakefront Spaces",
-    "Deccan Living",
-    "Cedar Developments",
-    "Avenue Estates",
-  ],
-  Pune: [
-    "Westline Homes",
-    "Pinecrest Living",
-    "Terrace Developments",
-    "Urban Grove",
-  ],
-};
+import { featuredAreas, sampleBuilders } from "./data/cities";
 
 const buildersById = new Map();
 for (const city of new Set(properties.map((property) => property.city))) {

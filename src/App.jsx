@@ -79,6 +79,7 @@ import {
   sortProperties,
   hasValue,
 } from "./PropertyModel";
+import { landmarkSuggestions, DEFAULT_CITY } from "./data/cities";
 import { visitDates } from "./JourneyUX";
 import {
   SellerProfile,
@@ -176,23 +177,6 @@ const initialFilters = filterDefaults;
 const readSaved = () => {
   const value = readLocal("centometer-saved", []);
   return Array.isArray(value) ? value : [];
-};
-const landmarkSuggestions = {
-  Bengaluru: [
-    ["Indiranagar Metro Station", "Indiranagar"],
-    ["Phoenix Marketcity", "Whitefield"],
-    ["Lalbagh Botanical Garden", "Jayanagar"],
-  ],
-  Hyderabad: [
-    ["DLF Cyber City", "Gachibowli"],
-    ["Botanical Garden", "Kondapur"],
-    ["Durgam Cheruvu", "Madhapur"],
-  ],
-  Pune: [
-    ["Balewadi High Street", "Balewadi"],
-    ["Aundh IT Park", "Aundh"],
-    ["Karishma Society", "Kothrud"],
-  ],
 };
 function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
   const [searchHistory, setSearchHistory] = useState(() =>
@@ -466,8 +450,8 @@ export default function App() {
   const [focusSearch, setFocusSearch] = useState(false);
   const [route, setRoute] = useState(location.hash.slice(1) || "home");
   const [city, setCity] = useState(() => {
-    const last = readLocal("centometer-city", "Bengaluru");
-    return Object.hasOwn(centers, last) ? last : "Bengaluru";
+    const last = readLocal("centometer-city", DEFAULT_CITY);
+    return Object.hasOwn(centers, last) ? last : DEFAULT_CITY;
   });
   const [mode, setMode] = useState("BUY");
   const [query, setQuery] = useState("");

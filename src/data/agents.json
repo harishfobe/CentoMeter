@@ -5,11 +5,21 @@
     "name": "Ananya Rao",
     "avatar": "/agent-ananya.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Bengaluru. Full details, clear communication and visits at your pace.",
-    "city": "Bengaluru",
-    "serviceAreas": ["Indiranagar", "Whitefield", "Jayanagar"],
-    "languages": ["English", "Kannada"],
-    "specialties": ["Apartments", "Rentals"],
+    "bio": "Local property guidance in Coimbatore. Full details, clear communication and visits at your pace.",
+    "city": "Coimbatore",
+    "serviceAreas": [
+      "RS Puram",
+      "Peelamedu",
+      "Saibaba Colony"
+    ],
+    "languages": [
+      "English",
+      "Tamil"
+    ],
+    "specialties": [
+      "Apartments",
+      "Rentals"
+    ],
     "experienceYears": 2,
     "verified": true,
     "verifiedAt": "2026-10-20",
@@ -26,11 +36,21 @@
     "name": "Rahul Reddy",
     "avatar": "/agent-rahul.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Hyderabad. Full details, clear communication and visits at your pace.",
-    "city": "Hyderabad",
-    "serviceAreas": ["Gachibowli", "Kondapur", "Kokapet"],
-    "languages": ["English", "Hindi"],
-    "specialties": ["Villas", "Commercial"],
+    "bio": "Local property guidance in Chennai. Full details, clear communication and visits at your pace.",
+    "city": "Chennai",
+    "serviceAreas": [
+      "Adyar",
+      "OMR",
+      "Velachery"
+    ],
+    "languages": [
+      "English",
+      "Tamil"
+    ],
+    "specialties": [
+      "Villas",
+      "Commercial"
+    ],
     "experienceYears": 3,
     "verified": true,
     "verifiedAt": "2026-10-20",
@@ -47,11 +67,21 @@
     "name": "Meera Kulkarni",
     "avatar": "/agent-meera.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Pune. Full details, clear communication and visits at your pace.",
-    "city": "Pune",
-    "serviceAreas": ["Baner", "Wakad", "Balewadi"],
-    "languages": ["English", "Marathi"],
-    "specialties": ["Plots", "PG"],
+    "bio": "Local property guidance in Madurai. Full details, clear communication and visits at your pace.",
+    "city": "Madurai",
+    "serviceAreas": [
+      "KK Nagar",
+      "Tallakulam",
+      "Anna Nagar"
+    ],
+    "languages": [
+      "English",
+      "Tamil"
+    ],
+    "specialties": [
+      "Plots",
+      "PG"
+    ],
     "experienceYears": 4,
     "verified": false,
     "verifiedAt": null,
@@ -67,11 +97,21 @@
     "name": "Riya Menon",
     "avatar": "/agent-ananya.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Bengaluru. Full details, clear communication and visits at your pace.",
-    "city": "Bengaluru",
-    "serviceAreas": ["Indiranagar", "Whitefield", "Jayanagar"],
-    "languages": ["English", "Hindi"],
-    "specialties": ["Apartments", "Rentals"],
+    "bio": "Local property guidance in Trichy. Full details, clear communication and visits at your pace.",
+    "city": "Trichy",
+    "serviceAreas": [
+      "Cantonment",
+      "Thillai Nagar",
+      "Srirangam"
+    ],
+    "languages": [
+      "English",
+      "Tamil"
+    ],
+    "specialties": [
+      "Apartments",
+      "Rentals"
+    ],
     "experienceYears": 5,
     "verified": true,
     "verifiedAt": "2026-10-20",
@@ -88,11 +128,22 @@
     "name": "Arjun Desai",
     "avatar": "/agent-rahul.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Hyderabad. Full details, clear communication and visits at your pace.",
-    "city": "Hyderabad",
-    "serviceAreas": ["Gachibowli", "Kondapur", "Kokapet"],
-    "languages": ["English", "Telugu"],
-    "specialties": ["Villas", "Commercial"],
+    "bio": "Local property guidance in Hosur. Full details, clear communication and visits at your pace.",
+    "city": "Hosur",
+    "serviceAreas": [
+      "SIPCOT",
+      "Bagalur Road",
+      "Zuzuvadi"
+    ],
+    "languages": [
+      "English",
+      "Tamil",
+      "Kannada"
+    ],
+    "specialties": [
+      "Villas",
+      "Commercial"
+    ],
     "experienceYears": 6,
     "verified": true,
     "verifiedAt": "2026-10-20",
@@ -105,15 +156,25 @@
   },
   {
     "id": "a6",
-    "handle": "sneha.patil",
-    "name": "Sneha Patil",
+    "handle": "kabir.shah",
+    "name": "Kabir Shah",
     "avatar": "/agent-meera.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Pune. Full details, clear communication and visits at your pace.",
-    "city": "Pune",
-    "serviceAreas": ["Baner", "Wakad", "Balewadi"],
-    "languages": ["English", "Hindi"],
-    "specialties": ["Plots", "PG"],
+    "bio": "Local property guidance in Coimbatore. Full details, clear communication and visits at your pace.",
+    "city": "Coimbatore",
+    "serviceAreas": [
+      "Race Course",
+      "Gandhipuram",
+      "Singanallur"
+    ],
+    "languages": [
+      "English",
+      "Tamil"
+    ],
+    "specialties": [
+      "Plots",
+      "PG"
+    ],
     "experienceYears": 7,
     "verified": false,
     "verifiedAt": null,
@@ -125,15 +186,26 @@
   },
   {
     "id": "a7",
-    "handle": "vikram.shah",
-    "name": "Vikram Shah",
+    "handle": "sneha.iyer",
+    "name": "Sneha Iyer",
     "avatar": "/agent-ananya.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Bengaluru. Full details, clear communication and visits at your pace.",
-    "city": "Bengaluru",
-    "serviceAreas": ["Indiranagar", "Whitefield", "Jayanagar"],
-    "languages": ["English", "Kannada"],
-    "specialties": ["Apartments", "Rentals"],
+    "bio": "Local property guidance in Chennai. Full details, clear communication and visits at your pace.",
+    "city": "Chennai",
+    "serviceAreas": [
+      "Anna Nagar",
+      "T Nagar",
+      "Porur"
+    ],
+    "languages": [
+      "English",
+      "Tamil",
+      "Hindi"
+    ],
+    "specialties": [
+      "Apartments",
+      "Rentals"
+    ],
     "experienceYears": 8,
     "verified": true,
     "verifiedAt": "2026-10-20",
@@ -146,15 +218,25 @@
   },
   {
     "id": "a8",
-    "handle": "kavya.nair",
-    "name": "Kavya Nair",
+    "handle": "vikram.nair",
+    "name": "Vikram Nair",
     "avatar": "/agent-rahul.svg",
     "instagramUrl": "https://www.instagram.com/",
-    "bio": "Local property guidance in Hyderabad. Full details, clear communication and visits at your pace.",
-    "city": "Hyderabad",
-    "serviceAreas": ["Gachibowli", "Kondapur", "Kokapet"],
-    "languages": ["English", "Hindi"],
-    "specialties": ["Villas", "Commercial"],
+    "bio": "Local property guidance in Madurai. Full details, clear communication and visits at your pace.",
+    "city": "Madurai",
+    "serviceAreas": [
+      "Goripalayam",
+      "Sellur",
+      "Thirunagar"
+    ],
+    "languages": [
+      "English",
+      "Tamil"
+    ],
+    "specialties": [
+      "Villas",
+      "Commercial"
+    ],
     "experienceYears": 9,
     "verified": true,
     "verifiedAt": "2026-10-20",

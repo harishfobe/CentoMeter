@@ -148,9 +148,10 @@ function AgentFinder({ onNavigate, Modal }) {
       lifecycle.current.active && generation === lifecycle.current.geo;
     const fallback = () => {
       if (!current()) return;
-      const city = readLocal("centometer-city", null) || f.city || "Bengaluru";
-      set("city", cities.includes(city) ? city : "Bengaluru");
-      setToast("Using " + (cities.includes(city) ? city : "Bengaluru"));
+      const fallback = cities[0] || "Coimbatore";
+      const city = readLocal("centometer-city", null) || f.city || fallback;
+      set("city", cities.includes(city) ? city : fallback);
+      setToast("Using " + (cities.includes(city) ? city : fallback));
     };
     if (!navigator.geolocation) return fallback();
     navigator.geolocation.getCurrentPosition(

@@ -19,12 +19,15 @@ test("compact layout, filters apply live, URL commits on close, clear and Back",
   await page.getByRole("button", { name: "Filters, 0 active" }).click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await dialog.getByRole("button", { name: "Bengaluru", exact: true }).click();
+  await dialog.getByRole("button", { name: "Coimbatore", exact: true }).click();
   await dialog.getByRole("button", { name: "English", exact: true }).click();
   await dialog.getByRole("radio", { name: "1 hour", exact: true }).click();
   const count = await page.locator(".agent-grid .agent-card").count();
   await expect(
-    dialog.getByRole("button", { name: `Show ${count} agents`, exact: true }),
+    dialog.getByRole("button", {
+      name: `Show ${count} ${count === 1 ? "agent" : "agents"}`,
+      exact: true,
+    }),
   ).toBeVisible();
   expect(await page.evaluate(() => location.hash)).toBe(initial);
   await page.goBack();
@@ -44,7 +47,7 @@ test("Near me fallback and keyboard search and sheet focus", async ({
     });
   });
   await page.getByRole("button", { name: "Near me", exact: true }).click();
-  await expect(page.getByRole("status")).toHaveText("Using Bengaluru");
+  await expect(page.getByRole("status")).toHaveText("Using Coimbatore");
   await page.getByRole("button", { name: "Clear all", exact: true }).click();
   const search = page.getByRole("combobox");
   await search.fill("Ananya");

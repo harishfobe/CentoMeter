@@ -28,8 +28,8 @@ it("aborts locality search when the city changes and ignores the old response", 
   vi.stubGlobal("fetch", fetch);
   const view = render(
     <LocationSearch
-      city="Bengaluru"
-      value="Indiranagar"
+      city="Coimbatore"
+      value="RS Puram"
       onChange={() => {}}
       onPick={() => {}}
     />,
@@ -39,8 +39,8 @@ it("aborts locality search when the city changes and ignores the old response", 
   expect(fetch).toHaveBeenCalledTimes(1);
   view.rerender(
     <LocationSearch
-      city="Hyderabad"
-      value="Indiranagar"
+      city="Chennai"
+      value="RS Puram"
       onChange={() => {}}
       onPick={() => {}}
     />,
@@ -70,10 +70,10 @@ it("does not let late geolocation replace a city the user selected afterwards", 
   fireEvent.click(screen.getByRole("button", { name: "Near me", exact: true }));
   fireEvent.click(screen.getByRole("button", { name: "City: Any" }));
   fireEvent.click(
-    screen.getByRole("radio", { name: "Bengaluru", exact: true }),
+    screen.getByRole("radio", { name: "Coimbatore", exact: true }),
   );
-  act(() => success({ coords: { latitude: 17.44, longitude: 78.35 } }));
-  expect(screen.getByRole("button", { name: "City: Bengaluru" })).toBeTruthy();
+  act(() => success({ coords: { latitude: 13.09, longitude: 80.28 } }));
+  expect(screen.getByRole("button", { name: "City: Coimbatore" })).toBeTruthy();
 });
 it("clears pending Finder input and blur timers on unmount", () => {
   vi.useFakeTimers();

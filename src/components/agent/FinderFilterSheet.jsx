@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import FinderChips from "./FinderChips";
-export const cities = ["Bengaluru", "Hyderabad", "Pune"];
+import { cityNames } from "../../data/cities";
+export const cities = cityNames;
 export const sorts = [
   ["recommended", "Recommended"],
   ["fast", "Fastest reply"],

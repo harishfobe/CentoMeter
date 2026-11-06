@@ -26,7 +26,7 @@ beforeEach(() => {
 afterEach(() => cleanup());
 it("releases draft loading after restore rejection and shows the failure", async () => {
   io.restorePhotos.mockRejectedValueOnce(Error("blocked"));
-  render(<PostFlow city="Bengaluru" onExit={() => {}} onComplete={() => {}} />);
+  render(<PostFlow city="Coimbatore" onExit={() => {}} onComplete={() => {}} />);
   await waitFor(() =>
     expect(screen.getByRole("alert").textContent).toMatch(
       /could not be restored/,
@@ -39,7 +39,7 @@ it("releases draft loading after restore rejection and shows the failure", async
 it("the back action saves a draft and stays in the editor if the write fails", async () => {
   io.persistDraft.mockRejectedValueOnce(Error("blocked"));
   const exit = vi.fn();
-  render(<PostFlow city="Bengaluru" onExit={exit} onComplete={() => {}} />);
+  render(<PostFlow city="Coimbatore" onExit={exit} onComplete={() => {}} />);
   await waitFor(() =>
     expect(
       screen.getByRole("button", { name: "Back to exploring" }).disabled,

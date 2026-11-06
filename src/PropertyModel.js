@@ -1,9 +1,7 @@
 import { SQFT_PER_CENT } from "./LandMeasurements";
-export const centers = {
-  Bengaluru: [12.972, 77.638],
-  Hyderabad: [17.43, 78.39],
-  Pune: [18.55, 73.803],
-};
+import { centers as cityCenters, cityListLabel } from "./data/cities";
+export const centers = cityCenters;
+export { cityListLabel };
 export function money(value) {
   if (value == null || (typeof value === "string" && !value.trim())) return "—";
   let n;
