@@ -2881,13 +2881,12 @@ textarea {
   border-radius: 999px;
   background: #d4d4d8;
   flex: 0 0 auto;
-  transition:
-    width 160ms var(--ease-out),
-    background-color 160ms var(--ease-out);
+  transform-origin: center;
+  transition: scale 160ms var(--ease-out);
 }
 .photo-swipe-dots span[data-active="true"] {
-  width: 14px;
   background: var(--brand);
+  scale: 2.333 1;
 }
 @media (prefers-reduced-motion: reduce) {
   .photo-swipe-dots span {
