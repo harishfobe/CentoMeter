@@ -564,9 +564,15 @@ export default function App() {
     navigate("search");
   };
   const showList = () => {
-    setAreaOnly(true);
-    if (route === "map") setMapList(true);
-    else navigate("results");
+    // Map-area filtering stays on the map page only. Home / browse list
+    // always searches the full city, even if the preview map is empty.
+    if (route === "map") {
+      setAreaOnly(true);
+      setMapList(true);
+      return;
+    }
+    setAreaOnly(false);
+    navigate("results");
   };
   const openMap = () => {
     setMapList(false);
@@ -718,10 +724,10 @@ export default function App() {
       }),
     [filtered, bounds, locationRequests],
   );
+  // Restrict to the visible map area only on the map page. Home, search
+  // results, and filters always use the full city match set.
   const resultItems =
-    (route === "results" || (route === "map" && mapList)) && !areaOnly
-      ? filtered
-      : visible;
+    route === "map" && areaOnly ? visible : filtered;
   const sorted = useMemo(
     () => sortProperties(resultItems, sort, priceUnit),
     [resultItems, sort, priceUnit],
@@ -809,8 +815,9 @@ export default function App() {
   };
   const handleBounds = useCallback(
     (b) => {
-      // Hidden Leaflet panes can emit zero-size bounds. Keep the last visible area.
-      if (route !== "map" || !mapList) setBounds(b);
+      // Map-area filtering is map-page only. Skip home/results previews, and
+      // skip hidden map panes in list mode (they can emit collapsed bounds).
+      if (route === "map" && !mapList) setBounds(b);
     },
     [route, mapList],
   );
@@ -1326,7 +1333,7 @@ export default function App() {
                       onBounds={handleBounds}
                       resetKey={resetKey}
                     />
-                    {visible.length === 0 && (
+                    {route === "map" && visible.length === 0 && (
                       <button
                         className="empty-map-reset"
                         onClick={() => {
@@ -1534,7 +1541,7 @@ export default function App() {
                       <Bookmark size={14} aria-hidden="true" /> Save search
                     </button>
                     <span>
-                      {areaOnly || route !== "results"
+                      {route === "map" && areaOnly
                         ? "Within map area"
                         : "Across " + city}
                     </span>
@@ -2309,12 +2316,9 @@ export default function App() {
         <SmartFilters
           Modal={Modal}
           items={candidates.filter((p) => {
+            if (route !== "map" || !areaOnly || !bounds) return true;
             const point = mapPoint(p, locationRequests);
-            return (
-              (route === "results" && !areaOnly) ||
-              !bounds ||
-              (point && bounds.contains(point))
-            );
+            return point && bounds.contains(point);
           })}
           filters={filters}
           mode={mode}
@@ -2323,6 +2327,7 @@ export default function App() {
             setFilters(f);
             setSelected(null);
             setModal(null);
+            if (route === "home") setAreaOnly(false);
           }}
         />
       )}
@@ -2722,7 +2727,7 @@ export default function App() {
                     nearPlace,
                     viewport: mapViewport.current,
                     bounds:
-                      (areaOnly || route !== "results") && bounds
+                      route === "map" && areaOnly && bounds
                         ? [
                             [bounds.getSouth(), bounds.getWest()],
                             [bounds.getNorth(), bounds.getEast()],
@@ -2748,7 +2753,7 @@ export default function App() {
             </label>
             <p>
               {city} · {mode} ·{" "}
-              {areaOnly || route !== "results"
+              {route === "map" && areaOnly
                 ? "Current map area"
                 : "Entire city"}
             </p>
