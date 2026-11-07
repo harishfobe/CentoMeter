@@ -35,6 +35,13 @@ export function canonicalizePropertyType(type) {
 
 export const WATER_SOURCES = ["Siruvani", "Corporation", "Borewell"];
 
+export const PREFERRED_TENANTS = [
+  "Family",
+  "Bachelor",
+  "Company",
+  "Anyone",
+];
+
 export const VILLA_AMENITIES = [
   "Clubhouse",
   "Security",

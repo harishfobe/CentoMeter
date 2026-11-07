@@ -131,6 +131,8 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     floor: text(d.floor),
     floorsLabel: text(d.floorsLabel, ""),
     pets: text(d.pets),
+    preferredTenant: text(d.preferredTenant, ""),
+    community: text(d.community, type === "Villa" ? "Gated" : ""),
     occupancy: text(d.occupancy),
     meals: text(d.meals),
     bathroom: text(d.bathroom),
