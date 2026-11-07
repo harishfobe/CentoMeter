@@ -558,7 +558,7 @@
     "price": 290340,
     "beds": 3,
     "baths": 3,
-    "area": 2440,
+    "area": 1850,
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
@@ -576,9 +576,9 @@
     "brokerage": 0,
     "contactName": "Ananya Rao",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
-    "facing": "West",
+    "facing": "East",
     "postedAt": "2026-10-20",
     "photos": [
       "/villa.jpg",
@@ -593,20 +593,21 @@
       "Flexible visit requests"
     ],
     "carpetArea": 1903,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 57,
     "description": "An independent house in Race Course, Coimbatore with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
-    "plotArea": 1995,
-    "builtUpArea": 2440,
+    "plotArea": 2400,
+    "builtUpArea": 1850,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Family"
   },
   {
     "id": "p11",
@@ -734,12 +735,13 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Family"
   },
   {
     "id": "Coimbatore-BUY-Commercial",
@@ -1181,7 +1183,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "West",
     "postedAt": "2026-10-20",
@@ -1198,7 +1200,7 @@
       "Flexible visit requests"
     ],
     "carpetArea": 1903,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 57,
     "description": "An independent house in OMR, Chennai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
@@ -1206,12 +1208,13 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Anyone"
   },
   {
     "id": "p18",
@@ -1339,12 +1342,13 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Bachelor"
   },
   {
     "id": "p20",
@@ -1943,7 +1947,7 @@
       "Flexible visit requests"
     ],
     "carpetArea": 1966,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 58,
     "description": "An independent house in Anna Nagar, Madurai with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
@@ -1951,12 +1955,13 @@
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Company"
   },
   {
     "id": "p27",
@@ -2557,12 +2562,13 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Family"
   },
   {
     "id": "Madurai-BUY-Commercial",
@@ -3131,7 +3137,7 @@
       "/apartment.jpg"
     ],
     "carpetArea": 1903,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 57,
     "reraNo": "DEMO-RERA-0044",
@@ -3140,12 +3146,13 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Family"
   },
   {
     "id": "p44",
@@ -3746,12 +3753,13 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Anyone"
   },
   {
     "id": "p51",
@@ -4350,7 +4358,7 @@
       "Flexible visit requests"
     ],
     "carpetArea": 1903,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 57,
     "description": "An independent house in Avalapalli, Hosur with room to grow. Practical rooms, local connectivity and a straightforward ownership story. Ask about visit timing and documents.",
@@ -4358,12 +4366,13 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Bachelor"
   },
   {
     "id": "Hosur-BUY-Commercial",
