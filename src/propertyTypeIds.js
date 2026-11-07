@@ -38,6 +38,7 @@ export const WATER_SOURCES = ["Siruvani", "Corporation", "Borewell"];
 export const PREFERRED_TENANTS = [
   "Family",
   "Family / Professionals",
+  "Working professionals",
   "Bachelor",
   "Company",
   "Anyone",
