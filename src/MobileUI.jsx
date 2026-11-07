@@ -15,7 +15,11 @@ import {
   commercialBuyPriceMeta,
   usesCommercialDetailLayout,
 } from "./CommercialDetails";
-import { pgRentPriceMeta, usesPgDetailLayout } from "./PgDetails";
+import {
+  pgRentDepositLabel,
+  pgRentMealsLine,
+  usesPgDetailLayout,
+} from "./PgDetails";
 
 function landBuyPriceMeta(p) {
   const pool = [
@@ -120,15 +124,19 @@ export function MobilePropertyPrice({ property: p, money }) {
     );
   }
   if (usesPgDetailLayout(p)) {
-    const meta = pgRentPriceMeta(p);
+    const meals = pgRentMealsLine(p);
+    const deposit = pgRentDepositLabel(p);
     return (
-      <div className="mobile-price-block land-price-block">
+      <div className="mobile-price-block land-price-block rent-pg-price-block">
         <div className="mobile-property-price land-property-price">
           <strong>
             {money(p.price)}
             <span className="pg-price-period"> / month</span>
           </strong>
-          {meta ? <span>{meta}</span> : null}
+          {meals ? <span className="rent-pg-meals">{meals}</span> : null}
+          {deposit ? (
+            <span className="rent-pg-deposit">{deposit}</span>
+          ) : null}
         </div>
       </div>
     );
