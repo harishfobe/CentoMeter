@@ -272,13 +272,15 @@ export default function PostFlow({
       area:
         d.type === "PG"
           ? "180"
-          : d.type === "Independent House" || d.type === "Villa"
-            ? "1800"
-            : d.type === "Commercial"
-              ? "4000"
-              : d.intent === "RENT" && d.type === "Apartment"
-                ? "1150"
-                : "1200",
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "2100"
+            : d.type === "Independent House" || d.type === "Villa"
+              ? "1800"
+              : d.type === "Commercial"
+                ? "4000"
+                : d.intent === "RENT" && d.type === "Apartment"
+                  ? "1150"
+                  : "1200",
       builtUpArea:
         d.type === "Independent House" ||
         d.type === "Villa" ||
@@ -290,14 +292,34 @@ export default function PostFlow({
               ? d.intent === "RENT"
                 ? "1150"
                 : "1200"
-              : "1800"
+              : d.intent === "RENT" && d.type === "Villa"
+                ? "2100"
+                : "1800"
           : "",
       plotArea: d.type === "Independent House" ? "2400" : d.plotArea,
       water: d.type === "Independent House" ? "Siruvani" : d.water,
       roadWidth: d.type === "Independent House" ? "30" : d.roadWidth,
       projectName:
         d.type === "Villa" ? "Lakeside Enclave" : d.projectName || "",
+      community: d.type === "Villa" ? "Gated" : d.community,
       reraNumber: d.type === "Villa" ? "TN/RERA/SAMPLE/0001" : d.reraNumber,
+      preferredTenant:
+        d.intent === "RENT" && d.type === "Villa"
+          ? "Family"
+          : d.intent === "RENT" && d.type === "Apartment"
+            ? "Family / Professionals"
+            : d.preferredTenant,
+      pets:
+        d.intent === "RENT" && d.type === "Villa"
+          ? "Allowed"
+          : d.intent === "RENT" && d.type === "Apartment"
+            ? "Not specified"
+            : d.pets,
+      available:
+        d.intent === "RENT" &&
+        (d.type === "Villa" || d.type === "Apartment")
+          ? "Ready now"
+          : d.available,
       address: city + " — sample central location",
       description:
         d.type === "Land"
@@ -339,15 +361,22 @@ export default function PostFlow({
           : d.type === "Independent House" || d.type === "Villa"
             ? "1500"
             : d.carpetArea,
-      balconies: d.type === "Apartment" ? "1" : d.balconies,
+      balconies:
+        d.type === "Apartment"
+          ? "1"
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "2"
+            : d.balconies,
       carParking:
         d.type === "Commercial"
           ? "Available"
-          : d.type === "Apartment" ||
-              d.type === "Independent House" ||
-              d.type === "Villa"
-            ? "1"
-            : d.carParking,
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "2"
+            : d.type === "Apartment" ||
+                d.type === "Independent House" ||
+                d.type === "Villa"
+              ? "1"
+              : d.carParking,
       furnishing:
         d.type === "Land" ? d.furnishing : "Semi-furnished",
       condition:
@@ -366,20 +395,18 @@ export default function PostFlow({
       meals: "Not included",
       bathroom: "Attached",
       ac: "No",
-      baths: d.intent === "RENT" && d.type === "Apartment" ? 2 : 1,
-      beds: d.intent === "RENT" && d.type === "Apartment" ? "2" : d.beds,
-      preferredTenant:
+      baths:
         d.intent === "RENT" && d.type === "Apartment"
-          ? "Family / Professionals"
-          : d.preferredTenant,
-      pets:
+          ? 2
+          : d.intent === "RENT" && d.type === "Villa"
+            ? 3
+            : 1,
+      beds:
         d.intent === "RENT" && d.type === "Apartment"
-          ? "Not specified"
-          : d.pets,
-      available:
-        d.intent === "RENT" && d.type === "Apartment"
-          ? "Ready now"
-          : d.available,
+          ? "2"
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "3"
+            : d.beds,
       features:
         d.type === "Villa"
           ? ["Clubhouse", "Security", "Pool", "Power Backup"]
@@ -1022,6 +1049,61 @@ export default function PostFlow({
                       required
                     />
                   </label>
+                  {data.intent === "RENT" && (
+                    <>
+                      <div className="form-columns">
+                        <label>
+                          Balconies
+                          <input
+                            type="number"
+                            min="0"
+                            max="20"
+                            placeholder="Number of balconies"
+                            value={data.balconies ?? ""}
+                            onChange={(e) => set("balconies", e.target.value)}
+                          />
+                        </label>
+                        <label>
+                          Community
+                          <select
+                            value={data.community || "Gated"}
+                            onChange={(e) => set("community", e.target.value)}
+                          >
+                            <option>Gated</option>
+                            <option>Open layout</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div className="form-columns">
+                        <label>
+                          Preferred tenant
+                          <select
+                            value={data.preferredTenant || ""}
+                            onChange={(e) =>
+                              set("preferredTenant", e.target.value)
+                            }
+                          >
+                            <option value="">Select</option>
+                            {PREFERRED_TENANTS.map((option) => (
+                              <option key={option}>{option}</option>
+                            ))}
+                          </select>
+                        </label>
+                        <label>
+                          Pets
+                          <select
+                            value={data.pets || ""}
+                            onChange={(e) => set("pets", e.target.value)}
+                          >
+                            <option value="">Select</option>
+                            <option>Allowed</option>
+                            <option>Not allowed</option>
+                            <option>Not specified</option>
+                          </select>
+                        </label>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
               {["Villa", "Independent House"].includes(data.type) && (

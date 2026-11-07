@@ -981,14 +981,14 @@
     "type": "Villa",
     "title": "Meenakshi Horizon Towers",
     "price": 432000,
-    "beds": 4,
-    "baths": 4,
-    "area": 3300,
+    "beds": 3,
+    "baths": 3,
+    "area": 2100,
     "image": "villa",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Semi-furnished",
     "seller": "Agent",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
       "Parking",
       "Lift access",
@@ -1006,7 +1006,7 @@
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
-    "facing": "North-West",
+    "facing": "East",
     "postedAt": "2026-10-24",
     "photos": [
       "/villa.jpg",
@@ -1043,7 +1043,7 @@
     "width": 40,
     "length": 66,
     "plotArea": 2640,
-    "builtUpArea": 3300,
+    "builtUpArea": 2100,
     "propertyAge": 3,
     "condition": "Resale",
     "water": "Borewell + Corporation",
@@ -1051,7 +1051,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Meenakshi Horizon Towers"
+    "projectName": "Meenakshi Horizon Towers",
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "al15",
@@ -1220,7 +1223,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Cauvery Amber"
+    "projectName": "Cauvery Amber",
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "al17",
@@ -2151,7 +2157,7 @@
     "brokerage": 0,
     "contactName": "Kabir Shah",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
@@ -2198,7 +2204,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Kovai Orchid Enclave"
+    "projectName": "Kovai Orchid Enclave",
+    "preferredTenant": "Anyone",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "al30",
@@ -2307,7 +2316,7 @@
     "brokerage": 0,
     "contactName": "Sneha Iyer",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
@@ -2354,7 +2363,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Marina Maple Court"
+    "projectName": "Marina Maple Court",
+    "preferredTenant": "Bachelor",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "al32",
@@ -2587,7 +2599,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Marina Horizon Towers"
+    "projectName": "Marina Horizon Towers",
+    "preferredTenant": "Company",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "al35",
@@ -2733,7 +2748,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Meenakshi Amber"
+    "projectName": "Meenakshi Amber",
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "al37",

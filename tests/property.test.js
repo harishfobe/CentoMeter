@@ -507,6 +507,56 @@ describe("apartment property details", () => {
   });
 });
 
+describe("rent villa property details", () => {
+  it("builds the reference rent Villa detail rows in order", async () => {
+    const { buildRentVillaDetailRows } = await import(
+      "../src/HouseVillaDetails.jsx"
+    );
+    const rows = buildRentVillaDetailRows({
+      type: "Villa",
+      mode: "RENT",
+      builtUpArea: 2100,
+      beds: 3,
+      baths: 3,
+      balconies: 2,
+      facing: "East",
+      furnishing: "Semi-furnished",
+      carParking: 2,
+      community: "Gated",
+      available: "Ready now",
+      preferredTenant: "Family",
+      pets: "Allowed",
+    }).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Built-up area",
+      "Configuration",
+      "Bathrooms",
+      "Balconies",
+      "Facing",
+      "Furnishing",
+      "Car parking",
+      "Community",
+      "Available from",
+      "Preferred tenant",
+      "Pets",
+    ]);
+    expect(rows.find((row) => row.label === "Built-up area").value).toBe(
+      "2,100 sqft",
+    );
+    expect(rows.find((row) => row.label === "Configuration").value).toBe(
+      "3 BHK",
+    );
+    expect(rows.find((row) => row.label === "Balconies").value).toBe("2");
+    expect(rows.find((row) => row.label === "Car parking").value).toBe(
+      "2 cars",
+    );
+    expect(rows.find((row) => row.label === "Community").value).toBe("Gated");
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+  });
+});
+
 describe("house vs villa differentiation", () => {
   it("canonicalizes independent_house and villa ids", async () => {
     const { canonicalizePropertyType, PROPERTY_TYPE } = await import(
