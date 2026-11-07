@@ -271,43 +271,14 @@ describe("draft and photo writes", () => {
   });
 });
 describe("clean sample data", () => {
-  it("has consistent category fields, unique city titles and prices, dates and photos", () => {
-    const byCity = new Map();
-    expect(properties.some((p) => p.type === "Land" && p.mode === "RENT")).toBe(
-      false,
+  it("has consistent category fields, unique city titles and prices, dates and photos", async () => {
+    const { auditSampleData, formatAuditReport } = await import(
+      "../tools/sampleDataInvariants.mjs"
     );
-    for (const p of properties) {
-      expect(Number.isFinite(Date.parse(p.postedAt))).toBe(true);
-      expect(p.photos.length).toBeGreaterThanOrEqual(p.type === "Land" ? 1 : 2);
-      expect(new Set(p.photos).size).toBe(p.photos.length);
-      if (p.type === "Land")
-        for (const key of [
-          "beds",
-          "baths",
-          "furnishing",
-          "occupancy",
-          "meals",
-          "floor",
-          "deposit",
-          "maintenance",
-          "ac",
-          "frontage",
-        ])
-          expect(p).not.toHaveProperty(key);
-      if (p.type === "Commercial")
-        for (const key of ["beds", "occupancy", "meals", "pets", "bathroom"])
-          expect(p).not.toHaveProperty(key);
-      if (p.type === "Apartment") {
-        expect(Number(p.beds)).toBeGreaterThan(0);
-        expect(Number.isFinite(Number(p.beds))).toBe(true);
-      }
-      const list = byCity.get(p.city) || [];
-      list.push(p);
-      byCity.set(p.city, list);
+    const report = auditSampleData({ properties });
+    if (!report.ok) {
+      throw new Error(formatAuditReport(report));
     }
-    for (const list of byCity.values()) {
-      expect(new Set(list.map((p) => p.title)).size).toBe(list.length);
-      expect(new Set(list.map((p) => p.price)).size).toBe(list.length);
-    }
+    expect(report.ok).toBe(true);
   });
 });

@@ -40,6 +40,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Sample data invariants
+        run: npm run check:samples
+
       - name: Unit tests
         run: npm test
 
