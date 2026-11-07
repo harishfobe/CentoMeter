@@ -8,6 +8,8 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "lint": "eslint src tests eslint.config.js",
+    "check:samples": "node tools/sampleDataInvariants.mjs",
+    "fix:sample-titles": "node tools/fix-sample-titles.mjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "format": "prettier --write src tests"
