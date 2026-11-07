@@ -2805,20 +2805,20 @@
     "locality": "Thirunagar",
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Meenakshi Trade Square 138",
+    "title": "Meenakshi Office Space 138",
     "price": 976500,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Office Space",
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Lift access"
     ],
-    "subtype": "Office",
+    "subtype": "Office Space",
     "maintenance": 2500,
     "deposit": 165000,
     "brokerage": 0,
@@ -2851,9 +2851,140 @@
       "Clear property details",
       "Visits by appointment"
     ],
-    "description": "Sample commercial in Thirunagar, Madurai. Illustrative listing for demos.",
+    "description": "Office space for rent in Thirunagar. Practical layout for teams. Sample listing.",
     "pricePerSqft": 781,
-    "sample": true
+    "sample": true,
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply"
+    ]
+  },
+  {
+    "id": "al38-shop",
+    "city": "Madurai",
+    "locality": "Thirunagar",
+    "mode": "RENT",
+    "type": "Commercial",
+    "title": "Meenakshi Retail Shop 139",
+    "price": 988500,
+    "baths": 1,
+    "area": 1250,
+    "image": "interior",
+    "tag": "Shop",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Power backup"
+    ],
+    "subtype": "Shop",
+    "maintenance": 2500,
+    "deposit": 165000,
+    "brokerage": 0,
+    "contactName": "Vikram Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "floor": "Ground",
+    "ac": "Yes",
+    "postedAt": "2026-10-25",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": null,
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 1000
+    },
+    "approx": [
+      9.927522499815,
+      78.12291368338
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "Retail shop for rent in Tallakulam. Sample agent listing.",
+    "pricePerSqft": 781,
+    "sample": true,
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "Power backup",
+      "Main road access"
+    ]
+  },
+  {
+    "id": "al38-land",
+    "city": "Madurai",
+    "locality": "Thirunagar",
+    "mode": "RENT",
+    "type": "Commercial",
+    "title": "Meenakshi Commercial Land 140",
+    "price": 1000500,
+    "baths": 1,
+    "area": 4356,
+    "image": "interior",
+    "tag": "Land",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Main road access"
+    ],
+    "subtype": "Land",
+    "maintenance": 2500,
+    "deposit": 165000,
+    "brokerage": 0,
+    "contactName": "Vikram Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "ac": "Yes",
+    "postedAt": "2026-10-25",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": null,
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 1000
+    },
+    "approx": [
+      9.926324655597,
+      78.11770291038
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "Commercial land for lease in Tallakulam. Sample agent listing.",
+    "pricePerSqft": 781,
+    "sample": true,
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "Main road access",
+      "Water supply"
+    ],
+    "builtUpArea": 4356
   },
   {
     "id": "al39",

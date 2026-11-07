@@ -873,12 +873,12 @@
     "lng": 76.94488,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Kovai Trade Square 45",
+    "title": "Kovai Office Space 45",
     "price": 293000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Office Space",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
@@ -886,7 +886,7 @@
       "Parking",
       "Lift access"
     ],
-    "subtype": "Office",
+    "subtype": "Office Space",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -907,7 +907,14 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Saibaba Colony, Coimbatore with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Office space for rent in Saibaba Colony. Practical layout for teams. Sample listing.",
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply"
+    ]
   },
   {
     "id": "p13",
@@ -1789,20 +1796,20 @@
     "lng": 80.2833,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Marina Trade Square 63",
+    "title": "Marina Retail Shop 63",
     "price": 698000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Shop",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Power backup"
     ],
-    "subtype": "Office",
+    "subtype": "Shop",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -1823,7 +1830,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Porur, Chennai with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Retail shop for rent in Porur with main-road access. Sample listing for everyday business use.",
+    "carParking": "Available",
+    "roadAccess": "Main road",
+    "facilities": [
+      "Parking",
+      "Power backup",
+      "Water supply",
+      "Main road access"
+    ]
   },
   {
     "id": "p25",
@@ -2696,20 +2711,20 @@
     "lng": 78.11392,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Meenakshi Trade Square 81",
+    "title": "Meenakshi Commercial Land 81",
     "price": 1103000,
     "baths": 1,
-    "area": 1250,
+    "area": 4356,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Land",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Main road access"
     ],
-    "subtype": "Office",
+    "subtype": "Land",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -2730,7 +2745,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Tallakulam, Madurai with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Commercial land for lease in Tallakulam. Suitable for temporary structures, parking, or business yards. Sample listing.",
+    "roadAccess": "Main road",
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "Main road access",
+      "Water supply"
+    ],
+    "builtUpArea": 4356
   },
   {
     "id": "p37",
@@ -3590,12 +3613,12 @@
     "lng": 78.72234,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Cauvery Trade Square 99",
+    "title": "Cauvery Office Space 99",
     "price": 1508000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Office Space",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
@@ -3603,7 +3626,7 @@
       "Parking",
       "Lift access"
     ],
-    "subtype": "Office",
+    "subtype": "Office Space",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -3624,7 +3647,14 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in K.K. Nagar East, Trichy with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Office space for rent in K.K. Nagar East. Practical layout for teams. Sample listing.",
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply"
+    ]
   },
   {
     "id": "p49",
@@ -4497,20 +4527,20 @@
     "lng": 77.82446,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Hillgate Trade Square 117",
+    "title": "Hillgate Retail Shop 117",
     "price": 1913000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Shop",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Power backup"
     ],
-    "subtype": "Office",
+    "subtype": "Shop",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -4531,6 +4561,14 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Mathigiri, Hosur with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Retail shop for rent in Mathigiri with main-road access. Sample listing for everyday business use.",
+    "carParking": "Available",
+    "roadAccess": "Main road",
+    "facilities": [
+      "Parking",
+      "Power backup",
+      "Water supply",
+      "Main road access"
+    ]
   }
 ]

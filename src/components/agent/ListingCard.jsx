@@ -101,7 +101,7 @@ function ListingCard({
             />
           ))}
         </div>
-        <span className="property-type-badge">{cardTypeLabel(p.type)}</span>
+        <span className="property-type-badge">{cardTypeLabel(p.type, p)}</span>
         <PhotoSwipeDots count={photos.length} index={index} />
       </div>
       <button
@@ -126,7 +126,7 @@ function ListingCard({
         ) : houseVilla ? (
           <p className="agent-listing-eyebrow">
             {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} ·{" "}
-            {cardTypeLabel(p.type).toUpperCase()}
+            {cardTypeLabel(p.type, p).toUpperCase()}
           </p>
         ) : null}
         <div className="price">
