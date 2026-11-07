@@ -662,7 +662,7 @@ describe("rent home header below photo", () => {
       houseTypeEyebrow,
       isRentHomeDetail,
     } = await import("../src/HouseVillaDetails.jsx");
-    const listing = {
+    const house = {
       type: "Independent House",
       mode: "RENT",
       price: 28000,
@@ -670,15 +670,17 @@ describe("rent home header below photo", () => {
       deposit: 120000,
       postedAt: "2026-11-06",
     };
-    expect(isRentHomeDetail(listing)).toBe(true);
-    expect(houseTypeEyebrow(listing)).toBe("FOR RENT · INDEPENDENT HOUSE");
-    expect(houseRentMaintenanceLabel(listing)).toBe("+ ₹1,500 maintenance");
-    expect(houseRentDepositLabel(listing)).toBe("₹1.2 L deposit");
-    expect(housePostedLabel(listing)).toBe("Posted 6 Nov 2026");
+    const villa = { ...house, type: "Villa" };
+    expect(isRentHomeDetail(house)).toBe(true);
+    expect(houseTypeEyebrow(house)).toBe("FOR RENT · INDEPENDENT HOUSE");
+    expect(houseRentMaintenanceLabel(house)).toBeNull();
+    expect(houseRentMaintenanceLabel(villa)).toBe("+ ₹1,500 maintenance");
+    expect(houseRentDepositLabel(house)).toBe("₹1.2 L deposit");
+    expect(housePostedLabel(house)).toBe("Posted 6 Nov 2026");
     expect(
-      houseRentMaintenanceLabel({ ...listing, maintenance: 0 }),
+      houseRentMaintenanceLabel({ ...villa, maintenance: 0 }),
     ).toBeNull();
-    expect(houseRentDepositLabel({ ...listing, deposit: null })).toBeNull();
+    expect(houseRentDepositLabel({ ...house, deposit: null })).toBeNull();
   });
 });
 

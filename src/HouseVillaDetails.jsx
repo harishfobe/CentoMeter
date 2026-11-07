@@ -31,8 +31,9 @@ export function isRentHomeDetail(p) {
   return !!p && p.mode === "RENT" && usesHomeDetailLayout(p);
 }
 
-/** "+ ₹1,500 maintenance" under the monthly rent. */
+/** "+ ₹1,500 maintenance" under the monthly rent (not used for Independent House). */
 export function houseRentMaintenanceLabel(p) {
+  if (isIndependentHouse(p?.type)) return null;
   const amount = Number(p.maintenance);
   if (!Number.isFinite(amount) || amount <= 0) return null;
   return `+ ${money(amount)} maintenance`;

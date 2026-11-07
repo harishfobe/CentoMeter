@@ -465,11 +465,13 @@ export default function PostFlow({
               : ["Parking"],
       deposit: d.type === "PG" ? "10000" : d.intent === "RENT" ? "24000" : "",
       maintenance:
-        d.intent === "RENT"
-          ? "1000"
-          : d.type === "Apartment"
-            ? "2500"
-            : d.maintenance || "",
+        d.intent === "RENT" && d.type === "Independent House"
+          ? ""
+          : d.intent === "RENT"
+            ? "1000"
+            : d.type === "Apartment"
+              ? "2500"
+              : d.maintenance || "",
     }));
     for (const key of ["title", "price", "address", "description"])
       dirty.current.add(key);
@@ -1254,7 +1256,8 @@ export default function PostFlow({
                       onChange={(e) => set("deposit", e.target.value)}
                     />
                   </label>
-                  {!isApartment(data.type) && (
+                  {!isApartment(data.type) &&
+                    !isIndependentHouse(data.type) && (
                     <label>
                       Monthly maintenance (₹)
                       <input
