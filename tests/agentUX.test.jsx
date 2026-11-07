@@ -171,6 +171,38 @@ it("buy apartment detail uses the gated-villa home layout", () => {
   expect(screen.getByText("2 years")).toBeTruthy();
   expect(screen.getByText(/20% down payment/)).toBeTruthy();
 });
+it("rent home header shows month price, maintenance, deposit, location and posted", () => {
+  render(
+    <ListingDetailSheet
+      p={{
+        ...listings[0],
+        type: "Independent House",
+        mode: "RENT",
+        photos: [],
+        title: "3 BHK Independent House",
+        price: 28000,
+        maintenance: 1500,
+        deposit: 120000,
+        locality: "Saravanampatti",
+        city: "Coimbatore",
+        postedAt: "2026-11-06",
+        beds: 3,
+        baths: 3,
+      }}
+      agent={agents[0]}
+      Modal={Modal}
+      onClose={() => {}}
+    />,
+  );
+  expect(screen.getByText("FOR RENT · INDEPENDENT HOUSE")).toBeTruthy();
+  expect(screen.getByText(/\/ month/)).toBeTruthy();
+  expect(screen.getByText("+ ₹1,500 maintenance")).toBeTruthy();
+  expect(screen.getByText("₹1.2 L deposit")).toBeTruthy();
+  expect(screen.getByText("3 BHK Independent House")).toBeTruthy();
+  expect(screen.getByText("Saravanampatti, Coimbatore")).toBeTruthy();
+  expect(screen.getByText("Posted 6 Nov 2026")).toBeTruthy();
+  expect(screen.queryByText(/\/mo · EMI/)).toBeNull();
+});
 it("hides EMI on rent listings for every property type", () => {
   const rentTypes = [
     "Independent House",

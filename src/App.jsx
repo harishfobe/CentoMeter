@@ -104,7 +104,9 @@ import { mobileQuery } from "./MapInteractions";
 import { LandSummary } from "./LandDetails";
 import {
   HouseVillaSummary,
+  housePostedLabel,
   houseTypeEyebrow,
+  isRentHomeDetail,
   usesHomeDetailLayout,
 } from "./HouseVillaDetails";
 import {
@@ -1704,6 +1706,11 @@ export default function App() {
                       {commercialPostedLabel(detail)}
                     </p>
                   )}
+                {isRentHomeDetail(detail) && housePostedLabel(detail) && (
+                  <p className="muted commercial-posted">
+                    {housePostedLabel(detail)}
+                  </p>
+                )}
                 {usesPgDetailLayout(detail) && pgPostedLabel(detail) && (
                   <p className="muted commercial-posted">
                     {pgPostedLabel(detail)}

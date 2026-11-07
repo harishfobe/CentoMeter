@@ -26,6 +26,38 @@ export function houseTypeEyebrow(p) {
   return `${mode} · ${kind}`;
 }
 
+/** True for RENT Independent House, Villa, and Apartment detail layouts. */
+export function isRentHomeDetail(p) {
+  return !!p && p.mode === "RENT" && usesHomeDetailLayout(p);
+}
+
+/** "+ ₹1,500 maintenance" under the monthly rent. */
+export function houseRentMaintenanceLabel(p) {
+  const amount = Number(p.maintenance);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return `+ ${money(amount)} maintenance`;
+}
+
+/** "₹1.20 L deposit" under maintenance. */
+export function houseRentDepositLabel(p) {
+  const amount = Number(p.deposit);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return `${money(amount)} deposit`;
+}
+
+export function housePostedLabel(p) {
+  const date = Date.parse(p.postedAt || p.createdAt || "");
+  if (!Number.isFinite(date)) return null;
+  return (
+    "Posted " +
+    new Date(date).toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  );
+}
+
 export function carParkingLabel(p) {
   const counted = Number(p.carParking ?? p.parkingSpaces);
   if (Number.isFinite(counted) && counted >= 0) {

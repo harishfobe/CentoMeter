@@ -211,6 +211,24 @@
 .agent-detail .commercial-posted {
   margin: 0 0 8px;
 }
+.agent-detail .agent-rent-home-maintenance {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.agent-detail .agent-rent-home-deposit {
+  margin: 2px 0 0;
+  color: var(--placeholder, #a1a1aa);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+.agent-detail .agent-rent-home-maintenance + .agent-land-title,
+.agent-detail .agent-rent-home-deposit + .agent-land-title {
+  margin-top: 16px;
+}
 .agent-detail .commercial-highlights,
 .agent-detail .commercial-facilities {
   margin: 16px 0 20px;

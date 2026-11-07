@@ -623,6 +623,7 @@
     width: 15px;
     height: 15px;
     margin-top: 2px;
+    color: var(--brand);
   }
   .mobile-price-block {
     display: block;
