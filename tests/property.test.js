@@ -621,6 +621,63 @@ describe("rent villa property details", () => {
   });
 });
 
+describe("rent independent house property details", () => {
+  it("builds the reference rent Independent House detail rows in order", async () => {
+    const { buildRentIndependentHouseDetailRows } = await import(
+      "../src/HouseVillaDetails.jsx"
+    );
+    const rows = buildRentIndependentHouseDetailRows({
+      type: "Independent House",
+      mode: "RENT",
+      plotArea: 2400,
+      builtUpArea: 1850,
+      beds: 3,
+      baths: 3,
+      floorsLabel: "G+1",
+      facing: "East",
+      furnishing: "Semi-furnished",
+      carParking: 2,
+      water: "Borewell + Corporation",
+      available: "Ready now",
+      preferredTenant: "Family",
+      pets: "Allowed",
+    }).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Plot area",
+      "Built-up area",
+      "Configuration",
+      "Bathrooms",
+      "Floors",
+      "Facing",
+      "Furnishing",
+      "Car parking",
+      "Water",
+      "Available from",
+      "Preferred tenant",
+      "Pets",
+    ]);
+    expect(rows.find((row) => row.label === "Plot area").value).toBe(
+      "2,400 sqft",
+    );
+    expect(rows.find((row) => row.label === "Built-up area").value).toBe(
+      "1,850 sqft",
+    );
+    expect(rows.find((row) => row.label === "Configuration").value).toBe(
+      "3 BHK",
+    );
+    expect(rows.find((row) => row.label === "Floors").value).toBe("G + 1");
+    expect(rows.find((row) => row.label === "Car parking").value).toBe(
+      "2 cars",
+    );
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(rows.find((row) => row.label === "Preferred tenant").value).toBe(
+      "Family",
+    );
+  });
+});
+
 describe("house vs villa differentiation", () => {
   it("canonicalizes independent_house and villa ids", async () => {
     const { canonicalizePropertyType, PROPERTY_TYPE } = await import(
