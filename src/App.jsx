@@ -1692,7 +1692,8 @@ export default function App() {
                 usesPgDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
-                {usesCommercialDetailLayout(detail) ? (
+                {usesCommercialDetailLayout(detail) &&
+                detail.mode === "BUY" ? (
                   <CommercialIncomeBadge p={detail} />
                 ) : null}
                 <h1>{detail.title}</h1>
@@ -1810,7 +1811,9 @@ export default function App() {
                       (detail.type === "Land"
                         ? `A well-connected plot in ${detail.locality || detail.city}. Ask about documents, access and visit timing.`
                         : detail.type === "Commercial"
-                          ? "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
+                          ? detail.mode === "RENT"
+                            ? "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom."
+                            : "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
                           : usesPgDetailLayout(detail)
                             ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
                             : usesHomeDetailLayout(detail)

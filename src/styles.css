@@ -3651,6 +3651,19 @@ textarea {
   font-size: 13px !important;
   font-weight: 500;
 }
+.rent-commercial-price-block {
+  margin-bottom: 18px;
+}
+.rent-commercial-maintenance {
+  color: var(--muted) !important;
+  font-size: 13px !important;
+  font-weight: 500;
+}
+.rent-commercial-deposit {
+  color: var(--placeholder, #a1a1aa) !important;
+  font-size: 13px !important;
+  font-weight: 500;
+}
 .commercial-highlights,
 .commercial-facilities {
   margin: 22px 0;

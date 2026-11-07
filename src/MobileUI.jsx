@@ -13,6 +13,8 @@ import {
 } from "./HouseVillaDetails";
 import {
   commercialBuyPriceMeta,
+  commercialRentDepositLabel,
+  commercialRentMaintenanceLabel,
   usesCommercialDetailLayout,
 } from "./CommercialDetails";
 import {
@@ -106,7 +108,7 @@ export function MobilePropertyPrice({ property: p, money }) {
       </div>
     );
   }
-  if (usesCommercialDetailLayout(p)) {
+  if (usesCommercialDetailLayout(p) && p.mode === "BUY") {
     const { perSqft, negotiable } = commercialBuyPriceMeta(p);
     return (
       <div className="mobile-price-block land-price-block">
@@ -119,6 +121,26 @@ export function MobilePropertyPrice({ property: p, money }) {
                 .join(" · ")}
             </span>
           )}
+        </div>
+      </div>
+    );
+  }
+  if (usesCommercialDetailLayout(p) && p.mode === "RENT") {
+    const maintenance = commercialRentMaintenanceLabel(p);
+    const deposit = commercialRentDepositLabel(p);
+    return (
+      <div className="mobile-price-block land-price-block rent-commercial-price-block">
+        <div className="mobile-property-price land-property-price">
+          <strong>
+            {money(p.price)}
+            <span className="pg-price-period"> / month</span>
+          </strong>
+          {maintenance ? (
+            <span className="rent-commercial-maintenance">{maintenance}</span>
+          ) : null}
+          {deposit ? (
+            <span className="rent-commercial-deposit">{deposit}</span>
+          ) : null}
         </div>
       </div>
     );

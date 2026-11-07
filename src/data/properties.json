@@ -898,33 +898,34 @@
   {
     "id": "Coimbatore-RENT-Commercial",
     "city": "Coimbatore",
-    "locality": "Saibaba Colony",
+    "locality": "Gandhipuram",
     "lat": 11.0021,
     "lng": 76.94488,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Kovai Office Space 45",
-    "price": 293000,
+    "title": "Ground-floor Commercial Shop",
+    "price": 35000,
     "baths": 1,
-    "area": 1250,
+    "area": 650,
     "image": "interior",
     "tag": "Office Space",
-    "furnishing": "Fully furnished",
+    "furnishing": "Bare shell",
     "seller": "Owner",
-    "available": "Within 30 days",
+    "available": "Immediately",
     "features": [
       "Parking",
-      "Lift access"
+      "Power backup",
+      "CCTV"
     ],
-    "subtype": "Office Space",
-    "maintenance": 3000,
-    "deposit": 165000,
+    "subtype": "Shop",
+    "maintenance": 2000,
+    "deposit": 200000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "floor": "Ground",
     "ac": "Yes",
-    "postedAt": "2026-10-20",
+    "postedAt": "2026-11-06",
     "photos": [
       "/interior.jpg",
       "/apartment.jpg",
@@ -933,17 +934,31 @@
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-S0REN",
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ],
-    "description": "Office space for rent in Saibaba Colony. Practical layout for teams. Sample listing.",
+    "description": "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom.",
     "carParking": "Available",
     "facilities": [
-      "Parking",
       "CCTV",
       "Power backup",
+      "Common parking",
       "Water supply"
+    ],
+    "carpetArea": 650,
+    "frontage": "18",
+    "washrooms": 1,
+    "parking": "Common",
+    "powerBackup": "Available",
+    "suitableFor": "Retail / Showroom",
+    "roadAccess": "Main road",
+    "commercialHighlights": [
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ]
   },
   {
@@ -1860,28 +1875,28 @@
     "lng": 80.2833,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Marina Retail Shop 63",
-    "price": 698000,
+    "title": "Ground-floor Commercial Shop \u00b7 Porur",
+    "price": 35000,
     "baths": 1,
-    "area": 1250,
+    "area": 650,
     "image": "interior",
     "tag": "Shop",
-    "furnishing": "Fully furnished",
+    "furnishing": "Bare shell",
     "seller": "Owner",
-    "available": "Within 30 days",
+    "available": "Immediately",
     "features": [
       "Parking",
       "Power backup"
     ],
     "subtype": "Shop",
-    "maintenance": 3000,
-    "deposit": 165000,
+    "maintenance": 2000,
+    "deposit": 200000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "floor": "Ground",
     "ac": "Yes",
-    "postedAt": "2026-10-20",
+    "postedAt": "2026-11-06",
     "photos": [
       "/interior.jpg",
       "/apartment.jpg",
@@ -1890,18 +1905,31 @@
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-S1REN",
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ],
-    "description": "Retail shop for rent in Porur with main-road access. Sample listing for everyday business use.",
+    "description": "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom.",
     "carParking": "Available",
     "roadAccess": "Main road",
     "facilities": [
-      "Parking",
+      "CCTV",
       "Power backup",
-      "Water supply",
-      "Main road access"
+      "Common parking",
+      "Water supply"
+    ],
+    "carpetArea": 650,
+    "frontage": "18",
+    "washrooms": 1,
+    "parking": "Common",
+    "powerBackup": "Available",
+    "suitableFor": "Retail / Showroom",
+    "commercialHighlights": [
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ]
   },
   {
@@ -3787,6 +3815,17 @@
       "CCTV",
       "Power backup",
       "Water supply"
+    ],
+    "carpetArea": 1250,
+    "frontage": "12",
+    "washrooms": 2,
+    "parking": "Common",
+    "powerBackup": "Available",
+    "suitableFor": "Office",
+    "commercialHighlights": [
+      "Ground floor",
+      "Power backup",
+      "Lift access"
     ]
   },
   {
@@ -4696,28 +4735,28 @@
     "lng": 77.82446,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Hillgate Retail Shop 117",
+    "title": "Ground-floor Commercial Shop \u00b7 Mathigiri",
     "price": 1913000,
     "baths": 1,
-    "area": 1250,
+    "area": 650,
     "image": "interior",
     "tag": "Shop",
-    "furnishing": "Fully furnished",
+    "furnishing": "Bare shell",
     "seller": "Owner",
-    "available": "Within 30 days",
+    "available": "Immediately",
     "features": [
       "Parking",
       "Power backup"
     ],
     "subtype": "Shop",
-    "maintenance": 3000,
-    "deposit": 165000,
+    "maintenance": 2000,
+    "deposit": 200000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "floor": "Ground",
     "ac": "Yes",
-    "postedAt": "2026-10-20",
+    "postedAt": "2026-11-06",
     "photos": [
       "/interior.jpg",
       "/apartment.jpg",
@@ -4726,18 +4765,31 @@
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-S4REN",
     "highlights": [
-      "Illustrative listing \u2014 details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ],
-    "description": "Retail shop for rent in Mathigiri with main-road access. Sample listing for everyday business use.",
+    "description": "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom.",
     "carParking": "Available",
     "roadAccess": "Main road",
     "facilities": [
-      "Parking",
+      "CCTV",
       "Power backup",
-      "Water supply",
-      "Main road access"
+      "Common parking",
+      "Water supply"
+    ],
+    "carpetArea": 650,
+    "frontage": "18",
+    "washrooms": 1,
+    "parking": "Common",
+    "powerBackup": "Available",
+    "suitableFor": "Retail / Showroom",
+    "commercialHighlights": [
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ]
   }
 ]
