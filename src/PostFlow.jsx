@@ -278,7 +278,9 @@ export default function PostFlow({
               ? "1800"
               : d.type === "Commercial"
                 ? "4000"
-                : "1200",
+                : d.intent === "RENT" && d.type === "Apartment"
+                  ? "1150"
+                  : "1200",
       builtUpArea:
         d.type === "Independent House" ||
         d.type === "Villa" ||
@@ -287,7 +289,9 @@ export default function PostFlow({
           ? d.type === "Commercial"
             ? "4000"
             : d.type === "Apartment"
-              ? "1200"
+              ? d.intent === "RENT"
+                ? "1150"
+                : "1200"
               : d.intent === "RENT" && d.type === "Villa"
                 ? "2100"
                 : "1800"
@@ -300,11 +304,22 @@ export default function PostFlow({
       community: d.type === "Villa" ? "Gated" : d.community,
       reraNumber: d.type === "Villa" ? "TN/RERA/SAMPLE/0001" : d.reraNumber,
       preferredTenant:
-        d.intent === "RENT" && d.type === "Villa" ? "Family" : d.preferredTenant,
+        d.intent === "RENT" && d.type === "Villa"
+          ? "Family"
+          : d.intent === "RENT" && d.type === "Apartment"
+            ? "Family / Professionals"
+            : d.preferredTenant,
       pets:
-        d.intent === "RENT" && d.type === "Villa" ? "Allowed" : d.pets,
+        d.intent === "RENT" && d.type === "Villa"
+          ? "Allowed"
+          : d.intent === "RENT" && d.type === "Apartment"
+            ? "Not specified"
+            : d.pets,
       available:
-        d.intent === "RENT" && d.type === "Villa" ? "Ready now" : d.available,
+        d.intent === "RENT" &&
+        (d.type === "Villa" || d.type === "Apartment")
+          ? "Ready now"
+          : d.available,
       address: city + " — sample central location",
       description:
         d.type === "Land"
@@ -340,7 +355,9 @@ export default function PostFlow({
       floor: d.type === "Apartment" ? "5" : d.floor,
       carpetArea:
         d.type === "Apartment"
-          ? "960"
+          ? d.intent === "RENT"
+            ? "920"
+            : "960"
           : d.type === "Independent House" || d.type === "Villa"
             ? "1500"
             : d.carpetArea,
@@ -378,8 +395,18 @@ export default function PostFlow({
       meals: "Not included",
       bathroom: "Attached",
       ac: "No",
-      baths: d.intent === "RENT" && d.type === "Villa" ? 3 : 1,
-      beds: d.intent === "RENT" && d.type === "Villa" ? "3" : d.beds,
+      baths:
+        d.intent === "RENT" && d.type === "Apartment"
+          ? 2
+          : d.intent === "RENT" && d.type === "Villa"
+            ? 3
+            : 1,
+      beds:
+        d.intent === "RENT" && d.type === "Apartment"
+          ? "2"
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "3"
+            : d.beds,
       features:
         d.type === "Villa"
           ? ["Clubhouse", "Security", "Pool", "Power Backup"]
@@ -906,6 +933,36 @@ export default function PostFlow({
                       />
                     </label>
                   </div>
+                  {data.intent === "RENT" && (
+                    <div className="form-columns">
+                      <label>
+                        Preferred tenant
+                        <select
+                          value={data.preferredTenant || ""}
+                          onChange={(e) =>
+                            set("preferredTenant", e.target.value)
+                          }
+                        >
+                          <option value="">Select</option>
+                          {PREFERRED_TENANTS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <label>
+                        Pets
+                        <select
+                          value={data.pets || ""}
+                          onChange={(e) => set("pets", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option>Allowed</option>
+                          <option>Not allowed</option>
+                          <option>Not specified</option>
+                        </select>
+                      </label>
+                    </div>
+                  )}
                 </>
               )}
               {isIndependentHouse(data.type) && (

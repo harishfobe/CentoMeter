@@ -447,6 +447,64 @@ describe("apartment property details", () => {
       "₹2,500 / month",
     );
   });
+
+  it("builds the reference rent Apartment detail rows in order", async () => {
+    const {
+      buildRentApartmentDetailRows,
+      usesHomeDetailLayout,
+    } = await import("../src/HouseVillaDetails.jsx");
+    const listing = {
+      type: "Apartment",
+      mode: "RENT",
+      builtUpArea: 1150,
+      carpetArea: 920,
+      beds: 2,
+      baths: 2,
+      balconies: 1,
+      floor: 5,
+      totalFloors: 12,
+      facing: "East",
+      furnishing: "Semi-furnished",
+      carParking: 1,
+      available: "Ready now",
+      preferredTenant: "Family / Professionals",
+      pets: "Not specified",
+    };
+    expect(usesHomeDetailLayout(listing)).toBe(true);
+    const rows = buildRentApartmentDetailRows(listing).filter(
+      (row) => row.value != null,
+    );
+    expect(rows.map((row) => row.label)).toEqual([
+      "Built-up area",
+      "Carpet area",
+      "Configuration",
+      "Bathrooms",
+      "Balconies",
+      "Floor",
+      "Facing",
+      "Furnishing",
+      "Car parking",
+      "Available from",
+      "Preferred tenant",
+      "Pets",
+    ]);
+    expect(rows.find((row) => row.label === "Built-up area").value).toBe(
+      "1,150 sqft",
+    );
+    expect(rows.find((row) => row.label === "Carpet area").value).toBe(
+      "920 sqft",
+    );
+    expect(rows.find((row) => row.label === "Floor").value).toBe("5 of 12");
+    expect(rows.find((row) => row.label === "Car parking").value).toBe(
+      "1 car",
+    );
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(rows.find((row) => row.label === "Preferred tenant").value).toBe(
+      "Family / Professionals",
+    );
+  });
 });
 
 describe("rent villa property details", () => {
