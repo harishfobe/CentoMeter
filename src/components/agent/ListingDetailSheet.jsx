@@ -36,7 +36,7 @@ import {
   usesPgDetailLayout,
 } from "../../PgDetails";
 import { approvalLabels, pricePerCent } from "../../PlotUI";
-import { EmiCalculator } from "../../PropertyExtras";
+import { EmiCalculator, showsEmi } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
 import { getExactLocation, accessStatus } from "../../lib/locationAccess";
 import {
@@ -92,7 +92,11 @@ export default function ListingDetailSheet({
   const [visitError, setVisitError] = useState("");
   const photos = Array.isArray(p.photos) ? p.photos : [];
   const [photo, setPhoto] = useState(0);
-  useEffect(() => setPhoto(0), [p.id]);
+  useEffect(() => {
+    setPhoto(0);
+    setEmi(false);
+  }, [p.id]);
+  const canShowEmi = showsEmi(p);
   const rentalCosts = [
     ["deposit", "Deposit"],
     ["maintenance", "Monthly maintenance"],
@@ -340,7 +344,7 @@ export default function ListingDetailSheet({
         !commercialDetail &&
         !pgDetail &&
         p.type !== "Land" &&
-        p.mode === "BUY" ? (
+        canShowEmi ? (
           <>
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -573,7 +577,7 @@ export default function ListingDetailSheet({
         </section>
         {commercialDetail ? <CommercialFacilities p={p} /> : null}
         {pgDetail ? <PgServices p={p} /> : null}
-        {p.type === "Land" && p.mode === "BUY" ? (
+        {p.type === "Land" && canShowEmi ? (
           <div className="agent-land-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI
@@ -608,7 +612,7 @@ export default function ListingDetailSheet({
             )}
           </div>
         )}
-        {(homeDetail || commercialDetail) && p.mode === "BUY" ? (
+        {(homeDetail || commercialDetail) && canShowEmi ? (
           <div className="agent-land-emi agent-house-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>
               From {money(emiPayment(p.price * 0.8, 9, 20))}/mo · EMI

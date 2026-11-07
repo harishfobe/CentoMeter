@@ -312,6 +312,38 @@ describe("EMI estimate", () => {
     expect(emiPayment(1000, 9, 0)).toBe(null);
     expect(emiPayment(1000, 31, 20)).toBe(null);
   });
+  it("is buy-only for every property type", async () => {
+    const { showsEmi, EmiCalculator } = await import(
+      "../src/PropertyExtras.jsx"
+    );
+    for (const type of [
+      "Independent House",
+      "Villa",
+      "Apartment",
+      "Commercial",
+      "PG",
+      "Land",
+    ]) {
+      expect(showsEmi({ mode: "RENT", type, price: 100000 })).toBe(false);
+      expect(showsEmi({ mode: "BUY", type, price: 100000 })).toBe(true);
+      expect(
+        renderToStaticMarkup(
+          React.createElement(EmiCalculator, {
+            p: { mode: "RENT", type, price: 100000 },
+          }),
+        ),
+      ).toBe("");
+    }
+    expect(showsEmi({ mode: "RENT" })).toBe(false);
+    expect(showsEmi(null)).toBe(false);
+    expect(
+      renderToStaticMarkup(
+        React.createElement(EmiCalculator, {
+          p: { mode: "BUY", type: "Apartment", price: 1000000 },
+        }),
+      ),
+    ).toContain("EMI calculator");
+  });
 });
 
 describe("commercial property details", () => {

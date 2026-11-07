@@ -103,6 +103,11 @@ export function OptionalPropertyDetails({ p }) {
     </div>
   ) : null;
 }
+/** EMI is a purchase affordability tool — never show it on rent listings. */
+export function showsEmi(p) {
+  return p?.mode === "BUY";
+}
+
 export function EmiCalculator({ p }) {
   const [loan, setLoan] = useState(() => String(Math.round(p.price * 0.8))),
     [rate, setRate] = useState("9"),
@@ -110,6 +115,7 @@ export function EmiCalculator({ p }) {
   const valid =
     loan !== "" && rate !== "" && tenure !== "" && Number(loan) <= p.price;
   const monthly = valid ? emiPayment(loan, rate, tenure) : null;
+  if (!showsEmi(p)) return null;
   return (
     <section className="cost-breakdown" aria-label="EMI calculator">
       <h2>EMI calculator</h2>

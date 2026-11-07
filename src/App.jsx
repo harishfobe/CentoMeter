@@ -70,7 +70,11 @@ import {
   publicShare,
   leadSourceFromSearch,
 } from "./lib/locationAccess";
-import { OptionalPropertyDetails, EmiCalculator } from "./PropertyExtras";
+import {
+  OptionalPropertyDetails,
+  EmiCalculator,
+  showsEmi,
+} from "./PropertyExtras";
 import {
   centers,
   money,
@@ -1932,7 +1936,7 @@ export default function App() {
                   !usesPgDetailLayout(detail) && (
                   <OptionalPropertyDetails p={detail} />
                 )}
-                {detail.mode === "BUY" && (
+                {showsEmi(detail) && (
                   <EmiCalculator key={detail.id} p={detail} />
                 )}
                 <LocationGate

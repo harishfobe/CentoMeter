@@ -171,6 +171,43 @@ it("buy apartment detail uses the gated-villa home layout", () => {
   expect(screen.getByText("2 years")).toBeTruthy();
   expect(screen.getByText(/20% down payment/)).toBeTruthy();
 });
+it("hides EMI on rent listings for every property type", () => {
+  const rentTypes = [
+    "Independent House",
+    "Villa",
+    "Apartment",
+    "Commercial",
+    "PG",
+  ];
+  for (const type of rentTypes) {
+    cleanup();
+    render(
+      <ListingDetailSheet
+        p={{
+          ...listings[0],
+          id: `rent-emi-${type}`,
+          type,
+          mode: "RENT",
+          photos: [],
+          price: 25000,
+          deposit: 50000,
+          maintenance: 1500,
+          brokerage: 25000,
+          beds: 2,
+          baths: 2,
+          area: 1200,
+        }}
+        agent={agents[0]}
+        Modal={Modal}
+        onClose={() => {}}
+      />,
+    );
+    expect(screen.queryByText(/\/mo · EMI/)).toBeNull();
+    expect(screen.queryByLabelText("EMI calculator")).toBeNull();
+    expect(screen.queryByText("EMI calculator")).toBeNull();
+    expect(screen.queryByText(/20% down payment/)).toBeNull();
+  }
+});
 it("finder uses geolocation and explains the fallback", async () => {
   vi.stubGlobal("navigator", {
     geolocation: {
