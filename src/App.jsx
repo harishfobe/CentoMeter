@@ -789,7 +789,10 @@ export default function App() {
     const intent = m === "RENT" ? "RENT" : "BUY";
     intentFilters.current[mode] = filters;
     setMode(intent);
-    setFilters(intentFilters.current[intent]);
+    const next = { ...intentFilters.current[intent] };
+    // RENT no longer lists Land as a top-level type (it sits under Commercial).
+    if (intent === "RENT" && next.type === "Land") next.type = "All";
+    setFilters(next);
     setSelected(null);
   };
   const selectCity = (c) => {

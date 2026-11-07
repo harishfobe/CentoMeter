@@ -9,27 +9,52 @@ export default function FilterBar({ f, onChange, onMore }) {
         <button
           key={mode}
           aria-pressed={f.mode === mode}
-          onClick={() => onChange({ ...f, mode, min: 0, max: 0 })}
+          onClick={() =>
+            onChange({
+              ...f,
+              mode,
+              min: 0,
+              max: 0,
+              type:
+                mode === "RENT" && f.type === "Land" ? "All" : f.type,
+              // Drop BUY-only commercial subtypes when switching to rent filters.
+              subtype:
+                mode !== f.mode && f.type === "Commercial" ? "" : f.subtype,
+            })
+          }
         >
           {mode === "BUY" ? "Buy" : "Rent"}
         </button>
       ))}
       <select
         aria-label="Property type"
-        value={f.type}
+        value={f.type === "Land" && f.mode === "RENT" ? "All" : f.type}
         onChange={(e) => onChange({ ...f, type: e.target.value, beds: "" })}
       >
-        {[
-          "All",
-          "Apartment",
-          "Independent House",
-          "Villa",
-          "Land",
-          "Commercial",
-          "PG",
-        ].map((x) => (
+        {(f.mode === "RENT"
+          ? [
+              "All",
+              "Independent House",
+              "Villa",
+              "Apartment",
+              "Commercial",
+              "PG",
+            ]
+          : [
+              "All",
+              "Apartment",
+              "Independent House",
+              "Villa",
+              "Land",
+              "Commercial",
+            ]
+        ).map((x) => (
           <option key={x} value={x}>
-            {x === "Villa" ? "Gated Villa" : x}
+            {x === "Villa"
+              ? "Gated Villa"
+              : x === "Apartment"
+                ? "Apartment / Flat"
+                : x}
           </option>
         ))}
       </select>

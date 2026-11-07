@@ -48,7 +48,7 @@ function PropertyCard({
           }}
         />
         {p.tag ? <span className="badge">{p.tag}</span> : null}
-        <span className="property-type-badge">{cardTypeLabel(p.type)}</span>
+        <span className="property-type-badge">{cardTypeLabel(p.type, p)}</span>
       </button>
       <button
         className={"save-button " + (saved ? "is-saved" : "")}

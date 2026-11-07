@@ -60,10 +60,14 @@ export const matchesPropertyType = (listingType, filterType) => {
   );
 };
 
-const typesFor = (mode) =>
+/** RENT: Independent House, Gated Villa, Apartment/Flat, Commercial, PG.
+ *  Commercial subtypes (Land / Shop / Office Space) live under filters + post. */
+export const propertyTypesFor = (mode) =>
   mode === "RENT"
-    ? ["Land", "Independent House", "Villa", "Apartment", "Commercial", "PG"]
+    ? ["Independent House", "Villa", "Apartment", "Commercial", "PG"]
     : ["Land", "Independent House", "Villa", "Apartment", "Commercial"];
+
+const typesFor = propertyTypesFor;
 
 export const typeLabel = (type) => {
   if (type === "All") return "All properties";
@@ -72,10 +76,21 @@ export const typeLabel = (type) => {
 };
 
 /** Short label for property-card image overlays. */
-export const cardTypeLabel = (type) => {
+export const cardTypeLabel = (type, listing = null) => {
   const key = canonicalizePropertyType(type);
   if (key === PROPERTY_TYPE.villa) return "Gated Villa";
   if (key === PROPERTY_TYPE.independent_house) return "Independent House";
+  if (key === PROPERTY_TYPE.apartment) return "Apartment / Flat";
+  if (key === PROPERTY_TYPE.commercial && listing) {
+    const subtype = String(
+      listing.subtype || listing.commercialType || "",
+    ).trim();
+    if (/office/i.test(subtype)) return "Office Space";
+    if (/shop/i.test(subtype)) return "Shop";
+    if (/land|plot/i.test(subtype)) return "Commercial Land";
+    if (/building/i.test(subtype)) return "Commercial Building";
+    if (subtype) return subtype;
+  }
   return propertyTypeDetails[key]?.mobileLabel || type || "";
 };
 

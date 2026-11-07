@@ -168,6 +168,38 @@ describe("listing fit filters", () => {
       }),
     ).toBe(false);
   });
+  it("exposes RENT types without top-level Land and rent commercial subtypes", async () => {
+    const { commercialSubtypesFor, normalizeCommercialSubtype } = await import(
+      "../src/listingFit.js"
+    );
+    const { cardTypeLabel, propertyTypesFor } = await import(
+      "../src/PropertyTypes.jsx"
+    );
+    expect(propertyTypesFor("RENT")).toEqual([
+      "Independent House",
+      "Villa",
+      "Apartment",
+      "Commercial",
+      "PG",
+    ]);
+    expect(propertyTypesFor("RENT")).not.toContain("Land");
+    expect(commercialSubtypesFor("RENT")).toEqual([
+      "Land",
+      "Shop",
+      "Office Space",
+    ]);
+    expect(normalizeCommercialSubtype("Office", "RENT")).toBe("Office Space");
+    expect(
+      cardTypeLabel("Commercial", {
+        mode: "RENT",
+        subtype: "Office Space",
+      }),
+    ).toBe("Office Space");
+    expect(
+      cardTypeLabel("Commercial", { mode: "RENT", subtype: "Land" }),
+    ).toBe("Commercial Land");
+    expect(cardTypeLabel("Apartment")).toBe("Apartment / Flat");
+  });
 });
 
 describe("matches", () => {

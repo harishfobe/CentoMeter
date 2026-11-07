@@ -5,7 +5,7 @@ import PhotoSwipeDots from "./components/PhotoSwipeDots";
 import {
   AVAILABILITY_FILTER_OPTIONS,
   COMMERCIAL_FACILITIES,
-  COMMERCIAL_SUBTYPES,
+  commercialSubtypesFor,
   FURNISHING_OPTIONS,
   matchesFloorFilter,
   matchesPossessionFilter,
@@ -254,7 +254,11 @@ export function SmartFilters({
           </>
         ) : f.type === "Commercial" ? (
           <>
-            {select("subtype", "Space type", COMMERCIAL_SUBTYPES)}
+            {select(
+              "subtype",
+              "Space type",
+              commercialSubtypesFor(mode),
+            )}
             {select("feature", "Facilities", COMMERCIAL_FACILITIES)}
           </>
         ) : f.type === "PG" ? (
