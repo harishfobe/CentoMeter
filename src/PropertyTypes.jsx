@@ -12,6 +12,7 @@ import {
   PROPERTY_TYPE,
   canonicalizePropertyType,
   WATER_SOURCES,
+  PREFERRED_TENANTS,
   VILLA_AMENITIES,
 } from "./propertyTypeIds";
 
@@ -19,6 +20,7 @@ export {
   PROPERTY_TYPE,
   canonicalizePropertyType,
   WATER_SOURCES,
+  PREFERRED_TENANTS,
   VILLA_AMENITIES,
 };
 

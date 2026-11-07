@@ -618,14 +618,14 @@
     "type": "Villa",
     "title": "Kovai Maple Court",
     "price": 353350,
-    "beds": 4,
-    "baths": 4,
-    "area": 3300,
+    "beds": 3,
+    "baths": 3,
+    "area": 2100,
     "image": "villa",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Semi-furnished",
     "seller": "Owner",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
       "Parking",
       "Lift access",
@@ -641,9 +641,9 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
-    "facing": "North-East",
+    "facing": "East",
     "postedAt": "2026-10-20",
     "photos": [
       "/villa.jpg",
@@ -663,7 +663,7 @@
     "length": 66,
     "description": "A private villa in Gandhipuram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
     "plotArea": 2640,
-    "builtUpArea": 3300,
+    "builtUpArea": 2100,
     "propertyAge": 3,
     "condition": "Resale",
     "water": "Borewell + Corporation",
@@ -677,7 +677,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p12",
@@ -1253,7 +1256,7 @@
     "brokerage": 0,
     "contactName": "Rahul Reddy",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "North-East",
     "postedAt": "2026-10-20",
@@ -1289,7 +1292,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p19",
@@ -1479,7 +1485,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Anyone",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p22",
@@ -1873,7 +1882,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "North-East",
     "postedAt": "2026-10-20",
@@ -1909,7 +1918,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Bachelor",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p26",
@@ -2099,7 +2111,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Company",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p29",
@@ -2485,7 +2500,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-20",
@@ -2521,7 +2536,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p36",
@@ -3076,7 +3094,7 @@
     "brokerage": 0,
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-20",
@@ -3112,7 +3130,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p43",
@@ -3302,7 +3323,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Anyone",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p46",
@@ -3689,7 +3713,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-20",
@@ -3725,7 +3749,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Bachelor",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p50",
@@ -3915,7 +3942,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Company",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p53",
@@ -4295,7 +4325,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-20",
@@ -4331,7 +4361,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p60",
