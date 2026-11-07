@@ -60,8 +60,18 @@ it("handles zero photos without a counter and presents labelled detail facts", (
         type: "PG",
         mode: "RENT",
         photos: [],
-        propertyAge: 2,
-        roadWidth: 20,
+        occupancy: "Twin sharing",
+        bathroom: "Attached",
+        ac: "Yes",
+        meals: "Included",
+        furnishing: "Fully furnished",
+        housekeeping: "Included",
+        electricity: "As per usage",
+        available: "Ready now",
+        preferredTenant: "Working professionals",
+        noticePeriod: "1 month",
+        deposit: 10000,
+        price: 9500,
       }}
       agent={agents[0]}
       Modal={Modal}
@@ -70,8 +80,11 @@ it("handles zero photos without a counter and presents labelled detail facts", (
   );
   expect(screen.queryByText("1/0")).toBeNull();
   expect(screen.getByRole("img", { name: "No property photos" })).toBeTruthy();
-  expect(screen.getByText("2 years")).toBeTruthy();
-  expect(screen.getByText("20 ft")).toBeTruthy();
+  expect(screen.getByText("FOR RENT · PG")).toBeTruthy();
+  expect(screen.getByText("Rental details")).toBeTruthy();
+  expect(screen.getByText("Occupancy")).toBeTruthy();
+  expect(screen.getAllByText("Twin sharing").length).toBeGreaterThan(0);
+  expect(screen.getByText("Working professionals")).toBeTruthy();
   expect(screen.queryByText("View photo full screen")).toBeNull();
 });
 it("buy commercial detail uses the income-building layout", () => {

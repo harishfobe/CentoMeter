@@ -137,6 +137,15 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     meals: text(d.meals),
     bathroom: text(d.bathroom),
     ac: text(d.ac),
+    housekeeping: text(d.housekeeping, ""),
+    electricity: text(d.electricity, ""),
+    noticePeriod: text(d.noticePeriod, ""),
+    services: Array.isArray(d.services)
+      ? d.services.filter((x) => typeof x === "string")
+      : undefined,
+    pgHighlights: Array.isArray(d.pgHighlights)
+      ? d.pgHighlights.filter((x) => typeof x === "string")
+      : undefined,
     subtype: text(d.landType, text(d.subtype)),
     facing: text(d.facing),
     water: text(d.water, ""),

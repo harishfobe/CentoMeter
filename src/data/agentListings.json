@@ -679,7 +679,7 @@
     "price": 316000,
     "beds": 3,
     "baths": 3,
-    "area": 2440,
+    "area": 1850,
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
@@ -699,7 +699,7 @@
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
-    "facing": "South",
+    "facing": "East",
     "postedAt": "2026-10-22",
     "photos": [
       "/villa.jpg",
@@ -728,19 +728,20 @@
     "pricePerSqft": 130,
     "sample": true,
     "carpetArea": 1903,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 57,
-    "plotArea": 1995,
-    "builtUpArea": 2440,
+    "plotArea": 2400,
+    "builtUpArea": 1850,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Family"
   },
   {
     "id": "al11",
@@ -888,12 +889,13 @@
     "builtUpArea": 2440,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Family"
   },
   {
     "id": "al13",
@@ -1377,50 +1379,53 @@
     "pricePerSqft": 200,
     "sample": true,
     "carpetArea": 1966,
-    "carParking": 1,
+    "carParking": 2,
     "width": 35,
     "length": 58,
     "plotArea": 2030,
     "builtUpArea": 2520,
     "propertyAge": 5,
     "condition": "Resale",
-    "water": "Borewell",
+    "water": "Borewell + Corporation",
     "negotiable": true,
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Ready to move",
-    "roadWidth": 30
+    "roadWidth": 30,
+    "preferredTenant": "Anyone"
   },
   {
     "id": "al19",
     "city": "Trichy",
-    "locality": "Cantonment",
+    "locality": "Hope College",
     "mode": "RENT",
     "type": "PG",
-    "title": "Cauvery PG Stay 119",
-    "price": 477000,
+    "title": "Twin-sharing PG Room",
+    "price": 9500,
     "beds": 1,
     "baths": 1,
     "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 10000,
     "brokerage": 0,
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "East",
-    "postedAt": "2026-10-12",
+    "postedAt": "2026-11-06",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
@@ -1438,23 +1443,43 @@
       78.705861688655
     ],
     "amenities": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in Cantonment, Trichy. Illustrative listing for demos.",
-    "pricePerSqft": 2650,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
-    "occupancy": "Private room",
-    "meals": "Not included",
+    "occupancy": "Twin sharing",
+    "meals": "Included",
     "bathroom": "Attached",
-    "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0013"
+    "ac": "Yes",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al20",
@@ -1543,23 +1568,25 @@
     "locality": "SIPCOT",
     "mode": "RENT",
     "type": "PG",
-    "title": "Hillgate PG Stay 121",
-    "price": 498000,
+    "title": "Hillgate PG PG Room",
+    "price": 9000,
     "beds": 1,
     "baths": 1,
     "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 9000,
     "brokerage": 0,
     "contactName": "Arjun Desai",
     "freshness": "Availability not recently confirmed",
@@ -1584,23 +1611,43 @@
       77.833570047677
     ],
     "amenities": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in SIPCOT, Hosur. Illustrative listing for demos.",
-    "pricePerSqft": 2767,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
     "occupancy": "Private room",
-    "meals": "Not included",
+    "meals": "Included",
     "bathroom": "Attached",
     "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0013"
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al22",
@@ -2610,23 +2657,25 @@
     "locality": "T Nagar",
     "mode": "RENT",
     "type": "PG",
-    "title": "Marina PG Stay 135",
-    "price": 875000,
+    "title": "Marina PG PG Room",
+    "price": 9500,
     "beds": 1,
     "baths": 1,
     "area": 180,
-    "image": "villa",
+    "image": "apartment",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 10000,
     "brokerage": 0,
     "contactName": "Sneha Iyer",
     "freshness": "Availability checked: 12 Oct 2026",
@@ -2651,24 +2700,43 @@
       80.267575271347
     ],
     "amenities": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Clear property details",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in T Nagar, Chennai. Illustrative listing for demos.",
-    "pricePerSqft": 4861,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
-    "occupancy": "Private room",
+    "occupancy": "Triple sharing",
     "meals": "Not included",
     "bathroom": "Attached",
-    "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0023"
+    "ac": "Yes",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al36",
@@ -2759,23 +2827,25 @@
     "locality": "Sellur",
     "mode": "RENT",
     "type": "PG",
-    "title": "Meenakshi PG Stay 137",
-    "price": 896000,
+    "title": "Meenakshi PG PG Room",
+    "price": 10000,
     "beds": 1,
     "baths": 1,
     "area": 180,
-    "image": "villa",
+    "image": "apartment",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 11000,
     "brokerage": 0,
     "contactName": "Vikram Nair",
     "freshness": "Availability checked: 12 Oct 2026",
@@ -2800,24 +2870,43 @@
       78.127701531636
     ],
     "amenities": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Clear property details",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in Sellur, Madurai. Illustrative listing for demos.",
-    "pricePerSqft": 4978,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
-    "occupancy": "Private room",
-    "meals": "Not included",
+    "occupancy": "Twin sharing",
+    "meals": "Included",
     "bathroom": "Attached",
     "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0023"
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al38",

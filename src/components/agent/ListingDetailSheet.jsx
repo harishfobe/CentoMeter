@@ -26,6 +26,15 @@ import {
   commercialTypeEyebrow,
   usesCommercialDetailLayout,
 } from "../../CommercialDetails";
+import {
+  PgHighlights,
+  PgServices,
+  PgSummary,
+  pgPostedLabel,
+  pgRentPriceMeta,
+  pgTypeEyebrow,
+  usesPgDetailLayout,
+} from "../../PgDetails";
 import { approvalLabels, pricePerCent } from "../../PlotUI";
 import { EmiCalculator, showsEmi } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
@@ -115,6 +124,7 @@ export default function ListingDetailSheet({
     "&src=share";
   const homeDetail = usesHomeDetailLayout(p);
   const commercialDetail = usesCommercialDetailLayout(p);
+  const pgDetail = usesPgDetailLayout(p);
   const facts = homeDetail
     ? buildHouseVillaFacts(p)
     : [
@@ -242,10 +252,12 @@ export default function ListingDetailSheet({
           <p className="agent-listing-eyebrow">{houseTypeEyebrow(p)}</p>
         ) : commercialDetail ? (
           <p className="agent-listing-eyebrow">{commercialTypeEyebrow(p)}</p>
+        ) : pgDetail ? (
+          <p className="agent-listing-eyebrow">{pgTypeEyebrow(p)}</p>
         ) : null}
         <h2>
           {money(p.price)}
-          {p.mode === "RENT" ? "/mo" : ""}
+          {p.mode === "RENT" ? (pgDetail ? " / month" : "/mo") : ""}
         </h2>
         {p.type === "Land" && p.mode === "BUY" ? (
           <>
@@ -311,6 +323,18 @@ export default function ListingDetailSheet({
               </p>
             ) : null}
           </>
+        ) : pgDetail ? (
+          <>
+            {pgRentPriceMeta(p) ? <p>{pgRentPriceMeta(p)}</p> : null}
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+            {pgPostedLabel(p) ? (
+              <p className="muted commercial-posted">{pgPostedLabel(p)}</p>
+            ) : null}
+          </>
         ) : (
           <p>
             {money(p.price / p.area)} / sq ft · {p.locality}
@@ -318,6 +342,7 @@ export default function ListingDetailSheet({
         )}
         {!homeDetail &&
         !commercialDetail &&
+        !pgDetail &&
         p.type !== "Land" &&
         canShowEmi ? (
           <>
@@ -329,6 +354,7 @@ export default function ListingDetailSheet({
           </>
         ) : !homeDetail &&
           !commercialDetail &&
+          !pgDetail &&
           p.type !== "Land" &&
           rentalCosts.length > 0 ? (
           <dl className="agent-rental-costs" aria-label="Rental costs">
@@ -439,6 +465,11 @@ export default function ListingDetailSheet({
             />
             <CommercialHighlights p={p} />
           </>
+        ) : pgDetail ? (
+          <>
+            <PgSummary p={p} onReport={() => setReport(true)} />
+            <PgHighlights p={p} />
+          </>
         ) : (
           <>
             <h3>Property details</h3>
@@ -539,12 +570,13 @@ export default function ListingDetailSheet({
                 ? `A well-connected land in ${p.locality || p.city}. Ask the agent about documents and visit availability.`
                 : p.type === "Commercial"
                   ? `A flexible commercial space in ${p.locality || p.city} with practical access for everyday business use.`
-                  : p.type === "PG"
-                    ? `A practical PG option in ${p.locality || p.city}. Ask the agent about rooms, meals, and visit timing.`
+                  : pgDetail
+                    ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
                     : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}
           </p>
         </section>
         {commercialDetail ? <CommercialFacilities p={p} /> : null}
+        {pgDetail ? <PgServices p={p} /> : null}
         {p.type === "Land" && canShowEmi ? (
           <div className="agent-land-emi">
             <button className="secondary" onClick={() => setEmi((v) => !v)}>

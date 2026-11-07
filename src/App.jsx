@@ -117,7 +117,14 @@ import {
   usesCommercialDetailLayout,
 } from "./CommercialDetails";
 import {
-  priceBasis,
+  PgHighlights,
+  PgServices,
+  PgSummary,
+  pgPostedLabel,
+  pgTypeEyebrow,
+  usesPgDetailLayout,
+} from "./PgDetails";
+import {
   nearText,
   distanceKm,
   SearchLibrary,
@@ -1665,6 +1672,8 @@ export default function App() {
                   <p className="detail-eyebrow">
                     {commercialTypeEyebrow(detail)}
                   </p>
+                ) : usesPgDetailLayout(detail) ? (
+                  <p className="detail-eyebrow">{pgTypeEyebrow(detail)}</p>
                 ) : (
                   <div className="detail-labels">
                     <span className="pill">
@@ -1677,7 +1686,8 @@ export default function App() {
                 )}
                 {detail.type === "Land" ||
                 usesHomeDetailLayout(detail) ||
-                usesCommercialDetailLayout(detail) ? (
+                usesCommercialDetailLayout(detail) ||
+                usesPgDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
                 {usesCommercialDetailLayout(detail) ? (
@@ -1694,6 +1704,11 @@ export default function App() {
                       {commercialPostedLabel(detail)}
                     </p>
                   )}
+                {usesPgDetailLayout(detail) && pgPostedLabel(detail) && (
+                  <p className="muted commercial-posted">
+                    {pgPostedLabel(detail)}
+                  </p>
+                )}
                 {detail.agentId && (
                   <button
                     className="text-button agent-profile-link"
@@ -1709,12 +1724,14 @@ export default function App() {
                 )}
                 {detail.type !== "Land" &&
                 !usesHomeDetailLayout(detail) &&
-                !usesCommercialDetailLayout(detail) ? (
+                !usesCommercialDetailLayout(detail) &&
+                !usesPgDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
                 {detail.type !== "Land" &&
                   !usesHomeDetailLayout(detail) &&
-                  !usesCommercialDetailLayout(detail) && (
+                  !usesCommercialDetailLayout(detail) &&
+                  !usesPgDetailLayout(detail) && (
                   <div className="detail-specs">
                     {!["Land", "Commercial", "PG"].includes(detail.type) && (
                       <div>
@@ -1764,9 +1781,17 @@ export default function App() {
                     p={detail}
                     onReport={() => setModal("report")}
                   />
+                ) : usesPgDetailLayout(detail) ? (
+                  <PgSummary
+                    p={detail}
+                    onReport={() => setModal("report")}
+                  />
                 ) : null}
                 {usesCommercialDetailLayout(detail) ? (
                   <CommercialHighlights p={detail} />
+                ) : null}
+                {usesPgDetailLayout(detail) ? (
+                  <PgHighlights p={detail} />
                 ) : null}
                 <section
                   className="about-the-property"
@@ -1779,8 +1804,8 @@ export default function App() {
                         ? `A well-connected plot in ${detail.locality || detail.city}. Ask about documents, access and visit timing.`
                         : detail.type === "Commercial"
                           ? "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
-                          : detail.type === "PG"
-                            ? `${detail.occupancy} with ${String(detail.bathroom || "Not specified").toLowerCase()} bathroom. Meals: ${String(detail.meals || "Not specified").toLowerCase()}. Price shown${priceBasis(detail)}. AC: ${detail.ac}. Sample house rules: quiet hours 10 PM–7 AM; visitor registration required.`
+                          : usesPgDetailLayout(detail)
+                            ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
                             : usesHomeDetailLayout(detail)
                               ? "A thoughtfully planned home with room for everyday living. Ask about visit timing and documents."
                               : "A light-filled home with thoughtfully planned spaces, an airy living area and room for life to unfold. Enjoy the balance of a peaceful neighbourhood and easy access to the city’s everyday conveniences.")}
@@ -1789,8 +1814,12 @@ export default function App() {
                 {usesCommercialDetailLayout(detail) ? (
                   <CommercialFacilities p={detail} />
                 ) : null}
+                {usesPgDetailLayout(detail) ? (
+                  <PgServices p={detail} />
+                ) : null}
                 {detail.type !== "Land" &&
                   !usesCommercialDetailLayout(detail) &&
+                  !usesPgDetailLayout(detail) &&
                   (() => {
                     const aptOrVilla =
                       detail.type === "Apartment" || detail.type === "Villa";
@@ -1846,7 +1875,8 @@ export default function App() {
                   })()}
                 {detail.type !== "Land" &&
                   !usesHomeDetailLayout(detail) &&
-                  !usesCommercialDetailLayout(detail) && (
+                  !usesCommercialDetailLayout(detail) &&
+                  !usesPgDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>
                       Listed by {detail.seller} · {detail.freshness} · Sample
@@ -1869,7 +1899,8 @@ export default function App() {
                 )}
                 {detail.type !== "Land" &&
                   !usesHomeDetailLayout(detail) &&
-                  !usesCommercialDetailLayout(detail) && (
+                  !usesCommercialDetailLayout(detail) &&
+                  !usesPgDetailLayout(detail) && (
                   <div className="property-facts">
                     {supportsFacing(detail.type) && hasValue(detail.facing) && (
                       <div>
@@ -1878,24 +1909,17 @@ export default function App() {
                         <small>Main entrance, looking out</small>
                       </div>
                     )}
-                    {(detail.type === "PG"
+                    {(detail.type === "Commercial"
                       ? [
-                          ["Occupancy", detail.occupancy],
-                          ["Meals", detail.meals],
-                          ["Bathroom", detail.bathroom],
-                          ["AC", detail.ac],
+                          ["Suitable use", detail.subtype],
+                          ["Fit-out", detail.furnishing],
+                          ["Floor", detail.floor],
                         ]
-                      : detail.type === "Commercial"
-                        ? [
-                            ["Suitable use", detail.subtype],
-                            ["Fit-out", detail.furnishing],
-                            ["Floor", detail.floor],
-                          ]
-                        : [
-                            ["Pets", detail.pets],
-                            ["Floor", detail.floor],
-                            ["Carpet area", detail.carpetArea],
-                          ]
+                      : [
+                          ["Pets", detail.pets],
+                          ["Floor", detail.floor],
+                          ["Carpet area", detail.carpetArea],
+                        ]
                     )
                       .filter(([, value]) => hasValue(value))
                       .map(([label, value]) => (
@@ -1908,7 +1932,8 @@ export default function App() {
                 )}
                 {detail.type !== "Land" &&
                   !usesHomeDetailLayout(detail) &&
-                  !usesCommercialDetailLayout(detail) && (
+                  !usesCommercialDetailLayout(detail) &&
+                  !usesPgDetailLayout(detail) && (
                   <OptionalPropertyDetails p={detail} />
                 )}
                 {showsEmi(detail) && (

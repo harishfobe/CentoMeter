@@ -428,6 +428,70 @@ describe("commercial property details", () => {
   });
 });
 
+describe("pg listing details", () => {
+  it("builds the reference rent PG detail rows and services", async () => {
+    const {
+      buildPgDetailRows,
+      pgHighlightPills,
+      pgRentPriceMeta,
+      pgServices,
+      pgTypeEyebrow,
+      usesPgDetailLayout,
+    } = await import("../src/PgDetails.jsx");
+    const listing = {
+      type: "PG",
+      mode: "RENT",
+      price: 9500,
+      deposit: 10000,
+      occupancy: "Twin sharing",
+      bathroom: "Attached",
+      ac: "Yes",
+      meals: "Included",
+      furnishing: "Fully furnished",
+      housekeeping: "Included",
+      electricity: "As per usage",
+      available: "Ready now",
+      preferredTenant: "Working professionals",
+      noticePeriod: "1 month",
+      services: [
+        "Wi-Fi",
+        "Laundry",
+        "CCTV",
+        "Security",
+        "Power backup",
+        "Two-wheeler parking",
+      ],
+      pgHighlights: [
+        "Meals included",
+        "Wi-Fi",
+        "Housekeeping",
+        "Attached bathroom",
+      ],
+    };
+    expect(usesPgDetailLayout(listing)).toBe(true);
+    expect(pgTypeEyebrow(listing)).toBe("FOR RENT · PG");
+    expect(pgRentPriceMeta(listing)).toBe("Meals included · ₹10,000 deposit");
+    const rows = buildPgDetailRows(listing).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Occupancy",
+      "Bathroom",
+      "Air conditioning",
+      "Meals",
+      "Furnishing",
+      "Housekeeping",
+      "Electricity",
+      "Available from",
+      "Preferred tenant",
+      "Notice period",
+    ]);
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(pgHighlightPills(listing)).toEqual(listing.pgHighlights);
+    expect(pgServices(listing)).toEqual(listing.services);
+  });
+});
+
 describe("apartment property details", () => {
   it("builds the reference apartment detail rows in order", async () => {
     const { buildApartmentDetailRows } = await import(
@@ -585,6 +649,63 @@ describe("rent villa property details", () => {
     expect(rows.find((row) => row.label === "Community").value).toBe("Gated");
     expect(rows.find((row) => row.label === "Available from").value).toBe(
       "Immediately",
+    );
+  });
+});
+
+describe("rent independent house property details", () => {
+  it("builds the reference rent Independent House detail rows in order", async () => {
+    const { buildRentIndependentHouseDetailRows } = await import(
+      "../src/HouseVillaDetails.jsx"
+    );
+    const rows = buildRentIndependentHouseDetailRows({
+      type: "Independent House",
+      mode: "RENT",
+      plotArea: 2400,
+      builtUpArea: 1850,
+      beds: 3,
+      baths: 3,
+      floorsLabel: "G+1",
+      facing: "East",
+      furnishing: "Semi-furnished",
+      carParking: 2,
+      water: "Borewell + Corporation",
+      available: "Ready now",
+      preferredTenant: "Family",
+      pets: "Allowed",
+    }).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Plot area",
+      "Built-up area",
+      "Configuration",
+      "Bathrooms",
+      "Floors",
+      "Facing",
+      "Furnishing",
+      "Car parking",
+      "Water",
+      "Available from",
+      "Preferred tenant",
+      "Pets",
+    ]);
+    expect(rows.find((row) => row.label === "Plot area").value).toBe(
+      "2,400 sqft",
+    );
+    expect(rows.find((row) => row.label === "Built-up area").value).toBe(
+      "1,850 sqft",
+    );
+    expect(rows.find((row) => row.label === "Configuration").value).toBe(
+      "3 BHK",
+    );
+    expect(rows.find((row) => row.label === "Floors").value).toBe("G + 1");
+    expect(rows.find((row) => row.label === "Car parking").value).toBe(
+      "2 cars",
+    );
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(rows.find((row) => row.label === "Preferred tenant").value).toBe(
+      "Family",
     );
   });
 });
