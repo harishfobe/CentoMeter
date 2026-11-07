@@ -492,9 +492,9 @@
     "type": "Apartment",
     "title": "Kovai Orchid Enclave",
     "price": 238640,
-    "beds": 3,
+    "beds": 2,
     "baths": 2,
-    "area": 1680,
+    "area": 1150,
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
@@ -510,11 +510,11 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
-    "pets": "Allowed",
-    "floor": "Ground",
-    "facing": "South",
+    "pets": "Not specified",
+    "floor": "5",
+    "facing": "East",
     "propertyAge": 2,
-    "totalFloors": 8,
+    "totalFloors": 12,
     "parking": "1 covered space",
     "postedAt": "2026-10-20",
     "photos": [
@@ -530,8 +530,8 @@
       "Flexible visit requests"
     ],
     "description": "A comfortable 3-bedroom apartment in Saibaba Colony, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
-    "builtUpArea": 1680,
-    "carpetArea": 1344,
+    "builtUpArea": 1150,
+    "carpetArea": 920,
     "balconies": 1,
     "condition": "Resale",
     "ownershipType": "Freehold",
@@ -544,7 +544,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Family / Professionals"
   },
   {
     "id": "p10",
@@ -619,14 +620,14 @@
     "type": "Villa",
     "title": "Kovai Maple Court",
     "price": 353350,
-    "beds": 4,
-    "baths": 4,
-    "area": 3300,
+    "beds": 3,
+    "baths": 3,
+    "area": 2100,
     "image": "villa",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Semi-furnished",
     "seller": "Owner",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
       "Parking",
       "Lift access",
@@ -642,9 +643,9 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
-    "facing": "North-East",
+    "facing": "East",
     "postedAt": "2026-10-20",
     "photos": [
       "/villa.jpg",
@@ -664,7 +665,7 @@
     "length": 66,
     "description": "A private villa in Gandhipuram, Coimbatore with space for everyday living and quiet evenings. Ideal for families looking for a settled neighbourhood. Ask about visit timing and documents.",
     "plotArea": 2640,
-    "builtUpArea": 3300,
+    "builtUpArea": 2100,
     "propertyAge": 3,
     "condition": "Resale",
     "water": "Borewell + Corporation",
@@ -678,7 +679,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p12",
@@ -819,53 +823,79 @@
   {
     "id": "Coimbatore-RENT-PG",
     "city": "Coimbatore",
-    "locality": "Peelamedu",
+    "locality": "Hope College",
     "lat": 11.02065,
     "lng": 76.94866,
     "mode": "RENT",
     "type": "PG",
-    "title": "Kovai PG Stay 44",
-    "price": 13021000,
-    "beds": 3,
-    "baths": 2,
-    "area": 1680,
+    "title": "Twin-sharing PG Room",
+    "price": 9500,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1500,
-    "deposit": 0,
+    "deposit": 10000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
     "facing": "North",
-    "possessionStatus": "Ready to move",
-    "propertyAge": 2,
-    "totalFloors": 8,
-    "parking": "1 covered space",
-    "ownershipType": "Freehold",
-    "postedAt": "2026-10-20",
+    "postedAt": "2026-11-06",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-S0REN",
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "A practical PG stay in Peelamedu, Coimbatore. Ask about rooms, meals, house rules and the best time to visit."
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
+    "occupancy": "Twin sharing",
+    "bathroom": "Attached",
+    "ac": "Yes",
+    "meals": "Included",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ],
+    "amenities": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ]
   },
   {
     "id": "Coimbatore-RENT-Commercial",
@@ -875,12 +905,12 @@
     "lng": 76.94488,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Kovai Trade Square 45",
+    "title": "Kovai Office Space 45",
     "price": 293000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Office Space",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
@@ -888,7 +918,7 @@
       "Parking",
       "Lift access"
     ],
-    "subtype": "Office",
+    "subtype": "Office Space",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -909,7 +939,14 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Saibaba Colony, Coimbatore with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Office space for rent in Saibaba Colony. Practical layout for teams. Sample listing.",
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply"
+    ]
   },
   {
     "id": "p13",
@@ -1151,7 +1188,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Family"
   },
   {
     "id": "p17",
@@ -1249,7 +1287,7 @@
     "brokerage": 0,
     "contactName": "Rahul Reddy",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "North-East",
     "postedAt": "2026-10-20",
@@ -1285,7 +1323,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p19",
@@ -1411,7 +1452,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Anyone"
   },
   {
     "id": "p21",
@@ -1476,7 +1518,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Anyone",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p22",
@@ -1742,48 +1787,74 @@
     "lng": 80.28708,
     "mode": "RENT",
     "type": "PG",
-    "title": "Marina PG Stay 62",
-    "price": 13426000,
-    "beds": 3,
-    "baths": 2,
-    "area": 1680,
+    "title": "Marina PG PG Room",
+    "price": 9000,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1500,
-    "deposit": 0,
+    "deposit": 9000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
     "facing": "North",
-    "possessionStatus": "Ready to move",
-    "propertyAge": 2,
-    "totalFloors": 8,
-    "parking": "1 covered space",
-    "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-S1REN",
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "A practical PG stay in OMR, Chennai. Ask about rooms, meals, house rules and the best time to visit."
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
+    "occupancy": "Private room",
+    "bathroom": "Attached",
+    "ac": "No",
+    "meals": "Included",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ],
+    "amenities": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ]
   },
   {
     "id": "Chennai-RENT-Commercial",
@@ -1793,20 +1864,20 @@
     "lng": 80.2833,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Marina Trade Square 63",
+    "title": "Marina Retail Shop 63",
     "price": 698000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Shop",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Power backup"
     ],
-    "subtype": "Office",
+    "subtype": "Shop",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -1827,7 +1898,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Porur, Chennai with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Retail shop for rent in Porur with main-road access. Sample listing for everyday business use.",
+    "carParking": "Available",
+    "roadAccess": "Main road",
+    "facilities": [
+      "Parking",
+      "Power backup",
+      "Water supply",
+      "Main road access"
+    ]
   },
   {
     "id": "p25",
@@ -1862,7 +1941,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "North-East",
     "postedAt": "2026-10-20",
@@ -1898,7 +1977,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Bachelor",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p26",
@@ -2024,7 +2106,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Bachelor"
   },
   {
     "id": "p28",
@@ -2089,7 +2172,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Company",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p29",
@@ -2475,7 +2561,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-20",
@@ -2511,7 +2597,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p36",
@@ -2651,48 +2740,74 @@
     "lng": 78.1177,
     "mode": "RENT",
     "type": "PG",
-    "title": "Meenakshi PG Stay 80",
-    "price": 13831000,
-    "beds": 3,
-    "baths": 2,
-    "area": 1680,
+    "title": "Meenakshi PG PG Room",
+    "price": 9500,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1500,
-    "deposit": 0,
+    "deposit": 10000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
     "facing": "North",
-    "possessionStatus": "Ready to move",
-    "propertyAge": 2,
-    "totalFloors": 8,
-    "parking": "1 covered space",
-    "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-S2REN",
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "A practical PG stay in Anna Nagar, Madurai. Ask about rooms, meals, house rules and the best time to visit."
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
+    "occupancy": "Triple sharing",
+    "bathroom": "Attached",
+    "ac": "Yes",
+    "meals": "Not included",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ],
+    "amenities": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ]
   },
   {
     "id": "Madurai-RENT-Commercial",
@@ -2702,20 +2817,20 @@
     "lng": 78.11392,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Meenakshi Trade Square 81",
+    "title": "Meenakshi Commercial Land 81",
     "price": 1103000,
     "baths": 1,
-    "area": 1250,
+    "area": 4356,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Land",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Main road access"
     ],
-    "subtype": "Office",
+    "subtype": "Land",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -2736,7 +2851,15 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Tallakulam, Madurai with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Commercial land for lease in Tallakulam. Suitable for temporary structures, parking, or business yards. Sample listing.",
+    "roadAccess": "Main road",
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "Main road access",
+      "Water supply"
+    ],
+    "builtUpArea": 4356
   },
   {
     "id": "p37",
@@ -3059,7 +3182,7 @@
     "brokerage": 0,
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-20",
@@ -3095,7 +3218,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p43",
@@ -3215,7 +3341,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Company"
   },
   {
     "id": "p45",
@@ -3286,7 +3413,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Anyone",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p46",
@@ -3546,48 +3676,74 @@
     "lng": 78.68412,
     "mode": "RENT",
     "type": "PG",
-    "title": "Cauvery PG Stay 98",
-    "price": 14236000,
-    "beds": 3,
-    "baths": 2,
-    "area": 1680,
+    "title": "Cauvery PG PG Room",
+    "price": 10000,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1500,
-    "deposit": 0,
+    "deposit": 11000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
     "facing": "North",
-    "possessionStatus": "Ready to move",
-    "propertyAge": 2,
-    "totalFloors": 8,
-    "parking": "1 covered space",
-    "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-S3REN",
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "A practical PG stay in KK Nagar, Trichy. Ask about rooms, meals, house rules and the best time to visit."
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
+    "occupancy": "Twin sharing",
+    "bathroom": "Attached",
+    "ac": "No",
+    "meals": "Included",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ],
+    "amenities": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ]
   },
   {
     "id": "Trichy-RENT-Commercial",
@@ -3597,12 +3753,12 @@
     "lng": 78.72234,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Cauvery Trade Square 99",
+    "title": "Cauvery Office Space 99",
     "price": 1508000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Office Space",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
@@ -3610,7 +3766,7 @@
       "Parking",
       "Lift access"
     ],
-    "subtype": "Office",
+    "subtype": "Office Space",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -3631,7 +3787,14 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in K.K. Nagar East, Trichy with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Office space for rent in K.K. Nagar East. Practical layout for teams. Sample listing.",
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply"
+    ]
   },
   {
     "id": "p49",
@@ -3666,7 +3829,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "South-East",
     "postedAt": "2026-10-20",
@@ -3702,7 +3865,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Bachelor",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p50",
@@ -3822,7 +3988,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Family / Professionals"
   },
   {
     "id": "p52",
@@ -3893,7 +4060,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Company",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "p53",
@@ -4273,7 +4443,7 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-20",
@@ -4309,7 +4479,10 @@
       "Security",
       "Pool",
       "Power Backup"
-    ]
+    ],
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "p60",
@@ -4455,48 +4628,74 @@
     "lng": 77.82824,
     "mode": "RENT",
     "type": "PG",
-    "title": "Hillgate PG Stay 116",
-    "price": 14641000,
-    "beds": 3,
-    "baths": 2,
-    "area": 1680,
+    "title": "Hillgate PG PG Room",
+    "price": 10500,
+    "beds": 1,
+    "baths": 1,
+    "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1500,
-    "deposit": 0,
+    "deposit": 12000,
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
     "facing": "North",
-    "possessionStatus": "Ready to move",
-    "propertyAge": 2,
-    "totalFloors": 8,
-    "parking": "1 covered space",
-    "ownershipType": "Freehold",
     "postedAt": "2026-10-20",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
       "/villa.jpg"
     ],
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-S4REN",
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "A practical PG stay in Bagalur Road, Hosur. Ask about rooms, meals, house rules and the best time to visit."
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
+    "occupancy": "Private room",
+    "bathroom": "Attached",
+    "ac": "Yes",
+    "meals": "Included",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ],
+    "amenities": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ]
   },
   {
     "id": "Hosur-RENT-Commercial",
@@ -4506,20 +4705,20 @@
     "lng": 77.82446,
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Hillgate Trade Square 117",
+    "title": "Hillgate Retail Shop 117",
     "price": 1913000,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Shop",
     "furnishing": "Fully furnished",
     "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
-      "Lift access"
+      "Power backup"
     ],
-    "subtype": "Office",
+    "subtype": "Shop",
     "maintenance": 3000,
     "deposit": 165000,
     "brokerage": 0,
@@ -4540,6 +4739,14 @@
       "Good access to local services",
       "Flexible visit requests"
     ],
-    "description": "A flexible commercial space in Mathigiri, Hosur with practical frontage for everyday business use. Sample details are illustrative."
+    "description": "Retail shop for rent in Mathigiri with main-road access. Sample listing for everyday business use.",
+    "carParking": "Available",
+    "roadAccess": "Main road",
+    "facilities": [
+      "Parking",
+      "Power backup",
+      "Water supply",
+      "Main road access"
+    ]
   }
 ]

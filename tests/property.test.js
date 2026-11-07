@@ -168,6 +168,38 @@ describe("listing fit filters", () => {
       }),
     ).toBe(false);
   });
+  it("exposes RENT types without top-level Land and rent commercial subtypes", async () => {
+    const { commercialSubtypesFor, normalizeCommercialSubtype } = await import(
+      "../src/listingFit.js"
+    );
+    const { cardTypeLabel, propertyTypesFor } = await import(
+      "../src/PropertyTypes.jsx"
+    );
+    expect(propertyTypesFor("RENT")).toEqual([
+      "Independent House",
+      "Villa",
+      "Apartment",
+      "Commercial",
+      "PG",
+    ]);
+    expect(propertyTypesFor("RENT")).not.toContain("Land");
+    expect(commercialSubtypesFor("RENT")).toEqual([
+      "Land",
+      "Shop",
+      "Office Space",
+    ]);
+    expect(normalizeCommercialSubtype("Office", "RENT")).toBe("Office Space");
+    expect(
+      cardTypeLabel("Commercial", {
+        mode: "RENT",
+        subtype: "Office Space",
+      }),
+    ).toBe("Office Space");
+    expect(
+      cardTypeLabel("Commercial", { mode: "RENT", subtype: "Land" }),
+    ).toBe("Commercial Land");
+    expect(cardTypeLabel("Apartment")).toBe("Apartment / Flat");
+  });
 });
 
 describe("matches", () => {
@@ -364,6 +396,70 @@ describe("commercial property details", () => {
   });
 });
 
+describe("pg listing details", () => {
+  it("builds the reference rent PG detail rows and services", async () => {
+    const {
+      buildPgDetailRows,
+      pgHighlightPills,
+      pgRentPriceMeta,
+      pgServices,
+      pgTypeEyebrow,
+      usesPgDetailLayout,
+    } = await import("../src/PgDetails.jsx");
+    const listing = {
+      type: "PG",
+      mode: "RENT",
+      price: 9500,
+      deposit: 10000,
+      occupancy: "Twin sharing",
+      bathroom: "Attached",
+      ac: "Yes",
+      meals: "Included",
+      furnishing: "Fully furnished",
+      housekeeping: "Included",
+      electricity: "As per usage",
+      available: "Ready now",
+      preferredTenant: "Working professionals",
+      noticePeriod: "1 month",
+      services: [
+        "Wi-Fi",
+        "Laundry",
+        "CCTV",
+        "Security",
+        "Power backup",
+        "Two-wheeler parking",
+      ],
+      pgHighlights: [
+        "Meals included",
+        "Wi-Fi",
+        "Housekeeping",
+        "Attached bathroom",
+      ],
+    };
+    expect(usesPgDetailLayout(listing)).toBe(true);
+    expect(pgTypeEyebrow(listing)).toBe("FOR RENT · PG");
+    expect(pgRentPriceMeta(listing)).toBe("Meals included · ₹10,000 deposit");
+    const rows = buildPgDetailRows(listing).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Occupancy",
+      "Bathroom",
+      "Air conditioning",
+      "Meals",
+      "Furnishing",
+      "Housekeeping",
+      "Electricity",
+      "Available from",
+      "Preferred tenant",
+      "Notice period",
+    ]);
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(pgHighlightPills(listing)).toEqual(listing.pgHighlights);
+    expect(pgServices(listing)).toEqual(listing.services);
+  });
+});
+
 describe("apartment property details", () => {
   it("builds the reference apartment detail rows in order", async () => {
     const { buildApartmentDetailRows } = await import(
@@ -413,6 +509,114 @@ describe("apartment property details", () => {
     );
     expect(rows.find((row) => row.label === "Maintenance").value).toBe(
       "₹2,500 / month",
+    );
+  });
+
+  it("builds the reference rent Apartment detail rows in order", async () => {
+    const {
+      buildRentApartmentDetailRows,
+      usesHomeDetailLayout,
+    } = await import("../src/HouseVillaDetails.jsx");
+    const listing = {
+      type: "Apartment",
+      mode: "RENT",
+      builtUpArea: 1150,
+      carpetArea: 920,
+      beds: 2,
+      baths: 2,
+      balconies: 1,
+      floor: 5,
+      totalFloors: 12,
+      facing: "East",
+      furnishing: "Semi-furnished",
+      carParking: 1,
+      available: "Ready now",
+      preferredTenant: "Family / Professionals",
+      pets: "Not specified",
+    };
+    expect(usesHomeDetailLayout(listing)).toBe(true);
+    const rows = buildRentApartmentDetailRows(listing).filter(
+      (row) => row.value != null,
+    );
+    expect(rows.map((row) => row.label)).toEqual([
+      "Built-up area",
+      "Carpet area",
+      "Configuration",
+      "Bathrooms",
+      "Balconies",
+      "Floor",
+      "Facing",
+      "Furnishing",
+      "Car parking",
+      "Available from",
+      "Preferred tenant",
+      "Pets",
+    ]);
+    expect(rows.find((row) => row.label === "Built-up area").value).toBe(
+      "1,150 sqft",
+    );
+    expect(rows.find((row) => row.label === "Carpet area").value).toBe(
+      "920 sqft",
+    );
+    expect(rows.find((row) => row.label === "Floor").value).toBe("5 of 12");
+    expect(rows.find((row) => row.label === "Car parking").value).toBe(
+      "1 car",
+    );
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(rows.find((row) => row.label === "Preferred tenant").value).toBe(
+      "Family / Professionals",
+    );
+  });
+});
+
+describe("rent villa property details", () => {
+  it("builds the reference rent Villa detail rows in order", async () => {
+    const { buildRentVillaDetailRows } = await import(
+      "../src/HouseVillaDetails.jsx"
+    );
+    const rows = buildRentVillaDetailRows({
+      type: "Villa",
+      mode: "RENT",
+      builtUpArea: 2100,
+      beds: 3,
+      baths: 3,
+      balconies: 2,
+      facing: "East",
+      furnishing: "Semi-furnished",
+      carParking: 2,
+      community: "Gated",
+      available: "Ready now",
+      preferredTenant: "Family",
+      pets: "Allowed",
+    }).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Built-up area",
+      "Configuration",
+      "Bathrooms",
+      "Balconies",
+      "Facing",
+      "Furnishing",
+      "Car parking",
+      "Community",
+      "Available from",
+      "Preferred tenant",
+      "Pets",
+    ]);
+    expect(rows.find((row) => row.label === "Built-up area").value).toBe(
+      "2,100 sqft",
+    );
+    expect(rows.find((row) => row.label === "Configuration").value).toBe(
+      "3 BHK",
+    );
+    expect(rows.find((row) => row.label === "Balconies").value).toBe("2");
+    expect(rows.find((row) => row.label === "Car parking").value).toBe(
+      "2 cars",
+    );
+    expect(rows.find((row) => row.label === "Community").value).toBe("Gated");
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
     );
   });
 });

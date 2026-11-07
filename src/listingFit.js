@@ -17,12 +17,40 @@ export const POSSESSION_OPTIONS = [
 /** Owner refine-search availability chips (legacy labels kept for saved filters). */
 export const AVAILABILITY_FILTER_OPTIONS = ["Ready now", "Within 30 days"];
 
-export const COMMERCIAL_SUBTYPES = [
+/** BUY commercial space types (income buildings + fit-out spaces). */
+export const COMMERCIAL_SUBTYPES_BUY = [
   "Building",
   "Office",
   "Shop",
   "Warehouse",
 ];
+
+/** RENT commercial space types — Land / Shop / Office Space. */
+export const COMMERCIAL_SUBTYPES_RENT = ["Land", "Shop", "Office Space"];
+
+/** @deprecated Prefer commercialSubtypesFor(mode). */
+export const COMMERCIAL_SUBTYPES = COMMERCIAL_SUBTYPES_BUY;
+
+export function commercialSubtypesFor(mode) {
+  return mode === "RENT" || mode === "rent"
+    ? COMMERCIAL_SUBTYPES_RENT
+    : COMMERCIAL_SUBTYPES_BUY;
+}
+
+export function normalizeCommercialSubtype(subtype, mode = "BUY") {
+  const raw = String(subtype || "").trim();
+  if (!raw) return mode === "RENT" ? "Office Space" : "Building";
+  if (/office\s*space/i.test(raw) || /^office$/i.test(raw)) {
+    return mode === "RENT" ? "Office Space" : "Office";
+  }
+  if (/^shop$/i.test(raw)) return "Shop";
+  if (/^land|plot$/i.test(raw)) return mode === "RENT" ? "Land" : raw;
+  if (/building/i.test(raw)) return "Building";
+  if (/warehouse|godown/i.test(raw)) return "Warehouse";
+  const allowed = commercialSubtypesFor(mode);
+  if (allowed.includes(raw)) return raw;
+  return mode === "RENT" ? "Office Space" : "Building";
+}
 
 export const COMMERCIAL_FACILITIES = [
   "Parking",

@@ -49,11 +49,14 @@ function availableLabel(value) {
 
 export function commercialSubtypeLabel(p) {
   const raw = String(p.subtype || p.commercialType || p.tag || "Building").trim();
+  if (/office\s*space/i.test(raw) || /^office$/i.test(raw)) {
+    return p.mode === "RENT" ? "Office Space" : "Office";
+  }
   if (/building/i.test(raw)) return "Building";
   if (/shop/i.test(raw)) return "Shop";
-  if (/office/i.test(raw)) return "Office";
+  if (/^land|plot$/i.test(raw)) return "Land";
   if (/warehouse|godown/i.test(raw)) return "Warehouse";
-  return raw || "Building";
+  return raw || (p.mode === "RENT" ? "Office Space" : "Building");
 }
 
 export function commercialTypeEyebrow(p) {

@@ -42,6 +42,8 @@ export const WATER_SOURCES = [
 
 export const PREFERRED_TENANTS = [
   "Family",
+  "Family / Professionals",
+  "Working professionals",
   "Bachelor",
   "Company",
   "Anyone",

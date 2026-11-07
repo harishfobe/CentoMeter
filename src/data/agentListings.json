@@ -905,9 +905,9 @@
     "type": "Apartment",
     "title": "Meenakshi Parkside Living",
     "price": 356000,
-    "beds": 3,
+    "beds": 2,
     "baths": 2,
-    "area": 1680,
+    "area": 1150,
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
@@ -923,11 +923,11 @@
     "brokerage": 0,
     "contactName": "Meera Kulkarni",
     "freshness": "Availability checked: 12 Oct 2026",
-    "pets": "Allowed",
-    "floor": "Ground",
-    "facing": "South",
+    "pets": "Not specified",
+    "floor": "5",
+    "facing": "East",
     "propertyAge": 2,
-    "totalFloors": 8,
+    "totalFloors": 12,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
     "photos": [
@@ -965,14 +965,15 @@
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0009",
-    "builtUpArea": 1680,
-    "carpetArea": 1344,
+    "builtUpArea": 1150,
+    "carpetArea": 920,
     "balconies": 1,
     "condition": "Resale",
     "ownershipType": "Freehold",
     "negotiable": true,
     "possessionStatus": "Ready to move",
-    "carParking": 1
+    "carParking": 1,
+    "preferredTenant": "Family / Professionals"
   },
   {
     "id": "al14",
@@ -982,14 +983,14 @@
     "type": "Villa",
     "title": "Meenakshi Horizon Towers",
     "price": 432000,
-    "beds": 4,
-    "baths": 4,
-    "area": 3300,
+    "beds": 3,
+    "baths": 3,
+    "area": 2100,
     "image": "villa",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Semi-furnished",
     "seller": "Agent",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
       "Parking",
       "Lift access",
@@ -1007,7 +1008,7 @@
     "freshness": "Availability checked: 12 Oct 2026",
     "pets": "Allowed",
     "floor": "Ground",
-    "facing": "North-West",
+    "facing": "East",
     "postedAt": "2026-10-24",
     "photos": [
       "/villa.jpg",
@@ -1044,7 +1045,7 @@
     "width": 40,
     "length": 66,
     "plotArea": 2640,
-    "builtUpArea": 3300,
+    "builtUpArea": 2100,
     "propertyAge": 3,
     "condition": "Resale",
     "water": "Borewell + Corporation",
@@ -1052,7 +1053,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Meenakshi Horizon Towers"
+    "projectName": "Meenakshi Horizon Towers",
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "al15",
@@ -1221,7 +1225,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Cauvery Amber"
+    "projectName": "Cauvery Amber",
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "al17",
@@ -1390,33 +1397,35 @@
   {
     "id": "al19",
     "city": "Trichy",
-    "locality": "Cantonment",
+    "locality": "Hope College",
     "mode": "RENT",
     "type": "PG",
-    "title": "Cauvery PG Stay 119",
-    "price": 477000,
+    "title": "Twin-sharing PG Room",
+    "price": 9500,
     "beds": 1,
     "baths": 1,
     "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 10000,
     "brokerage": 0,
     "contactName": "Riya Menon",
     "freshness": "Availability not recently confirmed",
     "pets": "Not specified",
     "floor": "4+",
     "facing": "East",
-    "postedAt": "2026-10-12",
+    "postedAt": "2026-11-06",
     "photos": [
       "/apartment.jpg",
       "/interior.jpg",
@@ -1434,23 +1443,43 @@
       78.705861688655
     ],
     "amenities": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in Cantonment, Trichy. Illustrative listing for demos.",
-    "pricePerSqft": 2650,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
-    "occupancy": "Private room",
-    "meals": "Not included",
+    "occupancy": "Twin sharing",
+    "meals": "Included",
     "bathroom": "Attached",
-    "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0013"
+    "ac": "Yes",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al20",
@@ -1539,23 +1568,25 @@
     "locality": "SIPCOT",
     "mode": "RENT",
     "type": "PG",
-    "title": "Hillgate PG Stay 121",
-    "price": 498000,
+    "title": "Hillgate PG PG Room",
+    "price": 9000,
     "beds": 1,
     "baths": 1,
     "area": 180,
     "image": "apartment",
     "tag": "New arrival",
-    "furnishing": "Semi-furnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 9000,
     "brokerage": 0,
     "contactName": "Arjun Desai",
     "freshness": "Availability not recently confirmed",
@@ -1580,23 +1611,43 @@
       77.833570047677
     ],
     "amenities": [
-      "Parking",
-      "Balcony"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in SIPCOT, Hosur. Illustrative listing for demos.",
-    "pricePerSqft": 2767,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
     "occupancy": "Private room",
-    "meals": "Not included",
+    "meals": "Included",
     "bathroom": "Attached",
     "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0013"
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al22",
@@ -2153,7 +2204,7 @@
     "brokerage": 0,
     "contactName": "Kabir Shah",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Not allowed",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
@@ -2200,7 +2251,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Kovai Orchid Enclave"
+    "projectName": "Kovai Orchid Enclave",
+    "preferredTenant": "Anyone",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "al30",
@@ -2309,7 +2363,7 @@
     "brokerage": 0,
     "contactName": "Sneha Iyer",
     "freshness": "Availability not recently confirmed",
-    "pets": "Not specified",
+    "pets": "Allowed",
     "floor": "4+",
     "facing": "South-West",
     "postedAt": "2026-10-16",
@@ -2356,7 +2410,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Marina Maple Court"
+    "projectName": "Marina Maple Court",
+    "preferredTenant": "Bachelor",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "al32",
@@ -2508,7 +2565,8 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "preferredTenant": "Family"
   },
   {
     "id": "al34",
@@ -2588,7 +2646,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Marina Horizon Towers"
+    "projectName": "Marina Horizon Towers",
+    "preferredTenant": "Company",
+    "community": "Gated",
+    "balconies": 2
   },
   {
     "id": "al35",
@@ -2596,23 +2657,25 @@
     "locality": "T Nagar",
     "mode": "RENT",
     "type": "PG",
-    "title": "Marina PG Stay 135",
-    "price": 875000,
+    "title": "Marina PG PG Room",
+    "price": 9500,
     "beds": 1,
     "baths": 1,
     "area": 180,
-    "image": "villa",
+    "image": "apartment",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 10000,
     "brokerage": 0,
     "contactName": "Sneha Iyer",
     "freshness": "Availability checked: 12 Oct 2026",
@@ -2637,24 +2700,43 @@
       80.267575271347
     ],
     "amenities": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Clear property details",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in T Nagar, Chennai. Illustrative listing for demos.",
-    "pricePerSqft": 4861,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
-    "occupancy": "Private room",
+    "occupancy": "Triple sharing",
     "meals": "Not included",
     "bathroom": "Attached",
-    "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0023"
+    "ac": "Yes",
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al36",
@@ -2734,7 +2816,10 @@
     "totalFloors": 2,
     "floorsLabel": "G+1",
     "possessionStatus": "Within 30 days",
-    "projectName": "Meenakshi Amber"
+    "projectName": "Meenakshi Amber",
+    "preferredTenant": "Family",
+    "community": "Gated",
+    "balconies": 1
   },
   {
     "id": "al37",
@@ -2742,23 +2827,25 @@
     "locality": "Sellur",
     "mode": "RENT",
     "type": "PG",
-    "title": "Meenakshi PG Stay 137",
-    "price": 896000,
+    "title": "Meenakshi PG PG Room",
+    "price": 10000,
     "beds": 1,
     "baths": 1,
     "area": 180,
-    "image": "villa",
+    "image": "apartment",
     "tag": "Premium home",
-    "furnishing": "Unfurnished",
+    "furnishing": "Fully furnished",
     "seller": "Agent",
-    "available": "Within 30 days",
+    "available": "Ready now",
     "features": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom",
+      "Meals included"
     ],
     "subtype": "Home",
     "maintenance": 1000,
-    "deposit": 24000,
+    "deposit": 11000,
     "brokerage": 0,
     "contactName": "Vikram Nair",
     "freshness": "Availability checked: 12 Oct 2026",
@@ -2783,24 +2870,43 @@
       78.127701531636
     ],
     "amenities": [
-      "Parking",
-      "Lift access"
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
     ],
     "highlights": [
-      "Clear property details",
-      "Illustrative listing — details to be verified",
-      "Good access to local services",
-      "Flexible visit requests"
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
     ],
-    "description": "Sample pg in Sellur, Madurai. Illustrative listing for demos.",
-    "pricePerSqft": 4978,
+    "description": "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay.",
     "sample": true,
-    "occupancy": "Private room",
-    "meals": "Not included",
+    "occupancy": "Twin sharing",
+    "meals": "Included",
     "bathroom": "Attached",
     "ac": "No",
-    "floorPlanUrl": "/demo-floor-plan.svg",
-    "reraNo": "DEMO-RERA-0023"
+    "housekeeping": "Included",
+    "electricity": "As per usage",
+    "preferredTenant": "Working professionals",
+    "noticePeriod": "1 month",
+    "services": [
+      "Wi-Fi",
+      "Laundry",
+      "CCTV",
+      "Security",
+      "Power backup",
+      "Two-wheeler parking"
+    ],
+    "pgHighlights": [
+      "Meals included",
+      "Wi-Fi",
+      "Housekeeping",
+      "Attached bathroom"
+    ]
   },
   {
     "id": "al38",
@@ -2808,20 +2914,20 @@
     "locality": "Thirunagar",
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Meenakshi Trade Square 138",
+    "title": "Meenakshi Office Space 138",
     "price": 976500,
     "baths": 1,
     "area": 1250,
     "image": "interior",
-    "tag": "Office space",
+    "tag": "Office Space",
     "furnishing": "Fully furnished",
     "seller": "Agent",
     "available": "Ready now",
     "features": [
       "Parking",
-      "Balcony"
+      "Lift access"
     ],
-    "subtype": "Office",
+    "subtype": "Office Space",
     "maintenance": 2500,
     "deposit": 165000,
     "brokerage": 0,
@@ -2854,9 +2960,140 @@
       "Clear property details",
       "Visits by appointment"
     ],
-    "description": "Sample commercial in Thirunagar, Madurai. Illustrative listing for demos.",
+    "description": "Office space for rent in Thirunagar. Practical layout for teams. Sample listing.",
     "pricePerSqft": 781,
-    "sample": true
+    "sample": true,
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "CCTV",
+      "Power backup",
+      "Water supply"
+    ]
+  },
+  {
+    "id": "al38-shop",
+    "city": "Madurai",
+    "locality": "Thirunagar",
+    "mode": "RENT",
+    "type": "Commercial",
+    "title": "Meenakshi Retail Shop 139",
+    "price": 988500,
+    "baths": 1,
+    "area": 1250,
+    "image": "interior",
+    "tag": "Shop",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Power backup"
+    ],
+    "subtype": "Shop",
+    "maintenance": 2500,
+    "deposit": 165000,
+    "brokerage": 0,
+    "contactName": "Vikram Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "floor": "Ground",
+    "ac": "Yes",
+    "postedAt": "2026-10-25",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": null,
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 1000
+    },
+    "approx": [
+      9.927522499815,
+      78.12291368338
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "Retail shop for rent in Tallakulam. Sample agent listing.",
+    "pricePerSqft": 781,
+    "sample": true,
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "Power backup",
+      "Main road access"
+    ]
+  },
+  {
+    "id": "al38-land",
+    "city": "Madurai",
+    "locality": "Thirunagar",
+    "mode": "RENT",
+    "type": "Commercial",
+    "title": "Meenakshi Commercial Land 140",
+    "price": 1000500,
+    "baths": 1,
+    "area": 4356,
+    "image": "interior",
+    "tag": "Land",
+    "furnishing": "Fully furnished",
+    "seller": "Agent",
+    "available": "Ready now",
+    "features": [
+      "Parking",
+      "Main road access"
+    ],
+    "subtype": "Land",
+    "maintenance": 2500,
+    "deposit": 165000,
+    "brokerage": 0,
+    "contactName": "Vikram Nair",
+    "freshness": "Availability checked: 12 Oct 2026",
+    "ac": "Yes",
+    "postedAt": "2026-10-25",
+    "photos": [
+      "/interior.jpg",
+      "/apartment.jpg",
+      "/villa.jpg"
+    ],
+    "agentId": "a8",
+    "status": "available",
+    "confirmedAt": null,
+    "privacy": {
+      "mode": "hidden",
+      "radiusM": 1000
+    },
+    "approx": [
+      9.926324655597,
+      78.11770291038
+    ],
+    "amenities": [
+      "Parking",
+      "Balcony"
+    ],
+    "highlights": [
+      "Clear property details",
+      "Visits by appointment"
+    ],
+    "description": "Commercial land for lease in Tallakulam. Sample agent listing.",
+    "pricePerSqft": 781,
+    "sample": true,
+    "carParking": "Available",
+    "facilities": [
+      "Parking",
+      "Main road access",
+      "Water supply"
+    ],
+    "builtUpArea": 4356
   },
   {
     "id": "al39",
@@ -2931,7 +3168,8 @@
     "ownershipType": "Freehold",
     "negotiable": true,
     "possessionStatus": "Ready to move",
-    "carParking": 1
+    "carParking": 1,
+    "preferredTenant": "Anyone"
   },
   {
     "id": "al40",

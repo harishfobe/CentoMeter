@@ -48,6 +48,13 @@ import {
   CommercialSummary,
   usesCommercialDetailLayout,
 } from "./CommercialDetails";
+import {
+  PG_SERVICES,
+  PgHighlights,
+  PgServices,
+  PgSummary,
+  usesPgDetailLayout,
+} from "./PgDetails";
 import { facingDirections, supportsFacing, readLocal } from "./Discovery";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
@@ -58,9 +65,10 @@ import {
 } from "./propertyTypeIds";
 import {
   COMMERCIAL_FACILITIES,
-  COMMERCIAL_SUBTYPES,
+  commercialSubtypesFor,
   CONDITION_OPTIONS,
   FURNISHING_OPTIONS,
+  normalizeCommercialSubtype,
   POSSESSION_OPTIONS,
   ROAD_ACCESS_OPTIONS,
 } from "./listingFit";
@@ -210,7 +218,10 @@ export default function PostFlow({
         }
       }
       if (type === "Commercial" && type !== d.type) {
-        next.subtype = next.subtype || "Building";
+        next.subtype = normalizeCommercialSubtype(
+          next.subtype,
+          d.intent === "RENT" ? "RENT" : "BUY",
+        );
         next.beds = "";
       }
       return next;
@@ -218,16 +229,30 @@ export default function PostFlow({
     setError("");
   };
   const chooseIntent = (intent) => {
-    setData((d) => ({
-      ...d,
-      intent,
-      type: intent === "SELL" && d.type === "PG" ? "Apartment" : d.type,
-      ...Object.fromEntries(
-        ["title", "description", "price"]
-          .filter((key) => !dirty.current.has(key))
-          .map((key) => [key, ""]),
-      ),
-    }));
+    setData((d) => {
+      let type = intent === "SELL" && d.type === "PG" ? "Apartment" : d.type;
+      // RENT no longer offers top-level Land — fold into Commercial · Land.
+      if (intent === "RENT" && type === "Land") {
+        type = "Commercial";
+      }
+      const next = {
+        ...d,
+        intent,
+        type,
+        ...Object.fromEntries(
+          ["title", "description", "price"]
+            .filter((key) => !dirty.current.has(key))
+            .map((key) => [key, ""]),
+        ),
+      };
+      if (type === "Commercial") {
+        next.subtype = normalizeCommercialSubtype(
+          intent === "RENT" && d.type === "Land" ? "Land" : d.subtype,
+          intent === "RENT" ? "RENT" : "BUY",
+        );
+      }
+      return next;
+    });
     setError("");
   };
   const fillSample = () => {
@@ -237,7 +262,7 @@ export default function PostFlow({
         d.type === "Land"
           ? "A generous plot at Greenfield"
           : d.type === "PG"
-            ? "A private room at Parkside PG"
+            ? "Twin-sharing PG Room"
             : d.type === "Villa"
               ? "A gated villa at Lakeside Enclave"
               : d.type === "Independent House"
@@ -246,19 +271,25 @@ export default function PostFlow({
                   ? "Income-generating Commercial Building"
                   : "A sunlit home at Parkside",
       price:
-        d.intent === "RENT"
-          ? "12000"
-          : d.type === "Commercial"
-            ? "28000000"
-            : "7200000",
+        d.type === "PG" && d.intent === "RENT"
+          ? "9500"
+          : d.intent === "RENT"
+            ? "12000"
+            : d.type === "Commercial"
+              ? "28000000"
+              : "7200000",
       area:
         d.type === "PG"
           ? "180"
-          : d.type === "Independent House" || d.type === "Villa"
-            ? "1800"
-            : d.type === "Commercial"
-              ? "4000"
-              : "1200",
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "2100"
+            : d.type === "Independent House" || d.type === "Villa"
+              ? "1800"
+              : d.type === "Commercial"
+                ? "4000"
+                : d.intent === "RENT" && d.type === "Apartment"
+                  ? "1150"
+                  : "1200",
       builtUpArea:
         d.type === "Independent House" ||
         d.type === "Villa" ||
@@ -267,8 +298,12 @@ export default function PostFlow({
           ? d.type === "Commercial"
             ? "4000"
             : d.type === "Apartment"
-              ? "1200"
-              : "1800"
+              ? d.intent === "RENT"
+                ? "1150"
+                : "1200"
+              : d.intent === "RENT" && d.type === "Villa"
+                ? "2100"
+                : "1800"
           : "",
       plotArea: d.type === "Independent House" ? "2400" : d.plotArea,
       water:
@@ -278,20 +313,9 @@ export default function PostFlow({
             : "Siruvani"
           : d.water,
       roadWidth: d.type === "Independent House" ? "30" : d.roadWidth,
-      preferredTenant:
-        d.intent === "RENT" && d.type === "Independent House"
-          ? "Family"
-          : d.preferredTenant,
-      pets:
-        d.intent === "RENT" && d.type === "Independent House"
-          ? "Allowed"
-          : d.pets,
-      available:
-        d.intent === "RENT" && d.type === "Independent House"
-          ? "Ready now"
-          : d.available,
       projectName:
         d.type === "Villa" ? "Lakeside Enclave" : d.projectName || "",
+      community: d.type === "Villa" ? "Gated" : d.community,
       reraNumber: d.type === "Villa" ? "TN/RERA/SAMPLE/0001" : d.reraNumber,
       address: city + " — sample central location",
       description:
@@ -303,13 +327,18 @@ export default function PostFlow({
               ? "Standalone house on a private plot with road access."
               : d.type === "Commercial"
                 ? "Income-generating commercial building with leased shops on a main road."
-                : "A bright property close to everyday conveniences.",
+                : d.type === "PG"
+                  ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
+                  : "A bright property close to everyday conveniences.",
       photos: d.type === "Land" ? ["/land.jpg"] : ["/apartment.jpg"],
       location: centers[city],
       landType: d.type === "Land" ? "Residential" : d.landType,
       subtype:
         d.type === "Commercial"
-          ? "Building"
+          ? normalizeCommercialSubtype(
+              d.subtype,
+              d.intent === "RENT" ? "RENT" : "BUY",
+            )
           : d.type === "Land"
             ? d.landType || "Residential"
             : d.subtype,
@@ -330,15 +359,23 @@ export default function PostFlow({
       floor: d.type === "Apartment" ? "5" : d.floor,
       carpetArea:
         d.type === "Apartment"
-          ? "960"
+          ? d.intent === "RENT"
+            ? "920"
+            : "960"
           : d.type === "Independent House" || d.type === "Villa"
             ? "1500"
             : d.carpetArea,
-      balconies: d.type === "Apartment" ? "1" : d.balconies,
+      balconies:
+        d.type === "Apartment"
+          ? "1"
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "2"
+            : d.balconies,
       carParking:
         d.type === "Commercial"
           ? "Available"
-          : d.intent === "RENT" && d.type === "Independent House"
+          : d.intent === "RENT" &&
+              (d.type === "Independent House" || d.type === "Villa")
             ? "2"
             : d.type === "Apartment" ||
                 d.type === "Independent House" ||
@@ -346,7 +383,11 @@ export default function PostFlow({
               ? "1"
               : d.carParking,
       furnishing:
-        d.type === "Land" ? d.furnishing : "Semi-furnished",
+        d.type === "Land"
+          ? d.furnishing
+          : d.type === "PG"
+            ? "Fully furnished"
+            : "Semi-furnished",
       condition:
         d.type === "Land" ? d.condition : "Resale",
       possessionStatus:
@@ -359,21 +400,70 @@ export default function PostFlow({
       waterSupply: d.type === "Commercial" ? "Available" : d.waterSupply,
       facilities:
         d.type === "Commercial" ? [...COMMERCIAL_FACILITIES] : d.facilities,
-      occupancy: "Private room",
-      meals: "Not included",
+      occupancy: d.type === "PG" ? "Twin sharing" : "Private room",
+      meals: d.type === "PG" ? "Included" : "Not included",
       bathroom: "Attached",
-      ac: "No",
+      ac: d.type === "PG" ? "Yes" : "No",
+      housekeeping: d.type === "PG" ? "Included" : d.housekeeping,
+      electricity: d.type === "PG" ? "As per usage" : d.electricity,
+      noticePeriod: d.type === "PG" ? "1 month" : d.noticePeriod,
+      preferredTenant:
+        d.type === "PG"
+          ? "Working professionals"
+          : d.intent === "RENT" &&
+              (d.type === "Villa" || d.type === "Independent House")
+            ? "Family"
+            : d.intent === "RENT" && d.type === "Apartment"
+              ? "Family / Professionals"
+              : d.preferredTenant,
+      pets:
+        d.intent === "RENT" &&
+        (d.type === "Villa" || d.type === "Independent House")
+          ? "Allowed"
+          : d.intent === "RENT" && d.type === "Apartment"
+            ? "Not specified"
+            : d.pets,
+      available:
+        d.intent === "RENT" &&
+        (d.type === "Villa" ||
+          d.type === "Apartment" ||
+          d.type === "Independent House" ||
+          d.type === "PG")
+          ? "Ready now"
+          : d.available,
+      services: d.type === "PG" ? [...PG_SERVICES] : d.services,
+      pgHighlights:
+        d.type === "PG"
+          ? [
+              "Meals included",
+              "Wi-Fi",
+              "Housekeeping",
+              "Attached bathroom",
+            ]
+          : d.pgHighlights,
       baths:
-        d.intent === "RENT" && d.type === "Independent House" ? 3 : 1,
+        d.intent === "RENT" && d.type === "Apartment"
+          ? 2
+          : d.intent === "RENT" &&
+              (d.type === "Villa" || d.type === "Independent House")
+            ? 3
+            : 1,
       beds:
-        d.intent === "RENT" && d.type === "Independent House" ? "3" : d.beds,
+        d.intent === "RENT" && d.type === "Apartment"
+          ? "2"
+          : d.intent === "RENT" &&
+              (d.type === "Villa" || d.type === "Independent House")
+            ? "3"
+            : d.beds,
       features:
         d.type === "Villa"
           ? ["Clubhouse", "Security", "Pool", "Power Backup"]
           : d.type === "Commercial"
             ? [...COMMERCIAL_FACILITIES]
-            : ["Parking"],
-      deposit: d.intent === "RENT" ? "24000" : "",
+            : d.type === "PG"
+              ? ["Wi-Fi", "Housekeeping", "Attached bathroom"]
+              : ["Parking"],
+      deposit: d.type === "PG" ? "10000" : d.intent === "RENT" ? "24000" : "",
       maintenance:
         d.intent === "RENT"
           ? "1000"
@@ -685,37 +775,69 @@ export default function PostFlow({
                     <label>
                       Space type
                       <select
-                        value={data.subtype || "Building"}
+                        value={normalizeCommercialSubtype(
+                          data.subtype,
+                          data.intent === "RENT" ? "RENT" : "BUY",
+                        )}
                         onChange={(e) => set("subtype", e.target.value)}
                       >
-                        {COMMERCIAL_SUBTYPES.map((subtype) => (
+                        {commercialSubtypesFor(
+                          data.intent === "RENT" ? "RENT" : "BUY",
+                        ).map((subtype) => (
                           <option key={subtype}>{subtype}</option>
                         ))}
                       </select>
+                      {data.intent === "RENT" ? (
+                        <small>Land, Shop, or Office Space</small>
+                      ) : null}
                     </label>
-                    <label>
-                      Floors
-                      <input
-                        maxLength={12}
-                        placeholder="e.g. G+2"
-                        value={data.floorsLabel || ""}
-                        onChange={(e) => set("floorsLabel", e.target.value)}
-                      />
-                    </label>
+                    {data.subtype !== "Land" && data.intent !== "RENT" ? (
+                      <label>
+                        Floors
+                        <input
+                          maxLength={12}
+                          placeholder="e.g. G+2"
+                          value={data.floorsLabel || ""}
+                          onChange={(e) => set("floorsLabel", e.target.value)}
+                        />
+                      </label>
+                    ) : data.subtype !== "Land" ? (
+                      <label>
+                        Floor
+                        <input
+                          placeholder="e.g. Ground"
+                          value={data.floor || ""}
+                          onChange={(e) => set("floor", e.target.value)}
+                        />
+                      </label>
+                    ) : (
+                      <label>
+                        Road access
+                        <select
+                          value={data.roadAccess || ""}
+                          onChange={(e) => set("roadAccess", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {ROAD_ACCESS_OPTIONS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                    )}
                   </div>
-                  <div className="form-columns">
-                    <label>
-                      Number of shops
-                      <input
-                        type="number"
-                        min="0"
-                        max="200"
-                        placeholder="e.g. 6"
-                        value={data.shopCount ?? ""}
-                        onChange={(e) => set("shopCount", e.target.value)}
-                      />
-                    </label>
-                    {data.intent === "SELL" && (
+                  {data.subtype !== "Land" && data.intent === "SELL" && (
+                    <div className="form-columns">
+                      <label>
+                        Number of shops
+                        <input
+                          type="number"
+                          min="0"
+                          max="200"
+                          placeholder="e.g. 6"
+                          value={data.shopCount ?? ""}
+                          onChange={(e) => set("shopCount", e.target.value)}
+                        />
+                      </label>
                       <label>
                         Monthly rental income (₹)
                         <input
@@ -726,8 +848,8 @@ export default function PostFlow({
                           onChange={(e) => set("monthlyRent", e.target.value)}
                         />
                       </label>
-                    )}
-                  </div>
+                    </div>
+                  )}
                   <div className="form-columns">
                     <label>
                       Car parking
@@ -740,43 +862,59 @@ export default function PostFlow({
                         <option value="Not available">Not available</option>
                       </select>
                     </label>
-                    <label>
-                      Road access
-                      <select
-                        value={data.roadAccess || ""}
-                        onChange={(e) => set("roadAccess", e.target.value)}
-                      >
-                        <option value="">Select</option>
-                        {ROAD_ACCESS_OPTIONS.map((option) => (
-                          <option key={option}>{option}</option>
-                        ))}
-                      </select>
-                    </label>
+                    {data.subtype !== "Land" ? (
+                      <label>
+                        Road access
+                        <select
+                          value={data.roadAccess || ""}
+                          onChange={(e) => set("roadAccess", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {ROAD_ACCESS_OPTIONS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                    ) : (
+                      <label>
+                        Power backup
+                        <select
+                          value={data.powerBackup || ""}
+                          onChange={(e) => set("powerBackup", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option>Available</option>
+                          <option>Not available</option>
+                        </select>
+                      </label>
+                    )}
                   </div>
-                  <div className="form-columns">
-                    <label>
-                      Power backup
-                      <select
-                        value={data.powerBackup || ""}
-                        onChange={(e) => set("powerBackup", e.target.value)}
-                      >
-                        <option value="">Select</option>
-                        <option>Available</option>
-                        <option>Not available</option>
-                      </select>
-                    </label>
-                    <label>
-                      Water supply
-                      <select
-                        value={data.waterSupply || ""}
-                        onChange={(e) => set("waterSupply", e.target.value)}
-                      >
-                        <option value="">Select</option>
-                        <option>Available</option>
-                        <option>Not available</option>
-                      </select>
-                    </label>
-                  </div>
+                  {data.subtype !== "Land" && (
+                    <div className="form-columns">
+                      <label>
+                        Power backup
+                        <select
+                          value={data.powerBackup || ""}
+                          onChange={(e) => set("powerBackup", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option>Available</option>
+                          <option>Not available</option>
+                        </select>
+                      </label>
+                      <label>
+                        Water supply
+                        <select
+                          value={data.waterSupply || ""}
+                          onChange={(e) => set("waterSupply", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option>Available</option>
+                          <option>Not available</option>
+                        </select>
+                      </label>
+                    </div>
+                  )}
                 </>
               )}
               {isApartment(data.type) && (
@@ -847,6 +985,36 @@ export default function PostFlow({
                       />
                     </label>
                   </div>
+                  {data.intent === "RENT" && (
+                    <div className="form-columns">
+                      <label>
+                        Preferred tenant
+                        <select
+                          value={data.preferredTenant || ""}
+                          onChange={(e) =>
+                            set("preferredTenant", e.target.value)
+                          }
+                        >
+                          <option value="">Select</option>
+                          {PREFERRED_TENANTS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <label>
+                        Pets
+                        <select
+                          value={data.pets || ""}
+                          onChange={(e) => set("pets", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option>Allowed</option>
+                          <option>Not allowed</option>
+                          <option>Not specified</option>
+                        </select>
+                      </label>
+                    </div>
+                  )}
                 </>
               )}
               {isIndependentHouse(data.type) && (
@@ -963,6 +1131,61 @@ export default function PostFlow({
                       required
                     />
                   </label>
+                  {data.intent === "RENT" && (
+                    <>
+                      <div className="form-columns">
+                        <label>
+                          Balconies
+                          <input
+                            type="number"
+                            min="0"
+                            max="20"
+                            placeholder="Number of balconies"
+                            value={data.balconies ?? ""}
+                            onChange={(e) => set("balconies", e.target.value)}
+                          />
+                        </label>
+                        <label>
+                          Community
+                          <select
+                            value={data.community || "Gated"}
+                            onChange={(e) => set("community", e.target.value)}
+                          >
+                            <option>Gated</option>
+                            <option>Open layout</option>
+                          </select>
+                        </label>
+                      </div>
+                      <div className="form-columns">
+                        <label>
+                          Preferred tenant
+                          <select
+                            value={data.preferredTenant || ""}
+                            onChange={(e) =>
+                              set("preferredTenant", e.target.value)
+                            }
+                          >
+                            <option value="">Select</option>
+                            {PREFERRED_TENANTS.map((option) => (
+                              <option key={option}>{option}</option>
+                            ))}
+                          </select>
+                        </label>
+                        <label>
+                          Pets
+                          <select
+                            value={data.pets || ""}
+                            onChange={(e) => set("pets", e.target.value)}
+                          >
+                            <option value="">Select</option>
+                            <option>Allowed</option>
+                            <option>Not allowed</option>
+                            <option>Not specified</option>
+                          </select>
+                        </label>
+                      </div>
+                    </>
+                  )}
                 </>
               )}
               {["Villa", "Independent House"].includes(data.type) && (
@@ -1045,31 +1268,113 @@ export default function PostFlow({
                 </div>
               )}
               {data.type === "PG" && (
-                <div className="form-columns">
-                  {[
-                    [
-                      "occupancy",
-                      "Occupancy",
-                      ["Private room", "Twin sharing", "Triple sharing"],
-                    ],
-                    ["meals", "Meals", ["Included", "Not included"]],
-                    ["bathroom", "Bathroom", ["Attached", "Shared"]],
-                    ["ac", "AC", ["Yes", "No"]],
-                  ].map(([key, label, options]) => (
-                    <label key={key}>
-                      {label}
+                <>
+                  <div className="form-columns">
+                    {[
+                      [
+                        "occupancy",
+                        "Occupancy",
+                        ["Private room", "Twin sharing", "Triple sharing"],
+                      ],
+                      ["meals", "Meals", ["Included", "Not included"]],
+                      ["bathroom", "Bathroom", ["Attached", "Shared"]],
+                      ["ac", "Air conditioning", ["Yes", "No"]],
+                    ].map(([key, label, options]) => (
+                      <label key={key}>
+                        {label}
+                        <select
+                          value={data[key] || ""}
+                          onChange={(e) => set(key, e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {options.map((x) => (
+                            <option key={x}>{x}</option>
+                          ))}
+                        </select>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Housekeeping
                       <select
-                        value={data[key] || ""}
-                        onChange={(e) => set(key, e.target.value)}
+                        value={data.housekeeping || ""}
+                        onChange={(e) => set("housekeeping", e.target.value)}
                       >
                         <option value="">Select</option>
-                        {options.map((x) => (
-                          <option key={x}>{x}</option>
+                        <option>Included</option>
+                        <option>Not included</option>
+                      </select>
+                    </label>
+                    <label>
+                      Electricity
+                      <select
+                        value={data.electricity || ""}
+                        onChange={(e) => set("electricity", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option>As per usage</option>
+                        <option>Included</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Preferred tenant
+                      <select
+                        value={data.preferredTenant || ""}
+                        onChange={(e) =>
+                          set("preferredTenant", e.target.value)
+                        }
+                      >
+                        <option value="">Select</option>
+                        {PREFERRED_TENANTS.map((option) => (
+                          <option key={option}>{option}</option>
                         ))}
                       </select>
                     </label>
-                  ))}
-                </div>
+                    <label>
+                      Notice period
+                      <select
+                        value={data.noticePeriod || ""}
+                        onChange={(e) => set("noticePeriod", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option>15 days</option>
+                        <option>1 month</option>
+                        <option>2 months</option>
+                      </select>
+                    </label>
+                  </div>
+                  <fieldset className="land-highlight-options">
+                    <legend>Services</legend>
+                    <div className="chips">
+                      {PG_SERVICES.map((service) => (
+                        <button
+                          type="button"
+                          key={service}
+                          className={
+                            "chip " +
+                            ((data.services || []).includes(service)
+                              ? "active"
+                              : "")
+                          }
+                          aria-pressed={(data.services || []).includes(service)}
+                          onClick={() =>
+                            set(
+                              "services",
+                              (data.services || []).includes(service)
+                                ? data.services.filter((x) => x !== service)
+                                : [...(data.services || []), service],
+                            )
+                          }
+                        >
+                          {service}
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+                </>
               )}
               {data.type !== "Land" && (
                 <label>
@@ -1616,6 +1921,24 @@ export default function PostFlow({
                     mode: data.intent === "RENT" ? "RENT" : "BUY",
                   }}
                 />
+              ) : usesPgDetailLayout({
+                  ...data,
+                  mode: data.intent === "RENT" ? "RENT" : "BUY",
+                }) ? (
+                <>
+                  <PgSummary
+                    p={{
+                      ...data,
+                      mode: "RENT",
+                    }}
+                  />
+                  <PgHighlights
+                    p={{
+                      ...data,
+                      mode: "RENT",
+                    }}
+                  />
+                </>
               ) : null}
               {data.description?.trim() ? (
                 <section
@@ -1640,8 +1963,23 @@ export default function PostFlow({
                   }}
                 />
               ) : null}
+              {usesPgDetailLayout({
+                ...data,
+                mode: data.intent === "RENT" ? "RENT" : "BUY",
+              }) ? (
+                <PgServices
+                  p={{
+                    ...data,
+                    mode: "RENT",
+                  }}
+                />
+              ) : null}
               {data.type !== "Land" &&
                 !usesCommercialDetailLayout({
+                  ...data,
+                  mode: data.intent === "RENT" ? "RENT" : "BUY",
+                }) &&
+                !usesPgDetailLayout({
                   ...data,
                   mode: data.intent === "RENT" ? "RENT" : "BUY",
                 }) &&
