@@ -396,6 +396,70 @@ describe("commercial property details", () => {
   });
 });
 
+describe("pg listing details", () => {
+  it("builds the reference rent PG detail rows and services", async () => {
+    const {
+      buildPgDetailRows,
+      pgHighlightPills,
+      pgRentPriceMeta,
+      pgServices,
+      pgTypeEyebrow,
+      usesPgDetailLayout,
+    } = await import("../src/PgDetails.jsx");
+    const listing = {
+      type: "PG",
+      mode: "RENT",
+      price: 9500,
+      deposit: 10000,
+      occupancy: "Twin sharing",
+      bathroom: "Attached",
+      ac: "Yes",
+      meals: "Included",
+      furnishing: "Fully furnished",
+      housekeeping: "Included",
+      electricity: "As per usage",
+      available: "Ready now",
+      preferredTenant: "Working professionals",
+      noticePeriod: "1 month",
+      services: [
+        "Wi-Fi",
+        "Laundry",
+        "CCTV",
+        "Security",
+        "Power backup",
+        "Two-wheeler parking",
+      ],
+      pgHighlights: [
+        "Meals included",
+        "Wi-Fi",
+        "Housekeeping",
+        "Attached bathroom",
+      ],
+    };
+    expect(usesPgDetailLayout(listing)).toBe(true);
+    expect(pgTypeEyebrow(listing)).toBe("FOR RENT · PG");
+    expect(pgRentPriceMeta(listing)).toBe("Meals included · ₹10,000 deposit");
+    const rows = buildPgDetailRows(listing).filter((row) => row.value != null);
+    expect(rows.map((row) => row.label)).toEqual([
+      "Occupancy",
+      "Bathroom",
+      "Air conditioning",
+      "Meals",
+      "Furnishing",
+      "Housekeeping",
+      "Electricity",
+      "Available from",
+      "Preferred tenant",
+      "Notice period",
+    ]);
+    expect(rows.find((row) => row.label === "Available from").value).toBe(
+      "Immediately",
+    );
+    expect(pgHighlightPills(listing)).toEqual(listing.pgHighlights);
+    expect(pgServices(listing)).toEqual(listing.services);
+  });
+});
+
 describe("apartment property details", () => {
   it("builds the reference apartment detail rows in order", async () => {
     const { buildApartmentDetailRows } = await import(

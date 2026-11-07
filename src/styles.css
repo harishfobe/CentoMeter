@@ -3616,6 +3616,11 @@ textarea {
   margin: -4px 0 0;
   font-size: 12px;
 }
+.pg-price-period {
+  font-size: 0.55em;
+  font-weight: 650;
+  letter-spacing: 0;
+}
 .commercial-highlights,
 .commercial-facilities {
   margin: 22px 0;

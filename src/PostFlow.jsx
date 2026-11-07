@@ -48,6 +48,13 @@ import {
   CommercialSummary,
   usesCommercialDetailLayout,
 } from "./CommercialDetails";
+import {
+  PG_SERVICES,
+  PgHighlights,
+  PgServices,
+  PgSummary,
+  usesPgDetailLayout,
+} from "./PgDetails";
 import { facingDirections, supportsFacing, readLocal } from "./Discovery";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
@@ -255,7 +262,7 @@ export default function PostFlow({
         d.type === "Land"
           ? "A generous plot at Greenfield"
           : d.type === "PG"
-            ? "A private room at Parkside PG"
+            ? "Twin-sharing PG Room"
             : d.type === "Villa"
               ? "A gated villa at Lakeside Enclave"
               : d.type === "Independent House"
@@ -264,11 +271,13 @@ export default function PostFlow({
                   ? "Income-generating Commercial Building"
                   : "A sunlit home at Parkside",
       price:
-        d.intent === "RENT"
-          ? "12000"
-          : d.type === "Commercial"
-            ? "28000000"
-            : "7200000",
+        d.type === "PG" && d.intent === "RENT"
+          ? "9500"
+          : d.intent === "RENT"
+            ? "12000"
+            : d.type === "Commercial"
+              ? "28000000"
+              : "7200000",
       area:
         d.type === "PG"
           ? "180"
@@ -303,23 +312,6 @@ export default function PostFlow({
         d.type === "Villa" ? "Lakeside Enclave" : d.projectName || "",
       community: d.type === "Villa" ? "Gated" : d.community,
       reraNumber: d.type === "Villa" ? "TN/RERA/SAMPLE/0001" : d.reraNumber,
-      preferredTenant:
-        d.intent === "RENT" && d.type === "Villa"
-          ? "Family"
-          : d.intent === "RENT" && d.type === "Apartment"
-            ? "Family / Professionals"
-            : d.preferredTenant,
-      pets:
-        d.intent === "RENT" && d.type === "Villa"
-          ? "Allowed"
-          : d.intent === "RENT" && d.type === "Apartment"
-            ? "Not specified"
-            : d.pets,
-      available:
-        d.intent === "RENT" &&
-        (d.type === "Villa" || d.type === "Apartment")
-          ? "Ready now"
-          : d.available,
       address: city + " — sample central location",
       description:
         d.type === "Land"
@@ -330,7 +322,9 @@ export default function PostFlow({
               ? "Standalone house on a private plot with road access."
               : d.type === "Commercial"
                 ? "Income-generating commercial building with leased shops on a main road."
-                : "A bright property close to everyday conveniences.",
+                : d.type === "PG"
+                  ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
+                  : "A bright property close to everyday conveniences.",
       photos: d.type === "Land" ? ["/land.jpg"] : ["/apartment.jpg"],
       location: centers[city],
       landType: d.type === "Land" ? "Residential" : d.landType,
@@ -378,7 +372,11 @@ export default function PostFlow({
               ? "1"
               : d.carParking,
       furnishing:
-        d.type === "Land" ? d.furnishing : "Semi-furnished",
+        d.type === "Land"
+          ? d.furnishing
+          : d.type === "PG"
+            ? "Fully furnished"
+            : "Semi-furnished",
       condition:
         d.type === "Land" ? d.condition : "Resale",
       possessionStatus:
@@ -391,10 +389,42 @@ export default function PostFlow({
       waterSupply: d.type === "Commercial" ? "Available" : d.waterSupply,
       facilities:
         d.type === "Commercial" ? [...COMMERCIAL_FACILITIES] : d.facilities,
-      occupancy: "Private room",
-      meals: "Not included",
+      occupancy: d.type === "PG" ? "Twin sharing" : "Private room",
+      meals: d.type === "PG" ? "Included" : "Not included",
       bathroom: "Attached",
-      ac: "No",
+      ac: d.type === "PG" ? "Yes" : "No",
+      housekeeping: d.type === "PG" ? "Included" : d.housekeeping,
+      electricity: d.type === "PG" ? "As per usage" : d.electricity,
+      noticePeriod: d.type === "PG" ? "1 month" : d.noticePeriod,
+      preferredTenant:
+        d.type === "PG"
+          ? "Working professionals"
+          : d.intent === "RENT" && d.type === "Villa"
+            ? "Family"
+            : d.intent === "RENT" && d.type === "Apartment"
+              ? "Family / Professionals"
+              : d.preferredTenant,
+      pets:
+        d.intent === "RENT" && d.type === "Villa"
+          ? "Allowed"
+          : d.intent === "RENT" && d.type === "Apartment"
+            ? "Not specified"
+            : d.pets,
+      available:
+        d.intent === "RENT" &&
+        (d.type === "Villa" || d.type === "Apartment" || d.type === "PG")
+          ? "Ready now"
+          : d.available,
+      services: d.type === "PG" ? [...PG_SERVICES] : d.services,
+      pgHighlights:
+        d.type === "PG"
+          ? [
+              "Meals included",
+              "Wi-Fi",
+              "Housekeeping",
+              "Attached bathroom",
+            ]
+          : d.pgHighlights,
       baths:
         d.intent === "RENT" && d.type === "Apartment"
           ? 2
@@ -412,8 +442,10 @@ export default function PostFlow({
           ? ["Clubhouse", "Security", "Pool", "Power Backup"]
           : d.type === "Commercial"
             ? [...COMMERCIAL_FACILITIES]
-            : ["Parking"],
-      deposit: d.intent === "RENT" ? "24000" : "",
+            : d.type === "PG"
+              ? ["Wi-Fi", "Housekeeping", "Attached bathroom"]
+              : ["Parking"],
+      deposit: d.type === "PG" ? "10000" : d.intent === "RENT" ? "24000" : "",
       maintenance:
         d.intent === "RENT"
           ? "1000"
@@ -1186,31 +1218,113 @@ export default function PostFlow({
                 </div>
               )}
               {data.type === "PG" && (
-                <div className="form-columns">
-                  {[
-                    [
-                      "occupancy",
-                      "Occupancy",
-                      ["Private room", "Twin sharing", "Triple sharing"],
-                    ],
-                    ["meals", "Meals", ["Included", "Not included"]],
-                    ["bathroom", "Bathroom", ["Attached", "Shared"]],
-                    ["ac", "AC", ["Yes", "No"]],
-                  ].map(([key, label, options]) => (
-                    <label key={key}>
-                      {label}
+                <>
+                  <div className="form-columns">
+                    {[
+                      [
+                        "occupancy",
+                        "Occupancy",
+                        ["Private room", "Twin sharing", "Triple sharing"],
+                      ],
+                      ["meals", "Meals", ["Included", "Not included"]],
+                      ["bathroom", "Bathroom", ["Attached", "Shared"]],
+                      ["ac", "Air conditioning", ["Yes", "No"]],
+                    ].map(([key, label, options]) => (
+                      <label key={key}>
+                        {label}
+                        <select
+                          value={data[key] || ""}
+                          onChange={(e) => set(key, e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {options.map((x) => (
+                            <option key={x}>{x}</option>
+                          ))}
+                        </select>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Housekeeping
                       <select
-                        value={data[key] || ""}
-                        onChange={(e) => set(key, e.target.value)}
+                        value={data.housekeeping || ""}
+                        onChange={(e) => set("housekeeping", e.target.value)}
                       >
                         <option value="">Select</option>
-                        {options.map((x) => (
-                          <option key={x}>{x}</option>
+                        <option>Included</option>
+                        <option>Not included</option>
+                      </select>
+                    </label>
+                    <label>
+                      Electricity
+                      <select
+                        value={data.electricity || ""}
+                        onChange={(e) => set("electricity", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option>As per usage</option>
+                        <option>Included</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="form-columns">
+                    <label>
+                      Preferred tenant
+                      <select
+                        value={data.preferredTenant || ""}
+                        onChange={(e) =>
+                          set("preferredTenant", e.target.value)
+                        }
+                      >
+                        <option value="">Select</option>
+                        {PREFERRED_TENANTS.map((option) => (
+                          <option key={option}>{option}</option>
                         ))}
                       </select>
                     </label>
-                  ))}
-                </div>
+                    <label>
+                      Notice period
+                      <select
+                        value={data.noticePeriod || ""}
+                        onChange={(e) => set("noticePeriod", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        <option>15 days</option>
+                        <option>1 month</option>
+                        <option>2 months</option>
+                      </select>
+                    </label>
+                  </div>
+                  <fieldset className="land-highlight-options">
+                    <legend>Services</legend>
+                    <div className="chips">
+                      {PG_SERVICES.map((service) => (
+                        <button
+                          type="button"
+                          key={service}
+                          className={
+                            "chip " +
+                            ((data.services || []).includes(service)
+                              ? "active"
+                              : "")
+                          }
+                          aria-pressed={(data.services || []).includes(service)}
+                          onClick={() =>
+                            set(
+                              "services",
+                              (data.services || []).includes(service)
+                                ? data.services.filter((x) => x !== service)
+                                : [...(data.services || []), service],
+                            )
+                          }
+                        >
+                          {service}
+                        </button>
+                      ))}
+                    </div>
+                  </fieldset>
+                </>
               )}
               {data.type !== "Land" && (
                 <label>
@@ -1757,6 +1871,24 @@ export default function PostFlow({
                     mode: data.intent === "RENT" ? "RENT" : "BUY",
                   }}
                 />
+              ) : usesPgDetailLayout({
+                  ...data,
+                  mode: data.intent === "RENT" ? "RENT" : "BUY",
+                }) ? (
+                <>
+                  <PgSummary
+                    p={{
+                      ...data,
+                      mode: "RENT",
+                    }}
+                  />
+                  <PgHighlights
+                    p={{
+                      ...data,
+                      mode: "RENT",
+                    }}
+                  />
+                </>
               ) : null}
               {data.description?.trim() ? (
                 <section
@@ -1781,8 +1913,23 @@ export default function PostFlow({
                   }}
                 />
               ) : null}
+              {usesPgDetailLayout({
+                ...data,
+                mode: data.intent === "RENT" ? "RENT" : "BUY",
+              }) ? (
+                <PgServices
+                  p={{
+                    ...data,
+                    mode: "RENT",
+                  }}
+                />
+              ) : null}
               {data.type !== "Land" &&
                 !usesCommercialDetailLayout({
+                  ...data,
+                  mode: data.intent === "RENT" ? "RENT" : "BUY",
+                }) &&
+                !usesPgDetailLayout({
                   ...data,
                   mode: data.intent === "RENT" ? "RENT" : "BUY",
                 }) &&
