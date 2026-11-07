@@ -140,7 +140,7 @@ it("ends Home with local agents, without a full-list footer or invented ratings"
       onNavigate={onNavigate}
     />,
   );
-  const footer = screen.getByRole("region", { name: "Top rated agents" });
+  const footer = screen.getByRole("region", { name: "Featured local agents" });
   expect(app.container.querySelector(".home-discovery").lastElementChild).toBe(
     footer,
   );

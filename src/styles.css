@@ -667,6 +667,49 @@ img {
 .property-copy .price {
   font-size: 22px;
 }
+.property-card-type {
+  margin: 0 0 4px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--muted);
+}
+.property-card-config {
+  margin-top: 4px !important;
+  color: var(--ink);
+  font-weight: 600;
+}
+.property-card-costs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px solid var(--canvas);
+}
+.property-card-costs > div {
+  min-width: 0;
+}
+.property-card-costs dt {
+  font-size: 10px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.property-card-costs dd {
+  margin: 2px 0 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.property-card-poster,
+.property-card-availability {
+  margin-top: 8px !important;
+  color: var(--muted);
+  font-size: 11px;
+}
 .property-copy h3 {
   font-size: 13px;
   margin-top: 6px;
@@ -4007,4 +4050,80 @@ textarea {
   .leaflet-container .price-marker > span {
     transition: none;
   }
+}
+
+/* Detail hierarchy: summary strip, what you will pay, poster trust */
+.detail-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 12px;
+  margin: 16px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--canvas);
+}
+.detail-summary-strip dt {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.detail-summary-strip dd {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.what-you-will-pay {
+  margin-top: 22px;
+}
+.what-you-will-pay h2 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.what-you-will-pay-list > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--canvas);
+  font-size: 14px;
+}
+.what-you-will-pay-list dt {
+  color: var(--muted);
+}
+.what-you-will-pay-list dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+}
+.what-you-will-pay-total dd {
+  color: var(--brand-deep);
+}
+.what-you-will-pay-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.detail-mobile-visit {
+  display: none;
+  width: 100%;
+  margin-top: 16px;
+  min-height: 44px;
+}
+@media (max-width: 900px) {
+  .detail-mobile-visit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.detail-floor-plan-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+}
+.swipe-gallery:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
 }

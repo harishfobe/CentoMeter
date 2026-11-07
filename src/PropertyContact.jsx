@@ -53,6 +53,8 @@ export function resolveListingContact(p, agent = null) {
       [p.locality, p.city].filter(Boolean).join(", ") +
       ". Please share more details.";
   const replyMins = agent?.responseTimeMins;
+  const hasReplyEstimate =
+    replyMins != null && Number.isFinite(Number(replyMins)) && Number(replyMins) > 0;
   return {
     isAgent,
     name,
@@ -62,12 +64,12 @@ export function resolveListingContact(p, agent = null) {
     callHref: callDigits ? "tel:+" + callDigits : null,
     whatsappNumber,
     whatsappMessage,
-    replyLabel:
-      replyMins == null
-        ? "10 mins"
-        : replyMins < 60
-          ? replyMins + " mins"
-          : Math.round(replyMins / 60) + " h",
+    hasReplyEstimate,
+    replyLabel: hasReplyEstimate
+      ? replyMins < 60
+        ? replyMins + " mins"
+        : Math.round(replyMins / 60) + " h"
+      : null,
   };
 }
 function contactLinks(p) {

@@ -74,6 +74,9 @@ import {
   POSSESSION_OPTIONS,
   RENT_AVAILABLE_OPTIONS,
   ROAD_ACCESS_OPTIONS,
+  LAND_ROAD_ACCESS_OPTIONS,
+  DECLARATION_YES_NO_UNSURE,
+  DECLARATION_YES_NO_NA_UNSURE,
 } from "./listingFit";
 export default function PostFlow({
   onExit,
@@ -795,13 +798,20 @@ export default function PostFlow({
                 }
               >
                 <label>
-                  {data.intent === "RENT" ? "Monthly rent" : "Asking price"} (₹)
+                  {data.intent === "RENT"
+                    ? "Monthly rent (₹)"
+                    : data.type === "Land"
+                      ? "Asking price (₹ total)"
+                      : "Asking price (₹)"}
                   <input
                     type="number"
                     min="1"
                     placeholder="Enter amount"
                     value={data.price}
                     onChange={(e) => set("price", e.target.value)}
+                    aria-invalid={
+                      data.price !== "" && !(Number(data.price) > 0)
+                    }
                   />
                 </label>
                 {data.type === "Land" ? (
@@ -837,12 +847,12 @@ export default function PostFlow({
                           data.intent === "RENT"
                         ) {
                           dirty.current.add("area");
-                          dirty.current.add("builtUpArea");
                           dirty.current.add("carpetArea");
                           setData((d) => ({
                             ...d,
                             area: value,
-                            builtUpArea: value,
+                            // Keep carpet and built-up distinct — only set the
+                            // field the user is editing (carpet for Shop/Office).
                             carpetArea:
                               d.subtype === "Land" ? d.carpetArea : value,
                           }));
@@ -1432,7 +1442,190 @@ export default function PostFlow({
                   </label>
                 </div>
               )}
-              {data.type === "Land" && <LandFields data={data} set={set} />}
+              {data.type === "Land" && (
+                <div className="land-post-progressive">
+                  <label>
+                    Poster role
+                    <select
+                      value={
+                        data.posterRole ||
+                        (agent ? "Agent" : data.seller || "Owner")
+                      }
+                      onChange={(e) => {
+                        set("posterRole", e.target.value);
+                        set("seller", e.target.value);
+                      }}
+                    >
+                      <option>Owner</option>
+                      <option>Agent</option>
+                      <option>Builder</option>
+                    </select>
+                    {agent ? (
+                      <small>Inherited from your agent profile when blank.</small>
+                    ) : null}
+                  </label>
+                  <LandFields data={data} set={set} />
+                  <section
+                    className="land-declarations"
+                    aria-label="Land declarations"
+                  >
+                    <h3>Land declarations</h3>
+                    <p className="fine-print">
+                      These are seller-provided declarations and have not been
+                      independently verified by CentoMeter.
+                    </p>
+                    <div className="form-columns">
+                      <label>
+                        Patta available
+                        <select
+                          value={data.pattaAvailable || ""}
+                          onChange={(e) =>
+                            set("pattaAvailable", e.target.value)
+                          }
+                        >
+                          <option value="">Select</option>
+                          {DECLARATION_YES_NO_UNSURE.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <label>
+                        Planning / layout approval
+                        <select
+                          value={data.planningApproval || ""}
+                          onChange={(e) =>
+                            set("planningApproval", e.target.value)
+                          }
+                        >
+                          <option value="">Select</option>
+                          {DECLARATION_YES_NO_NA_UNSURE.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                    <div className="form-columns">
+                      <label>
+                        RERA registered
+                        <select
+                          value={data.reraRegistered || ""}
+                          onChange={(e) =>
+                            set("reraRegistered", e.target.value)
+                          }
+                        >
+                          <option value="">Select</option>
+                          {DECLARATION_YES_NO_NA_UNSURE.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                      <label>
+                        Road access
+                        <select
+                          value={data.roadAccess || ""}
+                          onChange={(e) => set("roadAccess", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {LAND_ROAD_ACCESS_OPTIONS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  </section>
+                  <details className="land-recommended-details">
+                    <summary>Add recommended details</summary>
+                    <div className="form-stack">
+                      <div className="form-columns">
+                        <label>
+                          Road width (ft)
+                          <input
+                            type="number"
+                            min="0"
+                            step="any"
+                            placeholder="Optional"
+                            value={data.roadWidth || ""}
+                            onChange={(e) => set("roadWidth", e.target.value)}
+                          />
+                        </label>
+                        <label>
+                          Water availability
+                          <select
+                            value={data.water || ""}
+                            onChange={(e) => set("water", e.target.value)}
+                          >
+                            <option value="">Select</option>
+                            {WATER_SOURCES.map((option) => (
+                              <option key={option}>{option}</option>
+                            ))}
+                            <option>Not sure</option>
+                          </select>
+                        </label>
+                      </div>
+                      {(data.landType || data.subtype) === "Agricultural" ? (
+                        <label>
+                          Irrigation
+                          <select
+                            value={data.irrigation || ""}
+                            onChange={(e) => set("irrigation", e.target.value)}
+                          >
+                            <option value="">Select</option>
+                            <option>Available</option>
+                            <option>Not available</option>
+                            <option>Not sure</option>
+                          </select>
+                        </label>
+                      ) : null}
+                      <div className="form-columns">
+                        <label>
+                          Electricity
+                          <select
+                            value={data.electricity || ""}
+                            onChange={(e) => set("electricity", e.target.value)}
+                          >
+                            <option value="">Select</option>
+                            <option>Available</option>
+                            <option>Not available</option>
+                            <option>Not sure</option>
+                          </select>
+                        </label>
+                        <label>
+                          Negotiable
+                          <select
+                            value={
+                              data.negotiable === true
+                                ? "Yes"
+                                : data.negotiable === false
+                                  ? "No"
+                                  : data.negotiable || ""
+                            }
+                            onChange={(e) => {
+                              const v = e.target.value;
+                              set(
+                                "negotiable",
+                                v === "Yes" ? true : v === "No" ? false : v,
+                              );
+                            }}
+                          >
+                            <option value="">Select</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                            <option>Not sure</option>
+                          </select>
+                        </label>
+                      </div>
+                      <label className="checkbox-row">
+                        <input
+                          type="checkbox"
+                          checked={!!data.cornerPlot}
+                          onChange={(e) => set("cornerPlot", e.target.checked)}
+                        />
+                        Corner plot
+                      </label>
+                    </div>
+                  </details>
+                </div>
+              )}
               {data.intent === "RENT" && (
                 <div className="form-columns">
                   <label>
@@ -2084,22 +2277,30 @@ export default function PostFlow({
                 · {data.address}
               </p>
               {data.type === "Land" ? (
-                <LandSummary p={data} showDescription={false} />
+                <LandSummary
+                  p={{
+                    ...data,
+                    mode: data.intent === "RENT" ? "RENT" : "BUY",
+                  }}
+                  showDescription={false}
+                />
               ) : usesCommercialDetailLayout({
                   ...data,
                   mode: data.intent === "RENT" ? "RENT" : "BUY",
                 }) ? (
                 <>
-                  <CommercialIncomeBadge
-                    p={{
-                      ...data,
-                      mode: "BUY",
-                    }}
-                  />
+                  {data.intent !== "RENT" ? (
+                    <CommercialIncomeBadge
+                      p={{
+                        ...data,
+                        mode: "BUY",
+                      }}
+                    />
+                  ) : null}
                   <CommercialSummary
                     p={{
                       ...data,
-                      mode: "BUY",
+                      mode: data.intent === "RENT" ? "RENT" : "BUY",
                       facilities: data.facilities?.length
                         ? data.facilities
                         : data.features,
@@ -2108,7 +2309,7 @@ export default function PostFlow({
                   <CommercialHighlights
                     p={{
                       ...data,
-                      mode: "BUY",
+                      mode: data.intent === "RENT" ? "RENT" : "BUY",
                     }}
                   />
                 </>

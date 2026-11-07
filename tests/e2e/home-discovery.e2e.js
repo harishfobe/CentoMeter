@@ -46,7 +46,7 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
     "Spotlight",
     "Projects",
     "Most popular",
-    "Top rated agents",
+    "Featured local agents",
   ]);
   await expect(page.locator(".search-controls")).toBeVisible();
   await expect(
@@ -180,12 +180,12 @@ test("Home ends with local agent cards and preserves follow and profile navigati
   page,
 }, info) => {
   await expect(page.locator("#property-results")).toHaveCount(0);
-  const agents = page.getByRole("region", { name: "Top rated agents" });
+  const agents = page.getByRole("region", { name: "Featured local agents" });
   expect(
     await page
       .locator(".home-discovery")
       .evaluate((el) => el.lastElementChild.getAttribute("aria-label")),
-  ).toBe("Top rated agents");
+  ).toBe("Featured local agents");
   await expect(
     agents.getByText(/Customer ratings aren't available yet/),
   ).toBeVisible();

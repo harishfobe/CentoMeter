@@ -48,19 +48,21 @@ describe("Phase 1 money and charges", () => {
       expect(p.deposit).toBe(null);
       expect(p.maintenance).toBe(null);
       const html = renderToStaticMarkup(<Costs p={p} money={money} />);
-      expect(html).not.toContain("Refundable deposit");
-      expect(html).not.toContain("Monthly maintenance");
-      expect(html).not.toContain("Move-in total");
+      expect(html).toContain("Refundable deposit");
+      expect(html).toContain("Not provided");
+      expect(html).not.toContain("₹0");
+      expect(html).toContain("excludes maintenance, deposit, brokerage");
     }
     const p = normalizePostedListing({
       ...draft,
       deposit: "0",
       maintenance: 0,
+      brokerage: 0,
     });
     expect(p.deposit).toBe(0);
-    expect(renderToStaticMarkup(<Costs p={p} money={money} />)).toContain(
-      "Refundable deposit",
-    );
+    const html = renderToStaticMarkup(<Costs p={p} money={money} />);
+    expect(html).toContain("Refundable deposit");
+    expect(html).toContain("No brokerage");
     expect(money(null)).toBe("—");
   });
 });
@@ -106,8 +108,9 @@ describe("land rent display and visits", () => {
     const bar = renderToStaticMarkup(<StickyContactBar property={p} />);
     expect(bar).toContain("Chat on WhatsApp");
     expect(bar).toContain("Property Owner");
-    expect(bar).toContain("Direct Contact");
-    expect(bar).toContain("Zero Brokerage");
+    expect(bar).toContain("Direct contact");
+    expect(bar).not.toContain("Online");
+    expect(bar).not.toContain("Replies in 10 mins");
     const card = renderToStaticMarkup(
       <SelectedPropertySheet
         p={p}

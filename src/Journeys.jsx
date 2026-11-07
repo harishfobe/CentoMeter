@@ -2,22 +2,30 @@ import { visitDates } from "./JourneyUX";
 import { typeLabel } from "./PropertyTypes";
 import React, { useState } from "react";
 
-export const priceBasis = (p) =>
-  p.mode !== "RENT"
-    ? ""
-    : p.type === "PG"
-      ? p.occupancy === "Private room"
-        ? " / room / month"
-        : " / bed / month"
-      : " / month";
-export const areaBasis = (p) =>
-  p.type === "Land"
-    ? "plot area"
-    : p.type === "Commercial"
-      ? "usable area"
-      : p.type === "PG"
-        ? "room area"
-        : "built-up area";
+/** Suffix-only price basis for legacy call sites (" / month"). Prefer listingPresentation.priceWithBasis. */
+export const priceBasis = (p) => {
+  if (p?.mode !== "RENT") return "";
+  if (p.type === "PG") {
+    return p.occupancy === "Private room"
+      ? " / room / month"
+      : " / bed / month";
+  }
+  return " / month";
+};
+
+/** Area basis noun only. Prefer listingPresentation.areaWithBasis for labelled amounts. */
+export const areaBasis = (p) => {
+  if (p?.type === "Land") return "plot area";
+  if (p?.type === "Commercial") {
+    if (p.mode === "RENT" && /land|plot/i.test(String(p.subtype || ""))) {
+      return "plot area";
+    }
+    if (p.mode === "RENT" && p.carpetArea) return "carpet area";
+    return "built-up area";
+  }
+  if (p?.type === "PG") return "room area";
+  return "built-up area";
+};
 export function nearText(text, query) {
   const a = text.toLowerCase(),
     b = query.trim().toLowerCase();

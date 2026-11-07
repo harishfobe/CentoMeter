@@ -142,7 +142,9 @@ export function houseFloorsLabel(p) {
   }
   const floor = String(p.floor || "").trim();
   if (!floor) return null;
-  if (/^ground$/i.test(floor)) return "G+1";
+  if (/^ground$/i.test(floor) || /^g$/i.test(floor) || floor === "0") {
+    return "Ground";
+  }
   if (/^g\+/i.test(floor)) return floor.toUpperCase();
   return floor;
 }
@@ -193,10 +195,11 @@ export function apartmentBalconiesLabel(p) {
     const n = Number(p.balcony);
     return Number.isFinite(n) ? String(n) : String(p.balcony).trim();
   }
+  // Do not infer one balcony from a generic "Balcony" feature chip.
   const hit = featurePool(p).find((value) => /balcon/i.test(value));
   if (!hit) return null;
   const match = hit.match(/(\d+)/);
-  return match ? match[1] : "1";
+  return match ? match[1] : null;
 }
 
 /** e.g. "5 of 12" or "Ground of 8". */

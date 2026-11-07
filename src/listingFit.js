@@ -101,6 +101,22 @@ export function commercialFacilitiesFor(mode) {
 
 export const ROAD_ACCESS_OPTIONS = ["Main road", "Interior road", "Lane"];
 
+/** Residential land road-access declarations (post form). */
+export const LAND_ROAD_ACCESS_OPTIONS = [
+  "Public road",
+  "Private road",
+  "No direct access",
+  "Not sure",
+];
+
+export const DECLARATION_YES_NO_UNSURE = ["Yes", "No", "Not sure"];
+export const DECLARATION_YES_NO_NA_UNSURE = [
+  "Yes",
+  "No",
+  "Not applicable",
+  "Not sure",
+];
+
 export const COMMERCIAL_PARKING_OPTIONS = [
   "Common",
   "Dedicated",
@@ -116,8 +132,12 @@ function readyLike(value) {
   return /ready(\s+to\s+move|\s+now)?|immediately|immediate/i.test(value);
 }
 
-function upcomingLike(value) {
-  return /within\s*30|under\s*construction|upcoming/i.test(value);
+function within30Like(value) {
+  return /within\s*30/i.test(value);
+}
+
+function underConstructionLike(value) {
+  return /under\s*construction|upcoming/i.test(value);
 }
 
 /** Match owner/agent possession filters to listing possessionStatus or available. */
@@ -127,7 +147,10 @@ export function matchesPossessionFilter(p, filterValue) {
   if (!listing) return false;
   if (listing.toLowerCase() === String(filterValue).toLowerCase()) return true;
   if (readyLike(filterValue) && readyLike(listing)) return true;
-  if (upcomingLike(filterValue) && upcomingLike(listing)) return true;
+  // Under construction must NOT match Within 30 days (and vice versa).
+  if (within30Like(filterValue) && within30Like(listing)) return true;
+  if (underConstructionLike(filterValue) && underConstructionLike(listing))
+    return true;
   // Legacy agent option "Ready" → Ready to move / Ready now / Immediately
   if (/^ready$/i.test(String(filterValue).trim()) && readyLike(listing))
     return true;

@@ -2,6 +2,7 @@ import React from "react";
 import { CheckCircle2 } from "lucide-react";
 import { hasValue, money } from "./PropertyModel";
 import { rentAvailableFromLabel } from "./HouseVillaDetails";
+import { isAffirmativeAvailability } from "./listingPresentation";
 
 export const isCommercial = (type) => type === "Commercial";
 
@@ -289,17 +290,48 @@ export function commercialHighlightPills(p) {
 }
 
 export function commercialFacilities(p) {
-  if (Array.isArray(p.facilities) && p.facilities.length) return p.facilities;
-  if (Array.isArray(p.amenities) && p.amenities.length) return p.amenities;
+  if (Array.isArray(p.facilities) && p.facilities.length) {
+    return p.facilities.filter(
+      (item) =>
+        typeof item === "string" &&
+        !/not\s+available/i.test(item) &&
+        isAffirmativeAvailability(item),
+    );
+  }
+  if (Array.isArray(p.amenities) && p.amenities.length) {
+    return p.amenities.filter(
+      (item) =>
+        typeof item === "string" &&
+        !/not\s+available/i.test(item) &&
+        isAffirmativeAvailability(item),
+    );
+  }
   const defaults = [];
   const pool = featurePool(p);
-  if (p.parkingAvailable || p.carParking || pool.some((x) => /park/i.test(x)))
+  const parkingRaw = p.carParking ?? p.parkingAvailable ?? p.parking;
+  if (
+    (hasValue(parkingRaw) && isAffirmativeAvailability(parkingRaw)) ||
+    (!hasValue(parkingRaw) &&
+      pool.some((x) => /park/i.test(x) && !/not\s+available/i.test(x)))
+  ) {
     defaults.push(p.mode === "RENT" ? "Common parking" : "Parking");
+  }
   if (pool.some((x) => /cctv/i.test(x)) || p.cctv) defaults.push("CCTV");
-  if (p.powerBackup || pool.some((x) => /power|backup/i.test(x)))
+  if (
+    (hasValue(p.powerBackup) && isAffirmativeAvailability(p.powerBackup)) ||
+    (!hasValue(p.powerBackup) &&
+      pool.some((x) => /power|backup/i.test(x) && !/not\s+available/i.test(x)))
+  ) {
     defaults.push("Power backup");
-  if (p.waterSupply || p.water || pool.some((x) => /water/i.test(x)))
+  }
+  if (
+    (hasValue(p.waterSupply || p.water) &&
+      isAffirmativeAvailability(p.waterSupply || p.water)) ||
+    (!hasValue(p.waterSupply || p.water) &&
+      pool.some((x) => /water/i.test(x) && !/not\s+available/i.test(x)))
+  ) {
     defaults.push("Water supply");
+  }
   if (p.separateMeters || pool.some((x) => /meter/i.test(x)))
     defaults.push("Separate meters");
   if (p.roadAccess) defaults.push(p.roadAccess + " access");
