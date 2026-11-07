@@ -171,7 +171,7 @@ it("buy apartment detail uses the gated-villa home layout", () => {
   expect(screen.getByText("2 years")).toBeTruthy();
   expect(screen.getByText(/20% down payment/)).toBeTruthy();
 });
-it("rent home header shows month price, maintenance, deposit, location and posted", () => {
+it("rent independent house header omits maintenance and keeps deposit", () => {
   render(
     <ListingDetailSheet
       p={{
@@ -196,7 +196,7 @@ it("rent home header shows month price, maintenance, deposit, location and poste
   );
   expect(screen.getByText("FOR RENT · INDEPENDENT HOUSE")).toBeTruthy();
   expect(screen.getByText(/\/ month/)).toBeTruthy();
-  expect(screen.getByText("+ ₹1,500 maintenance")).toBeTruthy();
+  expect(screen.queryByText(/maintenance/i)).toBeNull();
   expect(screen.getByText("₹1.2 L deposit")).toBeTruthy();
   expect(screen.getByText("3 BHK Independent House")).toBeTruthy();
   expect(screen.getByText("Saravanampatti, Coimbatore")).toBeTruthy();

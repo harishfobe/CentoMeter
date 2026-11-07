@@ -692,7 +692,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 1500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Rahul Reddy",
@@ -846,7 +845,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 1500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Meera Kulkarni",
@@ -1342,7 +1340,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 204000,
     "brokerage": 0,
     "contactName": "Riya Menon",

@@ -572,7 +572,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Ananya Rao",
@@ -709,7 +708,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 204000,
     "brokerage": 0,
     "contactName": "Ananya Rao",
@@ -1216,7 +1214,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Property owner",
@@ -1353,7 +1350,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 204000,
     "brokerage": 0,
     "contactName": "Property owner",
@@ -2007,7 +2003,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 204000,
     "brokerage": 0,
     "contactName": "Meera Kulkarni",
@@ -2627,7 +2622,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 1500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Meera Kulkarni",
@@ -3248,7 +3242,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 1500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Property owner",
@@ -3895,7 +3888,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 1500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Arjun Desai",
@@ -4509,7 +4501,6 @@
       "Borewell"
     ],
     "subtype": "Home",
-    "maintenance": 2500,
     "deposit": 198000,
     "brokerage": 0,
     "contactName": "Arjun Desai",
