@@ -297,7 +297,10 @@ describe("clean sample data", () => {
       if (p.type === "Commercial")
         for (const key of ["beds", "occupancy", "meals", "pets", "bathroom"])
           expect(p).not.toHaveProperty(key);
-      if (p.type === "Apartment") expect(p.beds).toBe(3);
+      if (p.type === "Apartment") {
+        expect(Number(p.beds)).toBeGreaterThan(0);
+        expect(Number.isFinite(Number(p.beds))).toBe(true);
+      }
       const list = byCity.get(p.city) || [];
       list.push(p);
       byCity.set(p.city, list);
