@@ -903,9 +903,9 @@
     "type": "Apartment",
     "title": "Meenakshi Parkside Living",
     "price": 356000,
-    "beds": 3,
+    "beds": 2,
     "baths": 2,
-    "area": 1680,
+    "area": 1150,
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
@@ -921,11 +921,11 @@
     "brokerage": 0,
     "contactName": "Meera Kulkarni",
     "freshness": "Availability checked: 12 Oct 2026",
-    "pets": "Allowed",
-    "floor": "Ground",
-    "facing": "South",
+    "pets": "Not specified",
+    "floor": "5",
+    "facing": "East",
     "propertyAge": 2,
-    "totalFloors": 8,
+    "totalFloors": 12,
     "parking": "1 covered space",
     "postedAt": "2026-10-21",
     "photos": [
@@ -963,14 +963,15 @@
     "sample": true,
     "floorPlanUrl": "/demo-floor-plan.svg",
     "reraNo": "DEMO-RERA-0009",
-    "builtUpArea": 1680,
-    "carpetArea": 1344,
+    "builtUpArea": 1150,
+    "carpetArea": 920,
     "balconies": 1,
     "condition": "Resale",
     "ownershipType": "Freehold",
     "negotiable": true,
     "possessionStatus": "Ready to move",
-    "carParking": 1
+    "carParking": 1,
+    "preferredTenant": "Family / Professionals"
   },
   {
     "id": "al14",
@@ -2505,7 +2506,8 @@
     "propertyAge": 3,
     "possessionStatus": "Ready to move",
     "totalFloors": 12,
-    "carParking": 1
+    "carParking": 1,
+    "preferredTenant": "Family"
   },
   {
     "id": "al34",
@@ -3059,7 +3061,8 @@
     "ownershipType": "Freehold",
     "negotiable": true,
     "possessionStatus": "Ready to move",
-    "carParking": 1
+    "carParking": 1,
+    "preferredTenant": "Anyone"
   },
   {
     "id": "al40",

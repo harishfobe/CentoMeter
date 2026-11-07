@@ -492,9 +492,9 @@
     "type": "Apartment",
     "title": "Kovai Orchid Enclave",
     "price": 238640,
-    "beds": 3,
+    "beds": 2,
     "baths": 2,
-    "area": 1680,
+    "area": 1150,
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
@@ -510,11 +510,11 @@
     "brokerage": 0,
     "contactName": "Property owner",
     "freshness": "Availability checked: 12 Oct 2026",
-    "pets": "Allowed",
-    "floor": "Ground",
-    "facing": "South",
+    "pets": "Not specified",
+    "floor": "5",
+    "facing": "East",
     "propertyAge": 2,
-    "totalFloors": 8,
+    "totalFloors": 12,
     "parking": "1 covered space",
     "postedAt": "2026-10-20",
     "photos": [
@@ -530,8 +530,8 @@
       "Flexible visit requests"
     ],
     "description": "A comfortable 3-bedroom apartment in Saibaba Colony, Coimbatore. Natural light, practical layouts and easy access to everyday needs. Ask about visit timing and documents.",
-    "builtUpArea": 1680,
-    "carpetArea": 1344,
+    "builtUpArea": 1150,
+    "carpetArea": 920,
     "balconies": 1,
     "condition": "Resale",
     "ownershipType": "Freehold",
@@ -544,7 +544,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Family / Professionals"
   },
   {
     "id": "p10",
@@ -1156,7 +1157,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Family"
   },
   {
     "id": "p17",
@@ -1414,7 +1416,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Anyone"
   },
   {
     "id": "p21",
@@ -2034,7 +2037,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Bachelor"
   },
   {
     "id": "p28",
@@ -3231,7 +3235,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Company"
   },
   {
     "id": "p45",
@@ -3844,7 +3849,8 @@
       "Lift",
       "Power Backup",
       "Security"
-    ]
+    ],
+    "preferredTenant": "Family / Professionals"
   },
   {
     "id": "p52",
