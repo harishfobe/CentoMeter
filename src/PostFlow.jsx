@@ -268,16 +268,20 @@ export default function PostFlow({
               : d.type === "Independent House"
                 ? "An independent house on Anna Nagar"
                 : d.type === "Commercial"
-                  ? "Income-generating Commercial Building"
+                  ? d.intent === "RENT"
+                    ? "Ground-floor Commercial Shop"
+                    : "Income-generating Commercial Building"
                   : "A sunlit home at Parkside",
       price:
         d.type === "PG" && d.intent === "RENT"
           ? "9500"
-          : d.intent === "RENT"
-            ? "12000"
-            : d.type === "Commercial"
-              ? "28000000"
-              : "7200000",
+          : d.type === "Commercial" && d.intent === "RENT"
+            ? "35000"
+            : d.intent === "RENT"
+              ? "12000"
+              : d.type === "Commercial"
+                ? "28000000"
+                : "7200000",
       area:
         d.type === "PG"
           ? "180"
@@ -285,18 +289,22 @@ export default function PostFlow({
             ? "2100"
             : d.type === "Independent House" || d.type === "Villa"
               ? "1800"
-              : d.type === "Commercial"
-                ? "4000"
-                : d.intent === "RENT" && d.type === "Apartment"
-                  ? "1150"
-                  : "1200",
+              : d.type === "Commercial" && d.intent === "RENT"
+                ? "650"
+                : d.type === "Commercial"
+                  ? "4000"
+                  : d.intent === "RENT" && d.type === "Apartment"
+                    ? "1150"
+                    : "1200",
       builtUpArea:
         d.type === "Independent House" ||
         d.type === "Villa" ||
         d.type === "Apartment" ||
         d.type === "Commercial"
           ? d.type === "Commercial"
-            ? "4000"
+            ? d.intent === "RENT"
+              ? "650"
+              : "4000"
             : d.type === "Apartment"
               ? d.intent === "RENT"
                 ? "1150"
@@ -326,7 +334,9 @@ export default function PostFlow({
             : d.type === "Independent House"
               ? "Standalone house on a private plot with road access."
               : d.type === "Commercial"
-                ? "Income-generating commercial building with leased shops on a main road."
+                ? d.intent === "RENT"
+                  ? "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom."
+                  : "Income-generating commercial building with leased shops on a main road."
                 : d.type === "PG"
                   ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
                   : "A bright property close to everyday conveniences.",
@@ -342,29 +352,52 @@ export default function PostFlow({
           : d.type === "Land"
             ? d.landType || "Residential"
             : d.subtype,
-      shopCount: d.type === "Commercial" ? "6" : d.shopCount,
-      monthlyRent: d.type === "Commercial" ? "165000" : d.monthlyRent,
+      shopCount:
+        d.type === "Commercial" && d.intent !== "RENT" ? "6" : d.shopCount,
+      monthlyRent:
+        d.type === "Commercial" && d.intent !== "RENT" ? "165000" : d.monthlyRent,
       floorsLabel:
-        d.type === "Commercial"
+        d.type === "Commercial" && d.intent !== "RENT"
           ? "G+2"
           : d.type === "Independent House" || d.type === "Villa"
             ? d.floorsLabel || "G+1"
             : d.floorsLabel,
       totalFloors:
-        d.type === "Commercial"
+        d.type === "Commercial" && d.intent !== "RENT"
           ? "3"
           : d.type === "Apartment"
             ? "12"
             : d.totalFloors,
-      floor: d.type === "Apartment" ? "5" : d.floor,
+      floor:
+        d.type === "Commercial" && d.intent === "RENT"
+          ? "Ground"
+          : d.type === "Apartment"
+            ? "5"
+            : d.floor,
       carpetArea:
-        d.type === "Apartment"
-          ? d.intent === "RENT"
-            ? "920"
-            : "960"
-          : d.type === "Independent House" || d.type === "Villa"
-            ? "1500"
-            : d.carpetArea,
+        d.type === "Commercial" && d.intent === "RENT"
+          ? "650"
+          : d.type === "Apartment"
+            ? d.intent === "RENT"
+              ? "920"
+              : "960"
+            : d.type === "Independent House" || d.type === "Villa"
+              ? "1500"
+              : d.carpetArea,
+      frontage:
+        d.type === "Commercial" && d.intent === "RENT" ? "18" : d.frontage,
+      washrooms:
+        d.type === "Commercial" && d.intent === "RENT" ? "1" : d.washrooms,
+      parking:
+        d.type === "Commercial" && d.intent === "RENT" ? "Common" : d.parking,
+      suitableFor:
+        d.type === "Commercial" && d.intent === "RENT"
+          ? "Retail / Showroom"
+          : d.suitableFor,
+      commercialHighlights:
+        d.type === "Commercial" && d.intent === "RENT"
+          ? ["Ground floor", "Main road", "High footfall", "Wide frontage"]
+          : d.commercialHighlights,
       balconies:
         d.type === "Apartment"
           ? "1"
@@ -373,7 +406,9 @@ export default function PostFlow({
             : d.balconies,
       carParking:
         d.type === "Commercial"
-          ? "Available"
+          ? d.intent === "RENT"
+            ? "Available"
+            : "Available"
           : d.intent === "RENT" &&
               (d.type === "Independent House" || d.type === "Villa")
             ? "2"
@@ -387,7 +422,9 @@ export default function PostFlow({
           ? d.furnishing
           : d.type === "PG"
             ? "Fully furnished"
-            : "Semi-furnished",
+            : d.type === "Commercial" && d.intent === "RENT"
+              ? "Bare shell"
+              : "Semi-furnished",
       condition:
         d.type === "Land" ? d.condition : "Resale",
       possessionStatus:
@@ -399,7 +436,11 @@ export default function PostFlow({
       powerBackup: d.type === "Commercial" ? "Available" : d.powerBackup,
       waterSupply: d.type === "Commercial" ? "Available" : d.waterSupply,
       facilities:
-        d.type === "Commercial" ? [...COMMERCIAL_FACILITIES] : d.facilities,
+        d.type === "Commercial"
+          ? d.intent === "RENT"
+            ? ["CCTV", "Power backup", "Common parking", "Water supply"]
+            : [...COMMERCIAL_FACILITIES]
+          : d.facilities,
       occupancy: d.type === "PG" ? "Twin sharing" : "Private room",
       meals: d.type === "PG" ? "Included" : "Not included",
       bathroom: "Attached",
@@ -424,13 +465,15 @@ export default function PostFlow({
             ? "Not specified"
             : d.pets,
       available:
-        d.intent === "RENT" &&
-        (d.type === "Villa" ||
-          d.type === "Apartment" ||
-          d.type === "Independent House" ||
-          d.type === "PG")
-          ? "Ready now"
-          : d.available,
+        d.intent === "RENT" && d.type === "Commercial"
+          ? "Immediately"
+          : d.intent === "RENT" &&
+              (d.type === "Villa" ||
+                d.type === "Apartment" ||
+                d.type === "Independent House" ||
+                d.type === "PG")
+            ? "Ready now"
+            : d.available,
       services: d.type === "PG" ? [...PG_SERVICES] : d.services,
       pgHighlights:
         d.type === "PG"
@@ -459,19 +502,30 @@ export default function PostFlow({
         d.type === "Villa"
           ? ["Clubhouse", "Security", "Pool", "Power Backup"]
           : d.type === "Commercial"
-            ? [...COMMERCIAL_FACILITIES]
+            ? d.intent === "RENT"
+              ? ["CCTV", "Power backup", "Common parking", "Water supply"]
+              : [...COMMERCIAL_FACILITIES]
             : d.type === "PG"
               ? ["Wi-Fi", "Housekeeping", "Attached bathroom"]
               : ["Parking"],
-      deposit: d.type === "PG" ? "10000" : d.intent === "RENT" ? "24000" : "",
+      deposit:
+        d.type === "PG"
+          ? "10000"
+          : d.type === "Commercial" && d.intent === "RENT"
+            ? "200000"
+            : d.intent === "RENT"
+              ? "24000"
+              : "",
       maintenance:
         d.intent === "RENT" && d.type === "Independent House"
           ? ""
-          : d.intent === "RENT"
-            ? "1000"
-            : d.type === "Apartment"
-              ? "2500"
-              : d.maintenance || "",
+          : d.type === "Commercial" && d.intent === "RENT"
+            ? "2000"
+            : d.intent === "RENT"
+              ? "1000"
+              : d.type === "Apartment"
+                ? "2500"
+                : d.maintenance || "",
     }));
     for (const key of ["title", "price", "address", "description"])
       dirty.current.add(key);
@@ -827,6 +881,78 @@ export default function PostFlow({
                       </label>
                     )}
                   </div>
+                  {data.intent === "RENT" && data.subtype !== "Land" && (
+                    <div className="form-columns">
+                      <label>
+                        Carpet area (sq ft)
+                        <input
+                          type="number"
+                          min="1"
+                          placeholder="e.g. 650"
+                          value={data.carpetArea ?? ""}
+                          onChange={(e) => set("carpetArea", e.target.value)}
+                        />
+                      </label>
+                      <label>
+                        Frontage (ft)
+                        <input
+                          type="number"
+                          min="1"
+                          placeholder="e.g. 18"
+                          value={data.frontage ?? ""}
+                          onChange={(e) => set("frontage", e.target.value)}
+                        />
+                      </label>
+                    </div>
+                  )}
+                  {data.intent === "RENT" && data.subtype !== "Land" && (
+                    <div className="form-columns">
+                      <label>
+                        Washrooms
+                        <input
+                          type="number"
+                          min="0"
+                          max="20"
+                          placeholder="e.g. 1"
+                          value={data.washrooms ?? ""}
+                          onChange={(e) => set("washrooms", e.target.value)}
+                        />
+                      </label>
+                      <label>
+                        Suitable for
+                        <input
+                          placeholder="e.g. Retail / Showroom"
+                          value={data.suitableFor || ""}
+                          onChange={(e) => set("suitableFor", e.target.value)}
+                        />
+                      </label>
+                    </div>
+                  )}
+                  {data.intent === "RENT" && (
+                    <div className="form-columns">
+                      <label>
+                        Parking
+                        <select
+                          value={data.parking || ""}
+                          onChange={(e) => set("parking", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option>Common</option>
+                          <option>Dedicated</option>
+                          <option>Available</option>
+                          <option>Not available</option>
+                        </select>
+                      </label>
+                      <label>
+                        Available from
+                        <input
+                          placeholder="e.g. Immediately"
+                          value={data.available || ""}
+                          onChange={(e) => set("available", e.target.value)}
+                        />
+                      </label>
+                    </div>
+                  )}
                   {data.subtype !== "Land" && data.intent === "SELL" && (
                     <div className="form-columns">
                       <label>

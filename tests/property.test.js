@@ -426,6 +426,83 @@ describe("commercial property details", () => {
     ]);
     expect(commercialFacilities(listing)).toEqual(listing.facilities);
   });
+
+  it("builds the reference commercial rent shop detail layout", async () => {
+    const {
+      buildRentCommercialDetailRows,
+      commercialTypeEyebrow,
+      commercialRentMaintenanceLabel,
+      commercialRentDepositLabel,
+      commercialHighlightPills,
+      commercialFacilities,
+      commercialCarpetLabel,
+      commercialFrontageLabel,
+      commercialWashroomsLabel,
+      usesCommercialDetailLayout,
+      isRentCommercial,
+    } = await import("../src/CommercialDetails.jsx");
+    const listing = {
+      type: "Commercial",
+      mode: "RENT",
+      subtype: "Shop",
+      price: 35000,
+      maintenance: 2000,
+      deposit: 200000,
+      area: 650,
+      carpetArea: 650,
+      floor: "Ground",
+      frontage: "18",
+      furnishing: "Bare shell",
+      washrooms: 1,
+      parking: "Common",
+      powerBackup: "Available",
+      suitableFor: "Retail / Showroom",
+      available: "Immediately",
+      roadAccess: "Main road",
+      commercialHighlights: [
+        "Ground floor",
+        "Main road",
+        "High footfall",
+        "Wide frontage",
+      ],
+      facilities: ["CCTV", "Power backup", "Common parking", "Water supply"],
+    };
+    expect(usesCommercialDetailLayout(listing)).toBe(true);
+    expect(isRentCommercial(listing)).toBe(true);
+    expect(commercialTypeEyebrow(listing)).toBe("FOR RENT · SHOP");
+    expect(commercialRentMaintenanceLabel(listing)).toBe(
+      "+ ₹2,000 maintenance",
+    );
+    expect(commercialRentDepositLabel(listing)).toBe("₹2 L deposit");
+    expect(commercialCarpetLabel(listing)).toBe("650 sqft");
+    expect(commercialFrontageLabel(listing)).toBe("18 ft");
+    expect(commercialWashroomsLabel(listing)).toBe("1");
+    const rows = buildRentCommercialDetailRows(listing).filter(
+      (row) => row.value != null,
+    );
+    expect(rows.map((row) => row.label)).toEqual([
+      "Property type",
+      "Carpet area",
+      "Floor",
+      "Frontage",
+      "Furnishing",
+      "Washrooms",
+      "Parking",
+      "Power backup",
+      "Suitable for",
+      "Available from",
+    ]);
+    expect(rows.find((row) => row.label === "Property type").value).toBe(
+      "Shop",
+    );
+    expect(commercialHighlightPills(listing)).toEqual([
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage",
+    ]);
+    expect(commercialFacilities(listing)).toEqual(listing.facilities);
+  });
 });
 
 describe("pg listing details", () => {

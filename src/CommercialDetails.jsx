@@ -1,11 +1,16 @@
 import React from "react";
 import { CheckCircle2 } from "lucide-react";
 import { hasValue, money } from "./PropertyModel";
+import { rentAvailableFromLabel } from "./HouseVillaDetails";
 
 export const isCommercial = (type) => type === "Commercial";
 
 export function usesCommercialDetailLayout(p) {
-  return isCommercial(p?.type) && p?.mode === "BUY";
+  return isCommercial(p?.type);
+}
+
+export function isRentCommercial(p) {
+  return !!p && p.mode === "RENT" && isCommercial(p.type);
 }
 
 function featurePool(p) {
@@ -61,7 +66,9 @@ export function commercialSubtypeLabel(p) {
 
 export function commercialTypeEyebrow(p) {
   const mode = p.mode === "RENT" ? "FOR RENT" : "FOR SALE";
-  return `${mode} · COMMERCIAL · ${commercialSubtypeLabel(p).toUpperCase()}`;
+  const subtype = commercialSubtypeLabel(p).toUpperCase();
+  if (p.mode === "RENT") return `${mode} · ${subtype}`;
+  return `${mode} · COMMERCIAL · ${subtype}`;
 }
 
 export function commercialFloorsLabel(p) {
@@ -79,6 +86,47 @@ export function commercialFloorsLabel(p) {
 
 export function commercialBuiltUpLabel(p) {
   return sqftLabel(p.builtUpArea || p.superArea || p.area);
+}
+
+export function commercialCarpetLabel(p) {
+  return sqftLabel(p.carpetArea || p.builtUpArea || p.area);
+}
+
+export function commercialFrontageLabel(p) {
+  if (!hasValue(p.frontage)) return null;
+  const text = String(p.frontage).trim();
+  if (/^\d+(\.\d+)?$/.test(text)) return `${text} ft`;
+  if (/\d/.test(text) && !/ft/i.test(text)) return `${text} ft`;
+  return text;
+}
+
+export function commercialWashroomsLabel(p) {
+  if (hasValue(p.washrooms)) return String(p.washrooms);
+  if (hasValue(p.baths)) return String(p.baths);
+  return null;
+}
+
+export function commercialParkingLabel(p) {
+  if (hasValue(p.parking)) return String(p.parking).trim();
+  if (hasValue(p.carParking)) {
+    const raw = String(p.carParking).trim();
+    if (/^available$/i.test(raw)) return "Common";
+    return raw;
+  }
+  const pool = featurePool(p);
+  if (pool.some((x) => /common\s*park/i.test(x))) return "Common";
+  if (pool.some((x) => /park/i.test(x))) return "Available";
+  return availableLabel(p.parkingAvailable);
+}
+
+export function commercialSuitableForLabel(p) {
+  if (hasValue(p.suitableFor)) return String(p.suitableFor).trim();
+  if (hasValue(p.suitableUse)) return String(p.suitableUse).trim();
+  const subtype = commercialSubtypeLabel(p);
+  if (/shop/i.test(subtype)) return "Retail / Showroom";
+  if (/office/i.test(subtype)) return "Office";
+  if (/land/i.test(subtype)) return "Commercial development";
+  return null;
 }
 
 export function commercialMonthlyRentLabel(p, { short = false } = {}) {
@@ -104,6 +152,18 @@ export function commercialBuyPriceMeta(p) {
         " / sqft"
       : null;
   return { perSqft, negotiable };
+}
+
+export function commercialRentMaintenanceLabel(p) {
+  const amount = Number(p.maintenance);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return `+ ${money(amount)} maintenance`;
+}
+
+export function commercialRentDepositLabel(p) {
+  const amount = Number(p.deposit);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return `${money(amount)} deposit`;
 }
 
 export function commercialPostedLabel(p) {
@@ -156,9 +216,61 @@ export function buildCommercialDetailRows(p) {
   ];
 }
 
+/** RENT commercial Property details rows matching the shop reference. */
+export function buildRentCommercialDetailRows(p) {
+  const pool = featurePool(p);
+  const power =
+    availableLabel(p.powerBackup) ||
+    (pool.some((x) => /power|backup/i.test(x)) ? "Available" : null);
+  const subtype = commercialSubtypeLabel(p);
+  const isLand = /land/i.test(subtype);
+  return [
+    { label: "Property type", value: subtype },
+    {
+      label: isLand ? "Plot area" : "Carpet area",
+      value: isLand
+        ? commercialBuiltUpLabel(p)
+        : commercialCarpetLabel(p),
+    },
+    !isLand ? { label: "Floor", value: commercialFloorsLabel(p) } : null,
+    !isLand
+      ? { label: "Frontage", value: commercialFrontageLabel(p) }
+      : { label: "Road access", value: p.roadAccess || null },
+    !isLand ? { label: "Furnishing", value: p.furnishing || null } : null,
+    !isLand
+      ? { label: "Washrooms", value: commercialWashroomsLabel(p) }
+      : null,
+    { label: "Parking", value: commercialParkingLabel(p) },
+    { label: "Power backup", value: power },
+    { label: "Suitable for", value: commercialSuitableForLabel(p) },
+    { label: "Available from", value: rentAvailableFromLabel(p) },
+  ].filter(Boolean);
+}
+
 export function commercialHighlightPills(p) {
   if (Array.isArray(p.commercialHighlights) && p.commercialHighlights.length) {
     return p.commercialHighlights.filter((x) => typeof x === "string");
+  }
+  if (p.mode === "RENT") {
+    if (Array.isArray(p.highlights) && p.highlights.length) {
+      return p.highlights.filter(
+        (x) =>
+          typeof x === "string" &&
+          !/illustrative|verify|flexible visit|appointment|clear property/i.test(
+            x,
+          ),
+      );
+    }
+    const pills = [];
+    const floor = commercialFloorsLabel(p);
+    if (floor && /ground/i.test(floor)) pills.push("Ground floor");
+    if (p.roadAccess && /main/i.test(p.roadAccess)) pills.push("Main road");
+    const pool = featurePool(p);
+    if (pool.some((x) => /footfall/i.test(x))) pills.push("High footfall");
+    if (pool.some((x) => /frontage|wide/i.test(x)) || p.frontage) {
+      pills.push("Wide frontage");
+    }
+    return pills;
   }
   const pills = [];
   const shops = commercialShopCountLabel(p);
@@ -182,7 +294,7 @@ export function commercialFacilities(p) {
   const defaults = [];
   const pool = featurePool(p);
   if (p.parkingAvailable || p.carParking || pool.some((x) => /park/i.test(x)))
-    defaults.push("Parking");
+    defaults.push(p.mode === "RENT" ? "Common parking" : "Parking");
   if (pool.some((x) => /cctv/i.test(x)) || p.cctv) defaults.push("CCTV");
   if (p.powerBackup || pool.some((x) => /power|backup/i.test(x)))
     defaults.push("Power backup");
@@ -230,17 +342,29 @@ function DetailsList({ items }) {
 export function CommercialSummary({
   p,
   onReport = null,
-  heading = "Property details",
+  heading,
 }) {
+  const rent = isRentCommercial(p);
+  const sectionHeading =
+    heading || (rent ? "Rental details" : "Property details");
   const builtUp = commercialBuiltUpLabel(p);
   const rentShort = commercialMonthlyRentLabel(p, { short: true });
-  const snapshot = [
-    { label: "Built-up", value: builtUp },
-    { label: "Floors", value: commercialFloorsLabel(p) },
-    { label: "Shops", value: commercialShopCountLabel(p) },
-    { label: "Monthly rent", value: rentShort },
-  ];
-  const detailRows = buildCommercialDetailRows(p);
+  const snapshot = rent
+    ? [
+        { label: "Carpet", value: commercialCarpetLabel(p) },
+        { label: "Floor", value: commercialFloorsLabel(p) },
+        { label: "Frontage", value: commercialFrontageLabel(p) },
+        { label: "Washroom", value: commercialWashroomsLabel(p) },
+      ]
+    : [
+        { label: "Built-up", value: builtUp },
+        { label: "Floors", value: commercialFloorsLabel(p) },
+        { label: "Shops", value: commercialShopCountLabel(p) },
+        { label: "Monthly rent", value: rentShort },
+      ];
+  const detailRows = rent
+    ? buildRentCommercialDetailRows(p)
+    : buildCommercialDetailRows(p);
   const hasContent =
     snapshot.some((item) => hasValue(item.value)) ||
     detailRows.some((item) => hasValue(item.value));
@@ -248,12 +372,15 @@ export function CommercialSummary({
 
   return (
     <section
-      className="land-summary house-villa-summary commercial-summary"
-      aria-label={heading}
+      className={
+        "land-summary house-villa-summary commercial-summary" +
+        (rent ? " rent-commercial-summary" : "")
+      }
+      aria-label={sectionHeading}
     >
       <SnapshotCards items={snapshot} />
       <div className="land-summary-heading">
-        <h2>{heading}</h2>
+        <h2>{sectionHeading}</h2>
       </div>
       <DetailsList items={detailRows} />
       {typeof onReport === "function" ? (
@@ -273,6 +400,7 @@ export function CommercialSummary({
 }
 
 export function CommercialIncomeBadge({ p }) {
+  if (p?.mode === "RENT") return null;
   const rent = commercialMonthlyRentLabel(p);
   if (!rent) return null;
   return (
@@ -302,9 +430,11 @@ export function CommercialHighlights({ p }) {
 export function CommercialFacilities({ p }) {
   const items = commercialFacilities(p);
   if (!items.length) return null;
+  const heading =
+    p?.mode === "RENT" ? "Amenities & facilities" : "Facilities";
   return (
-    <section className="commercial-facilities" aria-label="Facilities">
-      <h2>Facilities</h2>
+    <section className="commercial-facilities" aria-label={heading}>
+      <h2>{heading}</h2>
       <div className="commercial-facilities-grid">
         {items.map((item) => (
           <span key={item}>

@@ -26,6 +26,8 @@ import {
   CommercialSummary,
   commercialBuyPriceMeta,
   commercialPostedLabel,
+  commercialRentDepositLabel,
+  commercialRentMaintenanceLabel,
   commercialTypeEyebrow,
   usesCommercialDetailLayout,
 } from "../../CommercialDetails";
@@ -262,7 +264,7 @@ export default function ListingDetailSheet({
         <h2>
           {money(p.price)}
           {p.mode === "RENT"
-            ? pgDetail || homeDetail
+            ? pgDetail || homeDetail || commercialDetail
               ? " / month"
               : "/mo"
             : ""}
@@ -329,6 +331,29 @@ export default function ListingDetailSheet({
               <MapPin size={15} aria-hidden="true" />
               {[p.locality, p.city].filter(Boolean).join(", ")}
             </p>
+          </>
+        ) : commercialDetail && p.mode === "RENT" ? (
+          <>
+            {commercialRentMaintenanceLabel(p) ? (
+              <p className="agent-rent-commercial-maintenance">
+                {commercialRentMaintenanceLabel(p)}
+              </p>
+            ) : null}
+            {commercialRentDepositLabel(p) ? (
+              <p className="agent-rent-commercial-deposit">
+                {commercialRentDepositLabel(p)}
+              </p>
+            ) : null}
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+            {commercialPostedLabel(p) ? (
+              <p className="muted commercial-posted">
+                {commercialPostedLabel(p)}
+              </p>
+            ) : null}
           </>
         ) : commercialDetail ? (
           <>
@@ -603,7 +628,9 @@ export default function ListingDetailSheet({
               (p.type === "Land"
                 ? `A well-connected land in ${p.locality || p.city}. Ask the agent about documents and visit availability.`
                 : p.type === "Commercial"
-                  ? `A flexible commercial space in ${p.locality || p.city} with practical access for everyday business use.`
+                  ? p.mode === "RENT"
+                    ? "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom."
+                    : `A flexible commercial space in ${p.locality || p.city} with practical access for everyday business use.`
                   : pgDetail
                     ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
                     : `A thoughtfully planned home in ${p.locality || p.city}. Ask the agent about visit availability and documents.`)}

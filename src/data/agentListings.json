@@ -2971,31 +2971,31 @@
   {
     "id": "al38-shop",
     "city": "Madurai",
-    "locality": "Thirunagar",
+    "locality": "Gandhipuram",
     "mode": "RENT",
     "type": "Commercial",
-    "title": "Meenakshi Retail Shop 139",
-    "price": 988500,
+    "title": "Ground-floor Commercial Shop \u00b7 Thirunagar",
+    "price": 35000,
     "baths": 1,
-    "area": 1250,
+    "area": 650,
     "image": "interior",
     "tag": "Shop",
-    "furnishing": "Fully furnished",
+    "furnishing": "Bare shell",
     "seller": "Agent",
-    "available": "Ready now",
+    "available": "Immediately",
     "features": [
       "Parking",
       "Power backup"
     ],
     "subtype": "Shop",
-    "maintenance": 2500,
-    "deposit": 165000,
+    "maintenance": 2000,
+    "deposit": 200000,
     "brokerage": 0,
     "contactName": "Vikram Nair",
     "freshness": "Availability checked: 12 Oct 2026",
     "floor": "Ground",
     "ac": "Yes",
-    "postedAt": "2026-10-25",
+    "postedAt": "2026-11-06",
     "photos": [
       "/interior.jpg",
       "/apartment.jpg",
@@ -3013,21 +3013,37 @@
       78.12291368338
     ],
     "amenities": [
-      "Parking",
-      "Balcony"
+      "CCTV",
+      "Power backup"
     ],
     "highlights": [
-      "Clear property details",
-      "Visits by appointment"
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ],
-    "description": "Retail shop for rent in Tallakulam. Sample agent listing.",
+    "description": "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom.",
     "pricePerSqft": 781,
     "sample": true,
     "carParking": "Available",
     "facilities": [
-      "Parking",
+      "CCTV",
       "Power backup",
-      "Main road access"
+      "Common parking",
+      "Water supply"
+    ],
+    "carpetArea": 650,
+    "frontage": "18",
+    "washrooms": 1,
+    "parking": "Common",
+    "powerBackup": "Available",
+    "suitableFor": "Retail / Showroom",
+    "roadAccess": "Main road",
+    "commercialHighlights": [
+      "Ground floor",
+      "Main road",
+      "High footfall",
+      "Wide frontage"
     ]
   },
   {
