@@ -30,6 +30,7 @@ export const defaults = {
   beds: "",
   furnishing: "",
   possession: "",
+  subtype: "",
   available: true,
   recent: false,
   sort: "newest",
@@ -85,6 +86,7 @@ export function filterListings(items, f, now = Date.now()) {
         (f.beds === "4+" ? p.beds >= 4 : Number(p.beds) === Number(f.beds))) &&
       (!f.furnishing || p.furnishing === f.furnishing) &&
       matchesPossessionFilter(p, f.possession || "Any") &&
+      (!f.subtype || p.subtype === f.subtype) &&
       (!f.min || landPrice(p, f.unit).amount >= f.min) &&
       (!f.max || landPrice(p, f.unit).amount <= f.max),
   );

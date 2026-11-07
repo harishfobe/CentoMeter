@@ -65,11 +65,14 @@ import {
 } from "./propertyTypeIds";
 import {
   COMMERCIAL_FACILITIES,
+  COMMERCIAL_PARKING_OPTIONS,
+  commercialFacilitiesFor,
   commercialSubtypesFor,
   CONDITION_OPTIONS,
-  FURNISHING_OPTIONS,
+  furnishingOptionsFor,
   normalizeCommercialSubtype,
   POSSESSION_OPTIONS,
+  RENT_AVAILABLE_OPTIONS,
   ROAD_ACCESS_OPTIONS,
 } from "./listingFit";
 export default function PostFlow({
@@ -211,9 +214,18 @@ export default function PostFlow({
         next.powerBackup = "";
         next.waterSupply = "";
         next.facilities = [];
+        next.frontage = "";
+        next.washrooms = "";
+        next.parking = "";
+        next.suitableFor = "";
+        next.commercialHighlights = [];
         if (type !== d.type) {
+          const commercialFacilitySet = new Set([
+            ...COMMERCIAL_FACILITIES,
+            ...commercialFacilitiesFor("RENT"),
+          ]);
           next.features = (next.features || []).filter(
-            (f) => !COMMERCIAL_FACILITIES.includes(f),
+            (f) => !commercialFacilitySet.has(f),
           );
         }
       }
@@ -250,6 +262,12 @@ export default function PostFlow({
           intent === "RENT" && d.type === "Land" ? "Land" : d.subtype,
           intent === "RENT" ? "RENT" : "BUY",
         );
+        if (intent !== d.intent) {
+          next.facilities = [];
+          next.features = [];
+          next.parking = intent === "RENT" ? next.parking : "";
+          next.carParking = intent === "RENT" ? "" : next.carParking;
+        }
       }
       return next;
     });
@@ -790,19 +808,47 @@ export default function PostFlow({
                   <LandAreaFields data={data} set={set} />
                 ) : (
                   <label>
-                    {isIndependentHouse(data.type) ||
-                    isVilla(data.type) ||
-                    isApartment(data.type) ||
-                    data.type === "Commercial"
-                      ? "Built-up area (sq ft)"
-                      : "Area (sq ft)"}
+                    {data.type === "Commercial" && data.intent === "RENT"
+                      ? data.subtype === "Land"
+                        ? "Plot area (sq ft)"
+                        : "Carpet area (sq ft)"
+                      : isIndependentHouse(data.type) ||
+                          isVilla(data.type) ||
+                          isApartment(data.type) ||
+                          data.type === "Commercial"
+                        ? "Built-up area (sq ft)"
+                        : "Area (sq ft)"}
                     <input
                       type="number"
                       min="1"
                       placeholder="Enter area"
-                      value={data.area}
+                      value={
+                        data.type === "Commercial" &&
+                        data.intent === "RENT" &&
+                        data.subtype !== "Land" &&
+                        data.carpetArea
+                          ? data.carpetArea
+                          : data.area
+                      }
                       onChange={(e) => {
                         const value = e.target.value;
+                        if (
+                          data.type === "Commercial" &&
+                          data.intent === "RENT"
+                        ) {
+                          dirty.current.add("area");
+                          dirty.current.add("builtUpArea");
+                          dirty.current.add("carpetArea");
+                          setData((d) => ({
+                            ...d,
+                            area: value,
+                            builtUpArea: value,
+                            carpetArea:
+                              d.subtype === "Land" ? d.carpetArea : value,
+                          }));
+                          setError("");
+                          return;
+                        }
                         if (
                           isIndependentHouse(data.type) ||
                           isVilla(data.type) ||
@@ -884,16 +930,6 @@ export default function PostFlow({
                   {data.intent === "RENT" && data.subtype !== "Land" && (
                     <div className="form-columns">
                       <label>
-                        Carpet area (sq ft)
-                        <input
-                          type="number"
-                          min="1"
-                          placeholder="e.g. 650"
-                          value={data.carpetArea ?? ""}
-                          onChange={(e) => set("carpetArea", e.target.value)}
-                        />
-                      </label>
-                      <label>
                         Frontage (ft)
                         <input
                           type="number"
@@ -903,10 +939,6 @@ export default function PostFlow({
                           onChange={(e) => set("frontage", e.target.value)}
                         />
                       </label>
-                    </div>
-                  )}
-                  {data.intent === "RENT" && data.subtype !== "Land" && (
-                    <div className="form-columns">
                       <label>
                         Washrooms
                         <input
@@ -918,6 +950,10 @@ export default function PostFlow({
                           onChange={(e) => set("washrooms", e.target.value)}
                         />
                       </label>
+                    </div>
+                  )}
+                  {data.intent === "RENT" && data.subtype !== "Land" && (
+                    <div className="form-columns">
                       <label>
                         Suitable for
                         <input
@@ -926,30 +962,41 @@ export default function PostFlow({
                           onChange={(e) => set("suitableFor", e.target.value)}
                         />
                       </label>
-                    </div>
-                  )}
-                  {data.intent === "RENT" && (
-                    <div className="form-columns">
                       <label>
-                        Parking
+                        Available from
                         <select
-                          value={data.parking || ""}
-                          onChange={(e) => set("parking", e.target.value)}
+                          value={data.available || ""}
+                          onChange={(e) => set("available", e.target.value)}
                         >
                           <option value="">Select</option>
-                          <option>Common</option>
-                          <option>Dedicated</option>
-                          <option>Available</option>
-                          <option>Not available</option>
+                          {RENT_AVAILABLE_OPTIONS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
                         </select>
+                      </label>
+                    </div>
+                  )}
+                  {data.intent === "RENT" && data.subtype === "Land" && (
+                    <div className="form-columns">
+                      <label>
+                        Suitable for
+                        <input
+                          placeholder="e.g. Commercial development"
+                          value={data.suitableFor || ""}
+                          onChange={(e) => set("suitableFor", e.target.value)}
+                        />
                       </label>
                       <label>
                         Available from
-                        <input
-                          placeholder="e.g. Immediately"
+                        <select
                           value={data.available || ""}
                           onChange={(e) => set("available", e.target.value)}
-                        />
+                        >
+                          <option value="">Select</option>
+                          {RENT_AVAILABLE_OPTIONS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
                       </label>
                     </div>
                   )}
@@ -979,17 +1026,32 @@ export default function PostFlow({
                     </div>
                   )}
                   <div className="form-columns">
-                    <label>
-                      Car parking
-                      <select
-                        value={data.carParking || ""}
-                        onChange={(e) => set("carParking", e.target.value)}
-                      >
-                        <option value="">Select</option>
-                        <option value="Available">Available</option>
-                        <option value="Not available">Not available</option>
-                      </select>
-                    </label>
+                    {data.intent === "RENT" ? (
+                      <label>
+                        Parking
+                        <select
+                          value={data.parking || ""}
+                          onChange={(e) => set("parking", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          {COMMERCIAL_PARKING_OPTIONS.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      </label>
+                    ) : (
+                      <label>
+                        Car parking
+                        <select
+                          value={data.carParking || ""}
+                          onChange={(e) => set("carParking", e.target.value)}
+                        >
+                          <option value="">Select</option>
+                          <option value="Available">Available</option>
+                          <option value="Not available">Not available</option>
+                        </select>
+                      </label>
+                    )}
                     {data.subtype !== "Land" ? (
                       <label>
                         Road access
@@ -1505,7 +1567,7 @@ export default function PostFlow({
                   </fieldset>
                 </>
               )}
-              {data.type !== "Land" && (
+              {data.type !== "Land" && data.type !== "Commercial" && (
                 <label>
                   Bathrooms
                   <input
@@ -1519,9 +1581,15 @@ export default function PostFlow({
               )}
               {data.type === "Commercial" ? (
                 <fieldset className="land-highlight-options">
-                  <legend>Facilities</legend>
+                  <legend>
+                    {data.intent === "RENT"
+                      ? "Amenities & facilities"
+                      : "Facilities"}
+                  </legend>
                   <div className="chips">
-                    {COMMERCIAL_FACILITIES.map((feature) => {
+                    {commercialFacilitiesFor(
+                      data.intent === "RENT" ? "RENT" : "BUY",
+                    ).map((feature) => {
                       const selected = (
                         data.facilities?.length
                           ? data.facilities
@@ -1635,26 +1703,29 @@ export default function PostFlow({
                       onChange={(e) => set("furnishing", e.target.value)}
                     >
                       <option value="">Select</option>
-                      {FURNISHING_OPTIONS.map((option) => (
+                      {furnishingOptionsFor(data.type).map((option) => (
                         <option key={option}>{option}</option>
                       ))}
                     </select>
                   </label>
-                  <label>
-                    Condition
-                    <select
-                      value={data.condition || ""}
-                      onChange={(e) => set("condition", e.target.value)}
-                    >
-                      <option value="">Select</option>
-                      {CONDITION_OPTIONS.map((option) => (
-                        <option key={option}>{option}</option>
-                      ))}
-                    </select>
-                  </label>
+                  {data.intent !== "RENT" || data.type !== "Commercial" ? (
+                    <label>
+                      Condition
+                      <select
+                        value={data.condition || ""}
+                        onChange={(e) => set("condition", e.target.value)}
+                      >
+                        <option value="">Select</option>
+                        {CONDITION_OPTIONS.map((option) => (
+                          <option key={option}>{option}</option>
+                        ))}
+                      </select>
+                    </label>
+                  ) : null}
                 </div>
               )}
-              {!["Land", "PG"].includes(data.type) && (
+              {!["Land", "PG"].includes(data.type) &&
+                !(data.type === "Commercial" && data.intent === "RENT") && (
                 <div className="form-columns">
                   <label>
                     Possession

@@ -82,10 +82,23 @@ export function normalizePostedListing(d, profileName = "Property owner") {
   const builtUpArea = optionalNumber(d.builtUpArea);
   const carpetArea = optionalNumber(d.carpetArea);
   const balconies = optionalNumber(d.balconies);
-  const carParking = optionalNumber(d.carParking);
+  const carParkingNumeric = optionalNumber(d.carParking);
+  const carParkingLabel =
+    typeof d.carParking === "string" &&
+    d.carParking.trim() &&
+    !/^\d+(\.\d+)?$/.test(d.carParking.trim())
+      ? d.carParking.trim()
+      : null;
   const shopCount = optionalNumber(d.shopCount ?? d.shops);
   const monthlyRent = optionalNumber(d.monthlyRent ?? d.rentalIncome);
   const totalFloors = optionalNumber(d.totalFloors);
+  const washrooms = optionalNumber(d.washrooms ?? d.baths);
+  const frontage = text(d.frontage, "");
+  const parking = text(d.parking, carParkingLabel || "");
+  const suitableFor = text(d.suitableFor, text(d.suitableUse, ""));
+  const commercialHighlights = Array.isArray(d.commercialHighlights)
+    ? d.commercialHighlights.filter((x) => typeof x === "string")
+    : undefined;
   const negotiable =
     d.negotiable === true ||
     d.negotiable === false ||
@@ -161,10 +174,15 @@ export function normalizePostedListing(d, profileName = "Property owner") {
         : null),
     carpetArea: carpetArea ?? undefined,
     balconies: balconies ?? undefined,
-    carParking: carParking ?? undefined,
+    carParking: carParkingNumeric ?? carParkingLabel ?? undefined,
     shopCount: shopCount ?? undefined,
     monthlyRent: monthlyRent ?? undefined,
     totalFloors: totalFloors ?? undefined,
+    washrooms: washrooms ?? undefined,
+    frontage: frontage || undefined,
+    parking: parking || undefined,
+    suitableFor: suitableFor || undefined,
+    ...(commercialHighlights?.length ? { commercialHighlights } : {}),
     condition: text(d.condition, ""),
     ownershipType: text(d.ownershipType, ""),
     possessionStatus,
