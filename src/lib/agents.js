@@ -3,6 +3,7 @@ import listings from "../data/agentListings.json";
 import { sortProperties } from "../PropertyModel";
 import { landPrice } from "../JourneyUX";
 import { matchesPossessionFilter } from "../listingFit";
+import { recentlyConfirmedSafe } from "../listingPresentation";
 export { agents, listings };
 // Edited/custom listings replace their sample record instead of creating duplicate cards.
 export const mergeListings = (base, custom = []) => [
@@ -10,8 +11,7 @@ export const mergeListings = (base, custom = []) => [
 ];
 
 export const recentlyConfirmed = (p, now = Date.now()) =>
-  Number.isFinite(Date.parse(p.confirmedAt)) &&
-  now - Date.parse(p.confirmedAt) <= 14 * 86400000;
+  recentlyConfirmedSafe(p, now);
 export const responseLabel = (a) =>
   a.responseTimeMins == null
     ? ""

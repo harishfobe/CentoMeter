@@ -130,6 +130,18 @@ describe("listing fit filters", () => {
         { possessionStatus: "Within 30 days" },
         "Under construction",
       ),
+    ).toBe(false);
+    expect(
+      matchesPossessionFilter(
+        { possessionStatus: "Under construction" },
+        "Within 30 days",
+      ),
+    ).toBe(false);
+    expect(
+      matchesPossessionFilter(
+        { possessionStatus: "Under construction" },
+        "Under construction",
+      ),
     ).toBe(true);
     expect(
       matchesPossessionFilter({ available: "Immediately" }, "Ready now"),

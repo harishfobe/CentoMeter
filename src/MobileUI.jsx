@@ -218,26 +218,16 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
             </strong>
             <span className="sticky-contact-status">
               {contact.isAgent ? (
-                <>
-                  <span className="sticky-contact-online">
-                    <span className="sticky-contact-dot" aria-hidden="true" />
-                    Online
-                  </span>
+                contact.hasReplyEstimate ? (
                   <span className="sticky-contact-reply">
                     <Zap size={11} aria-hidden="true" />
-                    Replies in {contact.replyLabel}
+                    Usually replies in {contact.replyLabel}
                   </span>
-                </>
+                ) : (
+                  <span className="sticky-contact-owner-perk">Partner agent</span>
+                )
               ) : (
-                <>
-                  <span className="sticky-contact-online">
-                    <span className="sticky-contact-dot" aria-hidden="true" />
-                    Direct Contact
-                  </span>
-                  <span className="sticky-contact-owner-perk">
-                    Zero Brokerage
-                  </span>
-                </>
+                <span className="sticky-contact-owner-perk">Direct contact</span>
               )}
             </span>
           </div>
@@ -262,7 +252,7 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
             <a
               className="sticky-contact-call"
               href={contact.callHref}
-              aria-label="Call Now"
+              aria-label="Call now"
             >
               <Phone size={18} aria-hidden="true" />
             </a>
@@ -271,7 +261,8 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
               type="button"
               className="sticky-contact-call"
               disabled
-              aria-label="Call Now"
+              aria-label="Contact number not provided"
+              title="Contact number not provided"
             >
               <Phone size={18} aria-hidden="true" />
             </button>

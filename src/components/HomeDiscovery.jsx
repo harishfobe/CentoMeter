@@ -74,12 +74,12 @@ export default function HomeDiscovery({
   const topAgents = localAgents.length > 0 && (
     <section
       className="home-top-agents agent-finder"
-      aria-label="Top rated agents"
+      aria-label="Featured local agents"
     >
       <div className="home-section-heading">
         <div>
-          <h2>Top rated agents</h2>
-          <p>Featured local experts · Customer ratings aren't available yet</p>
+          <h2>Featured local agents</h2>
+          <p>Local experts near you · Customer ratings aren't available yet</p>
         </div>
         <button className="text-button" onClick={() => onNavigate("agents")}>
           See all agents <ArrowRight size={14} aria-hidden="true" />

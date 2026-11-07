@@ -159,7 +159,11 @@ export function pgSnapshotItems(p) {
       : null,
     meals
       ? {
-          value: /included/i.test(meals) ? "Included" : meals,
+          value: /not\s+included/i.test(meals)
+            ? "Not included"
+            : /included/i.test(meals)
+              ? "Included"
+              : meals,
           label: "Meals",
         }
       : null,
@@ -173,7 +177,13 @@ export function pgHighlightPills(p) {
   }
   const pills = [];
   const meals = pgMealsLabel(p);
-  if (meals && /included/i.test(meals)) pills.push("Meals included");
+  if (
+    meals &&
+    /included/i.test(meals) &&
+    !/not\s+included/i.test(meals)
+  ) {
+    pills.push("Meals included");
+  }
   const pool = featurePool(p);
   if (pool.some((x) => /wi-?fi/i.test(x))) pills.push("Wi-Fi");
   const housekeeping = pgHousekeepingLabel(p);

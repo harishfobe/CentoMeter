@@ -1,16 +1,18 @@
 import React, { memo } from "react";
-import { Heart, MapPin, BedDouble, Bath, Square } from "lucide-react";
+import { Heart, MapPin } from "lucide-react";
 import { money } from "../PropertyModel";
-import { cardTypeLabel, typeLabel } from "../PropertyTypes";
-import { pinPrice } from "../PlotUI";
-import { landPrice } from "../JourneyUX";
-import { landArea } from "../LandDetails";
-import { priceBasis, areaBasis } from "../Journeys";
+import { typeLabel } from "../PropertyTypes";
 import {
-  houseCardChips,
-  houseCardSpecLine,
-  isHouseOrVilla,
-} from "../HouseVillaDetails";
+  typeTransactionLine,
+  priceWithBasis,
+  configAreaLine,
+  postedByLine,
+  availabilityLine,
+  depositLabel,
+  maintenanceLabel,
+  brokerageLabel,
+} from "../listingPresentation";
+
 function PropertyCard({
   p,
   saved,
@@ -19,12 +21,14 @@ function PropertyCard({
   compact = false,
   priceUnit = "total",
 }) {
-  const houseVilla = isHouseOrVilla(p.type);
-  const houseSpec = houseVilla ? houseCardSpecLine(p) : null;
-  const houseChips = houseVilla ? houseCardChips(p) : [];
+  const rentCosts = p.mode === "RENT";
   return (
     <article
-      className={"property-card " + (compact ? "compact compact-wrapper" : "")}
+      className={
+        "property-card " +
+        (compact ? "compact compact-wrapper " : "") +
+        (rentCosts ? "property-card-rent " : "")
+      }
     >
       <button
         className="property-image"
@@ -48,7 +52,6 @@ function PropertyCard({
           }}
         />
         {p.tag ? <span className="badge">{p.tag}</span> : null}
-        <span className="property-type-badge">{cardTypeLabel(p.type, p)}</span>
       </button>
       <button
         className={"save-button " + (saved ? "is-saved" : "")}
@@ -59,58 +62,40 @@ function PropertyCard({
         <Heart size={18} fill={saved ? "currentColor" : "none"} />
       </button>
       <button className="property-copy" onClick={() => onOpen(p)}>
+        <p className="property-card-type">{typeTransactionLine(p)}</p>
         <div className="price">
-          {p.type === "Land" && p.mode !== "BUY"
-            ? pinPrice(p, money)
-            : money(landPrice(p, priceUnit).amount)}
-          {p.type === "Land" && p.mode === "BUY" && (
-            <small>{landPrice(p, priceUnit).suffix || " total"}</small>
-          )}
-          {p.mode === "RENT" && p.type !== "Land" && (
-            <small>{priceBasis(p)}</small>
-          )}
+          {priceWithBasis(p, { unit: priceUnit, formatMoney: money })}
         </div>
         <h3>{p.title}</h3>
+        {configAreaLine(p) ? (
+          <p className="property-card-config">{configAreaLine(p)}</p>
+        ) : null}
         <p className="muted location-line">
-          <MapPin size={13} />
-          {p.locality}, {p.city}
+          <MapPin size={13} aria-hidden="true" />
+          {[p.locality, p.city].filter(Boolean).join(", ")}
         </p>
-        {houseSpec ? (
-          <p className="property-house-spec">{houseSpec}</p>
-        ) : (
-          <div className="property-specs">
-            {!["Land", "Commercial", "PG"].includes(p.type) && (
-              <span>
-                <BedDouble />
-                {p.beds === 0 ? "Studio" : p.beds + " BHK"}
-              </span>
-            )}
-            {p.type === "PG" && <span>{p.occupancy}</span>}
-            {p.baths > 0 && (
-              <span>
-                <Bath />
-                {p.baths} baths
-              </span>
-            )}
-            <span>
-              <Square />
-              {p.type === "Land"
-                ? landArea(p.area)
-                : Number(p.area || 0).toLocaleString("en-IN") +
-                  " sq ft · " +
-                  areaBasis(p)}
-            </span>
-          </div>
-        )}
-        {houseChips.length > 0 && (
-          <div className="property-card-chips" aria-label="Highlights">
-            {houseChips.map((chip) => (
-              <span key={chip} className="pill">
-                {chip}
-              </span>
-            ))}
-          </div>
-        )}
+        {rentCosts ? (
+          <dl className="property-card-costs" aria-label="Rental costs">
+            <div>
+              <dt>Deposit</dt>
+              <dd>{depositLabel(p, { formatMoney: money, missing: "—" })}</dd>
+            </div>
+            <div>
+              <dt>Maintenance</dt>
+              <dd>
+                {maintenanceLabel(p, { formatMoney: money, missing: "—" })}
+              </dd>
+            </div>
+            <div>
+              <dt>Brokerage</dt>
+              <dd>{brokerageLabel(p, { formatMoney: money })}</dd>
+            </div>
+          </dl>
+        ) : null}
+        <p className="property-card-poster">{postedByLine(p)}</p>
+        {availabilityLine(p) ? (
+          <p className="property-card-availability">{availabilityLine(p)}</p>
+        ) : null}
       </button>
     </article>
   );

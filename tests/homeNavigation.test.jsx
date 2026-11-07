@@ -138,7 +138,7 @@ it("keeps the full property list off Home and ends with local agents", async () 
     app.container
       .querySelector(".home-discovery")
       .lastElementChild.getAttribute("aria-label"),
-  ).toBe("Top rated agents");
+  ).toBe("Featured local agents");
 });
 
 it("keeps map-list properties when a hidden map emits collapsed bounds", () => {

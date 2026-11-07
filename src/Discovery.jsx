@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PropertyTypes, { matchesPropertyType, typeLabel } from "./PropertyTypes";
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import PhotoSwipeDots from "./components/PhotoSwipeDots";
@@ -349,68 +349,88 @@ export function Costs({ p, money, title }) {
     value !== null &&
     value !== undefined &&
     value !== "" &&
-    Number.isFinite(Number(value));
-  const charges = [
-    ["Monthly maintenance", p.maintenance],
-    ["Refundable deposit", p.deposit],
-    ["One-time brokerage", p.brokerage],
-  ].filter(([, value]) => known(value));
-  const complete = ["maintenance", "deposit", "brokerage"].every((key) =>
-    known(p[key]),
-  );
-  const monthly = known(p.maintenance)
-    ? [["Monthly total", Number(p.price) + Number(p.maintenance)]]
-    : [];
+    Number.isFinite(Number(value)) &&
+    Number(value) >= 0;
+  const brokerageKnown =
+    Object.prototype.hasOwnProperty.call(p, "brokerage") &&
+    p.brokerage !== null &&
+    p.brokerage !== undefined &&
+    String(p.brokerage).trim() !== "" &&
+    Number.isFinite(Number(p.brokerage)) &&
+    Number(p.brokerage) >= 0;
+  const moveIn =
+    p.mode === "RENT"
+      ? Number(p.price) +
+        (known(p.maintenance) ? Number(p.maintenance) : 0) +
+        (known(p.deposit) ? Number(p.deposit) : 0) +
+        (brokerageKnown ? Number(p.brokerage) : 0)
+      : null;
+  const excluded = [];
+  if (p.mode === "RENT" && !known(p.maintenance)) excluded.push("maintenance");
+  if (p.mode === "RENT" && !known(p.deposit)) excluded.push("deposit");
+  if (p.mode === "RENT" && !brokerageKnown) excluded.push("brokerage");
   const rows =
     p.mode === "RENT"
       ? [
-          ["Monthly rent", p.price],
-          ...charges,
-          ...monthly,
-          ...(complete
-            ? [
-                [
-                  "Move-in total",
-                  Number(p.price) +
-                    Number(p.maintenance) +
-                    Number(p.deposit) +
-                    Number(p.brokerage),
-                ],
-              ]
+          ["Monthly rent", money(p.price)],
+          [
+            "Monthly maintenance",
+            known(p.maintenance) ? money(p.maintenance) : "Not provided",
+          ],
+          [
+            "Refundable deposit",
+            known(p.deposit) ? money(p.deposit) : "Not provided",
+          ],
+          [
+            "One-time brokerage",
+            brokerageKnown
+              ? Number(p.brokerage) === 0
+                ? "No brokerage"
+                : money(p.brokerage)
+              : "Not provided",
+          ],
+          ...(moveIn != null
+            ? [["Known move-in amount", money(moveIn)]]
             : []),
         ]
       : [
-          ["Asking price", p.price],
-          ["Price per sq ft", Math.round(p.price / p.area)],
+          ["Asking price", money(p.price)],
+          [
+            "Price per sq ft",
+            Number(p.area) > 0
+              ? money(Math.round(p.price / p.area))
+              : "Not provided",
+          ],
         ];
   const heading =
     title === undefined
       ? p.mode === "RENT"
-        ? "Cost breakdown"
+        ? "What you will pay"
         : "Price overview"
       : title;
   return (
     <div className="cost-breakdown">
       {heading ? <h3>{heading}</h3> : null}
-      {rows.map(([label, n]) => (
+      {rows.map(([label, value]) => (
         <div key={label}>
           <span>{label}</span>
-          <strong>{money(n)}</strong>
+          <strong>{value}</strong>
         </div>
       ))}
       <small>
-        Illustrative amounts.{" "}
         {p.mode === "BUY"
           ? "Taxes and registration costs excluded."
-          : complete
-            ? "Move-in total includes first month, deposit and brokerage."
-            : "Unspecified charges are not included in totals."}
+          : excluded.length
+            ? `Known move-in amount excludes ${excluded.join(", ")} because ${excluded.length === 1 ? "it was" : "they were"} not provided.`
+            : "Known move-in amount includes first month, deposit and brokerage."}{" "}
+        Provided by the seller; not independently verified by CentoMeter.
       </small>
     </div>
   );
 }
 export function Gallery({ p }) {
   const [index, setIndex] = useState(0);
+  const strip = useRef(null);
   const images = p.photos?.length
     ? p.photos
     : p.type === "Land"
@@ -420,6 +440,23 @@ export function Gallery({ p }) {
     <div className="gallery-wrap">
       <div
         className="swipe-gallery"
+        ref={strip}
+        tabIndex={0}
+        role="region"
+        aria-label={"Photos of " + (p.title || typeLabel(p.type))}
+        onKeyDown={(e) => {
+          if (!["ArrowLeft", "ArrowRight"].includes(e.key)) return;
+          e.preventDefault();
+          const el = strip.current;
+          if (!el) return;
+          el.scrollBy({
+            left: (e.key === "ArrowRight" ? 1 : -1) * el.clientWidth,
+            behavior: window.matchMedia?.("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "instant"
+              : "smooth",
+          });
+        }}
         onScroll={(e) =>
           setIndex(
             Math.round(
@@ -434,7 +471,7 @@ export function Gallery({ p }) {
             height="500"
             decoding="async"
             src={src}
-            alt={`Illustrative ${typeLabel(p.type)} photo ${i + 1}`}
+            alt={`${p.title || typeLabel(p.type)} photo ${i + 1}`}
             key={i}
           />
         ))}

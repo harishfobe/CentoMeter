@@ -59,7 +59,11 @@ export default function AgentToasts() {
     return () => window.removeEventListener("centometer-toast", add);
   }, []);
   return (
-    <div className="agent-toast-stack" aria-label="Notifications">
+    <div
+      className="agent-toast-stack"
+      role="region"
+      aria-label="Notifications"
+    >
       {items.map((item) => (
         <Toast key={item.id} item={item} onRemove={remove} />
       ))}

@@ -131,7 +131,7 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     baths: type === "Land" ? 0 : numeric(d.baths),
     deposit: optionalNumber(d.deposit),
     maintenance: optionalNumber(d.maintenance),
-    brokerage: numeric(d.brokerage),
+    brokerage: optionalNumber(d.brokerage),
     freshness: "Just now",
     description,
     features: Array.isArray(d.features)
@@ -196,7 +196,7 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     seller: text(d.seller, "Owner"),
     contactName: text(d.contactName, profileName),
     tag: "Just posted",
-    furnishing: text(d.furnishing, "Unfurnished"),
+    furnishing: text(d.furnishing, ""),
     available: text(
       d.available,
       readyAvailableFromPossession(possessionStatus),

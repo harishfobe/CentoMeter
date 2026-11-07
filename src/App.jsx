@@ -99,13 +99,19 @@ import {
 } from "./MinimalUI";
 import SearchDiscovery from "./SearchDiscovery";
 import { developerFor } from "./SearchSuggestions";
+import WhatYouWillPay from "./components/WhatYouWillPay";
+import DetailSummaryStrip from "./components/DetailSummaryStrip";
+import {
+  typeTransactionLine,
+  configurationLabel,
+  furnishingLabel,
+} from "./listingPresentation";
 
 import { mobileQuery } from "./MapInteractions";
 import { LandSummary } from "./LandDetails";
 import {
   HouseVillaSummary,
   housePostedLabel,
-  houseTypeEyebrow,
   isRentHomeDetail,
   usesHomeDetailLayout,
 } from "./HouseVillaDetails";
@@ -115,7 +121,6 @@ import {
   CommercialIncomeBadge,
   CommercialSummary,
   commercialPostedLabel,
-  commercialTypeEyebrow,
   usesCommercialDetailLayout,
 } from "./CommercialDetails";
 import {
@@ -123,7 +128,6 @@ import {
   PgServices,
   PgSummary,
   pgPostedLabel,
-  pgTypeEyebrow,
   usesPgDetailLayout,
 } from "./PgDetails";
 import {
@@ -1664,28 +1668,7 @@ export default function App() {
             <Gallery key={detail.id} p={detail} />
             <div className="detail-columns">
               <div>
-                {detail.type === "Land" ? (
-                  <p className="detail-eyebrow">
-                    {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
-                  </p>
-                ) : usesHomeDetailLayout(detail) ? (
-                  <p className="detail-eyebrow">{houseTypeEyebrow(detail)}</p>
-                ) : usesCommercialDetailLayout(detail) ? (
-                  <p className="detail-eyebrow">
-                    {commercialTypeEyebrow(detail)}
-                  </p>
-                ) : usesPgDetailLayout(detail) ? (
-                  <p className="detail-eyebrow">{pgTypeEyebrow(detail)}</p>
-                ) : (
-                  <div className="detail-labels">
-                    <span className="pill">
-                      {detail.mode === "RENT" ? "FOR RENT" : "FOR SALE"}
-                    </span>
-                    <span className="muted">
-                      {typeLabel(detail.type)} · Sample listing
-                    </span>
-                  </div>
-                )}
+                <p className="detail-eyebrow">{typeTransactionLine(detail)}</p>
                 {detail.type === "Land" ||
                 usesHomeDetailLayout(detail) ||
                 usesCommercialDetailLayout(detail) ||
@@ -1701,6 +1684,10 @@ export default function App() {
                   <MapPin size={17} />
                   {detail.locality}, {detail.city}
                 </p>
+                <DetailSummaryStrip p={detail} />
+                {detail.mode === "RENT" ? (
+                  <WhatYouWillPay p={detail} formatMoney={money} />
+                ) : null}
                 {usesCommercialDetailLayout(detail) &&
                   commercialPostedLabel(detail) && (
                     <p className="muted commercial-posted">
@@ -1741,13 +1728,12 @@ export default function App() {
                   !usesCommercialDetailLayout(detail) &&
                   !usesPgDetailLayout(detail) && (
                   <div className="detail-specs">
-                    {!["Land", "Commercial", "PG"].includes(detail.type) && (
+                    {!["Land", "Commercial", "PG"].includes(detail.type) &&
+                      configurationLabel(detail) && (
                       <div>
                         <BedDouble />
-                        <strong>{detail.beds || "Studio"}</strong>
-                        <span>
-                          {detail.beds ? "Bedrooms" : "Open-plan home"}
-                        </span>
+                        <strong>{configurationLabel(detail)}</strong>
+                        <span>Configuration</span>
                       </div>
                     )}
                     {detail.type === "PG" && (
@@ -1764,10 +1750,10 @@ export default function App() {
                         <span>Bathrooms</span>
                       </div>
                     )}
-                    {detail.type !== "Land" && (
+                    {detail.type !== "Land" && furnishingLabel(detail) && (
                       <div>
                         <KeyRound />
-                        <strong>{detail.furnishing}</strong>
+                        <strong>{furnishingLabel(detail)}</strong>
                         <span>Furnishing</span>
                       </div>
                     )}
@@ -1904,9 +1890,18 @@ export default function App() {
                     className="secondary detail-floor-plan"
                     onClick={() => setModal("floorPlan")}
                   >
-                    Preview sample floor plan
+                    {detail.floorPlanUrl
+                      ? "View floor plan"
+                      : "View illustrative layout"}
                   </button>
                 )}
+                <button
+                  type="button"
+                  className="primary contact-visit detail-mobile-visit"
+                  onClick={() => requestVisit(detail)}
+                >
+                  Book site visit
+                </button>
                 {detail.type !== "Land" &&
                   !usesHomeDetailLayout(detail) &&
                   !usesCommercialDetailLayout(detail) &&
@@ -3070,18 +3065,32 @@ export default function App() {
         </Modal>
       )}
       {modal === "floorPlan" && (
-        <Modal title="Illustrative floor plan" onClose={() => setModal(null)}>
-          <div className="sample-floorplan">
-            <span>Living / workspace</span>
-            <span>Room 1</span>
-            <span>Kitchen</span>
-            <span>Bathroom</span>
-            <span>Room 2</span>
-            <span>Entrance</span>
-          </div>
+        <Modal
+          title={
+            detail?.floorPlanUrl ? "Floor plan" : "Illustrative layout"
+          }
+          onClose={() => setModal(null)}
+        >
+          {detail?.floorPlanUrl ? (
+            <img
+              className="detail-floor-plan-image"
+              src={detail.floorPlanUrl}
+              alt={"Floor plan for " + (detail.title || "property")}
+            />
+          ) : (
+            <div className="sample-floorplan" aria-label="Illustrative layout">
+              <span>Living / workspace</span>
+              <span>Room 1</span>
+              <span>Kitchen</span>
+              <span>Bathroom</span>
+              <span>Room 2</span>
+              <span>Entrance</span>
+            </div>
+          )}
           <p className="fine-print">
-            Generic layout illustration, not this property's actual plan. Not to
-            scale.
+            {detail?.floorPlanUrl
+              ? "Floor plan provided by the seller; not independently verified by CentoMeter."
+              : "Illustrative layout — not this property's actual plan. Not to scale."}
           </p>
         </Modal>
       )}

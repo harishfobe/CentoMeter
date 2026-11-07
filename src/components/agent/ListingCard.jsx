@@ -3,18 +3,23 @@ import { useCardEntrance, revealGalleryImage } from "../../lib/agentMotion";
 import React, { useRef, useState, useEffect, memo } from "react";
 import { Heart } from "lucide-react";
 import { money } from "../../PropertyModel";
-import { landPrice } from "../../JourneyUX";
-import { cardTypeLabel } from "../../PropertyTypes";
-import {
-  houseCardChips,
-  houseCardSpecLine,
-  isHouseOrVilla,
-} from "../../HouseVillaDetails";
-import { recentlyConfirmed, statusLabel } from "../../lib/agents";
+import { statusLabel } from "../../lib/agents";
 import { accessStatus } from "../../lib/locationAccess";
+import {
+  typeTransactionLine,
+  priceWithBasis,
+  configAreaLine,
+  postedByLine,
+  availabilityLine,
+  depositLabel,
+  maintenanceLabel,
+  brokerageLabel,
+  recentlyConfirmedSafe,
+} from "../../listingPresentation";
 
 import PhotoSwipeDots from "../PhotoSwipeDots";
 import LocationPrivacyChip from "./LocationPrivacyChip";
+
 function ListingCard({
   p,
   onOpen,
@@ -33,10 +38,8 @@ function ListingCard({
     imageStops = useRef([]);
   useEffect(() => () => imageStops.current.forEach((stop) => stop()), []);
   const [index, setIndex] = useState(0);
-  const price = landPrice(p, unit);
-  const houseVilla = isHouseOrVilla(p.type);
-  const houseSpec = houseVilla ? houseCardSpecLine(p) : null;
-  const houseChips = houseVilla ? houseCardChips(p) : [];
+  const rentCosts = p.mode === "RENT";
+  const recent = recentlyConfirmedSafe(p);
   return (
     <article
       ref={entrance}
@@ -44,6 +47,7 @@ function ListingCard({
       data-below-fold={entranceIndex >= 3}
       className={
         "property-card agent-listing " +
+        (rentCosts ? "property-card-rent " : "") +
         (["sold", "rented"].includes(p.status) ? "listing-inactive" : "")
       }
     >
@@ -101,7 +105,6 @@ function ListingCard({
             />
           ))}
         </div>
-        <span className="property-type-badge">{cardTypeLabel(p.type, p)}</span>
         <PhotoSwipeDots count={photos.length} index={index} />
       </div>
       <button
@@ -119,35 +122,43 @@ function ListingCard({
         onFocus={preloadListingDetails}
         onClick={() => onOpen(p.id)}
       >
-        {p.type === "Land" ? (
-          <p className="agent-listing-eyebrow">
-            {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} · LAND
-          </p>
-        ) : houseVilla ? (
-          <p className="agent-listing-eyebrow">
-            {p.mode === "RENT" ? "FOR RENT" : "FOR SALE"} ·{" "}
-            {cardTypeLabel(p.type, p).toUpperCase()}
-          </p>
-        ) : null}
+        <p className="property-card-type">{typeTransactionLine(p)}</p>
         <div className="price">
-          {money(price.amount)}
-          <small>{p.mode === "RENT" ? "/mo" : price.suffix}</small>
+          {priceWithBasis(p, { unit, formatMoney: money })}
         </div>
         <h3>{p.title}</h3>
-        <p>
-          {houseSpec ||
-            `${p.beds ? p.beds + " BHK · " : ""}${p.area.toLocaleString("en-IN")} sq ft · ${p.possessionStatus || p.available}`}
+        {configAreaLine(p) ? (
+          <p className="property-card-config">{configAreaLine(p)}</p>
+        ) : null}
+        <p className="muted location-line">
+          {[p.locality, p.city].filter(Boolean).join(", ")}
         </p>
-        <p>{p.locality}</p>
+        {rentCosts ? (
+          <dl className="property-card-costs" aria-label="Rental costs">
+            <div>
+              <dt>Deposit</dt>
+              <dd>{depositLabel(p, { formatMoney: money, missing: "—" })}</dd>
+            </div>
+            <div>
+              <dt>Maintenance</dt>
+              <dd>
+                {maintenanceLabel(p, { formatMoney: money, missing: "—" })}
+              </dd>
+            </div>
+            <div>
+              <dt>Brokerage</dt>
+              <dd>{brokerageLabel(p, { formatMoney: money })}</dd>
+            </div>
+          </dl>
+        ) : null}
+        <p className="property-card-poster">{postedByLine(p)}</p>
+        {availabilityLine(p) ? (
+          <p className="property-card-availability">{availabilityLine(p)}</p>
+        ) : null}
       </button>
       <div className="agent-listing-chips">
         <span className="pill">{statusLabel(p.status)}</span>
-        {houseChips.map((chip) => (
-          <span key={chip} className="pill">
-            {chip}
-          </span>
-        ))}
-        {recentlyConfirmed(p) ? (
+        {recent ? (
           <span className="pill agent-confirmed">Recently confirmed</span>
         ) : (
           <small>Not recently confirmed</small>
