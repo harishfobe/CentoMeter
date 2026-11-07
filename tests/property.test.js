@@ -433,6 +433,8 @@ describe("pg listing details", () => {
     const {
       buildPgDetailRows,
       pgHighlightPills,
+      pgRentDepositLabel,
+      pgRentMealsLine,
       pgRentPriceMeta,
       pgServices,
       pgTypeEyebrow,
@@ -470,6 +472,8 @@ describe("pg listing details", () => {
     };
     expect(usesPgDetailLayout(listing)).toBe(true);
     expect(pgTypeEyebrow(listing)).toBe("FOR RENT · PG");
+    expect(pgRentMealsLine(listing)).toBe("Meals included");
+    expect(pgRentDepositLabel(listing)).toBe("₹10,000 deposit");
     expect(pgRentPriceMeta(listing)).toBe("Meals included · ₹10,000 deposit");
     const rows = buildPgDetailRows(listing).filter((row) => row.value != null);
     expect(rows.map((row) => row.label)).toEqual([

@@ -94,18 +94,30 @@ export function pgPostedLabel(p) {
   );
 }
 
-/** Price caption under the rent amount: "Meals included · ₹10,000 deposit". */
-export function pgRentPriceMeta(p) {
+/** "Meals included" / "Meals not included" under the monthly rent. */
+export function pgRentMealsLine(p) {
   const meals = pgMealsLabel(p);
-  const mealsLine =
-    meals && /included/i.test(meals)
-      ? "Meals included"
-      : meals && /not\s+included/i.test(meals)
-        ? "Meals not included"
-        : null;
-  const deposit =
-    Number(p.deposit) > 0 ? `${money(p.deposit)} deposit` : null;
-  return [mealsLine, deposit].filter(Boolean).join(" · ") || null;
+  if (!meals) return null;
+  if (/included/i.test(meals) && !/not\s+included/i.test(meals)) {
+    return "Meals included";
+  }
+  if (/not\s+included/i.test(meals)) return "Meals not included";
+  return meals;
+}
+
+/** "₹10,000 deposit" under the meals line. */
+export function pgRentDepositLabel(p) {
+  const amount = Number(p.deposit);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return `${money(amount)} deposit`;
+}
+
+/** @deprecated Prefer stacked pgRentMealsLine + pgRentDepositLabel. */
+export function pgRentPriceMeta(p) {
+  return (
+    [pgRentMealsLine(p), pgRentDepositLabel(p)].filter(Boolean).join(" · ") ||
+    null
+  );
 }
 
 export function buildPgDetailRows(p) {

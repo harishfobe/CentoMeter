@@ -34,7 +34,8 @@ import {
   PgServices,
   PgSummary,
   pgPostedLabel,
-  pgRentPriceMeta,
+  pgRentDepositLabel,
+  pgRentMealsLine,
   pgTypeEyebrow,
   usesPgDetailLayout,
 } from "../../PgDetails";
@@ -353,7 +354,12 @@ export default function ListingDetailSheet({
           </>
         ) : pgDetail ? (
           <>
-            {pgRentPriceMeta(p) ? <p>{pgRentPriceMeta(p)}</p> : null}
+            {pgRentMealsLine(p) ? (
+              <p className="agent-rent-pg-meals">{pgRentMealsLine(p)}</p>
+            ) : null}
+            {pgRentDepositLabel(p) ? (
+              <p className="agent-rent-pg-deposit">{pgRentDepositLabel(p)}</p>
+            ) : null}
             <h3 className="agent-land-title">{p.title}</h3>
             <p className="agent-land-location">
               <MapPin size={15} aria-hidden="true" />

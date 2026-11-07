@@ -60,6 +60,7 @@ it("handles zero photos without a counter and presents labelled detail facts", (
         type: "PG",
         mode: "RENT",
         photos: [],
+        title: "Twin-sharing PG Room",
         occupancy: "Twin sharing",
         bathroom: "Attached",
         ac: "Yes",
@@ -72,6 +73,9 @@ it("handles zero photos without a counter and presents labelled detail facts", (
         noticePeriod: "1 month",
         deposit: 10000,
         price: 9500,
+        locality: "Hope College",
+        city: "Coimbatore",
+        postedAt: "2026-11-06",
       }}
       agent={agents[0]}
       Modal={Modal}
@@ -81,6 +85,12 @@ it("handles zero photos without a counter and presents labelled detail facts", (
   expect(screen.queryByText("1/0")).toBeNull();
   expect(screen.getByRole("img", { name: "No property photos" })).toBeTruthy();
   expect(screen.getByText("FOR RENT · PG")).toBeTruthy();
+  expect(screen.getByText(/\/ month/)).toBeTruthy();
+  expect(screen.getAllByText("Meals included").length).toBeGreaterThan(0);
+  expect(screen.getByText("₹10,000 deposit")).toBeTruthy();
+  expect(screen.getByText("Twin-sharing PG Room")).toBeTruthy();
+  expect(screen.getByText("Hope College, Coimbatore")).toBeTruthy();
+  expect(screen.getByText("Posted 6 Nov 2026")).toBeTruthy();
   expect(screen.getByText("Rental details")).toBeTruthy();
   expect(screen.getByText("Occupancy")).toBeTruthy();
   expect(screen.getAllByText("Twin sharing").length).toBeGreaterThan(0);
