@@ -4,9 +4,10 @@ import { SQFT_PER_CENT } from "./LandMeasurements";
 import PhotoSwipeDots from "./components/PhotoSwipeDots";
 import {
   AVAILABILITY_FILTER_OPTIONS,
-  COMMERCIAL_FACILITIES,
+  commercialFacilitiesFor,
   commercialSubtypesFor,
-  FURNISHING_OPTIONS,
+  furnishingOptionsFor,
+  matchesCommercialFacility,
   matchesFloorFilter,
   matchesPossessionFilter,
 } from "./listingFit";
@@ -90,9 +91,12 @@ export function matches(p, f) {
                 ? SQFT_PER_CENT
                 : 1)) &&
     (f.feature === "Any" ||
-      facilityPool.some(
-        (item) => String(item).toLowerCase() === String(f.feature).toLowerCase(),
-      )) &&
+      (p.type === "Commercial"
+        ? matchesCommercialFacility(facilityPool, f.feature)
+        : facilityPool.some(
+            (item) =>
+              String(item).toLowerCase() === String(f.feature).toLowerCase(),
+          ))) &&
     (f.subtype === "Any" || p.subtype === f.subtype) &&
     (f.occupancy === "Any" || p.occupancy === f.occupancy) &&
     (f.meals === "Any" || p.meals === f.meals) &&
@@ -214,7 +218,18 @@ export function SmartFilters({
         {(f.type === "All" || supportsFacing(f.type)) &&
           select("facing", "Facing direction", facingDirections)}
         {f.type !== "Land" &&
-          select("furnishing", "Furnishing", FURNISHING_OPTIONS)}
+          select(
+            "furnishing",
+            "Furnishing",
+            furnishingOptionsFor(
+              f.type === "Commercial" ||
+                (f.type === "All" && mode === "RENT")
+                ? "Commercial"
+                : f.type === "All"
+                  ? "Apartment"
+                  : f.type,
+            ),
+          )}
         <div className="form-columns">
           <label>
             Minimum area
@@ -259,7 +274,11 @@ export function SmartFilters({
               "Space type",
               commercialSubtypesFor(mode),
             )}
-            {select("feature", "Facilities", COMMERCIAL_FACILITIES)}
+            {select(
+              "feature",
+              mode === "RENT" ? "Amenities & facilities" : "Facilities",
+              commercialFacilitiesFor(mode),
+            )}
           </>
         ) : f.type === "PG" ? (
           <>
@@ -285,6 +304,9 @@ export function SmartFilters({
                 ])}
                 {select("floor", "Floor", ["Ground", "1–3", "4+"])}
               </>
+            )}
+            {f.type === "Commercial" && mode === "RENT" && (
+              select("floor", "Floor", ["Ground", "1–3", "4+"])
             )}
             {f.type === "PG" && (
               <>

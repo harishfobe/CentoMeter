@@ -2962,11 +2962,13 @@
     "sample": true,
     "carParking": "Available",
     "facilities": [
-      "Parking",
+      "Common parking",
       "CCTV",
       "Power backup",
       "Water supply"
-    ]
+    ],
+    "parking": "Common",
+    "suitableFor": "Office"
   },
   {
     "id": "al38-shop",
@@ -3102,7 +3104,7 @@
     "sample": true,
     "carParking": "Available",
     "facilities": [
-      "Parking",
+      "Common parking",
       "Main road access",
       "Water supply"
     ],

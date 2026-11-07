@@ -29,7 +29,14 @@ export default function FilterBar({ f, onChange, onMore }) {
       <select
         aria-label="Property type"
         value={f.type === "Land" && f.mode === "RENT" ? "All" : f.type}
-        onChange={(e) => onChange({ ...f, type: e.target.value, beds: "" })}
+        onChange={(e) =>
+          onChange({
+            ...f,
+            type: e.target.value,
+            beds: "",
+            subtype: e.target.value === "Commercial" ? f.subtype || "" : "",
+          })
+        }
       >
         {(f.mode === "RENT"
           ? [
