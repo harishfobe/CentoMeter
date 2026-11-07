@@ -131,6 +131,12 @@ describe("listing fit filters", () => {
         "Under construction",
       ),
     ).toBe(true);
+    expect(
+      matchesPossessionFilter({ available: "Immediately" }, "Ready now"),
+    ).toBe(true);
+    expect(
+      matchesPossessionFilter({ available: "Immediately" }, "Immediately"),
+    ).toBe(true);
     expect(matchesFloorFilter("Ground", "Ground")).toBe(true);
     expect(matchesFloorFilter("2", "1–3")).toBe(true);
     expect(matchesFloorFilter("9", "4+")).toBe(true);
@@ -165,6 +171,51 @@ describe("listing fit filters", () => {
         ...filterDefaults,
         type: "Commercial",
         subtype: "Office",
+      }),
+    ).toBe(false);
+  });
+  it("matches RENT commercial shop filters to posted detail fields", async () => {
+    const {
+      commercialFacilitiesFor,
+      furnishingOptionsFor,
+      matchesCommercialFacility,
+    } = await import("../src/listingFit.js");
+    const shop = {
+      type: "Commercial",
+      mode: "RENT",
+      price: 35000,
+      beds: 0,
+      furnishing: "Bare shell",
+      available: "Immediately",
+      possessionStatus: "Immediately",
+      subtype: "Shop",
+      floor: "Ground",
+      facilities: ["CCTV", "Power backup", "Common parking", "Water supply"],
+      features: ["CCTV", "Power backup", "Common parking", "Water supply"],
+      area: 650,
+      seller: "Owner",
+    };
+    expect(furnishingOptionsFor("Commercial")).toContain("Bare shell");
+    expect(commercialFacilitiesFor("RENT")).toContain("Common parking");
+    expect(
+      matchesCommercialFacility(shop.facilities, "Parking"),
+    ).toBe(true);
+    expect(
+      matches(shop, {
+        ...filterDefaults,
+        type: "Commercial",
+        subtype: "Shop",
+        furnishing: "Bare shell",
+        feature: "Common parking",
+        available: "Ready now",
+        floor: "Ground",
+      }),
+    ).toBe(true);
+    expect(
+      matches(shop, {
+        ...filterDefaults,
+        type: "Commercial",
+        subtype: "Office Space",
       }),
     ).toBe(false);
   });
@@ -502,6 +553,52 @@ describe("commercial property details", () => {
       "Wide frontage",
     ]);
     expect(commercialFacilities(listing)).toEqual(listing.facilities);
+  });
+
+  it("normalizes posted RENT commercial fields into detail/filter values", () => {
+    const posted = normalizePostedListing({
+      id: "rent-shop-1",
+      title: "Ground-floor Commercial Shop",
+      type: "Commercial",
+      intent: "RENT",
+      subtype: "Shop",
+      price: 35000,
+      area: 650,
+      carpetArea: 650,
+      location: [11.0168, 76.9558],
+      floor: "Ground",
+      frontage: "18",
+      washrooms: 1,
+      parking: "Common",
+      furnishing: "Bare shell",
+      suitableFor: "Retail / Showroom",
+      available: "Immediately",
+      powerBackup: "Available",
+      facilities: ["CCTV", "Power backup", "Common parking", "Water supply"],
+      photos: ["/apartment.jpg"],
+      deposit: 200000,
+      maintenance: 2000,
+    });
+    expect(posted).toMatchObject({
+      mode: "RENT",
+      type: "Commercial",
+      subtype: "Shop",
+      carpetArea: 650,
+      frontage: "18",
+      washrooms: 1,
+      parking: "Common",
+      furnishing: "Bare shell",
+      suitableFor: "Retail / Showroom",
+      available: "Immediately",
+      deposit: 200000,
+      maintenance: 2000,
+    });
+    expect(posted.facilities).toEqual([
+      "CCTV",
+      "Power backup",
+      "Common parking",
+      "Water supply",
+    ]);
   });
 });
 

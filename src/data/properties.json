@@ -2877,7 +2877,7 @@
     "roadAccess": "Main road",
     "carParking": "Available",
     "facilities": [
-      "Parking",
+      "Common parking",
       "Main road access",
       "Water supply"
     ],
@@ -3811,7 +3811,7 @@
     "description": "Office space for rent in K.K. Nagar East. Practical layout for teams. Sample listing.",
     "carParking": "Available",
     "facilities": [
-      "Parking",
+      "Common parking",
       "CCTV",
       "Power backup",
       "Water supply"

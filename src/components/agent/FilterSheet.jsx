@@ -2,11 +2,15 @@ import React from "react";
 import { defaults } from "../../lib/agents";
 import PropertyTypes from "../../PropertyTypes";
 import {
-  FURNISHING_OPTIONS,
+  commercialSubtypesFor,
+  furnishingOptionsFor,
   POSSESSION_OPTIONS,
+  RENT_AVAILABLE_OPTIONS,
 } from "../../listingFit";
 export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
   const set = (k, v) => onChange({ ...f, [k]: v });
+  const commercial = f.type === "Commercial";
+  const home = !["Land", "Commercial", "PG"].includes(f.type);
   return (
     <Modal title="Listing filters" onClose={onClose}>
       <div className="form-stack">
@@ -15,7 +19,14 @@ export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
           value={f.type}
           allowAll
           compact
-          onChange={(type) => onChange({ ...f, type, beds: "" })}
+          onChange={(type) =>
+            onChange({
+              ...f,
+              type,
+              beds: "",
+              subtype: type === "Commercial" ? f.subtype || "" : "",
+            })
+          }
         />
         {[
           ["min", "Minimum ₹"],
@@ -31,13 +42,49 @@ export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
             />
           </label>
         ))}
+        {commercial ? (
+          <label>
+            Space type
+            <select
+              value={f.subtype || ""}
+              onChange={(e) => set("subtype", e.target.value)}
+            >
+              <option value="">Any</option>
+              {commercialSubtypesFor(f.mode).map((subtype) => (
+                <option key={subtype} value={subtype}>
+                  {subtype}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
         {[
           ["unit", "Price unit", ["total", "cent", "sqft"]],
-          ...(!["Land", "Commercial", "PG"].includes(f.type)
-            ? [["beds", "Bedrooms", ["", "1", "2", "3", "4+"]]]
-            : []),
-          ["furnishing", "Furnishing", ["", ...FURNISHING_OPTIONS]],
-          ["possession", "Possession", ["", ...POSSESSION_OPTIONS]],
+          ...(home ? [["beds", "Bedrooms", ["", "1", "2", "3", "4+"]]] : []),
+          [
+            "furnishing",
+            "Furnishing",
+            [
+              "",
+              ...furnishingOptionsFor(
+                commercial || (f.type === "All" && f.mode === "RENT")
+                  ? "Commercial"
+                  : f.type === "All"
+                    ? "Apartment"
+                    : f.type,
+              ),
+            ],
+          ],
+          [
+            "possession",
+            f.mode === "RENT" ? "Available from" : "Possession",
+            [
+              "",
+              ...(f.mode === "RENT"
+                ? RENT_AVAILABLE_OPTIONS
+                : POSSESSION_OPTIONS),
+            ],
+          ],
         ].map(([k, l, opts]) => (
           <label key={k}>
             {l}

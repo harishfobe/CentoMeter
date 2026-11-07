@@ -1,10 +1,22 @@
-/** Shared BUY listing input ↔ output ↔ filter fit helpers. */
+/** Shared listing input ↔ output ↔ filter fit helpers. */
 
 export const FURNISHING_OPTIONS = [
   "Unfurnished",
   "Semi-furnished",
   "Fully furnished",
 ];
+
+/** Commercial spaces also allow Bare shell (common for rent shops). */
+export const COMMERCIAL_FURNISHING_OPTIONS = [
+  ...FURNISHING_OPTIONS,
+  "Bare shell",
+];
+
+export function furnishingOptionsFor(type) {
+  return type === "Commercial"
+    ? COMMERCIAL_FURNISHING_OPTIONS
+    : FURNISHING_OPTIONS;
+}
 
 export const CONDITION_OPTIONS = ["Resale", "New"];
 
@@ -14,8 +26,19 @@ export const POSSESSION_OPTIONS = [
   "Under construction",
 ];
 
+/** RENT commercial / home move-in values collected on post and shown on detail. */
+export const RENT_AVAILABLE_OPTIONS = [
+  "Immediately",
+  "Ready now",
+  "Within 30 days",
+];
+
 /** Owner refine-search availability chips (legacy labels kept for saved filters). */
-export const AVAILABILITY_FILTER_OPTIONS = ["Ready now", "Within 30 days"];
+export const AVAILABILITY_FILTER_OPTIONS = [
+  "Ready now",
+  "Immediately",
+  "Within 30 days",
+];
 
 /** BUY commercial space types (income buildings + fit-out spaces). */
 export const COMMERCIAL_SUBTYPES_BUY = [
@@ -61,14 +84,36 @@ export const COMMERCIAL_FACILITIES = [
   "Main road access",
 ];
 
+/** RENT commercial amenities shown on detail + post + filters. */
+export const COMMERCIAL_FACILITIES_RENT = [
+  "CCTV",
+  "Power backup",
+  "Common parking",
+  "Water supply",
+  "Main road access",
+];
+
+export function commercialFacilitiesFor(mode) {
+  return mode === "RENT" || mode === "rent"
+    ? COMMERCIAL_FACILITIES_RENT
+    : COMMERCIAL_FACILITIES;
+}
+
 export const ROAD_ACCESS_OPTIONS = ["Main road", "Interior road", "Lane"];
+
+export const COMMERCIAL_PARKING_OPTIONS = [
+  "Common",
+  "Dedicated",
+  "Available",
+  "Not available",
+];
 
 export function listingPossession(p) {
   return String(p?.possessionStatus || p?.available || "").trim();
 }
 
 function readyLike(value) {
-  return /ready(\s+to\s+move|\s+now)?/i.test(value);
+  return /ready(\s+to\s+move|\s+now)?|immediately|immediate/i.test(value);
 }
 
 function upcomingLike(value) {
@@ -83,8 +128,33 @@ export function matchesPossessionFilter(p, filterValue) {
   if (listing.toLowerCase() === String(filterValue).toLowerCase()) return true;
   if (readyLike(filterValue) && readyLike(listing)) return true;
   if (upcomingLike(filterValue) && upcomingLike(listing)) return true;
-  // Legacy agent option "Ready" → Ready to move / Ready now
+  // Legacy agent option "Ready" → Ready to move / Ready now / Immediately
   if (/^ready$/i.test(String(filterValue).trim()) && readyLike(listing))
+    return true;
+  return false;
+}
+
+/** Soft-match commercial facility chips (Parking ↔ Common parking). */
+export function matchesCommercialFacility(pool, feature) {
+  if (!feature || feature === "Any") return true;
+  const needle = String(feature).toLowerCase();
+  const items = (Array.isArray(pool) ? pool : []).map((x) =>
+    String(x).toLowerCase(),
+  );
+  if (items.some((item) => item === needle)) return true;
+  if (/park/.test(needle) && items.some((item) => /park/.test(item)))
+    return true;
+  if (
+    /power|backup/.test(needle) &&
+    items.some((item) => /power|backup/.test(item))
+  )
+    return true;
+  if (/water/.test(needle) && items.some((item) => /water/.test(item)))
+    return true;
+  if (
+    /main\s*road/.test(needle) &&
+    items.some((item) => /main\s*road/.test(item))
+  )
     return true;
   return false;
 }
