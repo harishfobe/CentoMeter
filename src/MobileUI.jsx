@@ -5,7 +5,12 @@ import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
 import { pricePerCent } from "./PlotUI";
-import { houseBuyPriceMeta, usesHomeDetailLayout } from "./HouseVillaDetails";
+import {
+  houseBuyPriceMeta,
+  houseRentDepositLabel,
+  houseRentMaintenanceLabel,
+  usesHomeDetailLayout,
+} from "./HouseVillaDetails";
 import {
   commercialBuyPriceMeta,
   usesCommercialDetailLayout,
@@ -73,6 +78,26 @@ export function MobilePropertyPrice({ property: p, money }) {
                 .join(" · ")}
             </span>
           )}
+        </div>
+      </div>
+    );
+  }
+  if (usesHomeDetailLayout(p) && p.mode === "RENT") {
+    const maintenance = houseRentMaintenanceLabel(p);
+    const deposit = houseRentDepositLabel(p);
+    return (
+      <div className="mobile-price-block land-price-block rent-home-price-block">
+        <div className="mobile-property-price land-property-price">
+          <strong>
+            {money(p.price)}
+            <span className="pg-price-period"> / month</span>
+          </strong>
+          {maintenance ? (
+            <span className="rent-home-maintenance">{maintenance}</span>
+          ) : null}
+          {deposit ? (
+            <span className="rent-home-deposit">{deposit}</span>
+          ) : null}
         </div>
       </div>
     );

@@ -12,6 +12,9 @@ import { LandSummary } from "../../LandDetails";
 import {
   HouseVillaSummary,
   houseBuyPriceMeta,
+  housePostedLabel,
+  houseRentDepositLabel,
+  houseRentMaintenanceLabel,
   houseTypeEyebrow,
   usesHomeDetailLayout,
   buildHouseVillaFacts,
@@ -257,7 +260,11 @@ export default function ListingDetailSheet({
         ) : null}
         <h2>
           {money(p.price)}
-          {p.mode === "RENT" ? (pgDetail ? " / month" : "/mo") : ""}
+          {p.mode === "RENT"
+            ? pgDetail || homeDetail
+              ? " / month"
+              : "/mo"
+            : ""}
         </h2>
         {p.type === "Land" && p.mode === "BUY" ? (
           <>
@@ -283,6 +290,27 @@ export default function ListingDetailSheet({
               <p className="agent-land-price-equivalent">
                 Equivalent: {money(pricePerCent(p))} / Cent
               </p>
+            ) : null}
+          </>
+        ) : homeDetail && p.mode === "RENT" ? (
+          <>
+            {houseRentMaintenanceLabel(p) ? (
+              <p className="agent-rent-home-maintenance">
+                {houseRentMaintenanceLabel(p)}
+              </p>
+            ) : null}
+            {houseRentDepositLabel(p) ? (
+              <p className="agent-rent-home-deposit">
+                {houseRentDepositLabel(p)}
+              </p>
+            ) : null}
+            <h3 className="agent-land-title">{p.title}</h3>
+            <p className="agent-land-location">
+              <MapPin size={15} aria-hidden="true" />
+              {[p.locality, p.city].filter(Boolean).join(", ")}
+            </p>
+            {housePostedLabel(p) ? (
+              <p className="muted commercial-posted">{housePostedLabel(p)}</p>
             ) : null}
           </>
         ) : homeDetail && p.mode === "BUY" ? (

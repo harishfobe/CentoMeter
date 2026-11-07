@@ -653,6 +653,35 @@ describe("rent villa property details", () => {
   });
 });
 
+describe("rent home header below photo", () => {
+  it("formats maintenance, deposit, and posted lines for rent homes", async () => {
+    const {
+      houseRentMaintenanceLabel,
+      houseRentDepositLabel,
+      housePostedLabel,
+      houseTypeEyebrow,
+      isRentHomeDetail,
+    } = await import("../src/HouseVillaDetails.jsx");
+    const listing = {
+      type: "Independent House",
+      mode: "RENT",
+      price: 28000,
+      maintenance: 1500,
+      deposit: 120000,
+      postedAt: "2026-11-06",
+    };
+    expect(isRentHomeDetail(listing)).toBe(true);
+    expect(houseTypeEyebrow(listing)).toBe("FOR RENT · INDEPENDENT HOUSE");
+    expect(houseRentMaintenanceLabel(listing)).toBe("+ ₹1,500 maintenance");
+    expect(houseRentDepositLabel(listing)).toBe("₹1.2 L deposit");
+    expect(housePostedLabel(listing)).toBe("Posted 6 Nov 2026");
+    expect(
+      houseRentMaintenanceLabel({ ...listing, maintenance: 0 }),
+    ).toBeNull();
+    expect(houseRentDepositLabel({ ...listing, deposit: null })).toBeNull();
+  });
+});
+
 describe("rent independent house property details", () => {
   it("builds the reference rent Independent House detail rows in order", async () => {
     const { buildRentIndependentHouseDetailRows } = await import(

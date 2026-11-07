@@ -1027,6 +1027,10 @@ img {
   font-size: 14px;
   gap: 7px;
 }
+.detail-page .location-line svg {
+  color: var(--brand);
+  flex-shrink: 0;
+}
 .detail-specs {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -3620,6 +3624,19 @@ textarea {
   font-size: 0.55em;
   font-weight: 650;
   letter-spacing: 0;
+}
+.rent-home-price-block {
+  margin-bottom: 18px;
+}
+.rent-home-maintenance {
+  color: var(--muted) !important;
+  font-size: 13px !important;
+  font-weight: 500;
+}
+.rent-home-deposit {
+  color: var(--placeholder, #a1a1aa) !important;
+  font-size: 13px !important;
+  font-weight: 500;
 }
 .commercial-highlights,
 .commercial-facilities {
