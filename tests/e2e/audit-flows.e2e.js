@@ -43,6 +43,12 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     "true",
   );
   await intent.getByRole("tab", { name: "Buy" }).click();
+  await expect(
+    filters.getByText("Choose a property type to see price, bedrooms, and more filters."),
+  ).toBeVisible();
+  await filters
+    .getByRole("button", { name: /Apartment \/ Flat/i })
+    .click();
   await filters.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
   await filters.getByRole("button", { name: /Show \d+ properties/ }).click();
   await expect(filters).toHaveCount(0);
