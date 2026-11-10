@@ -31,7 +31,6 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await page.goto("/#home");
   await expect(page.locator(".leaflet-container").first()).toBeVisible();
   await page.getByRole("button", { name: "Open search" }).click();
-  await page.getByRole("button", { name: "Filters", exact: true }).click();
   const filters = page.getByRole("dialog", { name: "Refine your search" });
   await filters.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
   await filters.getByRole("button", { name: /Show \d+ properties/ }).click();

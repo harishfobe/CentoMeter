@@ -173,7 +173,7 @@ export function SmartFilters({
             />
           </label>
           <label>
-            Maximum (₹)
+            Maximum {mode === "RENT" ? "rent" : "price"} (₹)
             <input
               type="number"
               min="0"

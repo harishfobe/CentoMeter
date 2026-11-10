@@ -31,7 +31,6 @@ import {
   UsersRound,
   Plus,
   Search,
-  SlidersHorizontal,
   MapPin,
   Bell,
   ChevronDown,
@@ -205,16 +204,7 @@ const readSaved = () => {
   const value = readLocal("centometer-saved", []);
   return Array.isArray(value) ? value : [];
 };
-function PropertySearch({
-  city,
-  value,
-  onChange,
-  onSearch,
-  inputRef,
-  onFilters,
-  filterCount = 0,
-  hasFilter = false,
-}) {
+function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
   const [searchHistory, setSearchHistory] = useState(() =>
     readLocal("centometer-search-history", []),
   );
@@ -325,21 +315,6 @@ function PropertySearch({
         >
           <X size={16} />
         </IconButton>
-      )}
-      {onFilters && (
-        <button
-          type="button"
-          aria-label="Filters"
-          className={
-            "search-box-filter " + (hasFilter ? "has-filter" : "")
-          }
-          onClick={onFilters}
-        >
-          <SlidersHorizontal size={18} aria-hidden="true" />
-          {filterCount > 0 && (
-            <b className="filter-count">{filterCount}</b>
-          )}
-        </button>
       )}
       <button className="search-submit" aria-label="Search properties">
         <ChevronRight size={19} />
@@ -610,8 +585,8 @@ export default function App() {
     [route],
   );
   const openSearch = () => {
-    searchReturn.current = route;
-    navigate("search");
+    // Search bar opens the same Refine filters sheet shown in product reference.
+    setModal("filters");
   };
   const showList = () => {
     // Map-area filtering stays on the map page only. Home / browse list
@@ -1189,14 +1164,6 @@ export default function App() {
               setAreaOnly(false);
               navigate("results");
             }}
-            onFilters={() => setModal("filters")}
-            filterCount={activeFilters(filters).length}
-            hasFilter={
-              filters.type !== "All" ||
-              !!filters.max ||
-              filters.beds !== "Any"
-            }
-            onNotice={notify}
             landmarks={landmarkSuggestions[city] || []}
           />
         )}
@@ -1227,13 +1194,6 @@ export default function App() {
                     setSelected(null);
                     navigate("results");
                   }}
-                  onFilters={() => setModal("filters")}
-                  filterCount={activeFilters(filters).length}
-                  hasFilter={
-                    filters.type !== "All" ||
-                    !!filters.max ||
-                    filters.beds !== "Any"
-                  }
                 />
                 <button
                   type="button"
@@ -2469,9 +2429,8 @@ export default function App() {
             setFilters(f);
             setSelected(null);
             setModal(null);
-            if (route === "home") setAreaOnly(false);
-            if (route === "search") {
-              setAreaOnly(false);
+            setAreaOnly(false);
+            if (["home", "search", "map", "results"].includes(route)) {
               navigate("results");
             }
           }}
