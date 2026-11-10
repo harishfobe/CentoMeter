@@ -166,7 +166,14 @@ export function RefineSearchPanel({
   const home = !["Land", "Commercial", "PG"].includes(f.type);
   const invalid = f.max > 0 && Number(f.min) > Number(f.max);
   const count = items.filter((p) => matches(p, f)).length;
-  const reset = () => setF(filterDefaults);
+  const blankFilters = () =>
+    Object.fromEntries(
+      Object.entries(filterDefaults).map(([key, value]) => [key, value]),
+    );
+  const reset = () => {
+    setIntent(mode === "RENT" ? "RENT" : "BUY");
+    setF(blankFilters());
+  };
   const apply = () => onApply(f);
   const actions = (
     <div className="modal-actions">

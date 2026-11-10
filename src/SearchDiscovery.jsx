@@ -123,7 +123,12 @@ export default function SearchDiscovery({
                 <button
                   type="button"
                   className="text-button"
-                  onClick={reset}
+                  aria-label="Reset all filters"
+                  onClick={() => {
+                    reset();
+                    setSelected("");
+                    onAreaSelect?.("");
+                  }}
                 >
                   Reset all
                 </button>

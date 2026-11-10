@@ -64,11 +64,29 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     .getByRole("button", { name: /Apartment \/ Flat/i })
     .click();
   await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
+  const areaList = searchPage.getByRole("listbox", {
+    name: /Area suggestions in /,
+  });
+  await areaList.getByRole("option").first().click();
+  await expect(areaList.getByRole("option", { selected: true })).toHaveCount(
+    1,
+  );
+  await searchPage.getByRole("button", { name: "Reset all filters" }).click();
+  await expect(
+    searchPage.getByText(
+      "Choose a property type to see price, bedrooms, and more filters.",
+    ),
+  ).toBeVisible();
+  await expect(
+    searchPage.getByRole("button", { name: "All properties" }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(areaList.getByRole("option", { selected: true })).toHaveCount(
+    0,
+  );
   await searchPage
-    .getByRole("listbox", { name: /Area suggestions in / })
-    .getByRole("option")
-    .first()
+    .getByRole("button", { name: /Apartment \/ Flat/i })
     .click();
+  await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
   await searchPage.getByRole("button", { name: /Show \d+ properties/ }).click();
   await expect(page).toHaveURL(/#results/);
   const card = page.locator(".property-card").first();
