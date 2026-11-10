@@ -1352,6 +1352,14 @@ textarea {
   color: white;
   box-shadow: var(--shadow);
 }
+.refine-intent-tabs {
+  margin-bottom: 4px;
+}
+.refine-intent-tabs .active {
+  background: var(--brand);
+  color: var(--paper);
+  box-shadow: none;
+}
 .modal-actions {
   display: flex;
   justify-content: space-between;

@@ -124,8 +124,10 @@ export function SmartFilters({
   items,
   onApply,
   onClose,
+  onModeChange,
   Modal,
 }) {
+  const [intent, setIntent] = useState(mode === "RENT" ? "RENT" : "BUY");
   const [f, setF] = useState(
     Object.fromEntries(
       Object.entries(filterDefaults).map(([key, value]) => [
@@ -135,6 +137,17 @@ export function SmartFilters({
     ),
   );
   const set = (k, v) => setF((x) => ({ ...x, [k]: v }));
+  const selectIntent = (next) => {
+    if (next === intent) return;
+    setIntent(next);
+    setF((current) => {
+      if (next === "RENT" && current.type === "Land") {
+        return { ...filterDefaults, type: "All", min: current.min, max: current.max };
+      }
+      return current;
+    });
+    onModeChange?.(next);
+  };
   const select = (key, label, options) => (
     <label>
       {label}
@@ -151,8 +164,29 @@ export function SmartFilters({
   return (
     <Modal title="Refine your search" onClose={onClose}>
       <div className="form-stack">
+        <div
+          className="segment refine-intent-tabs"
+          role="tablist"
+          aria-label="Buy or rent"
+        >
+          {[
+            ["BUY", "Buy"],
+            ["RENT", "Rent"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              role="tab"
+              aria-selected={intent === value}
+              className={intent === value ? "active" : ""}
+              onClick={() => selectIntent(value)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
         <PropertyTypes
-          mode={mode}
+          mode={intent}
           value={f.type}
           allowAll
           compact
@@ -163,7 +197,7 @@ export function SmartFilters({
         />
         <div className="form-columns">
           <label>
-            Minimum {mode === "RENT" ? "rent" : "price"} (₹)
+            Minimum {intent === "RENT" ? "rent" : "price"} (₹)
             <input
               type="number"
               min="0"
@@ -173,7 +207,7 @@ export function SmartFilters({
             />
           </label>
           <label>
-            Maximum {mode === "RENT" ? "rent" : "price"} (₹)
+            Maximum {intent === "RENT" ? "rent" : "price"} (₹)
             <input
               type="number"
               min="0"
@@ -223,7 +257,7 @@ export function SmartFilters({
             "Furnishing",
             furnishingOptionsFor(
               f.type === "Commercial" ||
-                (f.type === "All" && mode === "RENT")
+                (f.type === "All" && intent === "RENT")
                 ? "Commercial"
                 : f.type === "All"
                   ? "Apartment"
@@ -272,12 +306,12 @@ export function SmartFilters({
             {select(
               "subtype",
               "Space type",
-              commercialSubtypesFor(mode),
+              commercialSubtypesFor(intent),
             )}
             {select(
               "feature",
-              mode === "RENT" ? "Amenities & facilities" : "Facilities",
-              commercialFacilitiesFor(mode),
+              intent === "RENT" ? "Amenities & facilities" : "Facilities",
+              commercialFacilitiesFor(intent),
             )}
           </>
         ) : f.type === "PG" ? (
@@ -305,7 +339,7 @@ export function SmartFilters({
                 {select("floor", "Floor", ["Ground", "1–3", "4+"])}
               </>
             )}
-            {f.type === "Commercial" && mode === "RENT" && (
+            {f.type === "Commercial" && intent === "RENT" && (
               select("floor", "Floor", ["Ground", "1–3", "4+"])
             )}
             {f.type === "PG" && (
@@ -322,8 +356,8 @@ export function SmartFilters({
         </details>
         {select(
           "available",
-          mode === "RENT" ? "Move-in availability" : "Possession",
-          mode === "RENT"
+          intent === "RENT" ? "Move-in availability" : "Possession",
+          intent === "RENT"
             ? AVAILABILITY_FILTER_OPTIONS
             : ["Ready to move", "Within 30 days", "Under construction"],
         )}

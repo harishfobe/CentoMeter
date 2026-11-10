@@ -2424,6 +2424,7 @@ export default function App() {
           })}
           filters={filters}
           mode={mode}
+          onModeChange={setIntent}
           onClose={() => setModal(null)}
           onApply={(f) => {
             setFilters(f);
