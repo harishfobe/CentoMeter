@@ -2671,7 +2671,8 @@ textarea {
   min-height: 44px;
   font-size: 12px;
 }
-.filter-button {
+.filter-button,
+.search-box-filter {
   position: relative;
 }
 .filter-count {
