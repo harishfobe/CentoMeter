@@ -36,6 +36,7 @@ export default function SearchDiscovery({
   onProject,
   onNearMe,
   onLand,
+  onRefine,
   landmarks,
 }) {
   const [selected, setSelected] = useState("");
@@ -318,6 +319,43 @@ export default function SearchDiscovery({
                 </div>
               </div>
             )}
+            <div className="search-discovery-section area-suggestions">
+              <h2>Suggested areas</h2>
+              <div
+                className="search-stack"
+                role="listbox"
+                aria-label={`Area suggestions in ${city}`}
+              >
+                {localities.slice(0, 8).map((item) => (
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={selected === item.name}
+                    key={item.name}
+                    className={
+                      "search-mini-card " +
+                      (selected === item.name ? "selected" : "")
+                    }
+                    onClick={() => choose(item.name)}
+                  >
+                    <span className="mini-heading">
+                      <span className="area-suggestion-label">
+                        <MapPin size={15} aria-hidden="true" />
+                        <strong>{item.name}</strong>
+                      </span>
+                      <span className="add-circle">
+                        {selected === item.name ? (
+                          <Check size={15} />
+                        ) : (
+                          <Plus size={15} />
+                        )}
+                      </span>
+                    </span>
+                    <small>{localityDetail(item)}</small>
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="search-discovery-section">
               <h2>Trending searches</h2>
               <div className="search-chip-grid">
@@ -336,37 +374,6 @@ export default function SearchDiscovery({
                         <Plus size={15} />
                       )}
                     </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="search-discovery-section">
-              <h2>Popular localities</h2>
-              <div
-                className="search-stack"
-                aria-label={`Localities in ${city}`}
-              >
-                {localities.slice(0, 8).map((item) => (
-                  <button
-                    type="button"
-                    key={item.name}
-                    className={
-                      "search-mini-card " +
-                      (selected === item.name ? "selected" : "")
-                    }
-                    onClick={() => choose(item.name)}
-                  >
-                    <span className="mini-heading">
-                      <strong>{item.name}</strong>
-                      <span className="add-circle">
-                        {selected === item.name ? (
-                          <Check size={15} />
-                        ) : (
-                          <Plus size={15} />
-                        )}
-                      </span>
-                    </span>
-                    <small>{localityDetail(item)}</small>
                   </button>
                 ))}
               </div>
@@ -443,6 +450,15 @@ export default function SearchDiscovery({
         )}
       </div>
       <div className="search-discovery-footer">
+        {onRefine && (
+          <button
+            type="button"
+            className="text-button refine-search-button"
+            onClick={onRefine}
+          >
+            Refine
+          </button>
+        )}
         <button type="button" className="primary" onClick={() => search()}>
           Show results <ChevronRight size={18} aria-hidden="true" />
         </button>

@@ -585,8 +585,8 @@ export default function App() {
     [route],
   );
   const openSearch = () => {
-    // Search bar opens the same Refine filters sheet shown in product reference.
-    setModal("filters");
+    searchReturn.current = route;
+    navigate("search");
   };
   const showList = () => {
     // Map-area filtering stays on the map page only. Home / browse list
@@ -1164,6 +1164,7 @@ export default function App() {
               setAreaOnly(false);
               navigate("results");
             }}
+            onRefine={() => setModal("filters")}
             landmarks={landmarkSuggestions[city] || []}
           />
         )}
