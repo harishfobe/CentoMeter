@@ -32,6 +32,17 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await expect(page.locator(".leaflet-container").first()).toBeVisible();
   await page.getByRole("button", { name: "Open search" }).click();
   const filters = page.getByRole("dialog", { name: "Refine your search" });
+  const intent = filters.getByRole("tablist", { name: "Buy or rent" });
+  await expect(intent.getByRole("tab", { name: "Buy" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await intent.getByRole("tab", { name: "Rent" }).click();
+  await expect(intent.getByRole("tab", { name: "Rent" })).toHaveAttribute(
+    "aria-selected",
+    "true",
+  );
+  await intent.getByRole("tab", { name: "Buy" }).click();
   await filters.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
   await filters.getByRole("button", { name: /Show \d+ properties/ }).click();
   await expect(filters).toHaveCount(0);
