@@ -1472,13 +1472,11 @@
     box-shadow: var(--shadow);
     border-radius: 9999px;
   }
-  .app-shell .search-controls .filter-button {
+  .app-shell .search-controls .search-box-filter {
     height: 44px;
     width: 44px;
     min-width: 44px;
     border: 0;
-    background: var(--paper);
-    box-shadow: var(--shadow);
     border-radius: 9999px;
   }
   .app-shell .intent-tabs {
@@ -1831,12 +1829,12 @@ a:focus-visible {
     min-height: 44px;
   }
   .app-shell .property-type-toolbar .property-type-option,
-  .app-shell .search-controls .filter-button,
+  .app-shell .search-controls .search-box-filter,
   .app-shell .search-controls .mobile-search-trigger {
     height: 44px;
     min-height: 44px;
   }
-  .app-shell .search-controls .filter-button {
+  .app-shell .search-controls .search-box-filter {
     width: 44px;
     min-width: 44px;
   }

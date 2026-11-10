@@ -194,7 +194,16 @@ const landmarkSuggestions = {
     ["Karishma Society", "Kothrud"],
   ],
 };
-function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
+function PropertySearch({
+  city,
+  value,
+  onChange,
+  onSearch,
+  inputRef,
+  onFilters,
+  filterCount = 0,
+  hasFilter = false,
+}) {
   const [searchHistory, setSearchHistory] = useState(() =>
     readLocal("centometer-search-history", []),
   );
@@ -305,6 +314,21 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
         >
           <X size={16} />
         </IconButton>
+      )}
+      {onFilters && (
+        <button
+          type="button"
+          aria-label="Filters"
+          className={
+            "search-box-filter " + (hasFilter ? "has-filter" : "")
+          }
+          onClick={onFilters}
+        >
+          <SlidersHorizontal size={18} aria-hidden="true" />
+          {filterCount > 0 && (
+            <b className="filter-count">{filterCount}</b>
+          )}
+        </button>
       )}
       <button className="search-submit" aria-label="Search properties">
         <ChevronRight size={19} />
@@ -1128,6 +1152,13 @@ export default function App() {
               setAreaOnly(false);
               navigate("results");
             }}
+            onFilters={() => setModal("filters")}
+            filterCount={activeFilters(filters).length}
+            hasFilter={
+              filters.type !== "All" ||
+              !!filters.max ||
+              filters.beds !== "Any"
+            }
             onNotice={notify}
             landmarks={landmarkSuggestions[city] || []}
           />
@@ -1159,6 +1190,13 @@ export default function App() {
                     setSelected(null);
                     navigate("results");
                   }}
+                  onFilters={() => setModal("filters")}
+                  filterCount={activeFilters(filters).length}
+                  hasFilter={
+                    filters.type !== "All" ||
+                    !!filters.max ||
+                    filters.beds !== "Any"
+                  }
                 />
                 <button
                   type="button"
@@ -1168,26 +1206,6 @@ export default function App() {
                 >
                   <Search size={19} aria-hidden="true" />
                   <span>{query || "Locality, landmark or property"}</span>
-                </button>
-                <button
-                  aria-label="Filters"
-                  className={
-                    "filter-button " +
-                    (filters.type !== "All" ||
-                    filters.max ||
-                    filters.beds !== "Any"
-                      ? "has-filter"
-                      : "")
-                  }
-                  onClick={() => setModal("filters")}
-                >
-                  <SlidersHorizontal size={20} />
-                  <span>Filters</span>
-                  {activeFilters(filters).length > 0 && (
-                    <b className="filter-count">
-                      {activeFilters(filters).length}
-                    </b>
-                  )}
                 </button>
               </div>
             </section>
@@ -2287,6 +2305,7 @@ export default function App() {
             const point = mapPoint(p, locationRequests);
             return (
               (route === "results" && !areaOnly) ||
+              route === "search" ||
               !bounds ||
               (point && bounds.contains(point))
             );
@@ -2298,6 +2317,10 @@ export default function App() {
             setFilters(f);
             setSelected(null);
             setModal(null);
+            if (route === "search") {
+              setAreaOnly(false);
+              navigate("results");
+            }
           }}
         />
       )}

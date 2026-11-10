@@ -30,11 +30,13 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/#home");
   await expect(page.locator(".leaflet-container").first()).toBeVisible();
+  await page.getByRole("button", { name: "Open search" }).click();
   await page.getByRole("button", { name: "Filters", exact: true }).click();
   const filters = page.getByRole("dialog", { name: "Refine your search" });
   await filters.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
   await filters.getByRole("button", { name: /Show \d+ properties/ }).click();
   await expect(filters).toHaveCount(0);
+  await expect(page).toHaveURL(/#results/);
   const card = page.locator(".property-card").first();
   const title = await card.locator("h3").innerText();
   await card.locator(".save-button").click();
