@@ -585,8 +585,8 @@ export default function App() {
     [route],
   );
   const openSearch = () => {
-    // Search bar opens the same Refine filters sheet shown in product reference.
-    setModal("filters");
+    searchReturn.current = route;
+    navigate("search");
   };
   const showList = () => {
     // Map-area filtering stays on the map page only. Home / browse list
@@ -893,51 +893,6 @@ export default function App() {
         )}
       </div>
     );
-  const searchNearMe = () => {
-    setAgentPicks(false);
-    if (!navigator.geolocation) {
-      notify("Location is unavailable in this browser");
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const actual = [position.coords.latitude, position.coords.longitude];
-        const nearby = allProperties.filter(
-          (p) =>
-            p.mode === mode &&
-            !isLocationLocked(p, locationRequests) &&
-            exactLocation(p, locationRequests) &&
-            distanceKm(exactLocation(p, locationRequests), actual) <= 15,
-        );
-        const targetCity = nearby.length
-          ? nearby.sort(
-              (a, b) =>
-                distanceKm(exactLocation(a, locationRequests), actual) -
-                distanceKm(exactLocation(b, locationRequests), actual),
-            )[0].city
-          : city;
-        const point = nearby.length ? actual : centers[city];
-        if (!nearby.length)
-          notify("Showing sample properties near central " + city);
-        setCity(targetCity);
-        mapViewport.current = null;
-        setBounds(null);
-        setFilters(initialFilters);
-        setNearPlace({
-          name: nearby.length ? "Current location" : "Central " + city,
-          point,
-          radius: 15,
-        });
-        setQuery("");
-        setAreaOnly(false);
-        setSelected(null);
-        setResetKey((x) => x + 1);
-        navigate("results");
-      },
-      () => notify("Allow location access to search nearby"),
-      { enableHighAccuracy: false, timeout: 8000 },
-    );
-  };
   const agentHandle = route.startsWith("agent/")
     ? parseAgentRoute(route).handle
     : null;
@@ -1142,29 +1097,28 @@ export default function App() {
         {route === "search" && (
           <SearchDiscovery
             city={city}
-            cities={Object.keys(centers)}
-            onCityChange={selectCity}
             mode={mode}
             query={query}
-            onQueryChange={setQuery}
-            onBack={() => navigate(searchReturn.current)}
-            onSubmit={(term) => {
+            filters={filters}
+            items={candidates.filter((p) => {
+              if (route !== "map" || !areaOnly || !bounds) return true;
+              const point = mapPoint(p, locationRequests);
+              return point && bounds.contains(point);
+            })}
+            onBack={() => navigate(searchReturn.current || "home")}
+            onModeChange={setIntent}
+            onAreaSelect={(area) => {
               setNearPlace(null);
-              setQuery(term);
-              setAreaOnly(false);
+              setQuery(area || "");
+            }}
+            onApply={(f, area) => {
+              setFilters(f);
+              setNearPlace(null);
+              setQuery(area || "");
               setSelected(null);
-              navigate("results");
-            }}
-            onProject={open}
-            onNearMe={searchNearMe}
-            onLand={() => {
-              setFilters({ ...initialFilters, type: "Land" });
-              setQuery("");
-              setNearPlace(null);
               setAreaOnly(false);
               navigate("results");
             }}
-            landmarks={landmarkSuggestions[city] || []}
           />
         )}
         {browse && (

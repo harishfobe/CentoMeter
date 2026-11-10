@@ -31,8 +31,20 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await page.goto("/#home");
   await expect(page.locator(".leaflet-container").first()).toBeVisible();
   await page.getByRole("button", { name: "Open search" }).click();
-  const filters = page.getByRole("dialog", { name: "Refine your search" });
-  const intent = filters.getByRole("tablist", { name: "Buy or rent" });
+  await expect(page).toHaveURL(/#search/);
+  const searchPage = page.getByRole("region", {
+    name: /Refine search in /,
+  });
+  await expect(
+    searchPage.getByRole("heading", { name: "Refine your search", exact: true }),
+  ).toBeVisible();
+  await expect(
+    searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
+  ).toBeVisible();
+  await expect(
+    searchPage.getByRole("listbox", { name: /Area suggestions in / }),
+  ).toBeVisible();
+  const intent = searchPage.getByRole("tablist", { name: "Buy or rent" });
   await expect(intent.getByRole("tab", { name: "Buy" })).toHaveAttribute(
     "aria-selected",
     "true",
@@ -44,14 +56,20 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   );
   await intent.getByRole("tab", { name: "Buy" }).click();
   await expect(
-    filters.getByText("Choose a property type to see price, bedrooms, and more filters."),
+    searchPage.getByText(
+      "Choose a property type to see price, bedrooms, and more filters.",
+    ),
   ).toBeVisible();
-  await filters
+  await searchPage
     .getByRole("button", { name: /Apartment \/ Flat/i })
     .click();
-  await filters.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
-  await filters.getByRole("button", { name: /Show \d+ properties/ }).click();
-  await expect(filters).toHaveCount(0);
+  await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
+  await searchPage
+    .getByRole("listbox", { name: /Area suggestions in / })
+    .getByRole("option")
+    .first()
+    .click();
+  await searchPage.getByRole("button", { name: /Show \d+ properties/ }).click();
   await expect(page).toHaveURL(/#results/);
   const card = page.locator(".property-card").first();
   const title = await card.locator("h3").innerText();

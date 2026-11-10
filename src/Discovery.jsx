@@ -118,14 +118,14 @@ export const activeFilters = (f) =>
       k !== "unit" &&
       v !== filterDefaults[k],
   );
-export function SmartFilters({
+export function RefineSearchPanel({
   filters,
   mode,
   items,
   onApply,
-  onClose,
   onModeChange,
-  Modal,
+  showActions = true,
+  children,
 }) {
   const [intent, setIntent] = useState(mode === "RENT" ? "RENT" : "BUY");
   const [f, setF] = useState(
@@ -142,7 +142,12 @@ export function SmartFilters({
     setIntent(next);
     setF((current) => {
       if (next === "RENT" && current.type === "Land") {
-        return { ...filterDefaults, type: "All", min: current.min, max: current.max };
+        return {
+          ...filterDefaults,
+          type: "All",
+          min: current.min,
+          max: current.max,
+        };
       }
       return current;
     });
@@ -161,8 +166,25 @@ export function SmartFilters({
   const home = !["Land", "Commercial", "PG"].includes(f.type);
   const invalid = f.max > 0 && Number(f.min) > Number(f.max);
   const count = items.filter((p) => matches(p, f)).length;
+  const reset = () => setF(filterDefaults);
+  const apply = () => onApply(f);
+  const actions = (
+    <div className="modal-actions">
+      <button className="text-button" type="button" onClick={reset}>
+        Reset all
+      </button>
+      <button
+        className="primary"
+        type="button"
+        disabled={invalid}
+        onClick={apply}
+      >
+        Show {count} properties
+      </button>
+    </div>
+  );
   return (
-    <Modal title="Refine your search" onClose={onClose}>
+    <>
       <div className="form-stack">
         <div
           className="segment refine-intent-tabs"
@@ -378,19 +400,33 @@ export function SmartFilters({
             {select("seller", "Listed by", ["Owner", "Agent", "Builder"])}
           </>
         )}
-        <div className="modal-actions">
-          <button className="text-button" onClick={() => setF(filterDefaults)}>
-            Reset all
-          </button>
-          <button
-            className="primary"
-            disabled={invalid}
-            onClick={() => onApply(f)}
-          >
-            Show {count} properties
-          </button>
-        </div>
+        {showActions ? actions : null}
       </div>
+      {typeof children === "function"
+        ? children({ f, intent, invalid, count, reset, apply })
+        : children}
+    </>
+  );
+}
+export function SmartFilters({
+  filters,
+  mode,
+  items,
+  onApply,
+  onClose,
+  onModeChange,
+  Modal,
+}) {
+  return (
+    <Modal title="Refine your search" onClose={onClose}>
+      <RefineSearchPanel
+        filters={filters}
+        mode={mode}
+        items={items}
+        onApply={onApply}
+        onModeChange={onModeChange}
+        showActions
+      />
     </Modal>
   );
 }
