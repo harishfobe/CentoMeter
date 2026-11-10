@@ -251,29 +251,27 @@ textarea:focus-visible {
   min-height: 44px;
   color: var(--muted);
 }
-.search-controls .filter-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.search-controls .search-box-filter {
+  position: relative;
+  display: grid;
+  place-items: center;
   width: 44px;
   min-width: 44px;
   height: 44px;
+  min-height: 44px;
   padding: 0;
   border: 0;
   border-radius: 9999px;
-  background: var(--canvas);
+  background: transparent;
   color: var(--ink);
-  box-shadow: none;
+  flex-shrink: 0;
 }
-.search-controls .filter-button > span {
-  display: none;
-}
-.search-controls .filter-button:hover {
+.search-controls .search-box-filter:hover {
   background: var(--line);
 }
-.search-controls .filter-button.has-filter {
-  background: var(--brand-soft);
+.search-controls .search-box-filter.has-filter {
   color: var(--brand);
+  background: var(--brand-soft);
 }
 .filter-count {
   background: var(--brand);
@@ -734,7 +732,7 @@ textarea:focus-visible {
     padding: 0;
     gap: 9px;
   }
-  .search-controls .filter-button {
+  .search-controls .search-box-filter {
     width: 44px;
     min-width: 44px;
     height: 44px;
