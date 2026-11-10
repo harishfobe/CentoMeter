@@ -251,28 +251,6 @@ textarea:focus-visible {
   min-height: 44px;
   color: var(--muted);
 }
-.search-controls .search-box-filter {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  min-width: 44px;
-  height: 44px;
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  border-radius: 9999px;
-  background: transparent;
-  color: var(--ink);
-  flex-shrink: 0;
-}
-.search-controls .search-box-filter:hover {
-  background: var(--line);
-}
-.search-controls .search-box-filter.has-filter {
-  color: var(--brand);
-  background: var(--brand-soft);
-}
 .filter-count {
   background: var(--brand);
   color: var(--paper);
@@ -731,11 +709,6 @@ textarea:focus-visible {
     height: 44px;
     padding: 0;
     gap: 9px;
-  }
-  .search-controls .search-box-filter {
-    width: 44px;
-    min-width: 44px;
-    height: 44px;
   }
   .browse-tabs button {
     min-width: 0;

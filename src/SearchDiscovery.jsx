@@ -7,10 +7,8 @@ import {
   ChevronRight,
   LocateFixed,
   MapPin,
-  Mic,
   Plus,
   Search,
-  SlidersHorizontal,
   TrainFront,
   Trees,
   X,
@@ -38,10 +36,6 @@ export default function SearchDiscovery({
   onProject,
   onNearMe,
   onLand,
-  onFilters,
-  filterCount = 0,
-  hasFilter = false,
-  onNotice,
   landmarks,
 }) {
   const [selected, setSelected] = useState("");
@@ -147,22 +141,6 @@ export default function SearchDiscovery({
     }
     onSubmit(name);
   };
-  const voice = () => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      onNotice("Voice search is unavailable in this browser");
-      return;
-    }
-    const recognition = new SpeechRecognition();
-    recognition.lang = "en-IN";
-    recognition.onresult = (event) => {
-      onQueryChange(event.results[0][0].transcript);
-      setSelected("");
-    };
-    recognition.onerror = () => onNotice("Voice search could not start");
-    recognition.start();
-  };
   const title = mode === "RENT" ? "Rent" : "Buy";
   return (
     <section
@@ -224,26 +202,7 @@ export default function SearchDiscovery({
               >
                 <X size={20} />
               </button>
-            ) : (
-              <button type="button" aria-label="Voice search" onClick={voice}>
-                <Mic size={21} />
-              </button>
-            )}
-            {onFilters && (
-              <button
-                type="button"
-                aria-label="Filters"
-                className={
-                  "search-box-filter " + (hasFilter ? "has-filter" : "")
-                }
-                onClick={onFilters}
-              >
-                <SlidersHorizontal size={20} aria-hidden="true" />
-                {filterCount > 0 && (
-                  <b className="filter-count">{filterCount}</b>
-                )}
-              </button>
-            )}
+            ) : null}
           </form>
         </div>
         {query.trim() ? (

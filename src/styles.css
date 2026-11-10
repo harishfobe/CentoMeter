@@ -2843,8 +2843,7 @@ textarea {
   min-height: 44px;
   font-size: 12px;
 }
-.filter-button,
-.search-box-filter {
+.filter-button {
   position: relative;
 }
 .filter-count {
