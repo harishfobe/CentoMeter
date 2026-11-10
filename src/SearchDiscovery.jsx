@@ -10,6 +10,7 @@ import {
   Mic,
   Plus,
   Search,
+  SlidersHorizontal,
   TrainFront,
   Trees,
   X,
@@ -37,6 +38,9 @@ export default function SearchDiscovery({
   onProject,
   onNearMe,
   onLand,
+  onFilters,
+  filterCount = 0,
+  hasFilter = false,
   onNotice,
   landmarks,
 }) {
@@ -223,6 +227,21 @@ export default function SearchDiscovery({
             ) : (
               <button type="button" aria-label="Voice search" onClick={voice}>
                 <Mic size={21} />
+              </button>
+            )}
+            {onFilters && (
+              <button
+                type="button"
+                aria-label="Filters"
+                className={
+                  "search-box-filter " + (hasFilter ? "has-filter" : "")
+                }
+                onClick={onFilters}
+              >
+                <SlidersHorizontal size={20} aria-hidden="true" />
+                {filterCount > 0 && (
+                  <b className="filter-count">{filterCount}</b>
+                )}
               </button>
             )}
           </form>
