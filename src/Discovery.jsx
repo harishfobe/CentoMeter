@@ -195,173 +195,189 @@ export function SmartFilters({
               setF({ ...filterDefaults, type, min: f.min, max: f.max });
           }}
         />
-        <div className="form-columns">
-          <label>
-            Minimum {intent === "RENT" ? "rent" : "price"} (₹)
-            <input
-              type="number"
-              min="0"
-              value={f.min || ""}
-              placeholder="No minimum"
-              onChange={(e) => set("min", Math.max(0, Number(e.target.value)))}
-            />
-          </label>
-          <label>
-            Maximum {intent === "RENT" ? "rent" : "price"} (₹)
-            <input
-              type="number"
-              min="0"
-              value={f.max || ""}
-              placeholder="No maximum"
-              onChange={(e) => set("max", Math.max(0, Number(e.target.value)))}
-            />
-          </label>
-        </div>
-        {invalid && (
-          <p role="alert" className="form-error">
-            Maximum must be at least the minimum.
+        {f.type === "All" ? (
+          <p className="refine-type-hint">
+            Choose a property type to see price, bedrooms, and more filters.
           </p>
-        )}
-        {home && (
-          <fieldset className="bhk-options">
-            <legend>Exact bedrooms — choose one or more</legend>
-            <div className="chips">
-              {["0", "1", "2", "3", "4", "5"].map((n) => (
-                <button
-                  type="button"
-                  key={n}
-                  className={
-                    "chip " +
-                    (String(f.beds).split(",").includes(n) ? "active" : "")
-                  }
-                  aria-pressed={String(f.beds).split(",").includes(n)}
-                  onClick={() => {
-                    const values = f.beds === "Any" ? [] : f.beds.split(",");
-                    const next = values.includes(n)
-                      ? values.filter((x) => x !== n)
-                      : [...values, n];
-                    set("beds", next.length ? next.join(",") : "Any");
-                  }}
-                >
-                  {n === "0" ? "Studio / 1 RK" : n + " BHK"}
-                </button>
-              ))}
-            </div>
-          </fieldset>
-        )}
-        {(f.type === "All" || supportsFacing(f.type)) &&
-          select("facing", "Facing direction", facingDirections)}
-        {f.type !== "Land" &&
-          select(
-            "furnishing",
-            "Furnishing",
-            furnishingOptionsFor(
-              f.type === "Commercial" ||
-                (f.type === "All" && intent === "RENT")
-                ? "Commercial"
-                : f.type === "All"
-                  ? "Apartment"
-                  : f.type,
-            ),
-          )}
-        <div className="form-columns">
-          <label>
-            Minimum area
-            <input
-              type="number"
-              min="0"
-              value={f.minArea || ""}
-              placeholder="Any size"
-              onChange={(e) =>
-                set("minArea", Math.max(0, Number(e.target.value)))
-              }
-            />
-          </label>
-          <label>
-            Area unit
-            <select
-              value={f.unit}
-              onChange={(e) => set("unit", e.target.value)}
-            >
-              {(f.type === "Land" || f.type === "All"
-                ? ["sq ft", "cent", "sq yd", "acre"]
-                : ["sq ft", "sq yd", "acre"]
-              ).map((x) => (
-                <option key={x}>{x}</option>
-              ))}
-            </select>
-          </label>
-        </div>
-        {f.type === "Land" ? (
-          <>
-            {select("subtype", "Land type", [
-              "Residential",
-              "Commercial",
-              "Agricultural",
-            ])}
-            {select("feature", "Access", ["Road access", "Corner plot"])}
-          </>
-        ) : f.type === "Commercial" ? (
-          <>
-            {select(
-              "subtype",
-              "Space type",
-              commercialSubtypesFor(intent),
-            )}
-            {select(
-              "feature",
-              intent === "RENT" ? "Amenities & facilities" : "Facilities",
-              commercialFacilitiesFor(intent),
-            )}
-          </>
-        ) : f.type === "PG" ? (
-          <>
-            {select("occupancy", "Room occupancy", [
-              "Private room",
-              "Twin sharing",
-              "Triple sharing",
-            ])}
-            {select("meals", "Meals", ["Included", "Not included"])}
-          </>
         ) : (
-          select("feature", "Must have", ["Parking", "Lift access", "Balcony"])
-        )}
-        <details className="advanced-filters">
-          <summary>More preferences</summary>
-          <div className="form-stack">
+          <>
+            <div className="form-columns">
+              <label>
+                Minimum {intent === "RENT" ? "rent" : "price"} (₹)
+                <input
+                  type="number"
+                  min="0"
+                  value={f.min || ""}
+                  placeholder="No minimum"
+                  onChange={(e) =>
+                    set("min", Math.max(0, Number(e.target.value)))
+                  }
+                />
+              </label>
+              <label>
+                Maximum {intent === "RENT" ? "rent" : "price"} (₹)
+                <input
+                  type="number"
+                  min="0"
+                  value={f.max || ""}
+                  placeholder="No maximum"
+                  onChange={(e) =>
+                    set("max", Math.max(0, Number(e.target.value)))
+                  }
+                />
+              </label>
+            </div>
+            {invalid && (
+              <p role="alert" className="form-error">
+                Maximum must be at least the minimum.
+              </p>
+            )}
             {home && (
+              <fieldset className="bhk-options">
+                <legend>Exact bedrooms — choose one or more</legend>
+                <div className="chips">
+                  {["0", "1", "2", "3", "4", "5"].map((n) => (
+                    <button
+                      type="button"
+                      key={n}
+                      className={
+                        "chip " +
+                        (String(f.beds).split(",").includes(n) ? "active" : "")
+                      }
+                      aria-pressed={String(f.beds).split(",").includes(n)}
+                      onClick={() => {
+                        const values =
+                          f.beds === "Any" ? [] : f.beds.split(",");
+                        const next = values.includes(n)
+                          ? values.filter((x) => x !== n)
+                          : [...values, n];
+                        set("beds", next.length ? next.join(",") : "Any");
+                      }}
+                    >
+                      {n === "0" ? "Studio / 1 RK" : n + " BHK"}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+            )}
+            {supportsFacing(f.type) &&
+              select("facing", "Facing direction", facingDirections)}
+            {f.type !== "Land" &&
+              select(
+                "furnishing",
+                "Furnishing",
+                furnishingOptionsFor(
+                  f.type === "Commercial"
+                    ? "Commercial"
+                    : f.type === "PG"
+                      ? "Apartment"
+                      : f.type,
+                ),
+              )}
+            <div className="form-columns">
+              <label>
+                Minimum area
+                <input
+                  type="number"
+                  min="0"
+                  value={f.minArea || ""}
+                  placeholder="Any size"
+                  onChange={(e) =>
+                    set("minArea", Math.max(0, Number(e.target.value)))
+                  }
+                />
+              </label>
+              <label>
+                Area unit
+                <select
+                  value={f.unit}
+                  onChange={(e) => set("unit", e.target.value)}
+                >
+                  {(f.type === "Land"
+                    ? ["sq ft", "cent", "sq yd", "acre"]
+                    : ["sq ft", "sq yd", "acre"]
+                  ).map((x) => (
+                    <option key={x}>{x}</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            {f.type === "Land" ? (
               <>
-                {select("pets", "Pets", [
-                  "Allowed",
-                  "Not allowed",
-                  "Not specified",
+                {select("subtype", "Land type", [
+                  "Residential",
+                  "Commercial",
+                  "Agricultural",
                 ])}
-                {select("floor", "Floor", ["Ground", "1–3", "4+"])}
+                {select("feature", "Access", ["Road access", "Corner plot"])}
               </>
-            )}
-            {f.type === "Commercial" && intent === "RENT" && (
-              select("floor", "Floor", ["Ground", "1–3", "4+"])
-            )}
-            {f.type === "PG" && (
+            ) : f.type === "Commercial" ? (
               <>
-                {select("bathroom", "Bathroom", ["Attached", "Shared"])}
-                {select("ac", "Air conditioning", [
-                  "Yes",
-                  "No",
-                  "Not specified",
-                ])}
+                {select(
+                  "subtype",
+                  "Space type",
+                  commercialSubtypesFor(intent),
+                )}
+                {select(
+                  "feature",
+                  intent === "RENT" ? "Amenities & facilities" : "Facilities",
+                  commercialFacilitiesFor(intent),
+                )}
               </>
+            ) : f.type === "PG" ? (
+              <>
+                {select("occupancy", "Room occupancy", [
+                  "Private room",
+                  "Twin sharing",
+                  "Triple sharing",
+                ])}
+                {select("meals", "Meals", ["Included", "Not included"])}
+              </>
+            ) : (
+              select("feature", "Must have", [
+                "Parking",
+                "Lift access",
+                "Balcony",
+              ])
             )}
-          </div>
-        </details>
-        {select(
-          "available",
-          intent === "RENT" ? "Move-in availability" : "Possession",
-          intent === "RENT"
-            ? AVAILABILITY_FILTER_OPTIONS
-            : ["Ready to move", "Within 30 days", "Under construction"],
+            <details className="advanced-filters">
+              <summary>More preferences</summary>
+              <div className="form-stack">
+                {home && (
+                  <>
+                    {select("pets", "Pets", [
+                      "Allowed",
+                      "Not allowed",
+                      "Not specified",
+                    ])}
+                    {select("floor", "Floor", ["Ground", "1–3", "4+"])}
+                  </>
+                )}
+                {f.type === "Commercial" &&
+                  intent === "RENT" &&
+                  select("floor", "Floor", ["Ground", "1–3", "4+"])}
+                {f.type === "PG" && (
+                  <>
+                    {select("bathroom", "Bathroom", ["Attached", "Shared"])}
+                    {select("ac", "Air conditioning", [
+                      "Yes",
+                      "No",
+                      "Not specified",
+                    ])}
+                  </>
+                )}
+              </div>
+            </details>
+            {select(
+              "available",
+              intent === "RENT" ? "Move-in availability" : "Possession",
+              intent === "RENT"
+                ? AVAILABILITY_FILTER_OPTIONS
+                : ["Ready to move", "Within 30 days", "Under construction"],
+            )}
+            {select("seller", "Listed by", ["Owner", "Agent", "Builder"])}
+          </>
         )}
-        {select("seller", "Listed by", ["Owner", "Agent", "Builder"])}
         <div className="modal-actions">
           <button className="text-button" onClick={() => setF(filterDefaults)}>
             Reset all

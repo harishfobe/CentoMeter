@@ -1360,6 +1360,15 @@ textarea {
   color: var(--paper);
   box-shadow: none;
 }
+.refine-type-hint {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--canvas);
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
 .modal-actions {
   display: flex;
   justify-content: space-between;
