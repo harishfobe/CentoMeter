@@ -68,7 +68,8 @@ export default function SearchDiscovery({
       list = list.filter(
         (p) => String(p.locality).toLowerCase() === selected.toLowerCase(),
       );
-    if (!list.length && selected) list = current.filter((p) => matches(p, draft));
+    if (!list.length && selected)
+      list = current.filter((p) => matches(p, draft));
     return list.slice(0, 8);
   };
   return (
@@ -87,22 +88,45 @@ export default function SearchDiscovery({
         </button>
         <h1>Refine your search</h1>
       </div>
-      <div className="search-discovery-scroll">
-        <RefineSearchPanel
-          filters={filters}
-          mode={mode}
-          items={items}
-          onModeChange={onModeChange}
-          showActions={false}
-          onApply={(f) => {
-            rememberArea(selected);
-            onAreaSelect?.(selected);
-            onApply(f, selected);
-          }}
-        >
-          {({ count, invalid, reset, apply, f }) => {
-            const suggested = suggestedFor(f);
-            return (
+      <RefineSearchPanel
+        filters={filters}
+        mode={mode}
+        items={items}
+        onModeChange={onModeChange}
+        showActions={false}
+        onApply={(f) => {
+          rememberArea(selected);
+          onAreaSelect?.(selected);
+          onApply(f, selected);
+        }}
+        renderActions={({ count, invalid, reset, apply }) => (
+          <div className="search-discovery-footer refine-search-footer">
+            <button
+              type="button"
+              className="text-button"
+              aria-label="Reset all filters"
+              onClick={() => {
+                reset();
+                setSelected("");
+                onAreaSelect?.("");
+              }}
+            >
+              Reset all
+            </button>
+            <button
+              type="button"
+              className="primary"
+              disabled={invalid}
+              onClick={apply}
+            >
+              Show {count} properties
+            </button>
+          </div>
+        )}
+      >
+        {({ f }) => {
+          const suggested = suggestedFor(f);
+          return (
             <>
               <div className="search-discovery-section area-suggestions">
                 <h2>Suggested areas</h2>
@@ -179,33 +203,10 @@ export default function SearchDiscovery({
                   </div>
                 </div>
               )}
-              <div className="search-discovery-footer refine-search-footer">
-                <button
-                  type="button"
-                  className="text-button"
-                  aria-label="Reset all filters"
-                  onClick={() => {
-                    reset();
-                    setSelected("");
-                    onAreaSelect?.("");
-                  }}
-                >
-                  Reset all
-                </button>
-                <button
-                  type="button"
-                  className="primary"
-                  disabled={invalid}
-                  onClick={apply}
-                >
-                  Show {count} properties
-                </button>
-              </div>
             </>
-            );
-          }}
-        </RefineSearchPanel>
-      </div>
+          );
+        }}
+      </RefineSearchPanel>
     </section>
   );
 }

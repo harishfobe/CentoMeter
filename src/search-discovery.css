@@ -389,7 +389,7 @@
   font-size: 1.25rem;
 }
 .refine-search-page .search-discovery-scroll {
-  padding: 0 20px 88px;
+  padding: 0 20px 16px;
 }
 .refine-search-page .form-stack {
   margin-bottom: 8px;
@@ -513,10 +513,9 @@
   line-height: 1.3;
 }
 .refine-search-page .refine-search-footer {
-  position: sticky;
-  bottom: 0;
+  flex: none;
   z-index: 2;
-  margin: 0 -20px;
+  margin: 0;
   padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--line);
   background: var(--paper);

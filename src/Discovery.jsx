@@ -125,6 +125,7 @@ export function RefineSearchPanel({
   onApply,
   onModeChange,
   showActions = true,
+  renderActions,
   children,
 }) {
   const [intent, setIntent] = useState(mode === "RENT" ? "RENT" : "BUY");
@@ -190,7 +191,7 @@ export function RefineSearchPanel({
       </button>
     </div>
   );
-  return (
+  const body = (
     <>
       <div className="form-stack">
         <div
@@ -407,13 +408,22 @@ export function RefineSearchPanel({
             {select("seller", "Listed by", ["Owner", "Agent", "Builder"])}
           </>
         )}
-        {showActions ? actions : null}
+        {showActions && typeof renderActions !== "function" ? actions : null}
       </div>
       {typeof children === "function"
         ? children({ f, intent, invalid, count, reset, apply })
         : children}
     </>
   );
+  if (typeof renderActions === "function") {
+    return (
+      <>
+        <div className="search-discovery-scroll">{body}</div>
+        {renderActions({ f, intent, invalid, count, reset, apply })}
+      </>
+    );
+  }
+  return body;
 }
 export function SmartFilters({
   filters,
