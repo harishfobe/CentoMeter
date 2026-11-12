@@ -389,7 +389,7 @@
   font-size: 1.25rem;
 }
 .refine-search-page .search-discovery-scroll {
-  padding: 0 20px 12px;
+  padding: 0 20px 88px;
 }
 .refine-search-page .form-stack {
   margin-bottom: 8px;
@@ -398,7 +398,84 @@
   padding-left: 0;
   padding-right: 0;
   margin-top: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+.refine-search-page .suggested-properties {
+  padding-left: 0;
+  padding-right: 0;
+  margin: 0 0 18px;
+}
+.refine-search-page .suggested-properties h2 {
+  margin-bottom: 12px;
+}
+.suggested-property-carousel {
+  display: flex;
+  gap: 12px;
+  margin: 0 -20px;
+  padding: 0 20px 6px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.suggested-property-carousel::-webkit-scrollbar {
+  display: none;
+}
+.suggested-property-carousel > [role="listitem"] {
+  flex: 0 0 min(78%, 280px);
+  min-width: 220px;
+  scroll-snap-align: start;
+}
+.suggested-property-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  color: var(--ink);
+  text-align: left;
+}
+.suggested-property-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background: var(--canvas);
+}
+.suggested-property-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px 12px;
+}
+.suggested-property-copy em {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+}
+.suggested-property-copy strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 0.9375rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.suggested-property-copy b {
+  margin-top: 2px;
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 800;
 }
 .refine-search-page .area-card {
   flex-direction: row;

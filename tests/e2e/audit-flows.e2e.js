@@ -44,6 +44,19 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await expect(
     searchPage.getByRole("listbox", { name: /Area suggestions in / }),
   ).toBeVisible();
+  await expect(
+    searchPage.getByRole("heading", {
+      name: "Suggested properties",
+      exact: true,
+    }),
+  ).toBeVisible();
+  const propertyCarousel = searchPage.getByRole("list", {
+    name: /Suggested properties in /,
+  });
+  await expect(propertyCarousel).toBeVisible();
+  await expect(
+    propertyCarousel.getByRole("button", { name: /View / }).first(),
+  ).toBeVisible();
   const intent = searchPage.getByRole("tablist", { name: "Buy or rent" });
   await expect(intent.getByRole("tab", { name: "Buy" })).toHaveAttribute(
     "aria-selected",

@@ -1,8 +1,18 @@
 import React, { useMemo, useState } from "react";
 import { ArrowLeft, Check, MapPin, Plus } from "lucide-react";
 import properties from "./data/properties.json";
-import { RefineSearchPanel, readLocal, writeLocal } from "./Discovery";
+import {
+  RefineSearchPanel,
+  matches,
+  readLocal,
+  writeLocal,
+} from "./Discovery";
+import { money } from "./PropertyModel";
+import { priceWithBasis } from "./listingPresentation";
+import { typeLabel } from "./PropertyTypes";
 import { localityPrice, orderedLocalities } from "./SearchSuggestions";
+
+const photo = (p) => p.photos?.[0] || `/${p.image || "apartment"}.jpg`;
 
 export default function SearchDiscovery({
   city,
@@ -13,6 +23,7 @@ export default function SearchDiscovery({
   onApply,
   onModeChange,
   onAreaSelect,
+  onOpen,
   query,
 }) {
   const [selected, setSelected] = useState(query || "");
@@ -51,6 +62,15 @@ export default function SearchDiscovery({
     setHistory(next);
     writeLocal("centometer-search-history", next);
   };
+  const suggestedFor = (draft) => {
+    let list = current.filter((p) => matches(p, draft));
+    if (selected)
+      list = list.filter(
+        (p) => String(p.locality).toLowerCase() === selected.toLowerCase(),
+      );
+    if (!list.length && selected) list = current.filter((p) => matches(p, draft));
+    return list.slice(0, 8);
+  };
   return (
     <section
       className="search-discovery refine-search-page"
@@ -80,7 +100,9 @@ export default function SearchDiscovery({
             onApply(f, selected);
           }}
         >
-          {({ count, invalid, reset, apply }) => (
+          {({ count, invalid, reset, apply, f }) => {
+            const suggested = suggestedFor(f);
+            return (
             <>
               <div className="search-discovery-section area-suggestions">
                 <h2>Suggested areas</h2>
@@ -119,6 +141,44 @@ export default function SearchDiscovery({
                   ))}
                 </div>
               </div>
+              {suggested.length > 0 && (
+                <div className="search-discovery-section suggested-properties">
+                  <h2>Suggested properties</h2>
+                  <div
+                    className="suggested-property-carousel"
+                    role="list"
+                    aria-label={`Suggested properties in ${city}`}
+                  >
+                    {suggested.map((p) => (
+                      <div role="listitem" key={p.id}>
+                        <button
+                          type="button"
+                          className="suggested-property-card"
+                          onClick={() => onOpen?.(p)}
+                          aria-label={`View ${p.title}`}
+                        >
+                          <img
+                            src={photo(p)}
+                            alt=""
+                            width="280"
+                            height="160"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          <span className="suggested-property-copy">
+                            <em>
+                              {typeLabel(p.type)}
+                              {p.locality ? ` · ${p.locality}` : ""}
+                            </em>
+                            <strong>{p.title}</strong>
+                            <b>{priceWithBasis(p, { formatMoney: money })}</b>
+                          </span>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <div className="search-discovery-footer refine-search-footer">
                 <button
                   type="button"
@@ -142,7 +202,8 @@ export default function SearchDiscovery({
                 </button>
               </div>
             </>
-          )}
+            );
+          }}
         </RefineSearchPanel>
       </div>
     </section>
