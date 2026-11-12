@@ -736,14 +736,28 @@ export default function PostFlow({
           </div>
         </Modal>
       )}
-      <div className="stepper">
-        {["Type", "Details", "Location", "Review"].map((s, i) => (
-          <div key={s} className={i <= step ? "active" : ""}>
-            <span>{i < step ? <Check size={16} /> : i + 1}</span>
-            <small>{s}</small>
-          </div>
+      <nav className="stepper" aria-label="Posting steps">
+        {["Type", "Details", "Location", "Review"].map((label, i) => (
+          <button
+            type="button"
+            key={label}
+            className={i <= step ? "active" : ""}
+            aria-label={label}
+            aria-current={i === step ? "step" : undefined}
+            disabled={i > step}
+            onClick={() => {
+              if (i >= step) return;
+              setError("");
+              setStep(i);
+            }}
+          >
+            <span>
+              {i < step ? <Check size={16} aria-hidden="true" /> : i + 1}
+            </span>
+            <small>{label}</small>
+          </button>
         ))}
-      </div>
+      </nav>
       <div className="post-panel">
         <div className="form-stack">
           {step === 0 && (

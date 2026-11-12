@@ -36,6 +36,24 @@ it("releases draft loading after restore rejection and shows the failure", async
     screen.getByRole("button", { name: "Save draft & exit" }).disabled,
   ).toBe(false);
 });
+it("jumps back to an earlier posting step from the stepper", async () => {
+  render(<PostFlow city="Coimbatore" onExit={() => {}} onComplete={() => {}} />);
+  const continueButton = await screen.findByRole("button", {
+    name: "Continue",
+  });
+  await waitFor(() => expect(continueButton.disabled).toBe(false));
+  fireEvent.click(continueButton);
+  expect(
+    screen.getByRole("heading", { name: "Tell the story of your property." }),
+  ).toBeTruthy();
+  fireEvent.click(screen.getByRole("button", { name: "Type" }));
+  expect(
+    screen.getByRole("heading", { name: "What would you like to list?" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("button", { name: "Details" }).disabled,
+  ).toBe(true);
+});
 it("the back action saves a draft and stays in the editor if the write fails", async () => {
   io.persistDraft.mockRejectedValueOnce(Error("blocked"));
   const exit = vi.fn();
