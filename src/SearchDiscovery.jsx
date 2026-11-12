@@ -116,14 +116,14 @@ export default function SearchDiscovery({
             role="search"
             onSubmit={(event) => event.preventDefault()}
           >
-            <Search size={20} aria-hidden="true" />
+            <Search size={19} aria-hidden="true" />
             <input
               role="combobox"
               aria-label="Search by locality, landmark or project"
               aria-autocomplete="list"
               aria-expanded={open && Boolean(term)}
               aria-controls="refine-search-suggestions"
-              placeholder="Locality, landmark or project"
+              placeholder="Locality, landmark or property"
               autoComplete="off"
               enterKeyHint="search"
               value={text}
