@@ -10,7 +10,14 @@ import {
   knownMoveIn,
   mealsDisplay,
   mealsIncludedAffirmative,
+  listingAreaSpec,
+  listingBathSpec,
+  listingPhotoCount,
+  listingPriceParts,
+  listingStatusBadge,
+  listingSubtitle,
   posterRole,
+  postedByLabel,
   priceWithBasis,
   recentlyConfirmedSafe,
   typeTransactionLine,
@@ -127,6 +134,51 @@ describe("listing presentation accuracy", () => {
         price: 35000,
       }),
     ).toBe("₹35,000 / month");
+  });
+
+  it("formats a listing row from known fields", () => {
+    const home = {
+      mode: "BUY",
+      type: "Apartment",
+      price: 7200000,
+      beds: 2,
+      baths: 2,
+      area: 1150,
+      seller: "Owner",
+      possessionStatus: "Ready to move",
+      photos: ["a", "b", "c", "d", "e", "f"],
+    };
+    expect(listingStatusBadge(home)).toBe("READY TO MOVE");
+    expect(listingSubtitle(home)).toBe("2 BHK Apartment");
+    expect(listingAreaSpec(home)).toBe("1,150 sq.ft.");
+    expect(listingBathSpec(home)).toBe("2 Baths");
+    expect(listingPhotoCount(home)).toBe(6);
+    expect(postedByLabel(home)).toBe("Posted by Owner");
+    expect(listingPriceParts(home)).toMatchObject({
+      amount: "₹72 L",
+      rate: "₹6,261/sq.ft.",
+    });
+    expect(listingStatusBadge({ available: "Within 30 days" })).toBe(
+      "WITHIN 30 DAYS",
+    );
+    const rent = listingPriceParts({
+      mode: "RENT",
+      type: "Apartment",
+      price: 28000,
+      area: 900,
+      beds: 2,
+    });
+    expect(rent.amount).toBe("₹28,000");
+    expect(rent.basis).toBe("/ month");
+    expect(rent.rate).toBeNull();
+    expect(
+      listingPriceParts({
+        mode: "BUY",
+        type: "Land",
+        price: 7464000,
+        area: 2460,
+      }).rate,
+    ).toBe("₹13.22 L/cent");
   });
 
   it("preserves owner/agent/builder poster role", () => {

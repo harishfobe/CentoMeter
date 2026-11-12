@@ -4,7 +4,7 @@
  */
 import { money, hasValue } from "./PropertyModel";
 import { cardTypeLabel } from "./PropertyTypes";
-import { landArea } from "./LandDetails";
+import { landArea, landNumber, toCents } from "./LandDetails";
 import { landPrice } from "./JourneyUX";
 import { canonicalizePropertyType, PROPERTY_TYPE } from "./propertyTypeIds";
 
@@ -183,6 +183,117 @@ export function posterRole(p) {
 export function postedByLine(p) {
   const role = posterRole(p).toLowerCase();
   return `Posted by ${role}`;
+}
+
+/** Card label keeps the role capitalized: "Posted by Owner". */
+export function postedByLabel(p) {
+  return `Posted by ${posterRole(p)}`;
+}
+
+/** Orange photo badge. Only ready listings use the reference wording. */
+export function listingStatusBadge(p) {
+  const raw = [p?.possessionStatus, p?.available].find((value) =>
+    hasValue(value),
+  );
+  if (!raw) return null;
+  const text = String(raw).trim();
+  if (/^(ready\s*(now|to\s*move)|immediately|immediate)$/i.test(text)) {
+    return "READY TO MOVE";
+  }
+  if (text.length > 24) return null;
+  return text.toUpperCase();
+}
+
+function shortListingType(p) {
+  const key = canonicalizePropertyType(p?.type);
+  if (key === PROPERTY_TYPE.apartment) return "Apartment";
+  if (key === PROPERTY_TYPE.villa) return "Villa";
+  if (key === PROPERTY_TYPE.independent_house) return "Independent House";
+  if (key === PROPERTY_TYPE.land) return "Land";
+  if (key === PROPERTY_TYPE.pg) return "PG";
+  if (key === PROPERTY_TYPE.commercial) return cardTypeLabel(key, p);
+  return cardTypeLabel(p?.type, p) || "Property";
+}
+
+/** "2 BHK Apartment" */
+export function listingSubtitle(p) {
+  const type = shortListingType(p);
+  const config = configurationLabel(p);
+  if (!config || config === type || config === "Land") return type;
+  return `${config} ${type}`;
+}
+
+export function listingPhotoCount(p) {
+  if (Array.isArray(p?.photos) && p.photos.length) return p.photos.length;
+  if (p?.image) return 1;
+  return 0;
+}
+
+export function listingAreaSpec(p) {
+  if (!p) return null;
+  const type = canonicalizePropertyType(p.type);
+  if (type === PROPERTY_TYPE.land) {
+    const area = p.plotArea || p.area;
+    if (!positiveArea(area)) return null;
+    return `${landNumber(toCents(area))} cents`;
+  }
+  const n = Number(p.builtUpArea || p.area || p.carpetArea);
+  if (!positiveArea(n)) return null;
+  return `${n.toLocaleString("en-IN")} sq.ft.`;
+}
+
+export function listingConfigSpec(p) {
+  const config = configurationLabel(p);
+  if (!config || !/BHK|RK|Studio|room/i.test(config)) return null;
+  return config;
+}
+
+export function listingBathSpec(p) {
+  const type = canonicalizePropertyType(p?.type);
+  if (type === PROPERTY_TYPE.land) return null;
+  const n = Number(p?.baths);
+  if (!Number.isFinite(n) || n <= 0) return null;
+  return `${n} ${n === 1 ? "Bath" : "Baths"}`;
+}
+
+function positiveArea(value) {
+  const n = Number(value);
+  return Number.isFinite(n) && n > 0;
+}
+
+/** Muted rate beside the price. Rent already states / month. */
+export function listingRateLabel(p) {
+  if (!p || p.mode === "RENT") return null;
+  const price = Number(p.price);
+  if (!Number.isFinite(price) || price <= 0) return null;
+  const type = canonicalizePropertyType(p.type);
+  if (type === PROPERTY_TYPE.land) {
+    const cents = toCents(p.plotArea || p.area);
+    if (!positiveArea(cents)) return null;
+    return `${money(Math.round(price / cents))}/cent`;
+  }
+  const area = Number(p.builtUpArea || p.area || p.carpetArea);
+  if (!positiveArea(area)) return null;
+  return `${money(Math.round(price / area))}/sq.ft.`;
+}
+
+/** Split "₹72 L total" into the orange amount, a basis, and the rate. */
+export function listingPriceParts(
+  p,
+  { unit = "total", formatMoney = money } = {},
+) {
+  const full = priceWithBasis(p, { unit, formatMoney });
+  const rate =
+    p?.type === "Land" && unit !== "total" ? null : listingRateLabel(p);
+  const primary = rate ? String(full).replace(/\s+total$/, "") : full;
+  const match = String(primary).match(
+    /^(₹[\d,]+(?:\.\d+)?(?:\s*(?:Cr|L))?)\s*(.*)$/,
+  );
+  return {
+    amount: match ? match[1] : primary,
+    basis: match ? match[2].trim() : "",
+    rate,
+  };
 }
 
 export function availabilityLine(p) {
