@@ -116,7 +116,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   const typeGroup = searchPage.getByRole("group", {
     name: /Property types|Rental property types/,
   });
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await expect(
     searchPage.getByRole("button", { name: "All properties" }),
   ).toHaveCount(0);
@@ -128,18 +128,18 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     searchPage.getByLabel("Minimum price (₹)", { exact: true }),
   ).toBeVisible();
   await apartment.click();
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await expect(
     typeGroup.getByRole("button", { pressed: true }),
   ).toHaveCount(0);
   await intent.getByRole("tab", { name: "Rent" }).click();
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await apartment.click();
   await expect(
     searchPage.getByLabel("Minimum rent (₹)", { exact: true }),
   ).toBeVisible();
   await apartment.click();
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await intent.getByRole("tab", { name: "Buy" }).click();
   await apartment.click();
   await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
@@ -153,7 +153,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   ).toBeVisible();
   await searchPage.getByRole("button", { name: "Reset all filters" }).click();
   await expect(searchBox).toHaveValue("");
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await expect(
     typeGroup.getByRole("button", { pressed: true }),
   ).toHaveCount(0);

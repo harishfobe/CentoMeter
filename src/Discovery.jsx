@@ -327,11 +327,7 @@ export function RefineSearchPanel({
           deselectable
           onChange={(type) => setF((current) => retainFilters(current, type === current.type ? "All" : type))}
         />
-        {f.type === "All" ? (
-          <p className="refine-type-hint">
-            Choose a property type to see bedrooms and more filters.
-          </p>
-        ) : (
+        {f.type !== "All" && (
           <>
             {home && (
               <fieldset className="bhk-options">
