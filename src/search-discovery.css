@@ -117,6 +117,10 @@
   color: var(--brand);
   padding: 0;
 }
+.search-discovery-form .search-locate svg {
+  fill: none;
+  stroke: currentColor;
+}
 .search-discovery-form .search-locate[aria-pressed="true"] {
   background: var(--brand-soft);
 }
