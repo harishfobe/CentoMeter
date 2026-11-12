@@ -52,9 +52,17 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   });
   await expect(searchBox).toBeVisible();
   await searchBox.fill("Puram");
+  const suggestions = searchPage.getByRole("listbox", {
+    name: "Search suggestions",
+  });
+  await expect(suggestions).toBeVisible();
   await expect(
-    searchPage.getByRole("listbox", { name: "Search suggestions" }),
+    searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
   ).toBeVisible();
+  const suggestionBox = await suggestions.boundingBox();
+  const fieldBox = await searchBox.boundingBox();
+  expect(suggestionBox.y).toBeGreaterThan(fieldBox.y);
+  expect(suggestionBox.y - (fieldBox.y + fieldBox.height)).toBeLessThan(24);
   await searchBox.fill("");
   await expect(
     searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
