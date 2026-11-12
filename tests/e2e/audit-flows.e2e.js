@@ -47,6 +47,18 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await expect(
     searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
   ).toBeVisible();
+  const mainAreas = searchPage.getByRole("group", { name: "Main areas" });
+  const nearby = searchPage.getByRole("group", { name: "Nearby" });
+  const buyRent = searchPage.getByRole("tablist", { name: "Buy or rent" });
+  await expect(mainAreas.getByRole("button", { name: "RS Puram" })).toBeVisible();
+  await expect(nearby.getByRole("button", { name: "Property nearby" })).toBeVisible();
+  await expect(nearby.getByRole("button", { name: "Agents nearby" })).toBeVisible();
+  await expect(nearby.getByRole("button", { name: "Projects nearby" })).toBeVisible();
+  const areaBox = await mainAreas.boundingBox();
+  const tabBox = await buyRent.boundingBox();
+  const nearbyBox = await nearby.boundingBox();
+  expect(areaBox.y + areaBox.height).toBeLessThanOrEqual(tabBox.y + 2);
+  expect(tabBox.y + tabBox.height).toBeLessThanOrEqual(nearbyBox.y + 2);
   const searchBox = searchPage.getByRole("combobox", {
     name: "Search by locality, landmark or project",
   });
@@ -333,4 +345,36 @@ test("editing an agent sample replaces the existing card instead of creating a d
       .first(),
   ).toBeVisible();
   await shot(page, info, "agent-edited");
+});
+test("search sheet areas and nearby shortcuts open the right places", async ({
+  page,
+}) => {
+  await page.goto("/#home");
+  await page.getByRole("button", { name: "Open search" }).click();
+  const searchPage = page.getByRole("region", { name: /Refine search in / });
+  const searchBox = searchPage.getByRole("combobox", {
+    name: "Search by locality, landmark or project",
+  });
+  await searchPage
+    .getByRole("group", { name: "Main areas" })
+    .getByRole("button", { name: "RS Puram", exact: true })
+    .click();
+  await expect(searchBox).toHaveValue("RS Puram");
+  await searchPage.getByRole("button", { name: "Property nearby" }).click();
+  await expect(page).toHaveURL(/#results/);
+  await expect(page.getByRole("region", { name: "Active filters" })).toHaveCount(0);
+  await page.getByRole("button", { name: "Open search" }).click();
+  await page.getByRole("button", { name: "Projects nearby" }).click();
+  await expect(page).toHaveURL(/#results/);
+  await expect(
+    page.getByRole("region", { name: "Active filters" }).getByRole("button", {
+      name: /Builder only/,
+    }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Open search" }).click();
+  await page.getByRole("button", { name: "Agents nearby" }).click();
+  await expect(page).toHaveURL(/#agents/);
+  await expect(
+    page.getByRole("heading", { name: "Find your local expert" }),
+  ).toBeVisible();
 });

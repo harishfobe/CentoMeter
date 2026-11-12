@@ -441,6 +441,36 @@
 .refine-search-page .form-stack {
   margin-bottom: 8px;
 }
+.refine-intent-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.refine-shortcut-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.refine-shortcut-row::-webkit-scrollbar {
+  display: none;
+}
+.refine-shortcut-row button {
+  flex: none;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+.refine-shortcut-row button[aria-pressed="true"] {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  color: var(--brand);
+}
 .refine-search-page .area-suggestions {
   padding-left: 0;
   padding-right: 0;

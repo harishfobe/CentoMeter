@@ -189,6 +189,8 @@ export function RefineSearchPanel({
   deferMode = false,
   onDraftIntent,
   renderActions,
+  beforeTabs = null,
+  afterTabs = null,
   children,
 }) {
   const [intent, setIntent] = useState(mode === "RENT" ? "RENT" : "BUY");
@@ -260,6 +262,8 @@ export function RefineSearchPanel({
   const body = (
     <>
       <div className="form-stack">
+        <div className="refine-intent-block">
+          {typeof beforeTabs === "function" ? beforeTabs({ f, intent }) : beforeTabs}
         <div
           className="segment refine-intent-tabs"
           role="tablist"
@@ -280,6 +284,8 @@ export function RefineSearchPanel({
               {label}
             </button>
           ))}
+        </div>
+          {typeof afterTabs === "function" ? afterTabs({ f, intent }) : afterTabs}
         </div>
         <div className="form-columns">
           <label>

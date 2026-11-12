@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { ArrowLeft, Check, MapPin, Plus, Search } from "lucide-react";
 import properties from "./data/properties.json";
-import { landmarkSuggestions } from "./data/cities";
+import { featuredAreas, landmarkSuggestions } from "./data/cities";
 import {
   RefineSearchPanel,
   matches,
@@ -25,6 +25,7 @@ export default function SearchDiscovery({
   onBack,
   onApply,
   onOpen,
+  onOpenAgents,
   query,
 }) {
   const [text, setText] = useState(query || "");
@@ -181,6 +182,56 @@ export default function SearchDiscovery({
         area={text.trim()}
         deferMode
         onDraftIntent={setDraftIntent}
+        beforeTabs={
+          (featuredAreas[city] || []).length > 0 && (
+            <div
+              className="refine-shortcut-row"
+              role="group"
+              aria-label="Main areas"
+            >
+              {featuredAreas[city].map((name) => (
+                <button
+                  type="button"
+                  key={name}
+                  aria-pressed={text === name}
+                  onClick={() => {
+                    setText((value) => (value === name ? "" : name));
+                    setOpen(false);
+                  }}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          )
+        }
+        afterTabs={({ f, intent }) => (
+          <div className="refine-shortcut-row" role="group" aria-label="Nearby">
+            <button
+              type="button"
+              onClick={() => {
+                setText("");
+                setOpen(false);
+                onApply(f, "", intent);
+              }}
+            >
+              Property nearby
+            </button>
+            <button type="button" onClick={onOpenAgents}>
+              Agents nearby
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                const area = text.trim();
+                rememberArea(area);
+                onApply({ ...f, seller: "Builder" }, area, intent);
+              }}
+            >
+              Projects nearby
+            </button>
+          </div>
+        )}
         showActions={false}
         onApply={(nextFilters, intent) => {
           const term = text.trim();
