@@ -2,6 +2,9 @@ import React, { useRef, useState } from "react";
 import PropertyTypes, { matchesPropertyType, typeLabel } from "./PropertyTypes";
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import PhotoSwipeDots from "./components/PhotoSwipeDots";
+import { landPrice } from "./JourneyUX";
+import { nearText } from "./Journeys";
+import { landmarkSuggestions } from "./data/cities";
 import {
   AVAILABILITY_FILTER_OPTIONS,
   commercialFacilitiesFor,
@@ -43,7 +46,57 @@ export const filterDefaults = {
   bathroom: "Any",
   ac: "Any",
   facing: "Any",
+  pricePer: "",
+  brokerage: "Any",
 };
+export function retainFilters(current, nextType) {
+  const next = {
+    ...filterDefaults,
+    type: nextType,
+    min: current.min || 0,
+    max: current.max || 0,
+    pricePer: current.pricePer || "",
+    seller: current.seller || "Any",
+    available: current.available || "Any",
+    brokerage: current.brokerage || "Any",
+  };
+  if (nextType !== "Land" && next.pricePer === "cent") {
+    next.min = 0;
+    next.max = 0;
+    next.pricePer = "";
+  }
+  const home = !["Land", "Commercial", "PG"].includes(nextType);
+  if (home) next.beds = current.beds || "Any";
+  if (supportsFacing(nextType)) next.facing = current.facing || "Any";
+  if (nextType !== "Land") next.furnishing = current.furnishing || "Any";
+  if (current.minArea) {
+    next.minArea = current.minArea;
+    next.unit = current.unit || "sq ft";
+  }
+  if (current.type === nextType) {
+    next.feature = current.feature;
+    next.subtype = current.subtype;
+    next.occupancy = current.occupancy;
+    next.meals = current.meals;
+    next.pets = current.pets;
+    next.floor = current.floor;
+    next.bathroom = current.bathroom;
+    next.ac = current.ac;
+  }
+  return next;
+}
+export function matchesSearchTerm(property, term) {
+  const query = String(term || "").trim();
+  if (!query) return true;
+  const landmarks = (landmarkSuggestions[property.city] || [])
+    .filter(([, locality]) => locality === property.locality)
+    .map(([name]) => name)
+    .join(" ");
+  return nearText(
+    `${property.title} ${property.locality} ${property.city} ${property.type} ${landmarks}`,
+    query,
+  );
+}
 export const readLocal = (key, fallback) => {
   try {
     return JSON.parse(localStorage.getItem(key)) ?? fallback;
@@ -69,6 +122,10 @@ export const removeLocal = (key) => {
 };
 export function matches(p, f) {
   f = { ...filterDefaults, ...f };
+  const price =
+    f.pricePer === "cent" && p.type === "Land"
+      ? landPrice(p, "cent").amount
+      : p.price;
   const facilityPool = [
     ...(Array.isArray(p.features) ? p.features : []),
     ...(Array.isArray(p.amenities) ? p.amenities : []),
@@ -76,8 +133,9 @@ export function matches(p, f) {
   ];
   return (
     matchesPropertyType(p.type, f.type) &&
-    (!f.min || p.price >= f.min) &&
-    (!f.max || p.price <= f.max) &&
+    (!f.min || price >= f.min) &&
+    (!f.max || price <= f.max) &&
+    (f.brokerage !== "None" || Number(p.brokerage) === 0) &&
     (f.beds === "Any" || String(f.beds).split(",").includes(String(p.beds))) &&
     (f.furnishing === "Any" || p.furnishing === f.furnishing) &&
     (!f.minArea ||
@@ -116,15 +174,19 @@ export const activeFilters = (f) =>
     ([k, v]) =>
       Object.hasOwn(filterDefaults, k) &&
       k !== "unit" &&
+      k !== "pricePer" &&
       v !== filterDefaults[k],
   );
 export function RefineSearchPanel({
   filters,
   mode,
   items,
+  listings,
+  area = "",
   onApply,
   onModeChange,
   showActions = true,
+  deferMode = false,
   renderActions,
   children,
 }) {
@@ -143,16 +205,11 @@ export function RefineSearchPanel({
     setIntent(next);
     setF((current) => {
       if (next === "RENT" && current.type === "Land") {
-        return {
-          ...filterDefaults,
-          type: "All",
-          min: current.min,
-          max: current.max,
-        };
+        return retainFilters(current, "All");
       }
       return current;
     });
-    onModeChange?.(next);
+    if (!deferMode) onModeChange?.(next);
   };
   const select = (key, label, options) => (
     <label>
@@ -166,7 +223,12 @@ export function RefineSearchPanel({
   );
   const home = !["Land", "Commercial", "PG"].includes(f.type);
   const invalid = f.max > 0 && Number(f.min) > Number(f.max);
-  const count = items.filter((p) => matches(p, f)).length;
+  const pool = (listings || items).filter(
+    (property) => !listings || property.mode === intent,
+  );
+  const count = pool.filter(
+    (property) => matchesSearchTerm(property, area) && matches(property, f),
+  ).length;
   const blankFilters = () =>
     Object.fromEntries(
       Object.entries(filterDefaults).map(([key, value]) => [key, value]),
@@ -175,7 +237,7 @@ export function RefineSearchPanel({
     setIntent(mode === "RENT" ? "RENT" : "BUY");
     setF(blankFilters());
   };
-  const apply = () => onApply(f);
+  const apply = () => onApply(f, intent);
   const actions = (
     <div className="modal-actions">
       <button className="text-button" type="button" onClick={reset}>
@@ -187,7 +249,7 @@ export function RefineSearchPanel({
         disabled={invalid}
         onClick={apply}
       >
-        Show {count} properties
+        Show {count} {count === 1 ? "property" : "properties"}
       </button>
     </div>
   );
@@ -215,61 +277,52 @@ export function RefineSearchPanel({
             </button>
           ))}
         </div>
+        <div className="form-columns">
+          <label>
+            Minimum {intent === "RENT" ? "rent" : "price"} (₹)
+            <input
+              type="number"
+              min="0"
+              value={f.min || ""}
+              placeholder="No minimum"
+              onChange={(e) => {
+                set("pricePer", "");
+                set("min", Math.max(0, Number(e.target.value)));
+              }}
+            />
+          </label>
+          <label>
+            Maximum {intent === "RENT" ? "rent" : "price"} (₹)
+            <input
+              type="number"
+              min="0"
+              value={f.max || ""}
+              placeholder="No maximum"
+              onChange={(e) => {
+                set("pricePer", "");
+                set("max", Math.max(0, Number(e.target.value)));
+              }}
+            />
+          </label>
+        </div>
+        {invalid && (
+          <p role="alert" className="form-error">
+            Maximum must be at least the minimum.
+          </p>
+        )}
         <PropertyTypes
           mode={intent}
           value={f.type}
           compact
           deselectable
-          onChange={(type) => {
-            if (type === f.type) {
-              setF({
-                ...filterDefaults,
-                type: "All",
-                min: f.min,
-                max: f.max,
-              });
-              return;
-            }
-            setF({ ...filterDefaults, type, min: f.min, max: f.max });
-          }}
+          onChange={(type) => setF((current) => retainFilters(current, type === current.type ? "All" : type))}
         />
         {f.type === "All" ? (
           <p className="refine-type-hint">
-            Choose a property type to see price, bedrooms, and more filters.
+            Choose a property type to see bedrooms and more filters.
           </p>
         ) : (
           <>
-            <div className="form-columns">
-              <label>
-                Minimum {intent === "RENT" ? "rent" : "price"} (₹)
-                <input
-                  type="number"
-                  min="0"
-                  value={f.min || ""}
-                  placeholder="No minimum"
-                  onChange={(e) =>
-                    set("min", Math.max(0, Number(e.target.value)))
-                  }
-                />
-              </label>
-              <label>
-                Maximum {intent === "RENT" ? "rent" : "price"} (₹)
-                <input
-                  type="number"
-                  min="0"
-                  value={f.max || ""}
-                  placeholder="No maximum"
-                  onChange={(e) =>
-                    set("max", Math.max(0, Number(e.target.value)))
-                  }
-                />
-              </label>
-            </div>
-            {invalid && (
-              <p role="alert" className="form-error">
-                Maximum must be at least the minimum.
-              </p>
-            )}
             {home && (
               <fieldset className="bhk-options">
                 <legend>Exact bedrooms — choose one or more</legend>
