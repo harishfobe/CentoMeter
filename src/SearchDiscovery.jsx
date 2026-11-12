@@ -1,12 +1,15 @@
 import React, { useMemo, useState } from "react";
-import { ArrowLeft, Check, MapPin, Plus } from "lucide-react";
+import { ArrowLeft, Check, MapPin, Plus, Search } from "lucide-react";
 import properties from "./data/properties.json";
+import { landmarkSuggestions } from "./data/cities";
 import {
   RefineSearchPanel,
   matches,
+  matchesSearchTerm,
   readLocal,
   writeLocal,
 } from "./Discovery";
+import { nearText } from "./Journeys";
 import { money } from "./PropertyModel";
 import { priceWithBasis } from "./listingPresentation";
 import { typeLabel } from "./PropertyTypes";
@@ -21,60 +24,30 @@ export default function SearchDiscovery({
   items,
   onBack,
   onApply,
-  onModeChange,
-  onAreaSelect,
   onOpen,
   query,
 }) {
-  const [selected, setSelected] = useState(query || "");
+  const [text, setText] = useState(query || "");
   const [history, setHistory] = useState(() =>
     readLocal("centometer-search-history", []),
   );
-  const current = useMemo(
-    () => properties.filter((p) => p.city === city && p.mode === mode),
-    [city, mode],
+  const cityListings = useMemo(
+    () => properties.filter((property) => property.city === city),
+    [city],
   );
-  const localities = useMemo(() => {
-    const groups = new Map();
-    for (const item of current)
-      groups.set(item.locality, (groups.get(item.locality) || 0) + 1);
-    return orderedLocalities(
-      city,
-      [...groups].map(([name, count]) => ({ name, count })),
-    );
-  }, [current, city]);
-  const localityDetail = ({ name, count }) => {
-    const rate = mode === "BUY" ? localityPrice(current, name) : null;
-    return rate
-      ? `₹ ${rate.toLocaleString("en-IN")}/sq.ft.`
-      : `${count} ${count === 1 ? "property" : "properties"}`;
-  };
-  const chooseArea = (name) => {
-    setSelected((value) => (value === name ? "" : name));
-  };
   const rememberArea = (name) => {
     const term = (name || "").trim();
     if (!term) return;
     const next = [
       { city, name: term },
-      ...history.filter((x) => x.city !== city || x.name !== term),
+      ...history.filter((entry) => entry.city !== city || entry.name !== term),
     ].slice(0, 8);
     setHistory(next);
     writeLocal("centometer-search-history", next);
   };
-  const suggestedFor = (draft) => {
-    let list = current.filter((p) => matches(p, draft));
-    if (selected)
-      list = list.filter(
-        (p) => String(p.locality).toLowerCase() === selected.toLowerCase(),
-      );
-    if (!list.length && selected)
-      list = current.filter((p) => matches(p, draft));
-    return list.slice(0, 8);
-  };
   return (
     <section
-      className="search-discovery refine-search-page"
+      className="search-discovery refine-search-page refine-sheet"
       aria-label={`Refine search in ${city}`}
     >
       <div className="search-discovery-top refine-search-top">
@@ -87,17 +60,38 @@ export default function SearchDiscovery({
           <ArrowLeft size={24} />
         </button>
         <h1>Refine your search</h1>
+        <form
+          className="search-discovery-form"
+          role="search"
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Search size={20} aria-hidden="true" />
+          <input
+            role="combobox"
+            aria-label="Search by locality, landmark or project"
+            aria-autocomplete="list"
+            aria-expanded={Boolean(text.trim())}
+            aria-controls="refine-search-suggestions"
+            placeholder="Locality, landmark or project"
+            autoComplete="off"
+            enterKeyHint="search"
+            value={text}
+            onChange={(event) => setText(event.target.value)}
+          />
+        </form>
       </div>
       <RefineSearchPanel
         filters={filters}
         mode={mode}
         items={items}
-        onModeChange={onModeChange}
+        listings={cityListings}
+        area={text.trim()}
+        deferMode
         showActions={false}
-        onApply={(f) => {
-          rememberArea(selected);
-          onAreaSelect?.(selected);
-          onApply(f, selected);
+        onApply={(nextFilters, intent) => {
+          const term = text.trim();
+          rememberArea(term);
+          onApply(nextFilters, term, intent);
         }}
         renderActions={({ count, invalid, reset, apply }) => (
           <div className="search-discovery-footer refine-search-footer">
@@ -107,8 +101,7 @@ export default function SearchDiscovery({
               aria-label="Reset all filters"
               onClick={() => {
                 reset();
-                setSelected("");
-                onAreaSelect?.("");
+                setText("");
               }}
             >
               Reset all
@@ -119,52 +112,150 @@ export default function SearchDiscovery({
               disabled={invalid}
               onClick={apply}
             >
-              Show {count} properties
+              Show {count} {count === 1 ? "property" : "properties"}
             </button>
           </div>
         )}
       >
-        {({ f }) => {
-          const suggested = suggestedFor(f);
+        {({ f, intent }) => {
+          const modeListings = cityListings.filter(
+            (property) => property.mode === intent,
+          );
+          const groups = new Map();
+          for (const property of modeListings)
+            groups.set(
+              property.locality,
+              (groups.get(property.locality) || 0) + 1,
+            );
+          const localities = orderedLocalities(
+            city,
+            [...groups].map(([name, count]) => ({ name, count })),
+          );
+          const localityDetail = ({ name, count }) => {
+            const rate =
+              intent === "BUY" ? localityPrice(modeListings, name) : null;
+            return rate
+              ? `₹ ${rate.toLocaleString("en-IN")}/sq.ft.`
+              : `${count} ${count === 1 ? "property" : "properties"}`;
+          };
+          const term = text.trim();
+          const suggestions = term
+            ? [
+                ...localities.map((item) => ({
+                  name: item.name,
+                  detail: localityDetail(item),
+                  kind: "Locality",
+                })),
+                ...(landmarkSuggestions[city] || []).map(
+                  ([name, locality]) => ({
+                    name,
+                    detail: locality,
+                    kind: "Landmark",
+                  }),
+                ),
+                ...modeListings.map((property) => ({
+                  name: property.title,
+                  detail: property.locality,
+                  kind: "Project",
+                })),
+              ]
+                .filter((item) => nearText(`${item.name} ${item.detail}`, term))
+                .filter(
+                  (item, index, all) =>
+                    all.findIndex(
+                      (other) =>
+                        other.kind === item.kind && other.name === item.name,
+                    ) === index,
+                )
+                .slice(0, 8)
+            : [];
+          const suggested = modeListings
+            .filter(
+              (property) =>
+                matches(property, f) && matchesSearchTerm(property, term),
+            )
+            .slice(0, 8);
           return (
             <>
-              <div className="search-discovery-section area-suggestions">
-                <h2>Suggested areas</h2>
-                <div
-                  className="search-stack"
-                  role="listbox"
-                  aria-label={`Area suggestions in ${city}`}
-                >
-                  {localities.slice(0, 8).map((item) => (
-                    <button
-                      type="button"
-                      role="option"
-                      aria-selected={selected === item.name}
-                      key={item.name}
-                      className={
-                        "search-mini-card area-card " +
-                        (selected === item.name ? "selected" : "")
-                      }
-                      onClick={() => chooseArea(item.name)}
+              {term ? (
+                <div className="search-discovery-section matching-section">
+                  <h2>Matching places</h2>
+                  {suggestions.length ? (
+                    <div
+                      id="refine-search-suggestions"
+                      className="search-discovery-matches"
+                      role="listbox"
+                      aria-label="Search suggestions"
                     >
-                      <span className="area-card-main">
-                        <MapPin size={15} aria-hidden="true" />
-                        <span>
-                          <strong>{item.name}</strong>
-                          <small>{localityDetail(item)}</small>
-                        </span>
-                      </span>
-                      <span className="add-circle">
-                        {selected === item.name ? (
-                          <Check size={15} />
-                        ) : (
-                          <Plus size={15} />
-                        )}
-                      </span>
-                    </button>
-                  ))}
+                      {suggestions.map((item) => (
+                        <button
+                          type="button"
+                          role="option"
+                          aria-selected={text === item.name}
+                          key={item.kind + item.name}
+                          onClick={() => setText(item.name)}
+                        >
+                          <span className="match-icon">
+                            <MapPin size={17} />
+                          </span>
+                          <span>
+                            <strong>{item.name}</strong>
+                            <small>
+                              {item.kind} · {item.detail}
+                            </small>
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="search-discovery-empty">
+                      No matching places. Show results still searches this term.
+                    </p>
+                  )}
                 </div>
-              </div>
+              ) : (
+                <div className="search-discovery-section area-suggestions">
+                  <h2>Suggested areas</h2>
+                  <div
+                    className="search-stack"
+                    role="listbox"
+                    aria-label={`Area suggestions in ${city}`}
+                  >
+                    {localities.slice(0, 8).map((item) => (
+                      <button
+                        type="button"
+                        role="option"
+                        aria-selected={text === item.name}
+                        key={item.name}
+                        className={
+                          "search-mini-card area-card " +
+                          (text === item.name ? "selected" : "")
+                        }
+                        onClick={() =>
+                          setText((value) =>
+                            value === item.name ? "" : item.name,
+                          )
+                        }
+                      >
+                        <span className="area-card-main">
+                          <MapPin size={15} aria-hidden="true" />
+                          <span>
+                            <strong>{item.name}</strong>
+                            <small>{localityDetail(item)}</small>
+                          </span>
+                        </span>
+                        <span className="add-circle">
+                          {text === item.name ? (
+                            <Check size={15} />
+                          ) : (
+                            <Plus size={15} />
+                          )}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
               {suggested.length > 0 && (
                 <div className="search-discovery-section suggested-properties">
                   <h2>Suggested properties</h2>
@@ -173,16 +264,16 @@ export default function SearchDiscovery({
                     role="list"
                     aria-label={`Suggested properties in ${city}`}
                   >
-                    {suggested.map((p) => (
-                      <div role="listitem" key={p.id}>
+                    {suggested.map((property) => (
+                      <div role="listitem" key={property.id}>
                         <button
                           type="button"
                           className="suggested-property-card"
-                          onClick={() => onOpen?.(p)}
-                          aria-label={`View ${p.title}`}
+                          onClick={() => onOpen?.(property)}
+                          aria-label={`View ${property.title}`}
                         >
                           <img
-                            src={photo(p)}
+                            src={photo(property)}
                             alt=""
                             width="280"
                             height="160"
@@ -191,11 +282,13 @@ export default function SearchDiscovery({
                           />
                           <span className="suggested-property-copy">
                             <em>
-                              {typeLabel(p.type)}
-                              {p.locality ? ` · ${p.locality}` : ""}
+                              {typeLabel(property.type)}
+                              {property.locality ? ` · ${property.locality}` : ""}
                             </em>
-                            <strong>{p.title}</strong>
-                            <b>{priceWithBasis(p, { formatMoney: money })}</b>
+                            <strong>{property.title}</strong>
+                            <b>
+                              {priceWithBasis(property, { formatMoney: money })}
+                            </b>
                           </span>
                         </button>
                       </div>

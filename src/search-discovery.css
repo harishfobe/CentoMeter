@@ -20,6 +20,25 @@
   background: var(--paper);
   color: var(--ink);
 }
+.refine-sheet-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+.refine-sheet-frame {
+  width: 100%;
+  max-width: 680px;
+}
+.refine-sheet-scrim .search-discovery {
+  min-height: 0;
+  max-height: min(78dvh, 760px);
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 -12px 40px color-mix(in srgb, var(--ink) 18%, transparent);
+}
 .search-discovery-scroll {
   flex: 1;
   min-height: 0;

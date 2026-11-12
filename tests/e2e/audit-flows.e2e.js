@@ -30,6 +30,12 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/#home");
   await expect(page.locator(".leaflet-container").first()).toBeVisible();
+  const budgets = page.getByRole("group", { name: "Budget" });
+  await budgets.getByRole("button", { name: "Under ₹50L" }).click();
+  const activeFilters = page.getByRole("region", { name: "Active filters" });
+  await expect(activeFilters.getByRole("button", { name: /Under ₹50L/ })).toBeVisible();
+  await activeFilters.getByRole("button", { name: "Clear all" }).click();
+  await expect(activeFilters).toHaveCount(0);
   await page.getByRole("button", { name: "Open search" }).click();
   await expect(page).toHaveURL(/#search/);
   const searchPage = page.getByRole("region", {
@@ -38,6 +44,18 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await expect(
     searchPage.getByRole("heading", { name: "Refine your search", exact: true }),
   ).toBeVisible();
+  await expect(
+    searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
+  ).toBeVisible();
+  const searchBox = searchPage.getByRole("combobox", {
+    name: "Search by locality, landmark or project",
+  });
+  await expect(searchBox).toBeVisible();
+  await searchBox.fill("Puram");
+  await expect(
+    searchPage.getByRole("listbox", { name: "Search suggestions" }),
+  ).toBeVisible();
+  await searchBox.fill("");
   await expect(
     searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
   ).toBeVisible();
@@ -67,9 +85,14 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     "aria-selected",
     "true",
   );
+  await expect(
+    page
+      .getByRole("tablist", { name: "Property intent" })
+      .getByRole("tab", { name: "BUY", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
   await intent.getByRole("tab", { name: "Buy" }).click();
   const typeHint =
-    "Choose a property type to see price, bedrooms, and more filters.";
+    "Choose a property type to see bedrooms and more filters.";
   const typeGroup = searchPage.getByRole("group", {
     name: /Property types|Rental property types/,
   });
@@ -104,20 +127,22 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     name: /Area suggestions in /,
   });
   await areaList.getByRole("option").first().click();
-  await expect(areaList.getByRole("option", { selected: true })).toHaveCount(
-    1,
-  );
+  await expect(searchBox).not.toHaveValue("");
+  await expect(
+    searchPage.getByRole("listbox", { name: "Search suggestions" }),
+  ).toBeVisible();
   await searchPage.getByRole("button", { name: "Reset all filters" }).click();
+  await expect(searchBox).toHaveValue("");
   await expect(searchPage.getByText(typeHint)).toBeVisible();
   await expect(
     typeGroup.getByRole("button", { pressed: true }),
   ).toHaveCount(0);
-  await expect(areaList.getByRole("option", { selected: true })).toHaveCount(
-    0,
-  );
+  await expect(
+    searchPage.getByRole("listbox", { name: /Area suggestions in / }),
+  ).toBeVisible();
   await apartment.click();
   await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
-  await searchPage.getByRole("button", { name: /Show \d+ properties/ }).click();
+  await searchPage.getByRole("button", { name: /Show \d+ propert/ }).click();
   await expect(page).toHaveURL(/#results/);
   const card = page.locator(".property-card").first();
   const title = await card.locator("h3").innerText();

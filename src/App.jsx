@@ -147,6 +147,12 @@ import {
   Costs,
   Gallery,
 } from "./Discovery";
+import {
+  activeBudget,
+  applyBudget,
+  budgetBandsFor,
+  quickFiltersFor,
+} from "./budgetFilters";
 
 // Commit focus after a deferred route has actually rendered, not on its placeholder.
 function ReadyView({ Component, ...props }) {
@@ -759,7 +765,13 @@ export default function App() {
   );
   const chosen = filtered.find((p) => p.id === selected);
   const detail = allProperties.find((p) => route === "property/" + p.id);
-  const browse = ["home", "map", "results"].includes(route);
+  const view =
+    route === "search"
+      ? ["home", "map", "results"].includes(searchReturn.current)
+        ? searchReturn.current
+        : "home"
+      : route;
+  const browse = ["home", "map", "results"].includes(view);
   const similarProperties = useMemo(
     () =>
       detail
@@ -1020,13 +1032,13 @@ export default function App() {
     <div
       className={
         "app-shell view-" +
-        route.split("/")[0] +
+        view.split("/")[0] +
         (browse ? " is-browsing" : "") +
         (detail ? " has-detail" : "") +
         (chosen && browse && route !== "results" ? " has-map-selection" : "")
       }
     >
-      {route !== "search" && !agentHandle && (
+      {view !== "search" && !agentHandle && (
         <header className="header">
           <button
             className="brand"
@@ -1089,38 +1101,42 @@ export default function App() {
               onAction={() => navigate("home")}
             />
           )}
-        {["home", "map", "results", "saved"].includes(route) && (
+        {["home", "map", "results", "saved"].includes(view) && (
           <h1 className="sr-only" tabIndex={-1}>
             {routeTitle}
           </h1>
         )}
         {route === "search" && (
-          <SearchDiscovery
-            city={city}
-            mode={mode}
-            query={query}
-            filters={filters}
-            items={candidates.filter((p) => {
-              if (route !== "map" || !areaOnly || !bounds) return true;
-              const point = mapPoint(p, locationRequests);
-              return point && bounds.contains(point);
-            })}
-            onBack={() => navigate(searchReturn.current || "home")}
-            onModeChange={setIntent}
-            onOpen={open}
-            onAreaSelect={(area) => {
-              setNearPlace(null);
-              setQuery(area || "");
-            }}
-            onApply={(f, area) => {
-              setFilters(f);
-              setNearPlace(null);
-              setQuery(area || "");
-              setSelected(null);
-              setAreaOnly(false);
-              navigate("results");
-            }}
-          />
+          <div
+            className="refine-sheet-scrim"
+            onClick={() => navigate(searchReturn.current || "home")}
+          >
+            <div
+              className="refine-sheet-frame"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <SearchDiscovery
+                city={city}
+                mode={mode}
+                query={query}
+                filters={filters}
+                items={candidates}
+                onBack={() => navigate(searchReturn.current || "home")}
+                onOpen={open}
+                onApply={(nextFilters, area, intent) => {
+                  const nextMode = intent === "RENT" ? "RENT" : "BUY";
+                  intentFilters.current[nextMode] = nextFilters;
+                  setMode(nextMode);
+                  setFilters(nextFilters);
+                  setNearPlace(null);
+                  setQuery(area || "");
+                  setSelected(null);
+                  setAreaOnly(false);
+                  navigate("results");
+                }}
+              />
+            </div>
+          </div>
         )}
         {browse && (
           <>
@@ -1166,7 +1182,7 @@ export default function App() {
               role="tablist"
               aria-label="Property intent"
             >
-              {(route === "home"
+              {(view === "home"
                 ? ["BUY", "SELL", "RENT"]
                 : ["BUY", "RENT"]
               ).map((m) => (
@@ -1212,79 +1228,166 @@ export default function App() {
                 }}
               />
             </div>
-            {(displayedFilters.length > 0 || nearPlace) && (
-              <div className="discovery-actions">
+            {(view === "home" || view === "results") && (
+              <>
+                <div className="budget-chips" role="group" aria-label="Budget">
+                  {budgetBandsFor(mode, filters.type).map((band) => (
+                    <button
+                      type="button"
+                      key={band.id}
+                      aria-pressed={activeBudget(filters, mode)?.id === band.id}
+                      onClick={() =>
+                        setFilters((current) =>
+                          applyBudget(current, band, mode),
+                        )
+                      }
+                    >
+                      {band.label}
+                    </button>
+                  ))}
+                </div>
+                <div
+                  className="quick-filter-chips"
+                  role="group"
+                  aria-label="Quick filters"
+                >
+                  {quickFiltersFor({ mode, type: filters.type }).map((chip) => (
+                    <button
+                      type="button"
+                      key={chip.id}
+                      aria-pressed={filters[chip.key] === chip.value}
+                      onClick={() =>
+                        setFilters((current) => ({
+                          ...current,
+                          [chip.key]:
+                            current[chip.key] === chip.value
+                              ? filterDefaults[chip.key]
+                              : chip.value,
+                        }))
+                      }
+                    >
+                      {chip.label}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+            {(displayedFilters.length > 0 || nearPlace || query) && (
+              <div
+                className="discovery-actions"
+                role="region"
+                aria-label="Active filters"
+              >
+                {query && (
+                  <button className="chip" onClick={() => setQuery("")}>
+                    {query} <X size={12} />
+                  </button>
+                )}
                 {nearPlace && (
                   <button className="chip" onClick={() => setNearPlace(null)}>
                     {nearPlace.radius} km from {nearPlace.name} <X size={12} />
                   </button>
                 )}
-                {displayedFilters.map(([key, value]) => (
+                {activeBudget(filters, mode) && (
                   <button
                     className="chip"
-                    key={key}
                     onClick={() =>
-                      setFilters((f) =>
-                        key === "type"
-                          ? { ...filterDefaults, min: f.min, max: f.max }
-                          : { ...f, [key]: initialFilters[key] },
-                      )
+                      setFilters((current) => ({
+                        ...current,
+                        min: 0,
+                        max: 0,
+                        pricePer: "",
+                      }))
                     }
                   >
-                    {key === "type"
-                      ? typeLabel(value)
-                      : key === "facing"
-                        ? value + " facing"
-                        : key === "min"
-                          ? "From " + money(value)
-                          : key === "max"
-                            ? "Under " + money(value)
-                            : key === "minArea"
-                              ? value + " " + filters.unit
-                              : key === "beds"
-                                ? String(value)
-                                    .split(",")
-                                    .map((x) =>
-                                      x === "0" ? "Studio" : x + " BHK",
-                                    )
-                                    .join(", ")
-                                : String(value)}{" "}
-                    <X size={12} />
-                  </button>
-                ))}
-                {activeFilters(filters).length > 0 && (
-                  <button
-                    className="text-button"
-                    onClick={() => setFilters(initialFilters)}
-                  >
-                    Clear filters
+                    {activeBudget(filters, mode).label} <X size={12} />
                   </button>
                 )}
+                {displayedFilters
+                  .filter(
+                    ([key]) =>
+                      !(
+                        activeBudget(filters, mode) &&
+                        (key === "min" || key === "max")
+                      ),
+                  )
+                  .map(([key, value]) => (
+                    <button
+                      className="chip"
+                      key={key}
+                      onClick={() =>
+                        setFilters((current) =>
+                          key === "type"
+                            ? {
+                                ...filterDefaults,
+                                min: current.min,
+                                max: current.max,
+                                pricePer: current.pricePer,
+                              }
+                            : { ...current, [key]: initialFilters[key] },
+                        )
+                      }
+                    >
+                      {key === "type"
+                        ? typeLabel(value)
+                        : key === "facing"
+                          ? value + " facing"
+                          : key === "min"
+                            ? "From " + money(value)
+                            : key === "max"
+                              ? "Under " + money(value)
+                              : key === "minArea"
+                                ? value + " " + filters.unit
+                                : key === "beds"
+                                  ? String(value)
+                                      .split(",")
+                                      .map((item) =>
+                                        item === "0" ? "Studio" : item + " BHK",
+                                      )
+                                      .join(", ")
+                                  : key === "brokerage"
+                                    ? "No brokerage"
+                                    : key === "seller"
+                                      ? value + " only"
+                                      : String(value)}{" "}
+                      <X size={12} />
+                    </button>
+                  ))}
+                <button
+                  className="text-button"
+                  onClick={() => {
+                    setFilters(initialFilters);
+                    setQuery("");
+                    setNearPlace(null);
+                  }}
+                >
+                  Clear all
+                </button>
               </div>
             )}
             <section
               className={
                 "explore-layout " +
-                (route === "map"
+                (view === "map"
                   ? mapList
                     ? "map-list-mode"
                     : "map-only"
                   : "") +
-                (route === "results" ? "results-layout" : "") +
-                (route === "home" ? " home-discovery-layout" : "")
+                (view === "results" ? "results-layout" : "") +
+                (view === "home" ? " home-discovery-layout" : "")
               }
             >
-              {route !== "results" && (
-                <div className="map-column" hidden={route === "map" && mapList}>
+              {view !== "results" && (
+                <div className="map-column" hidden={view === "map" && mapList}>
                   <div className="map-stage">
                     <MapView
                       clustered
                       city={city}
                       priceUnit={priceUnit}
-                      scrollPreview={route === "home"}
+                      scrollPreview={view === "home"}
                       viewport={mapViewport.current}
                       onViewport={(v) => {
-                        if (route !== "map" || !mapList)
+                        if (view !== "map" || !mapList)
                           mapViewport.current = v;
                       }}
                       items={filtered}
@@ -1295,7 +1398,7 @@ export default function App() {
                       onBounds={handleBounds}
                       resetKey={resetKey}
                     />
-                    {route === "map" && visible.length === 0 && (
+                    {view === "map" && visible.length === 0 && (
                       <button
                         className="empty-map-reset"
                         onClick={() => {
@@ -1333,7 +1436,7 @@ export default function App() {
                     <div
                       className={
                         "map-sheet-root" +
-                        (route === "map" ? " map-sheet-peek" : "")
+                        (view === "map" ? " map-sheet-peek" : "")
                       }
                       ref={mapListToggle}
                     >
@@ -1341,11 +1444,11 @@ export default function App() {
                         type="button"
                         className={
                           "map-list-toggle" +
-                          (route === "map" ? " map-sheet-peek" : "")
+                          (view === "map" ? " map-sheet-peek" : "")
                         }
-                        aria-expanded={route === "map" && mapList}
+                        aria-expanded={view === "map" && mapList}
                         aria-controls={
-                          route === "map" ? "property-results" : undefined
+                          view === "map" ? "property-results" : undefined
                         }
                         onClick={() => {
                           if (suppressPeekClick.current) {
@@ -1359,13 +1462,13 @@ export default function App() {
                         onPointerUp={(e) => finishSheetDrag(e, false)}
                         onPointerCancel={(e) => finishSheetDrag(e, true)}
                       >
-                        {route === "map" && (
+                        {view === "map" && (
                           <span className="map-sheet-grab" aria-hidden="true" />
                         )}
                         <span className="map-sheet-row">
                           <List size={16} aria-hidden="true" />
-                          {route === "results" ? "Show map" : "View list"}
-                          {route === "map" && (
+                          {view === "results" ? "Show map" : "View list"}
+                          {view === "map" && (
                             <span
                               className="map-sheet-count"
                               aria-hidden="true"
@@ -1379,14 +1482,14 @@ export default function App() {
                           )}
                         </span>
                       </button>
-                      {route === "map" && (
+                      {view === "map" && (
                         <div className="map-sheet-body" aria-hidden="true" />
                       )}
                     </div>
                     {chosen && !isMobile && (
                       <div className="map-preview">{selectionPreview}</div>
                     )}
-                    {route === "map" && !mapList && (
+                    {view === "map" && !mapList && (
                       <button
                         className="map-save-search"
                         aria-label="Save search"
@@ -1403,7 +1506,7 @@ export default function App() {
                       Move the map to explore more places
                     </div>
                   </div>
-                  {route === "home" && (
+                  {view === "home" && (
                     <div className="home-map-footer">
                       <div>
                         <strong>Explore on map</strong>
@@ -1420,7 +1523,7 @@ export default function App() {
                   )}
                 </div>
               )}
-              {route === "home" && (
+              {view === "home" && (
                 <HomeDiscovery
                   items={filtered}
                   city={city}
@@ -1438,7 +1541,7 @@ export default function App() {
                   }}
                 />
               )}
-              {(route === "results" || (route === "map" && mapList)) && (
+              {(view === "results" || (view === "map" && mapList)) && (
                 <aside
                   className="listing-panel"
                   id="property-results"
@@ -1458,14 +1561,14 @@ export default function App() {
                       {sorted.length}{" "}
                       {sorted.length === 1 ? "property" : "properties"}
                     </h2>
-                    {route === "map" ? (
+                    {view === "map" ? (
                       <button
                         className="secondary list-map-button"
                         onClick={() => setMapList(false)}
                       >
                         <MapIcon size={18} /> Back to map
                       </button>
-                    ) : route === "results" ? (
+                    ) : view === "results" ? (
                       <button
                         className="secondary list-map-button"
                         onClick={openMap}
@@ -1503,7 +1606,7 @@ export default function App() {
                       <Bookmark size={14} aria-hidden="true" /> Save search
                     </button>
                     <span>
-                      {route === "map" && areaOnly
+                      {view === "map" && areaOnly
                         ? "Within map area"
                         : "Across " + city}
                     </span>
@@ -1559,8 +1662,8 @@ export default function App() {
           </>
         )}
         {browse &&
-          route !== "results" &&
-          !(route === "map" && mapList) &&
+          view !== "results" &&
+          !(view === "map" && mapList) &&
           chosen &&
           isMobile &&
           selectionPreview}
@@ -2283,7 +2386,7 @@ export default function App() {
           </section>
         )}
       </main>
-      {route !== "search" && (
+      {view !== "search" && (
         <nav className="bottom-nav" aria-label="Main navigation">
           {[
             [Home, "Home", "home"],
