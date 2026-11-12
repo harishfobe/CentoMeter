@@ -137,12 +137,25 @@ test("Spotlight, Projects, popular rows and BUY/RENT use existing listing action
   page,
 }, info) => {
   const tabs = page.getByRole("tablist", { name: "Property intent" });
+  const types = page.locator(".property-types-reveal");
+  await expect(types).toHaveAttribute("data-expanded", "false");
+  await tabs.getByRole("tab", { name: "BUY", exact: true }).click();
+  await expect(types).toHaveAttribute("data-expanded", "true");
+  await expect(
+    page.getByRole("region", { name: "Property type" }),
+  ).toBeVisible();
+  await tabs.getByRole("tab", { name: "BUY", exact: true }).click();
+  await expect(types).toHaveAttribute("data-expanded", "false");
   await tabs.getByRole("tab", { name: "RENT", exact: true }).click();
   await expect(
     tabs.getByRole("tab", { name: "RENT", exact: true }),
   ).toHaveAttribute("aria-selected", "true");
+  await expect(types).toHaveAttribute("data-expanded", "true");
+  await tabs.getByRole("tab", { name: "RENT", exact: true }).click();
+  await expect(types).toHaveAttribute("data-expanded", "false");
   await expect(page.locator(".home-discovery")).toBeVisible();
   await tabs.getByRole("tab", { name: "BUY", exact: true }).click();
+  await expect(types).toHaveAttribute("data-expanded", "true");
   const spotlight = page.getByRole("region", { name: "Spotlight property" });
   await spotlight.scrollIntoViewIfNeeded();
   await shot(page, info, "spotlight");

@@ -117,18 +117,23 @@ export default function PropertyTypes({
 
   useEffect(() => {
     if (!allowAll || compact) return;
-    const revealOnIntentClick = (event) => {
+    const toggleOnIntentClick = (event) => {
       const intent = event.target.closest('[aria-label="Property intent"]');
-      const button = intent?.querySelector
+      const button = intent
         ? event.target.closest('[role="tab"]')
         : null;
-      if (!intent || !button) return;
-      const selectedIntent = button.textContent.trim();
-      if (selectedIntent === "BUY" || selectedIntent === "RENT")
+      if (!intent || !button || !intent.contains(button)) return;
+      const label = button.textContent.replace(/\s+/g, " ").trim();
+      if (label !== "BUY" && label !== "RENT") return;
+      // Re-tap active Buy/Rent to hide types; switch intent to show them.
+      if (button.getAttribute("aria-selected") === "true") {
+        setExpanded((open) => !open);
+      } else {
         setExpanded(true);
+      }
     };
-    document.addEventListener("click", revealOnIntentClick);
-    return () => document.removeEventListener("click", revealOnIntentClick);
+    document.addEventListener("click", toggleOnIntentClick);
+    return () => document.removeEventListener("click", toggleOnIntentClick);
   }, [allowAll, compact]);
 
   const collapsed = allowAll && !compact && !expanded;
