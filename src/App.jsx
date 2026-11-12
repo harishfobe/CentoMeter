@@ -1107,6 +1107,7 @@ export default function App() {
             })}
             onBack={() => navigate(searchReturn.current || "home")}
             onModeChange={setIntent}
+            onOpen={open}
             onAreaSelect={(area) => {
               setNearPlace(null);
               setQuery(area || "");

@@ -93,18 +93,29 @@ it("adds SELL between BUY and RENT and opens the existing posting route", async 
 it("retains BUY and RENT filtering on Home", async () => {
   render(<App />);
   const tabs = screen.getByRole("tablist", { name: "Property intent" });
+  const types = document.querySelector(".property-types-reveal");
+  expect(types.getAttribute("data-expanded")).toBe("false");
+  fireEvent.click(within(tabs).getByRole("tab", { name: "BUY" }));
+  expect(types.getAttribute("data-expanded")).toBe("true");
+  expect(screen.getByRole("region", { name: "Property type" })).toBeTruthy();
+  fireEvent.click(within(tabs).getByRole("tab", { name: "BUY" }));
+  expect(types.getAttribute("data-expanded")).toBe("false");
   fireEvent.click(within(tabs).getByRole("tab", { name: "RENT" }));
   expect(
     within(tabs)
       .getByRole("tab", { name: "RENT" })
       .getAttribute("aria-selected"),
   ).toBe("true");
+  expect(types.getAttribute("data-expanded")).toBe("true");
+  fireEvent.click(within(tabs).getByRole("tab", { name: "RENT" }));
+  expect(types.getAttribute("data-expanded")).toBe("false");
   fireEvent.click(within(tabs).getByRole("tab", { name: "BUY" }));
   expect(
     within(tabs)
       .getByRole("tab", { name: "BUY" })
       .getAttribute("aria-selected"),
   ).toBe("true");
+  expect(types.getAttribute("data-expanded")).toBe("true");
 });
 
 it("switches Map to its list and back without changing route or active tab", async () => {
