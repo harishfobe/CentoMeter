@@ -94,8 +94,8 @@
   height: 48px;
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 0 16px 0 10px;
+  gap: 4px;
+  padding: 0 16px 0 2px;
   border: 0;
   border-radius: 9999px;
   background: var(--paper);
@@ -105,11 +105,28 @@
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
-.search-discovery-form > svg {
-  width: 19px;
-  height: 19px;
+.search-discovery-form .search-locate {
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
   color: var(--brand);
-  flex-shrink: 0;
+  padding: 0;
+}
+.search-discovery-form .search-locate[aria-pressed="true"] {
+  background: var(--brand-soft);
+}
+.search-discovery-form .search-locate:disabled {
+  opacity: 0.55;
+}
+.search-locate-error {
+  margin: 8px 4px 0;
+  color: var(--muted);
+  font-size: 0.75rem;
 }
 .search-discovery-form input {
   min-width: 0;

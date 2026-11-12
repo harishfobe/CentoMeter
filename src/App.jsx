@@ -1128,6 +1128,7 @@ export default function App() {
                 onBack={() => navigate(searchReturn.current || "home")}
                 onOpen={open}
                 onOpenAgents={() => navigate("agents")}
+                onCityChange={selectCity}
                 onApply={(nextFilters, area, intent) => {
                   const nextMode = intent === "RENT" ? "RENT" : "BUY";
                   intentFilters.current[nextMode] = nextFilters;

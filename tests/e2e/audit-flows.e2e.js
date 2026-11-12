@@ -346,6 +346,24 @@ test("editing an agent sample replaces the existing card instead of creating a d
   ).toBeVisible();
   await shot(page, info, "agent-edited");
 });
+test("the search pin fills the bar with the nearest listed area", async ({
+  page,
+}) => {
+  await page.context().grantPermissions(["geolocation"]);
+  await page.context().setGeolocation({ latitude: 11.01575, longitude: 76.97302 });
+  await page.goto("/#home");
+  await page.getByRole("button", { name: "Open search" }).click();
+  const searchPage = page.getByRole("region", { name: /Refine search in / });
+  await searchPage.getByRole("button", { name: "Use current location" }).click();
+  await expect(
+    searchPage.getByRole("combobox", {
+      name: "Search by locality, landmark or project",
+    }),
+  ).toHaveValue("Peelamedu");
+  await expect(
+    searchPage.getByRole("button", { name: "Use current location" }),
+  ).toHaveAttribute("aria-pressed", "true");
+});
 test("search sheet areas and nearby shortcuts open the right places", async ({
   page,
 }) => {

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ArrowLeft, Check, LocateFixed, MapPin, Plus } from "lucide-react";
+import { ArrowLeft, Check, MapPin, Plus } from "lucide-react";
 import properties from "./data/properties.json";
 import { featuredAreas, landmarkSuggestions } from "./data/cities";
 import {
@@ -10,10 +10,31 @@ import {
   writeLocal,
 } from "./Discovery";
 import { nearText } from "./Journeys";
-import { money } from "./PropertyModel";
+import { cityForLocation, distanceKm, money } from "./PropertyModel";
 import { priceWithBasis } from "./listingPresentation";
 import { typeLabel } from "./PropertyTypes";
 import { localityPrice, orderedLocalities } from "./SearchSuggestions";
+
+function nearestListedArea(point) {
+  const foundCity = cityForLocation(point);
+  const pool = properties.filter(
+    (property) =>
+      property.locality &&
+      Number.isFinite(property.lat) &&
+      Number.isFinite(property.lng) &&
+      (!foundCity || property.city === foundCity),
+  );
+  let nearest = null;
+  let best = Infinity;
+  for (const property of pool) {
+    const distance = distanceKm(point, [property.lat, property.lng]);
+    if (distance < best) {
+      best = distance;
+      nearest = property;
+    }
+  }
+  return { city: foundCity, label: nearest?.locality || foundCity || "" };
+}
 
 const photo = (p) => p.photos?.[0] || `/${p.image || "apartment"}.jpg`;
 
@@ -26,10 +47,14 @@ export default function SearchDiscovery({
   onApply,
   onOpen,
   onOpenAgents,
+  onCityChange,
   query,
 }) {
   const [text, setText] = useState(query || "");
   const [open, setOpen] = useState(false);
+  const [locating, setLocating] = useState(false);
+  const [located, setLocated] = useState(false);
+  const [locateError, setLocateError] = useState("");
   const [draftIntent, setDraftIntent] = useState(
     mode === "RENT" ? "RENT" : "BUY",
   );
@@ -49,6 +74,36 @@ export default function SearchDiscovery({
     ].slice(0, 8);
     setHistory(next);
     writeLocal("centometer-search-history", next);
+  };
+  const useCurrentLocation = () => {
+    setLocateError("");
+    if (!navigator.geolocation) {
+      setLocateError("Location is unavailable in this browser.");
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const point = [position.coords.latitude, position.coords.longitude];
+        const place = nearestListedArea(point);
+        setLocating(false);
+        if (!place.label) {
+          setLocated(false);
+          setLocateError("No listed area near this location.");
+          return;
+        }
+        if (place.city && place.city !== city) onCityChange?.(place.city);
+        setText(place.label);
+        setLocated(true);
+        setOpen(false);
+      },
+      () => {
+        setLocating(false);
+        setLocated(false);
+        setLocateError("Allow location access to use your current location.");
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 },
+    );
   };
   const term = text.trim();
   const suggestions = useMemo(() => {
@@ -117,7 +172,17 @@ export default function SearchDiscovery({
             role="search"
             onSubmit={(event) => event.preventDefault()}
           >
-            <LocateFixed size={19} aria-hidden="true" />
+            <button
+              type="button"
+              className="search-locate"
+              aria-label="Use current location"
+              aria-pressed={located}
+              aria-busy={locating}
+              disabled={locating}
+              onClick={useCurrentLocation}
+            >
+              <MapPin size={19} fill={located ? "currentColor" : "none"} />
+            </button>
             <input
               role="combobox"
               aria-label="Search by locality, landmark or project"
@@ -131,10 +196,17 @@ export default function SearchDiscovery({
               onFocus={() => setOpen(true)}
               onChange={(event) => {
                 setText(event.target.value);
+                setLocated(false);
+                setLocateError("");
                 setOpen(true);
               }}
             />
           </form>
+          {locateError && (
+            <p className="search-locate-error" role="alert">
+              {locateError}
+            </p>
+          )}
           {open && term && (
             <div
               id="refine-search-suggestions"
@@ -196,6 +268,7 @@ export default function SearchDiscovery({
                   aria-pressed={text === name}
                   onClick={() => {
                     setText((value) => (value === name ? "" : name));
+                    setLocated(false);
                     setOpen(false);
                   }}
                 >
