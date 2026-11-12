@@ -189,6 +189,8 @@ export function RefineSearchPanel({
   deferMode = false,
   onDraftIntent,
   renderActions,
+  beforeTabs = null,
+  afterTabs = null,
   children,
 }) {
   const [intent, setIntent] = useState(mode === "RENT" ? "RENT" : "BUY");
@@ -260,6 +262,8 @@ export function RefineSearchPanel({
   const body = (
     <>
       <div className="form-stack">
+        <div className="refine-intent-block">
+          {typeof beforeTabs === "function" ? beforeTabs({ f, intent }) : beforeTabs}
         <div
           className="segment refine-intent-tabs"
           role="tablist"
@@ -280,6 +284,8 @@ export function RefineSearchPanel({
               {label}
             </button>
           ))}
+        </div>
+          {typeof afterTabs === "function" ? afterTabs({ f, intent }) : afterTabs}
         </div>
         <div className="form-columns">
           <label>
@@ -321,11 +327,7 @@ export function RefineSearchPanel({
           deselectable
           onChange={(type) => setF((current) => retainFilters(current, type === current.type ? "All" : type))}
         />
-        {f.type === "All" ? (
-          <p className="refine-type-hint">
-            Choose a property type to see bedrooms and more filters.
-          </p>
-        ) : (
+        {f.type !== "All" && (
           <>
             {home && (
               <fieldset className="bhk-options">

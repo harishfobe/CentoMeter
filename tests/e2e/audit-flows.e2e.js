@@ -47,6 +47,18 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await expect(
     searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
   ).toBeVisible();
+  const mainAreas = searchPage.getByRole("group", { name: "Main areas" });
+  const nearby = searchPage.getByRole("group", { name: "Nearby" });
+  const buyRent = searchPage.getByRole("tablist", { name: "Buy or rent" });
+  await expect(mainAreas.getByRole("button", { name: "RS Puram" })).toBeVisible();
+  await expect(nearby.getByRole("button", { name: "Property nearby" })).toBeVisible();
+  await expect(nearby.getByRole("button", { name: "Agents nearby" })).toBeVisible();
+  await expect(nearby.getByRole("button", { name: "Projects nearby" })).toBeVisible();
+  const areaBox = await mainAreas.boundingBox();
+  const tabBox = await buyRent.boundingBox();
+  const nearbyBox = await nearby.boundingBox();
+  expect(areaBox.y + areaBox.height).toBeLessThanOrEqual(tabBox.y + 2);
+  expect(tabBox.y + tabBox.height).toBeLessThanOrEqual(nearbyBox.y + 2);
   const searchBox = searchPage.getByRole("combobox", {
     name: "Search by locality, landmark or project",
   });
@@ -104,7 +116,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   const typeGroup = searchPage.getByRole("group", {
     name: /Property types|Rental property types/,
   });
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await expect(
     searchPage.getByRole("button", { name: "All properties" }),
   ).toHaveCount(0);
@@ -116,18 +128,18 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     searchPage.getByLabel("Minimum price (₹)", { exact: true }),
   ).toBeVisible();
   await apartment.click();
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await expect(
     typeGroup.getByRole("button", { pressed: true }),
   ).toHaveCount(0);
   await intent.getByRole("tab", { name: "Rent" }).click();
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await apartment.click();
   await expect(
     searchPage.getByLabel("Minimum rent (₹)", { exact: true }),
   ).toBeVisible();
   await apartment.click();
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await intent.getByRole("tab", { name: "Buy" }).click();
   await apartment.click();
   await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
@@ -141,7 +153,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   ).toBeVisible();
   await searchPage.getByRole("button", { name: "Reset all filters" }).click();
   await expect(searchBox).toHaveValue("");
-  await expect(searchPage.getByText(typeHint)).toBeVisible();
+  await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await expect(
     typeGroup.getByRole("button", { pressed: true }),
   ).toHaveCount(0);
@@ -333,4 +345,54 @@ test("editing an agent sample replaces the existing card instead of creating a d
       .first(),
   ).toBeVisible();
   await shot(page, info, "agent-edited");
+});
+test("the search pin fills the bar with the nearest listed area", async ({
+  page,
+}) => {
+  await page.context().grantPermissions(["geolocation"]);
+  await page.context().setGeolocation({ latitude: 11.01575, longitude: 76.97302 });
+  await page.goto("/#home");
+  await page.getByRole("button", { name: "Open search" }).click();
+  const searchPage = page.getByRole("region", { name: /Refine search in / });
+  await searchPage.getByRole("button", { name: "Use current location" }).click();
+  await expect(
+    searchPage.getByRole("combobox", {
+      name: "Search by locality, landmark or project",
+    }),
+  ).toHaveValue("Peelamedu");
+  await expect(
+    searchPage.getByRole("button", { name: "Use current location" }),
+  ).toHaveAttribute("aria-pressed", "true");
+});
+test("search sheet areas and nearby shortcuts open the right places", async ({
+  page,
+}) => {
+  await page.goto("/#home");
+  await page.getByRole("button", { name: "Open search" }).click();
+  const searchPage = page.getByRole("region", { name: /Refine search in / });
+  const searchBox = searchPage.getByRole("combobox", {
+    name: "Search by locality, landmark or project",
+  });
+  await searchPage
+    .getByRole("group", { name: "Main areas" })
+    .getByRole("button", { name: "RS Puram", exact: true })
+    .click();
+  await expect(searchBox).toHaveValue("RS Puram");
+  await searchPage.getByRole("button", { name: "Property nearby" }).click();
+  await expect(page).toHaveURL(/#results/);
+  await expect(page.getByRole("region", { name: "Active filters" })).toHaveCount(0);
+  await page.getByRole("button", { name: "Open search" }).click();
+  await page.getByRole("button", { name: "Projects nearby" }).click();
+  await expect(page).toHaveURL(/#results/);
+  await expect(
+    page.getByRole("region", { name: "Active filters" }).getByRole("button", {
+      name: /Builder only/,
+    }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Open search" }).click();
+  await page.getByRole("button", { name: "Agents nearby" }).click();
+  await expect(page).toHaveURL(/#agents/);
+  await expect(
+    page.getByRole("heading", { name: "Find your local expert" }),
+  ).toBeVisible();
 });
