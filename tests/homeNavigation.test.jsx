@@ -151,6 +151,17 @@ it("switches Map to its list and back without changing route or active tab", asy
   ).toBeNull();
   expect(document.activeElement).toBe(toggle);
 });
+it("keeps budget chips on Home and moves quick chips to results", () => {
+  const home = render(<App />);
+  expect(screen.getByRole("group", { name: "Budget" })).toBeTruthy();
+  expect(screen.queryByRole("group", { name: "Quick filters" })).toBeNull();
+  home.unmount();
+  history.replaceState(null, "", "#results");
+  render(<App />);
+  expect(screen.getByRole("group", { name: "Budget" })).toBeTruthy();
+  expect(screen.getByRole("group", { name: "Quick filters" })).toBeTruthy();
+  expect(screen.getByRole("button", { name: "Owner only" })).toBeTruthy();
+});
 it("keeps the full property list off Home and ends with local agents", async () => {
   const app = render(<App />);
   expect(app.container.querySelector("#property-results")).toBeNull();
