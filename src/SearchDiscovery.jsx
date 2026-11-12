@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ArrowLeft, Check, MapPin, Plus, Search } from "lucide-react";
+import { ArrowLeft, Check, LocateFixed, MapPin, Plus } from "lucide-react";
 import properties from "./data/properties.json";
 import { featuredAreas, landmarkSuggestions } from "./data/cities";
 import {
@@ -117,7 +117,7 @@ export default function SearchDiscovery({
             role="search"
             onSubmit={(event) => event.preventDefault()}
           >
-            <Search size={19} aria-hidden="true" />
+            <LocateFixed size={19} aria-hidden="true" />
             <input
               role="combobox"
               aria-label="Search by locality, landmark or project"
