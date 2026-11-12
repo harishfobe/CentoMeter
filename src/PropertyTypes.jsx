@@ -102,6 +102,7 @@ export default function PropertyTypes({
   onChange,
   allowAll = false,
   compact = false,
+  deselectable = false,
 }) {
   // On the browse page, keep type pills collapsed until Buy/Rent is chosen
   // (or a type filter is already active). Compact filter dialogs stay open.
@@ -179,7 +180,7 @@ export default function PropertyTypes({
               title={description || label}
               key={type}
               onClick={() => {
-                if (!selected) onChange(type);
+                if (!selected || deselectable) onChange(type);
               }}
             >
               <Icon size={16} />

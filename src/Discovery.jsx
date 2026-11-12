@@ -218,11 +218,19 @@ export function RefineSearchPanel({
         <PropertyTypes
           mode={intent}
           value={f.type}
-          allowAll
           compact
+          deselectable
           onChange={(type) => {
-            if (type !== f.type)
-              setF({ ...filterDefaults, type, min: f.min, max: f.max });
+            if (type === f.type) {
+              setF({
+                ...filterDefaults,
+                type: "All",
+                min: f.min,
+                max: f.max,
+              });
+              return;
+            }
+            setF({ ...filterDefaults, type, min: f.min, max: f.max });
           }}
         />
         {f.type === "All" ? (
