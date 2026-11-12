@@ -489,6 +489,7 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [nearPlace, setNearPlace] = useState(null);
   const [filters, setFilters] = useState(initialFilters);
+  const [typeTabsOpen, setTypeTabsOpen] = useState(false);
   const [bounds, setBounds] = useState(null);
   const [selected, setSelected] = useState(null);
   const [selectionGroup, setSelectionGroup] = useState([]);
@@ -813,6 +814,9 @@ export default function App() {
     setQuery("");
     setResetKey((x) => x + 1);
   };
+  useEffect(() => {
+    if (filters.type && filters.type !== "All") setTypeTabsOpen(true);
+  }, [filters.type]);
   const setIntent = (m) => {
     const intent = m === "RENT" ? "RENT" : "BUY";
     intentFilters.current[mode] = filters;
@@ -1195,7 +1199,12 @@ export default function App() {
                     if (m === "SELL") {
                       setPostingAgent(null);
                       navigate("post");
-                    } else setIntent(m);
+                    } else if (m === mode) {
+                      setTypeTabsOpen((open) => !open);
+                    } else {
+                      setTypeTabsOpen(true);
+                      setIntent(m);
+                    }
                   }}
                 >
                   {m === "BUY" ? (
@@ -1215,6 +1224,7 @@ export default function App() {
                 mode={mode}
                 value={filters.type}
                 allowAll
+                expanded={typeTabsOpen}
                 onChange={(t) => {
                   if (t !== filters.type) {
                     setFilters((f) => ({

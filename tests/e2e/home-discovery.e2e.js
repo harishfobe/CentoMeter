@@ -144,6 +144,16 @@ test("Spotlight, Projects, popular rows and BUY/RENT use existing listing action
   await expect(
     page.getByRole("region", { name: "Property type" }),
   ).toBeVisible();
+  await tabs.getByRole("tab", { name: "RENT", exact: true }).click();
+  await expect(
+    tabs.getByRole("tab", { name: "RENT", exact: true }),
+  ).toHaveAttribute("aria-selected", "true");
+  await expect(types).toHaveAttribute("data-expanded", "true");
+  await expect(
+    page.getByRole("group", { name: "Rental property types" }),
+  ).toBeVisible();
+  await tabs.getByRole("tab", { name: "BUY", exact: true }).click();
+  await expect(types).toHaveAttribute("data-expanded", "true");
   await tabs.getByRole("tab", { name: "BUY", exact: true }).click();
   await expect(types).toHaveAttribute("data-expanded", "false");
   await tabs.getByRole("tab", { name: "RENT", exact: true }).click();

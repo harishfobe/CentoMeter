@@ -103,40 +103,22 @@ export default function PropertyTypes({
   allowAll = false,
   compact = false,
   deselectable = false,
+  expanded,
 }) {
-  // On the browse page, keep type pills collapsed until Buy/Rent is chosen
-  // (or a type filter is already active). Compact filter dialogs stay open.
-  const [expanded, setExpanded] = useState(
+  // Browse pages start collapsed until Buy or Rent is tapped. The parent owns
+  // that toggle so each tab is handled in its own click, before mode changes.
+  const controlled = typeof expanded === "boolean";
+  const [expandedState, setExpanded] = useState(
     !allowAll || compact || (value && value !== "All"),
   );
 
   useEffect(() => {
-    if (!allowAll || compact) return;
+    if (controlled || !allowAll || compact) return;
     if (value && value !== "All") setExpanded(true);
-  }, [allowAll, compact, value]);
+  }, [controlled, allowAll, compact, value]);
 
-  useEffect(() => {
-    if (!allowAll || compact) return;
-    const toggleOnIntentClick = (event) => {
-      const intent = event.target.closest('[aria-label="Property intent"]');
-      const button = intent
-        ? event.target.closest('[role="tab"]')
-        : null;
-      if (!intent || !button || !intent.contains(button)) return;
-      const label = button.textContent.replace(/\s+/g, " ").trim();
-      if (label !== "BUY" && label !== "RENT") return;
-      // Re-tap active Buy/Rent to hide types; switch intent to show them.
-      if (button.getAttribute("aria-selected") === "true") {
-        setExpanded((open) => !open);
-      } else {
-        setExpanded(true);
-      }
-    };
-    document.addEventListener("click", toggleOnIntentClick);
-    return () => document.removeEventListener("click", toggleOnIntentClick);
-  }, [allowAll, compact]);
-
-  const collapsed = allowAll && !compact && !expanded;
+  const revealed = controlled ? expanded : expandedState;
+  const collapsed = allowAll && !compact && !revealed;
   const selectedType = canonicalizePropertyType(value);
   return (
     <section
