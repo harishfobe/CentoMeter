@@ -43,9 +43,7 @@ function PropertyCard({
         <button
           className="property-image"
           onClick={() => onOpen(p)}
-          aria-label={["View " + p.title, status, photoCount ? photoCount + " photos" : null]
-            .filter(Boolean)
-            .join(". ")}
+          aria-label={"View " + p.title}
         >
           <img
             width="600"
