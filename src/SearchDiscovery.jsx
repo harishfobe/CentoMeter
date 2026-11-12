@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ArrowLeft, Check, MapPin, MapPinned, Plus } from "lucide-react";
+import { ArrowLeft, Check, MapPin, Plus } from "lucide-react";
 import properties from "./data/properties.json";
 import { featuredAreas, landmarkSuggestions } from "./data/cities";
 import {
@@ -181,7 +181,7 @@ export default function SearchDiscovery({
               disabled={locating}
               onClick={useCurrentLocation}
             >
-              <MapPinned size={19} />
+              <img src="/centometer-pin.png" alt="" width="18" height="22" />
             </button>
             <input
               role="combobox"
