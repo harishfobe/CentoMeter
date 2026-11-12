@@ -401,7 +401,26 @@
   color: var(--brand);
 }
 .refine-search-page .refine-search-top {
+  position: relative;
+  z-index: 6;
+  overflow: visible;
   padding-bottom: 8px;
+}
+.refine-search-field {
+  position: relative;
+}
+.refine-search-page .search-suggestions {
+  z-index: 7;
+}
+.refine-search-page .suggestion-option {
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+.refine-search-page .suggestion-option small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
 }
 .refine-search-page .refine-search-top h1 {
   margin: 0 0 8px;

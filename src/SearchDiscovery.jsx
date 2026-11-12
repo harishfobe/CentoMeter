@@ -28,6 +28,10 @@ export default function SearchDiscovery({
   query,
 }) {
   const [text, setText] = useState(query || "");
+  const [open, setOpen] = useState(false);
+  const [draftIntent, setDraftIntent] = useState(
+    mode === "RENT" ? "RENT" : "BUY",
+  );
   const [history, setHistory] = useState(() =>
     readLocal("centometer-search-history", []),
   );
@@ -45,6 +49,52 @@ export default function SearchDiscovery({
     setHistory(next);
     writeLocal("centometer-search-history", next);
   };
+  const term = text.trim();
+  const suggestions = useMemo(() => {
+    if (!term) return [];
+    const modeListings = cityListings.filter(
+      (property) => property.mode === draftIntent,
+    );
+    const groups = new Map();
+    for (const property of modeListings)
+      groups.set(property.locality, (groups.get(property.locality) || 0) + 1);
+    const localities = orderedLocalities(
+      city,
+      [...groups].map(([name, count]) => ({ name, count })),
+    );
+    const detail = (item) => {
+      const rate =
+        draftIntent === "BUY" ? localityPrice(modeListings, item.name) : null;
+      return rate
+        ? `₹ ${rate.toLocaleString("en-IN")}/sq.ft.`
+        : `${item.count} ${item.count === 1 ? "property" : "properties"}`;
+    };
+    return [
+      ...localities.map((item) => ({
+        name: item.name,
+        detail: detail(item),
+        kind: "Locality",
+      })),
+      ...(landmarkSuggestions[city] || []).map(([name, locality]) => ({
+        name,
+        detail: locality,
+        kind: "Landmark",
+      })),
+      ...modeListings.map((property) => ({
+        name: property.title,
+        detail: property.locality,
+        kind: "Project",
+      })),
+    ]
+      .filter((item) => nearText(`${item.name} ${item.detail}`, term))
+      .filter(
+        (item, index, all) =>
+          all.findIndex(
+            (other) => other.kind === item.kind && other.name === item.name,
+          ) === index,
+      )
+      .slice(0, 8);
+  }, [term, city, cityListings, draftIntent]);
   return (
     <section
       className="search-discovery refine-search-page refine-sheet"
@@ -60,25 +110,68 @@ export default function SearchDiscovery({
           <ArrowLeft size={24} />
         </button>
         <h1>Refine your search</h1>
-        <form
-          className="search-discovery-form"
-          role="search"
-          onSubmit={(event) => event.preventDefault()}
-        >
-          <Search size={20} aria-hidden="true" />
-          <input
-            role="combobox"
-            aria-label="Search by locality, landmark or project"
-            aria-autocomplete="list"
-            aria-expanded={Boolean(text.trim())}
-            aria-controls="refine-search-suggestions"
-            placeholder="Locality, landmark or project"
-            autoComplete="off"
-            enterKeyHint="search"
-            value={text}
-            onChange={(event) => setText(event.target.value)}
-          />
-        </form>
+        <div className="refine-search-field">
+          <form
+            className="search-discovery-form"
+            role="search"
+            onSubmit={(event) => event.preventDefault()}
+          >
+            <Search size={20} aria-hidden="true" />
+            <input
+              role="combobox"
+              aria-label="Search by locality, landmark or project"
+              aria-autocomplete="list"
+              aria-expanded={open && Boolean(term)}
+              aria-controls="refine-search-suggestions"
+              placeholder="Locality, landmark or project"
+              autoComplete="off"
+              enterKeyHint="search"
+              value={text}
+              onFocus={() => setOpen(true)}
+              onChange={(event) => {
+                setText(event.target.value);
+                setOpen(true);
+              }}
+            />
+          </form>
+          {open && term && (
+            <div
+              id="refine-search-suggestions"
+              className="search-suggestions"
+              role="listbox"
+              aria-label="Search suggestions"
+            >
+              {suggestions.length ? (
+                suggestions.map((item) => (
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={text === item.name}
+                    className="suggestion-option"
+                    key={item.kind + item.name}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={() => {
+                      setText(item.name);
+                      setOpen(false);
+                    }}
+                  >
+                    <span className="suggestion-icon">
+                      <MapPin size={17} />
+                    </span>
+                    <span>
+                      <strong>{item.name}</strong>
+                      <small>
+                        {item.kind} · {item.detail}
+                      </small>
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <p className="suggestion-empty">No matching places.</p>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <RefineSearchPanel
         filters={filters}
@@ -87,6 +180,7 @@ export default function SearchDiscovery({
         listings={cityListings}
         area={text.trim()}
         deferMode
+        onDraftIntent={setDraftIntent}
         showActions={false}
         onApply={(nextFilters, intent) => {
           const term = text.trim();
@@ -102,6 +196,7 @@ export default function SearchDiscovery({
               onClick={() => {
                 reset();
                 setText("");
+                setOpen(false);
               }}
             >
               Reset all
@@ -139,36 +234,6 @@ export default function SearchDiscovery({
               : `${count} ${count === 1 ? "property" : "properties"}`;
           };
           const term = text.trim();
-          const suggestions = term
-            ? [
-                ...localities.map((item) => ({
-                  name: item.name,
-                  detail: localityDetail(item),
-                  kind: "Locality",
-                })),
-                ...(landmarkSuggestions[city] || []).map(
-                  ([name, locality]) => ({
-                    name,
-                    detail: locality,
-                    kind: "Landmark",
-                  }),
-                ),
-                ...modeListings.map((property) => ({
-                  name: property.title,
-                  detail: property.locality,
-                  kind: "Project",
-                })),
-              ]
-                .filter((item) => nearText(`${item.name} ${item.detail}`, term))
-                .filter(
-                  (item, index, all) =>
-                    all.findIndex(
-                      (other) =>
-                        other.kind === item.kind && other.name === item.name,
-                    ) === index,
-                )
-                .slice(0, 8)
-            : [];
           const suggested = modeListings
             .filter(
               (property) =>
@@ -177,44 +242,7 @@ export default function SearchDiscovery({
             .slice(0, 8);
           return (
             <>
-              {term ? (
-                <div className="search-discovery-section matching-section">
-                  <h2>Matching places</h2>
-                  {suggestions.length ? (
-                    <div
-                      id="refine-search-suggestions"
-                      className="search-discovery-matches"
-                      role="listbox"
-                      aria-label="Search suggestions"
-                    >
-                      {suggestions.map((item) => (
-                        <button
-                          type="button"
-                          role="option"
-                          aria-selected={text === item.name}
-                          key={item.kind + item.name}
-                          onClick={() => setText(item.name)}
-                        >
-                          <span className="match-icon">
-                            <MapPin size={17} />
-                          </span>
-                          <span>
-                            <strong>{item.name}</strong>
-                            <small>
-                              {item.kind} · {item.detail}
-                            </small>
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="search-discovery-empty">
-                      No matching places. Show results still searches this term.
-                    </p>
-                  )}
-                </div>
-              ) : (
-                <div className="search-discovery-section area-suggestions">
+              <div className="search-discovery-section area-suggestions">
                   <h2>Suggested areas</h2>
                   <div
                     className="search-stack"
@@ -231,11 +259,12 @@ export default function SearchDiscovery({
                           "search-mini-card area-card " +
                           (text === item.name ? "selected" : "")
                         }
-                        onClick={() =>
+                        onClick={() => {
                           setText((value) =>
                             value === item.name ? "" : item.name,
-                          )
-                        }
+                          );
+                          setOpen(text !== item.name);
+                        }}
                       >
                         <span className="area-card-main">
                           <MapPin size={15} aria-hidden="true" />
@@ -255,7 +284,6 @@ export default function SearchDiscovery({
                     ))}
                   </div>
                 </div>
-              )}
               {suggested.length > 0 && (
                 <div className="search-discovery-section suggested-properties">
                   <h2>Suggested properties</h2>

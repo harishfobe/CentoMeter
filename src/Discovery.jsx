@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PropertyTypes, { matchesPropertyType, typeLabel } from "./PropertyTypes";
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import PhotoSwipeDots from "./components/PhotoSwipeDots";
@@ -187,10 +187,14 @@ export function RefineSearchPanel({
   onModeChange,
   showActions = true,
   deferMode = false,
+  onDraftIntent,
   renderActions,
   children,
 }) {
   const [intent, setIntent] = useState(mode === "RENT" ? "RENT" : "BUY");
+  useEffect(() => {
+    onDraftIntent?.(intent);
+  }, [intent, onDraftIntent]);
   const [f, setF] = useState(
     Object.fromEntries(
       Object.entries(filterDefaults).map(([key, value]) => [
