@@ -1228,7 +1228,7 @@ export default function App() {
                 }}
               />
             </div>
-            {(view === "home" || view === "results") && (
+            {(view === "home" || view === "results" || view === "map") && (
               <>
                 <div className="budget-chips" role="group" aria-label="Budget">
                   {budgetBandsFor(mode, filters.type).map((band) => (

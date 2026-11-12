@@ -68,6 +68,18 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
   await expect(page.locator(".map-only .leaflet-container")).toBeVisible();
   await expect(page.locator(".search-controls")).toBeVisible();
   await expect(page.locator(".listing-panel")).toHaveCount(0);
+  const mapBudgets = page.getByRole("group", { name: "Budget" });
+  const mapQuick = page.getByRole("group", { name: "Quick filters" });
+  await expect(mapBudgets.getByRole("button", { name: "Under ₹50L" })).toBeVisible();
+  await expect(mapQuick.getByRole("button", { name: "Owner only" })).toBeVisible();
+  await mapBudgets.getByRole("button", { name: "Under ₹50L" }).click();
+  await expect(
+    page.getByRole("region", { name: "Active filters" }).getByRole("button", {
+      name: /Under ₹50L/,
+    }),
+  ).toBeVisible();
+  await mapBudgets.getByRole("button", { name: "Under ₹50L" }).click();
+  await expect(page.getByRole("region", { name: "Active filters" })).toHaveCount(0);
   const map = await page.locator(".map-stage").boundingBox();
   expect(map.height).toBeGreaterThan(300);
   await shot(page, info, "map");
@@ -77,6 +89,8 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
     nav.getByRole("button", { name: "Map", exact: true }),
   ).toHaveAttribute("aria-current", "page");
   await expect(page.locator("#property-results")).toBeVisible();
+  await expect(mapBudgets.getByRole("button", { name: "Under ₹50L" })).toBeVisible();
+  await expect(mapQuick.getByRole("button", { name: "Ready to move" })).toBeVisible();
   await expect(
     page.locator("#property-results .property-card").first(),
   ).toBeVisible();

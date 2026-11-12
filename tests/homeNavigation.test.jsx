@@ -142,6 +142,53 @@ it("switches Map to its list and back without changing route or active tab", asy
   ).toBeNull();
   expect(document.activeElement).toBe(toggle);
 });
+it("shows the same budget and quick chips on Map", async () => {
+  history.replaceState(null, "", "#map");
+  render(<App />);
+  const budgets = screen.getByRole("group", { name: "Budget" });
+  const quick = screen.getByRole("group", { name: "Quick filters" });
+  expect(
+    within(budgets)
+      .getAllByRole("button")
+      .map((button) => button.textContent),
+  ).toEqual(["Under ₹50L", "₹50–80L", "₹80L–1.5Cr", "₹1.5Cr+"]);
+  fireEvent.click(within(budgets).getByRole("button", { name: "Under ₹50L" }));
+  expect(
+    within(budgets)
+      .getByRole("button", { name: "Under ₹50L" })
+      .getAttribute("aria-pressed"),
+  ).toBe("true");
+  expect(
+    within(screen.getByRole("region", { name: "Active filters" })).getByRole(
+      "button",
+      { name: /Under ₹50L/ },
+    ),
+  ).toBeTruthy();
+  fireEvent.click(within(quick).getByRole("button", { name: "Owner only" }));
+  expect(
+    within(quick)
+      .getByRole("button", { name: "Owner only" })
+      .getAttribute("aria-pressed"),
+  ).toBe("true");
+  fireEvent.click(
+    within(screen.getByRole("tablist", { name: "Property intent" })).getByRole(
+      "tab",
+      { name: "RENT" },
+    ),
+  );
+  expect(
+    within(screen.getByRole("group", { name: "Budget" }))
+      .getAllByRole("button")
+      .map((button) => button.textContent),
+  ).toEqual(["Under ₹10k", "₹10–20k", "₹20–35k", "₹35k+"]);
+  expect(
+    within(screen.getByRole("group", { name: "Quick filters" })).getByRole(
+      "button",
+      { name: "No brokerage" },
+    ),
+  ).toBeTruthy();
+});
+
 it("keeps the full property list off Home and ends with local agents", async () => {
   const app = render(<App />);
   expect(app.container.querySelector("#property-results")).toBeNull();
