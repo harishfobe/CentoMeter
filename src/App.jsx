@@ -1241,48 +1241,46 @@ export default function App() {
               />
             </div>
             {(view === "home" || view === "results") && (
-              <>
-                <div className="budget-chips" role="group" aria-label="Budget">
-                  {budgetBandsFor(mode, filters.type).map((band) => (
-                    <button
-                      type="button"
-                      key={band.id}
-                      aria-pressed={activeBudget(filters, mode)?.id === band.id}
-                      onClick={() =>
-                        setFilters((current) =>
-                          applyBudget(current, band, mode),
-                        )
-                      }
-                    >
-                      {band.label}
-                    </button>
-                  ))}
-                </div>
-                <div
-                  className="quick-filter-chips"
-                  role="group"
-                  aria-label="Quick filters"
-                >
-                  {quickFiltersFor({ mode, type: filters.type }).map((chip) => (
-                    <button
-                      type="button"
-                      key={chip.id}
-                      aria-pressed={filters[chip.key] === chip.value}
-                      onClick={() =>
-                        setFilters((current) => ({
-                          ...current,
-                          [chip.key]:
-                            current[chip.key] === chip.value
-                              ? filterDefaults[chip.key]
-                              : chip.value,
-                        }))
-                      }
-                    >
-                      {chip.label}
-                    </button>
-                  ))}
-                </div>
-              </>
+              <div className="budget-chips" role="group" aria-label="Budget">
+                {budgetBandsFor(mode, filters.type).map((band) => (
+                  <button
+                    type="button"
+                    key={band.id}
+                    aria-pressed={activeBudget(filters, mode)?.id === band.id}
+                    onClick={() =>
+                      setFilters((current) => applyBudget(current, band, mode))
+                    }
+                  >
+                    {band.label}
+                  </button>
+                ))}
+              </div>
+            )}
+            {view === "results" && (
+              <div
+                className="quick-filter-chips"
+                role="group"
+                aria-label="Quick filters"
+              >
+                {quickFiltersFor({ mode, type: filters.type }).map((chip) => (
+                  <button
+                    type="button"
+                    key={chip.id}
+                    aria-pressed={filters[chip.key] === chip.value}
+                    onClick={() =>
+                      setFilters((current) => ({
+                        ...current,
+                        [chip.key]:
+                          current[chip.key] === chip.value
+                            ? filterDefaults[chip.key]
+                            : chip.value,
+                      }))
+                    }
+                  >
+                    {chip.label}
+                  </button>
+                ))}
+              </div>
             )}
             {(displayedFilters.length > 0 || nearPlace || query) && (
               <div
