@@ -13,6 +13,7 @@ import "./styles/home.css";
 import "./minimal.css";
 import "./styles/craft.css";
 import "./styles/land-listing.css";
+import "./styles/agent-dashboard.css";
 createRoot(document.getElementById("root")).render(
   <ErrorBoundary>
     <App />

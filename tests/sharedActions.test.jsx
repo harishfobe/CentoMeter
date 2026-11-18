@@ -79,6 +79,20 @@ it("the dashboard provides a back action", () => {
   fireEvent.click(screen.getByRole("button", { name: /Back to profile/ }));
   expect(navigate).toHaveBeenCalledWith("profile");
 });
+it("shows the agent for the signed-in profile", () => {
+  render(
+    <AgentDashboard
+      profile={{ name: "Rahul Reddy", email: "rahul@example.com" }}
+      onNavigate={() => {}}
+      onPost={() => {}}
+    />,
+  );
+  expect(screen.getByRole("heading", { name: "Rahul Reddy" })).toBeTruthy();
+  expect(screen.queryByRole("combobox", { name: "Act as this agent" })).toBeNull();
+  cleanup();
+  render(<AgentDashboard onNavigate={() => {}} onPost={() => {}} />);
+  expect(screen.getByRole("heading", { name: "Ananya Rao" })).toBeTruthy();
+});
 
 it("keeps ErrorBoundary recovery keyboard accessible through the shared empty state", () => {
   vi.spyOn(console, "error").mockImplementation(() => {});
