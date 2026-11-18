@@ -40,7 +40,29 @@ import {
   LandAreaFields,
   PlotLandAreaFields,
 } from "./LandDetails";
-import { HouseVillaSummary } from "./HouseVillaDetails";
+import { HouseVillaSummary, petsAllowedAnswer } from "./HouseVillaDetails";
+
+function PetsAllowedField({ value, onChange }) {
+  const selected = petsAllowedAnswer(value);
+  return (
+    <fieldset className="bhk-options">
+      <legend>Pets allowed</legend>
+      <div className="chips">
+        {["Yes", "No"].map((option) => (
+          <button
+            type="button"
+            key={option}
+            className={"chip " + (selected === option ? "active" : "")}
+            aria-pressed={selected === option}
+            onClick={() => onChange(selected === option ? "" : option)}
+          >
+            {option}
+          </button>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
 import {
   CommercialFacilities,
   CommercialHighlights,
@@ -481,9 +503,9 @@ export default function PostFlow({
       pets:
         d.intent === "RENT" &&
         (d.type === "Villa" || d.type === "Independent House")
-          ? "Allowed"
+          ? "Yes"
           : d.intent === "RENT" && d.type === "Apartment"
-            ? "Not specified"
+            ? "No"
             : d.pets,
       available:
         d.intent === "RENT" && d.type === "Commercial"
@@ -1215,18 +1237,10 @@ export default function PostFlow({
                           ))}
                         </select>
                       </label>
-                      <label>
-                        Pets
-                        <select
-                          value={data.pets || ""}
-                          onChange={(e) => set("pets", e.target.value)}
-                        >
-                          <option value="">Select</option>
-                          <option>Allowed</option>
-                          <option>Not allowed</option>
-                          <option>Not specified</option>
-                        </select>
-                      </label>
+                      <PetsAllowedField
+                        value={data.pets}
+                        onChange={(next) => set("pets", next)}
+                      />
                     </div>
                   )}
                 </>
@@ -1278,18 +1292,10 @@ export default function PostFlow({
                           ))}
                         </select>
                       </label>
-                      <label>
-                        Pets
-                        <select
-                          value={data.pets || ""}
-                          onChange={(e) => set("pets", e.target.value)}
-                        >
-                          <option value="">Select</option>
-                          <option>Allowed</option>
-                          <option>Not allowed</option>
-                          <option>Not specified</option>
-                        </select>
-                      </label>
+                      <PetsAllowedField
+                        value={data.pets}
+                        onChange={(next) => set("pets", next)}
+                      />
                     </div>
                   )}
                 </>
@@ -1385,18 +1391,10 @@ export default function PostFlow({
                             ))}
                           </select>
                         </label>
-                        <label>
-                          Pets
-                          <select
-                            value={data.pets || ""}
-                            onChange={(e) => set("pets", e.target.value)}
-                          >
-                            <option value="">Select</option>
-                            <option>Allowed</option>
-                            <option>Not allowed</option>
-                            <option>Not specified</option>
-                          </select>
-                        </label>
+                        <PetsAllowedField
+                          value={data.pets}
+                          onChange={(next) => set("pets", next)}
+                        />
                       </div>
                     </>
                   )}

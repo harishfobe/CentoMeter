@@ -14,6 +14,7 @@ import {
   matchesFloorFilter,
   matchesPossessionFilter,
 } from "./listingFit";
+import { petsAllowedAnswer } from "./HouseVillaDetails";
 
 export const facingDirections = [
   "North",
@@ -66,7 +67,10 @@ export function retainFilters(current, nextType) {
     next.pricePer = "";
   }
   const home = !["Land", "Commercial", "PG"].includes(nextType);
-  if (home) next.beds = current.beds || "Any";
+  if (home) {
+    next.beds = current.beds || "Any";
+    next.pets = current.pets || "Any";
+  }
   if (supportsFacing(nextType)) next.facing = current.facing || "Any";
   if (nextType !== "Land") next.furnishing = current.furnishing || "Any";
   if (current.minArea) {
@@ -78,7 +82,6 @@ export function retainFilters(current, nextType) {
     next.subtype = current.subtype;
     next.occupancy = current.occupancy;
     next.meals = current.meals;
-    next.pets = current.pets;
     next.floor = current.floor;
     next.bathroom = current.bathroom;
     next.ac = current.ac;
@@ -120,6 +123,12 @@ export const removeLocal = (key) => {
     return false;
   }
 };
+function matchesPetsFilter(property, filterValue) {
+  const want = petsAllowedAnswer(filterValue);
+  if (!want) return true;
+  return petsAllowedAnswer(property?.pets) === want;
+}
+
 export function matches(p, f) {
   f = { ...filterDefaults, ...f };
   const price =
@@ -163,7 +172,8 @@ export function matches(p, f) {
       f.available === "Any" ? "Any" : f.available,
     ) &&
     (f.seller === "Any" || p.seller === f.seller) &&
-    ["pets", "bathroom", "ac", "facing"].every(
+    matchesPetsFilter(p, f.pets) &&
+    ["bathroom", "ac", "facing"].every(
       (k) => !f[k] || f[k] === "Any" || p[k] === f[k],
     ) &&
     matchesFloorFilter(p.floor, f.floor)
@@ -210,10 +220,12 @@ export function RefineSearchPanel({
     if (next === intent) return;
     setIntent(next);
     setF((current) => {
-      if (next === "RENT" && current.type === "Land") {
-        return retainFilters(current, "All");
-      }
-      return current;
+      const base =
+        next === "RENT" && current.type === "Land"
+          ? retainFilters(current, "All")
+          : current;
+      if (next !== "RENT") return { ...base, pets: "Any" };
+      return base;
     });
     if (!deferMode) onModeChange?.(next);
   };
@@ -437,19 +449,31 @@ export function RefineSearchPanel({
                 "Balcony",
               ])
             )}
+            {intent === "RENT" && home && (
+              <fieldset className="bhk-options">
+                <legend>Pets allowed</legend>
+                <div className="chips">
+                  {["Yes", "No"].map((option) => {
+                    const selected = petsAllowedAnswer(f.pets) === option;
+                    return (
+                      <button
+                        type="button"
+                        key={option}
+                        className={"chip " + (selected ? "active" : "")}
+                        aria-pressed={selected}
+                        onClick={() => set("pets", selected ? "Any" : option)}
+                      >
+                        {option}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            )}
             <details className="advanced-filters">
               <summary>More preferences</summary>
               <div className="form-stack">
-                {home && (
-                  <>
-                    {select("pets", "Pets", [
-                      "Allowed",
-                      "Not allowed",
-                      "Not specified",
-                    ])}
-                    {select("floor", "Floor", ["Ground", "1–3", "4+"])}
-                  </>
-                )}
+                {home && select("floor", "Floor", ["Ground", "1–3", "4+"])}
                 {f.type === "Commercial" &&
                   intent === "RENT" &&
                   select("floor", "Floor", ["Ground", "1–3", "4+"])}
