@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, ChevronRight, Eye, EyeOff } from "lucide-react";
 
 export const SAMPLE_ACCOUNT = {
   name: "Aarav Sharma",
@@ -84,7 +84,7 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
       >
         <ArrowLeft size={22} aria-hidden="true" />
       </button>
-      <div className="login-brand">
+      <div className="login-hero">
         <img
           className="login-logo"
           src="/centometer-login-logo.jpg"
@@ -92,15 +92,14 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
           width="1158"
           height="762"
         />
+        <h1>{creating ? "Create your profile." : "Welcome back."}</h1>
+        <p className="login-lead">
+          {creating
+            ? "A name and email are enough to start."
+            : "Sign in to the places saved on this device."}
+        </p>
       </div>
-      <p className="eyebrow">{creating ? "CREATE ACCOUNT" : "SIGN IN"}</p>
-      <h1>{creating ? "Start with CentoMeter." : "Welcome back."}</h1>
-      <p className="login-lead">
-        {creating
-          ? "Create a profile for this device. Nothing is sent to a server."
-          : "Sign in to the profile saved on this device. Your password is not stored."}
-      </p>
-      <form className="form-stack login-form" onSubmit={submit} noValidate>
+      <form className="login-card" onSubmit={submit} noValidate>
         {creating && (
           <label>
             Name
@@ -120,14 +119,14 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
             type="email"
             autoComplete="email"
             inputMode="email"
+            placeholder="you@email.com"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
         {creating && (
           <label>
-            Mobile number
-            <small>Optional</small>
+            Mobile number <small>Optional</small>
             <input
               name="phone"
               type="tel"
@@ -147,6 +146,7 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
               name="password"
               type={showPassword ? "text" : "password"}
               autoComplete={creating ? "new-password" : "current-password"}
+              placeholder="At least 8 characters"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -171,6 +171,7 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
               name="confirm"
               type={showPassword ? "text" : "password"}
               autoComplete="new-password"
+              placeholder="Repeat your password"
               value={confirm}
               onChange={(event) => setConfirm(event.target.value)}
             />
@@ -181,33 +182,41 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
             {error}
           </p>
         ) : null}
-        <div className="login-actions">
-          <button className="primary" type="submit">
-            {creating ? "Create account" : "Sign in"}
-          </button>
-          {!creating && (
-            <>
-              <p className="login-or">or</p>
-              <button
-                className="secondary"
-                type="button"
-                onClick={() => onSignIn(SAMPLE_ACCOUNT)}
-              >
-                Continue with the sample account
-              </button>
-            </>
-          )}
-        </div>
-      </form>
-      <p className="login-switch">
-        {creating ? "Already have a profile?" : "New here?"}{" "}
-        <button type="button" onClick={switchMode}>
-          {creating ? "Sign in" : "Create an account"}
+        <button className="primary" type="submit">
+          {creating ? "Create account" : "Sign in"}
         </button>
-      </p>
-      <button type="button" className="text-button login-guest" onClick={onContinue}>
-        Continue without an account
-      </button>
+      </form>
+      {!creating && (
+        <button
+          className="login-sample"
+          type="button"
+          aria-label="Continue with the sample account"
+          onClick={() => onSignIn(SAMPLE_ACCOUNT)}
+        >
+          <span className="login-sample-mark" aria-hidden="true">
+            AS
+          </span>
+          <span>
+            <strong>Aarav Sharma</strong>
+            <small>Sample account</small>
+          </span>
+          <ChevronRight size={18} aria-hidden="true" />
+        </button>
+      )}
+      <div className="login-footer">
+        <p className="login-switch">
+          {creating ? "Already have a profile?" : "New here?"}{" "}
+          <button type="button" onClick={switchMode}>
+            {creating ? "Sign in" : "Create an account"}
+          </button>
+        </p>
+        <button type="button" className="text-button login-guest" onClick={onContinue}>
+          Continue without an account
+        </button>
+        <p className="login-note">
+          This preview keeps sign-in on this device. Passwords are not stored.
+        </p>
+      </div>
     </section>
   );
 }

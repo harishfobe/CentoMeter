@@ -1,10 +1,13 @@
 .mobile-search-trigger {
   display: none;
 }
-.view-search,
-.view-login {
+.view-search {
   padding-bottom: 0;
   background: var(--paper);
+}
+.view-login {
+  padding-bottom: 0;
+  background: var(--canvas);
 }
 .view-search > main,
 .view-login > main {

@@ -45,7 +45,7 @@ it("signs in with the sample account and can start a new profile", () => {
     phone: "",
   });
   fireEvent.click(screen.getByRole("button", { name: "Create an account" }));
-  expect(screen.getByRole("heading", { name: "Start with CentoMeter." })).toBeTruthy();
+  expect(screen.getByRole("heading", { name: "Create your profile." })).toBeTruthy();
   fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Meera Nair" } });
   fireEvent.change(screen.getByLabelText("Email"), {
     target: { value: "meera@example.com" },
