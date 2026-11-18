@@ -9,6 +9,13 @@ import {
   isAffirmativeAvailability,
   knownMoveIn,
   mealsDisplay,
+  landCardApproval,
+  landCardArea,
+  landCardFacts,
+  landCardFooter,
+  landCardPrice,
+  landCardRate,
+  landCardTitle,
   mealsIncludedAffirmative,
   posterRole,
   priceWithBasis,
@@ -137,8 +144,9 @@ describe("listing presentation accuracy", () => {
 
   it("guards missing and future confirmedAt", () => {
     expect(confirmedAvailability({})).toBeNull();
-    expect(confirmedAvailability({ confirmedAt: "1970-01-01T00:00:00.000Z" }))
-      .toBeNull();
+    expect(
+      confirmedAvailability({ confirmedAt: "1970-01-01T00:00:00.000Z" }),
+    ).toBeNull();
     expect(
       recentlyConfirmedSafe({
         confirmedAt: new Date(Date.now() + 86400000).toISOString(),
@@ -168,5 +176,58 @@ describe("listing presentation accuracy", () => {
     });
     expect(missingBrokerage.total).toBe(114000);
     expect(missingBrokerage.excluded).toContain("brokerage");
+  });
+});
+
+describe("land listing card", () => {
+  const plot = {
+    locality: "Kovilpalayam",
+    landType: "Residential",
+    price: 4480000,
+    area: 2440,
+    width: 40,
+    length: 61,
+    facing: "East",
+    roadWidth: 30,
+    approvals: ["DTCP"],
+    seller: "Owner",
+    postedAt: "2026-11-16",
+  };
+
+  it("formats the plot card from known listing fields", () => {
+    expect(landCardTitle(plot)).toBe("Kovilpalayam • Residential plot");
+    expect(landCardPrice(plot)).toBe("₹44.8L");
+    expect(landCardRate(plot)).toBe("₹8L/cent");
+    expect(landCardArea(plot)).toBe("5.6 cents • 2,440 sq ft");
+    expect(landCardFacts(plot)).toBe("40 × 61 ft • East • 30 ft road");
+    expect(landCardApproval(plot)).toEqual({
+      claimed: true,
+      label: "DTCP claimed by seller",
+    });
+    expect(landCardFooter(plot, Date.parse("2026-11-18T12:00:00+05:30"))).toBe(
+      "Owner • Updated 2 days ago",
+    );
+  });
+
+  it("drops a trailing lakh decimal and leaves unknown facts out", () => {
+    expect(landCardPrice({ price: 3900000 })).toBe("₹39L");
+    expect(
+      landCardFacts({
+        width: 40,
+        length: 65,
+        facing: "North",
+        roadWidth: "23 ft",
+      }),
+    ).toBe("40 × 65 ft • North • 23 ft road");
+    expect(landCardFacts({ facing: "East" })).toBe("East");
+    expect(landCardArea({})).toBeNull();
+    expect(landCardRate({})).toBeNull();
+    expect(landCardApproval({ features: [] })).toEqual({
+      claimed: false,
+      label: "Approval evidence pending",
+    });
+    expect(landCardFooter({ seller: "Agent" }, Date.parse("2026-11-18"))).toBe(
+      "Agent",
+    );
   });
 });

@@ -5,6 +5,8 @@
 import { money, hasValue } from "./PropertyModel";
 import { cardTypeLabel } from "./PropertyTypes";
 import { landArea } from "./LandDetails";
+import { landNumber, positive, toCents } from "./LandMeasurements";
+import { approvalLabels } from "./PlotUI";
 import { landPrice } from "./JourneyUX";
 import { canonicalizePropertyType, PROPERTY_TYPE } from "./propertyTypeIds";
 
@@ -19,7 +21,10 @@ export function typeTransactionLine(p) {
 }
 
 /** Explicit price with basis: "₹28,000 / month", "₹9,500 / bed / month", "₹72 L total". */
-export function priceWithBasis(p, { unit = "total", formatMoney = money } = {}) {
+export function priceWithBasis(
+  p,
+  { unit = "total", formatMoney = money } = {},
+) {
   if (!p) return "";
   if (p.mode === "RENT") {
     const amount = formatMoney(p.price);
@@ -34,7 +39,9 @@ export function priceWithBasis(p, { unit = "total", formatMoney = money } = {}) 
     const priced = landPrice(p, unit);
     const amount = formatMoney(priced.amount);
     const suffix = (priced.suffix || " total").trim();
-    return suffix.startsWith("/") ? `${amount} ${suffix}` : `${amount} ${suffix}`;
+    return suffix.startsWith("/")
+      ? `${amount} ${suffix}`
+      : `${amount} ${suffix}`;
   }
   return `${formatMoney(p.price)} total`;
 }
@@ -308,4 +315,88 @@ export function mealsIncludedAffirmative(value) {
   const text = String(value).trim();
   if (/not\s+included/i.test(text)) return false;
   return /included/i.test(text);
+}
+
+function compactInr(amount) {
+  const n = Number(amount);
+  if (!Number.isFinite(n)) return "";
+  const abs = Math.abs(n);
+  if (abs >= 10000000) return `₹${trimOneDecimal(n / 10000000)}Cr`;
+  if (abs >= 100000) return `₹${trimOneDecimal(n / 100000)}L`;
+  return `₹${Math.round(n).toLocaleString("en-IN")}`;
+}
+
+function trimOneDecimal(value) {
+  const rounded = Math.round(value * 10) / 10;
+  return Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+}
+
+/** "Saibaba Colony • Residential plot" */
+export function landCardTitle(p) {
+  const kind = String(p?.landType || p?.subtype || "").trim();
+  const plot = !kind ? "Plot" : /plot$/i.test(kind) ? kind : `${kind} plot`;
+  const place = String(p?.locality || p?.city || "").trim();
+  return place ? `${place} • ${plot}` : plot;
+}
+
+export function landCardPrice(p) {
+  return compactInr(p?.price);
+}
+
+export function landCardRate(p) {
+  const cents = toCents(p?.plotArea || p?.area);
+  const price = Number(p?.price);
+  if (!positive(cents) || !positive(price)) return null;
+  return `${compactInr(price / cents)}/cent`;
+}
+
+export function landCardArea(p) {
+  const area = Number(p?.plotArea || p?.area);
+  if (!positive(area)) return null;
+  return `${landNumber(toCents(area))} cents • ${Math.round(area).toLocaleString("en-IN")} sq ft`;
+}
+
+function landRoadLabel(value) {
+  if (!hasValue(value)) return null;
+  const text = String(value).trim();
+  if (/road/i.test(text)) return text;
+  if (/^\d+(\.\d+)?$/.test(text)) return `${text} ft road`;
+  if (/ft/i.test(text)) return `${text} road`;
+  return text;
+}
+
+/** "40 × 62 ft • South-East • 20 ft road" — width × length, only known facts. */
+export function landCardFacts(p) {
+  const parts = [];
+  if (positive(p?.width) && positive(p?.length)) {
+    parts.push(`${landNumber(p.width)} × ${landNumber(p.length)} ft`);
+  }
+  if (hasValue(p?.facing)) parts.push(String(p.facing).trim());
+  const road = landRoadLabel(p?.roadWidth);
+  if (road) parts.push(road);
+  return parts.join(" • ") || null;
+}
+
+export function landCardApproval(p) {
+  const labels = approvalLabels(p);
+  if (!labels.length) {
+    return { claimed: false, label: "Approval evidence pending" };
+  }
+  const name = labels[0].replace(/\s+Approved$/i, "");
+  return { claimed: true, label: `${name} claimed by seller` };
+}
+
+export function landCardUpdated(p, now = Date.now()) {
+  const t = Date.parse(p?.postedAt || p?.createdAt || "");
+  if (!Number.isFinite(t) || t <= 0) return null;
+  const days = Math.floor((now - t) / 86400000);
+  if (days < 0) return null;
+  if (days === 0) return "Updated today";
+  if (days === 1) return "Updated 1 day ago";
+  return `Updated ${days} days ago`;
+}
+
+export function landCardFooter(p, now = Date.now()) {
+  const role = hasValue(p?.seller) ? String(p.seller).trim() : null;
+  return [role, landCardUpdated(p, now)].filter(Boolean).join(" • ") || null;
 }
