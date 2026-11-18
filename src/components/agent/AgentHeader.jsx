@@ -34,13 +34,6 @@ export default function AgentHeader({ agent: a, count, onShare }) {
         </p>
       )}
       <StatsRow agent={a} count={count} compact />
-      <details>
-        <summary>About · Read more</summary>
-        <p>{a.bio}</p>
-        {a.reraAgentNo && (
-          <p className="agent-registration">RERA agent no. {a.reraAgentNo}</p>
-        )}
-      </details>
       <div className="action-row">
         <WhatsAppLink
           className="primary"

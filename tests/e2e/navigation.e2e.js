@@ -42,7 +42,7 @@ for (const close of ["X", "Escape", "Back"])
       Math.abs((await page.evaluate(() => scrollY)) - before.y),
     ).toBeLessThan(3);
   });
-test("profile filters and tabs do not scroll the page", async ({ page }) => {
+test("profile filters do not scroll the page", async ({ page }) => {
   await page.goto("/#agent/ananya.rao?mode=BUY&available=false");
   const sort = page.getByLabel("Sort listings");
   await sort.scrollIntoViewIfNeeded();
@@ -50,13 +50,7 @@ test("profile filters and tabs do not scroll the page", async ({ page }) => {
   await sort.selectOption("low");
   await expect(page).toHaveURL(/sort=low/);
   expect(await page.evaluate(() => scrollY)).toBe(y);
-  await page
-    .getByRole("tab", { name: "About", exact: true })
-    .scrollIntoViewIfNeeded();
-  const tabY = await page.evaluate(() => scrollY);
-  await page.getByRole("tab", { name: "About", exact: true }).click();
-  await expect(page).toHaveURL(/tab=about/);
-  expect(await page.evaluate(() => scrollY)).toBe(tabY);
+  await expect(page.getByRole("tab", { name: "About", exact: true })).toHaveCount(0);
 });
 
 test("a direct listing link closes to its profile with one Back press", async ({
