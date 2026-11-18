@@ -2300,6 +2300,7 @@ export default function App() {
         )}
         {route === "agent-dashboard" && (
           <AgentDashboard
+            profile={profile}
             onNavigate={navigate}
             onPost={(agent, listing) => {
               setPostingAgent(agent);

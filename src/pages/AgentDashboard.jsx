@@ -36,15 +36,28 @@ function sourceLabel(source) {
   return source || "Direct";
 }
 
-export default function AgentDashboard({ onPost, onNavigate }) {
+function agentForProfile(profile) {
+  const name = String(profile?.name || "").trim().toLowerCase();
+  const local = String(profile?.email || "")
+    .split("@")[0]
+    .trim()
+    .toLowerCase();
+  return (
+    agents.find((agent) => agent.name.toLowerCase() === name) ||
+    agents.find((agent) => agent.handle.toLowerCase() === local) ||
+    agents[0]
+  );
+}
+
+export default function AgentDashboard({ onPost, onNavigate, profile }) {
   const s = useAgentStore();
-  const [id, setId] = useState(agents[0].id);
+  const a = agentForProfile(profile);
+  const id = a.id;
   const [tab, setTab] = useState("Requests");
   const [filter, setFilter] = useState("requested");
   const [query, setQuery] = useState("");
   const [expiry, setExpiry] = useState(24);
   const [copyStatus, setCopyStatus] = useState(null);
-  const a = agents.find((agent) => agent.id === id);
   const own = mergeListings(listings, s.customListings || []).filter(
     (p) => p.agentId === id,
   );
@@ -114,16 +127,6 @@ export default function AgentDashboard({ onPost, onNavigate }) {
             </span>
           </div>
         </div>
-        <label className="desk-switch">
-          <span>Acting as</span>
-          <select aria-label="Act as this agent" value={id} onChange={(e) => setId(e.target.value)}>
-            {agents.map((agent) => (
-              <option key={agent.id} value={agent.id}>
-                {agent.name} · {agent.city}
-              </option>
-            ))}
-          </select>
-        </label>
       </header>
 
       <div className="desk-metrics" aria-label="Inbox summary">

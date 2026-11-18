@@ -82,18 +82,6 @@
   line-height: 1.4;
 }
 
-.agent-desk .desk-switch {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--muted);
-}
-
-.agent-desk .desk-switch select,
 .agent-desk .desk-filters select,
 .agent-desk .desk-filters input,
 .agent-desk .desk-card select {
