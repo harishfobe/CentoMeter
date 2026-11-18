@@ -4101,26 +4101,7 @@ textarea {
   }
 }
 
-/* Detail hierarchy: summary strip, what you will pay, poster trust */
-.detail-summary-strip {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px 12px;
-  margin: 16px 0 0;
-  padding: 14px 0 0;
-  border-top: 1px solid var(--canvas);
-}
-.detail-summary-strip dt {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 500;
-}
-.detail-summary-strip dd {
-  margin: 2px 0 0;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
+/* Detail hierarchy: what you will pay, poster trust */
 .what-you-will-pay {
   margin-top: 22px;
 }
