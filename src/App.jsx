@@ -2331,8 +2331,13 @@ export default function App() {
                 phone: next.phone || "",
               });
               setSignedIn(true);
-              navigate("profile");
-              notify("Signed in on this device");
+              if (next.role === "agent") {
+                navigate("agent-dashboard");
+                notify("Signed in as an agent on this device");
+              } else {
+                navigate("profile");
+                notify("Signed in on this device");
+              }
             }}
             onContinue={() => {
               setSignedIn(false);

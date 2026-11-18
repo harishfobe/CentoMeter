@@ -1526,6 +1526,27 @@ textarea {
   flex-direction: column;
   gap: 14px;
 }
+.login-role {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+}
+.login-role button {
+  min-height: 48px;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 650;
+}
+.login-role button[aria-selected="true"] {
+  background: var(--brand-soft);
+  border-bottom-color: var(--brand);
+  color: var(--brand);
+}
 .login-input {
   display: flex;
   align-items: center;

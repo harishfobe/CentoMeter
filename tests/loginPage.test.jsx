@@ -30,6 +30,26 @@ it("asks for a valid email and password before logging in", () => {
     name: "Harish",
     email: "harish@example.com",
     phone: "",
+    role: "user",
+  });
+});
+
+it("can log in as an agent", () => {
+  const onSignIn = vi.fn();
+  render(<LoginPage onSignIn={onSignIn} />);
+  fireEvent.click(screen.getByRole("tab", { name: "Agent" }));
+  fireEvent.change(screen.getByLabelText("Email"), {
+    target: { value: "agent@example.com" },
+  });
+  fireEvent.change(screen.getByLabelText("Password"), {
+    target: { value: "centometer" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Log in" }));
+  expect(onSignIn).toHaveBeenCalledWith({
+    name: "Agent",
+    email: "agent@example.com",
+    phone: "",
+    role: "agent",
   });
 });
 
@@ -61,5 +81,6 @@ it("keeps Google sign-in offline and can create a profile", () => {
     name: "Meera Nair",
     email: "meera@example.com",
     phone: "",
+    role: "user",
   });
 });

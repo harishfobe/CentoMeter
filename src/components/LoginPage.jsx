@@ -61,6 +61,7 @@ export default function LoginPage({ onSignIn }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
+  const [role, setRole] = useState("user");
   const creating = mode === "create";
 
   const switchMode = () => {
@@ -96,6 +97,7 @@ export default function LoginPage({ onSignIn }) {
       name: creating ? name.trim() : nameFromEmail(trimmedEmail),
       email: trimmedEmail,
       phone: "",
+      role,
     });
   };
 
@@ -125,6 +127,22 @@ export default function LoginPage({ onSignIn }) {
         height="730"
       />
       <form className="login-form" onSubmit={submit} noValidate>
+        <div className="login-role" role="tablist" aria-label="Account type">
+          {[
+            ["user", "User"],
+            ["agent", "Agent"],
+          ].map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              role="tab"
+              aria-selected={role === value}
+              onClick={() => setRole(value)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
         {creating && (
           <TextField
             label="Name"
