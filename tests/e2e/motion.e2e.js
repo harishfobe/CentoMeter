@@ -85,20 +85,6 @@ test("price typing keeps the list stable until the 200ms debounce", async ({
   await expect(page).toHaveURL(/min=1000/);
   await page.evaluate(() => window.gridObserver.disconnect());
 });
-test("tab switching remembers the listing scroll position", async ({
-  page,
-}) => {
-  await page.goto("/#agent/ananya.rao?mode=BUY&available=false");
-  await page.waitForTimeout(400);
-  await page
-    .getByRole("tab", { name: "About", exact: true })
-    .scrollIntoViewIfNeeded();
-  const y = await page.evaluate(() => scrollY);
-  await page.getByRole("tab", { name: "About", exact: true }).click();
-  await page.getByRole("tab", { name: "Listings", exact: true }).click();
-  expect(Math.abs((await page.evaluate(() => scrollY)) - y)).toBeLessThan(3);
-});
-
 test("agent listing gallery has no full-screen photo control", async ({
   page,
 }) => {

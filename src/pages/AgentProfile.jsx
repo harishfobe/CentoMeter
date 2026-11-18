@@ -5,7 +5,6 @@ import useExpiryTick from "../lib/useExpiryTick";
 import useDebouncedValue from "../lib/useDebouncedValue";
 import ListingPresence from "../components/agent/ListingPresence";
 import ListingGrid from "../components/agent/ListingGrid";
-import AgentTabs from "../components/agent/AgentTabs";
 import { useScrollPolish, reducedMotion } from "../lib/agentMotion";
 import { getExactLocation } from "../lib/locationAccess";
 import CompareTable from "../components/agent/CompareTable";
@@ -55,7 +54,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
     a = agents.find((a) => a.handle === handle);
   const host = useRef(null);
   useScrollPolish(host);
-  const tabScroll = useRef({ listings: null, about: null });
   const store = useAgentStore();
   const expiryNow = useExpiryTick(
     store.requests.filter((r) => r.viewerId === viewerId),
@@ -202,18 +200,6 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
         onAction={() => onNavigate("agents")}
       />
     );
-  const tab = query.get("tab") || "listings";
-  const changeTab = (next) => {
-    tabScroll.current[tab] = window.scrollY;
-    const q = new URLSearchParams(query);
-    q.set("tab", next);
-    replace(q);
-    requestAnimationFrame(() => {
-      const y = tabScroll.current[next];
-      if (y !== null && y !== undefined)
-        window.scrollTo({ top: y, behavior: "instant" });
-    });
-  };
   const card = (p) => (
     <ListingCard
       key={p.id}
@@ -242,46 +228,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
         onShare={() => shareAgentLink(link, a.name)}
       />
 
-      <AgentTabs tab={tab} onChange={changeTab} />
-      <section
-        data-agent-panel
-        id="agent-panel-about"
-        role="tabpanel"
-        aria-labelledby="agent-tab-about"
-        hidden={tab !== "about"}
-      >
-        <section>
-          <h2>About {a.name}</h2>
-          <p>{a.bio}</p>
-          <h3>Service areas</h3>
-          <div className="chips">
-            {a.serviceAreas.map((x) => (
-              <button
-                className="secondary"
-                key={x}
-                onClick={() => change({ ...f, locality: x })}
-              >
-                {x}
-              </button>
-            ))}
-          </div>
-          <p>{a.specialties.join(" · ")}</p>
-          <p>{a.languages.join(" · ")}</p>
-          <p>
-            {a.verified
-              ? "Sample verification dated " + a.verifiedAt
-              : "Not verified"}
-          </p>
-          <p>Response time is an illustrative median, not a promise.</p>
-        </section>
-      </section>
-      <section
-        data-agent-panel
-        id="agent-panel-listings"
-        role="tabpanel"
-        aria-labelledby="agent-tab-listings"
-        hidden={tab !== "listings"}
-      >
+      <section className="agent-profile-listings">
         <>
           <FilterBar f={f} onChange={change} onMore={() => setMore(true)} />
           <p className="agent-result-count" aria-live="polite">
