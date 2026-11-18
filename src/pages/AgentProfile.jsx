@@ -43,15 +43,22 @@ import FilterSheet from "../components/agent/FilterSheet";
 import ListingCard from "../components/agent/ListingCard";
 import { shareAgentLink } from "../lib/agentShare";
 export { shareAgentLink } from "../lib/agentShare";
-export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
+export default function AgentProfile({
+  route,
+  onNavigate,
+  Modal,
+  Detail,
+  photo,
+}) {
   const {
     query,
     replace,
     open: openListing,
     close: closeListing,
   } = useAgentNavigation(route);
-  const { handle } = parseAgentRoute(route),
-    a = agents.find((a) => a.handle === handle);
+  const { handle } = parseAgentRoute(route);
+  const found = agents.find((agent) => agent.handle === handle);
+  const a = found && photo ? { ...found, avatar: photo } : found;
   const host = useRef(null);
   useScrollPolish(host);
   const store = useAgentStore();

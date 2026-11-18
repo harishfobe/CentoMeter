@@ -55,6 +55,10 @@ import {
   Share2,
   IndianRupee,
 } from "lucide-react";
+import ProfilePhoto, {
+  profileInitials,
+  readProfilePhoto,
+} from "./components/ProfilePhoto";
 import properties from "./data/properties.json";
 import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
@@ -378,6 +382,18 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
     </form>
   );
 }
+function signedInAgentHandle(profile) {
+  const name = String(profile?.name || "").trim().toLowerCase();
+  const local = String(profile?.email || "")
+    .split("@")[0]
+    .trim()
+    .toLowerCase();
+  const agent =
+    agents.find((item) => item.name.toLowerCase() === name) ||
+    agents.find((item) => item.handle.toLowerCase() === local);
+  return agent?.handle || "";
+}
+
 export default function App() {
   const agentState = useAgentStore();
   const intentFilters = useRef({ BUY: initialFilters, RENT: initialFilters });
@@ -517,12 +533,14 @@ export default function App() {
         name: stored.name,
         email: stored.email,
         phone: typeof stored.phone === "string" ? stored.phone : "",
+        photo: typeof stored.photo === "string" ? stored.photo : "",
       };
     }
     return {
       name: "Aarav Sharma",
       email: "aarav@example.com",
       phone: "",
+      photo: "",
     };
   });
   const [signedIn, setSignedIn] = useState(
@@ -1066,12 +1084,11 @@ export default function App() {
               aria-label={signedIn ? "Open profile" : "Sign in"}
             >
               {signedIn ? (
-                String(profile.name || "")
-                  .split(/\s+/)
-                  .filter(Boolean)
-                  .map((n) => n[0])
-                  .slice(0, 2)
-                  .join("")
+                profile.photo ? (
+                  <img src={profile.photo} alt="" />
+                ) : (
+                  profileInitials(profile.name)
+                )
               ) : (
                 <User size={18} aria-hidden="true" />
               )}
@@ -2322,6 +2339,14 @@ export default function App() {
             onNavigate={navigate}
             Modal={Modal}
             Detail={ListingDetailSheet}
+            photo={
+              signedIn &&
+              accountRole === "agent" &&
+              profile.photo &&
+              signedInAgentHandle(profile) === agentHandle
+                ? profile.photo
+                : ""
+            }
           />
         )}
 
@@ -2369,13 +2394,27 @@ export default function App() {
               <h1>A home for your next move.</h1>
             </div>
             <div className="profile-card">
-              <span className="avatar large-avatar">
-                {profile.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .slice(0, 2)
-                  .join("")}
-              </span>
+              <ProfilePhoto
+                name={profile.name}
+                photo={profile.photo}
+                onPhoto={async (file) => {
+                  if (!file) {
+                    setProfile((current) => ({ ...current, photo: "" }));
+                    return;
+                  }
+                  if (!String(file.type || "").startsWith("image/")) {
+                    notify("Choose a photo");
+                    return;
+                  }
+                  try {
+                    const photo = await readProfilePhoto(file);
+                    setProfile((current) => ({ ...current, photo }));
+                    notify("Profile photo updated");
+                  } catch {
+                    notify("That photo could not be used");
+                  }
+                }}
+              />
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
               {profile.phone ? (
@@ -2734,11 +2773,12 @@ export default function App() {
             onSubmit={(e) => {
               e.preventDefault();
               const f = new FormData(e.target);
-              setProfile({
+              setProfile((current) => ({
+                ...current,
                 name: f.get("name"),
                 email: f.get("email"),
                 phone: f.get("phone"),
-              });
+              }));
               setModal(null);
               notify("Profile updated for this session");
             }}

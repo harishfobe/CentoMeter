@@ -117,7 +117,7 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
           <ArrowLeft size={18} aria-hidden="true" /> Back to profile
         </button>
         <div className="desk-id">
-          <img src={a.avatar} alt="" width="52" height="52" />
+          <img src={profile?.photo || a.avatar} alt="" width="52" height="52" />
           <div>
             <p>Agent dashboard</p>
             <h1>{a.name}</h1>
