@@ -470,25 +470,6 @@ export function RefineSearchPanel({
                 </div>
               </fieldset>
             )}
-            <details className="advanced-filters">
-              <summary>More preferences</summary>
-              <div className="form-stack">
-                {home && select("floor", "Floor", ["Ground", "1–3", "4+"])}
-                {f.type === "Commercial" &&
-                  intent === "RENT" &&
-                  select("floor", "Floor", ["Ground", "1–3", "4+"])}
-                {f.type === "PG" && (
-                  <>
-                    {select("bathroom", "Bathroom", ["Attached", "Shared"])}
-                    {select("ac", "Air conditioning", [
-                      "Yes",
-                      "No",
-                      "Not specified",
-                    ])}
-                  </>
-                )}
-              </div>
-            </details>
             {select(
               "available",
               intent === "RENT" ? "Move-in availability" : "Possession",
