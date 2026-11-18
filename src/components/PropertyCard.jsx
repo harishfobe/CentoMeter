@@ -11,7 +11,6 @@ import {
   depositLabel,
   maintenanceLabel,
   brokerageLabel,
-  landCardApproval,
   landCardArea,
   landCardFacts,
   landCardFooter,
@@ -118,7 +117,6 @@ function LandCopy({ p, onOpen }) {
   const rate = landCardRate(p);
   const area = landCardArea(p);
   const facts = landCardFacts(p);
-  const approval = landCardApproval(p);
   const footer = landCardFooter(p);
   return (
     <button className="property-copy" onClick={() => onOpen(p)}>
@@ -131,12 +129,6 @@ function LandCopy({ p, onOpen }) {
       )}
       {area ? <p className="land-listing-area">{area}</p> : null}
       {facts ? <p className="land-listing-facts">{facts}</p> : null}
-      <p
-        className="land-listing-approval"
-        data-claimed={approval.claimed ? "true" : "false"}
-      >
-        {approval.label}
-      </p>
       {footer ? <p className="land-listing-footer">{footer}</p> : null}
     </button>
   );

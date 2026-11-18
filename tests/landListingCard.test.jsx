@@ -40,7 +40,8 @@ it("shows a land listing as a plot card and keeps the open name", () => {
   expect(screen.getByText("₹13.4L/cent")).toBeTruthy();
   expect(screen.getByText(/cents • 2,460 sq ft/)).toBeTruthy();
   expect(screen.getByText("40 × 62 ft • South-East • 20 ft road")).toBeTruthy();
-  expect(screen.getByText("DTCP claimed by seller")).toBeTruthy();
+  expect(screen.queryByText("DTCP claimed by seller")).toBeNull();
+  expect(screen.queryByText("Approval evidence pending")).toBeNull();
   expect(screen.getByText(/^Owner • Updated /)).toBeTruthy();
   expect(screen.queryByText("Corner plot")).toBeNull();
   expect(
@@ -51,7 +52,7 @@ it("shows a land listing as a plot card and keeps the open name", () => {
   ).toBeTruthy();
 });
 
-it("says approval evidence is pending when the seller has not claimed one", () => {
+it("leaves approval claims off the plot card", () => {
   render(
     <PropertyCard
       p={{ ...plot, approvals: [], features: ["Road access"] }}
@@ -60,6 +61,6 @@ it("says approval evidence is pending when the seller has not claimed one", () =
       onOpen={vi.fn()}
     />,
   );
-  expect(screen.getByText("Approval evidence pending")).toBeTruthy();
+  expect(screen.queryByText("Approval evidence pending")).toBeNull();
   expect(screen.queryByText(/DTCP/)).toBeNull();
 });
