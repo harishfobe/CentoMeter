@@ -1,6 +1,24 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs/promises";
 const shots = "artifacts/repo-audit";
+async function openAgentDashboard(page) {
+  await page.evaluate(() => {
+    const saved = JSON.parse(localStorage.getItem("centometer-session") || "{}");
+    localStorage.setItem(
+      "centometer-session",
+      JSON.stringify({
+        signedIn: true,
+        role: "agent",
+        profile: saved.profile || {
+          name: "Aarav Sharma",
+          email: "aarav@example.com",
+          phone: "",
+        },
+      }),
+    );
+  });
+  await page.goto("/#agent-dashboard");
+}
 async function shot(page, info, name) {
   // Finish finite entrance animations before recording the settled interface.
   await page.evaluate(async () => {
@@ -298,7 +316,7 @@ test("location request, approval, buyer activity and site-visit decision reach b
   await expect(visit).toHaveCount(0);
   await page.getByRole("button", { name: "Close dialog", exact: true }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
-  await page.goto("/#agent-dashboard");
+  await openAgentDashboard(page);
   await page.getByRole("button", { name: "Approve", exact: true }).click();
   await page.getByRole("button", { name: "Accept", exact: true }).click();
   await shot(page, info, "dashboard");
@@ -322,7 +340,8 @@ test("location request, approval, buyer activity and site-visit decision reach b
 test("editing an agent sample replaces the existing card instead of creating a duplicate", async ({
   page,
 }, info) => {
-  await page.goto("/#agent-dashboard");
+  await page.goto("/#home");
+  await openAgentDashboard(page);
   await page.getByRole("tab", { name: "Listings", exact: true }).click();
   const listing = page
     .locator(".agent-listing, .request-card")

@@ -528,6 +528,9 @@ export default function App() {
   const [signedIn, setSignedIn] = useState(
     () => readLocal("centometer-session", null)?.signedIn !== false,
   );
+  const [accountRole, setAccountRole] = useState(() =>
+    readLocal("centometer-session", null)?.role === "agent" ? "agent" : "user",
+  );
   const [alerts, setAlerts] = useState(true);
   const [contactSent, setContactSent] = useState(false);
   const [contactError, setContactError] = useState("");
@@ -605,13 +608,18 @@ export default function App() {
     writeLocal("centometer-activity", activity);
   }, [activity]);
   useEffect(() => {
-    writeLocal("centometer-session", { signedIn, profile });
-  }, [signedIn, profile]);
+    writeLocal("centometer-session", { signedIn, profile, role: accountRole });
+  }, [signedIn, profile, accountRole]);
   useEffect(() => {
     if (route !== "profile" || signedIn) return;
     loginReturn.current = "home";
     if (location.hash !== "#login") location.hash = "login";
   }, [route, signedIn]);
+  useEffect(() => {
+    if (route !== "agent-dashboard" || accountRole === "agent") return;
+    const next = signedIn ? "profile" : "login";
+    if (location.hash !== "#" + next) location.hash = next;
+  }, [route, accountRole, signedIn]);
   const navigate = useCallback(
     (r) => {
       if (route === r) window.scrollTo(0, 0);
@@ -2298,7 +2306,7 @@ export default function App() {
         {["agent", "agents"].includes(route) && (
           <AgentFinder onNavigate={navigate} Modal={Modal} />
         )}
-        {route === "agent-dashboard" && (
+        {route === "agent-dashboard" && accountRole === "agent" && (
           <AgentDashboard
             profile={profile}
             onNavigate={navigate}
@@ -2331,8 +2339,10 @@ export default function App() {
                 email: next.email,
                 phone: next.phone || "",
               });
+              const role = next.role === "agent" ? "agent" : "user";
+              setAccountRole(role);
               setSignedIn(true);
-              if (next.role === "agent") {
+              if (role === "agent") {
                 navigate("agent-dashboard");
                 notify("Signed in as an agent on this device");
               } else {
@@ -2348,12 +2358,14 @@ export default function App() {
         )}
         {route === "profile" && signedIn && (
           <section className="page profile-page">
-            <button
-              className="secondary"
-              onClick={() => navigate("agent-dashboard")}
-            >
-              Demo agent dashboard
-            </button>
+            {accountRole === "agent" && (
+              <button
+                className="secondary"
+                onClick={() => navigate("agent-dashboard")}
+              >
+                Agent dashboard
+              </button>
+            )}
             <div className="page-intro">
               <p className="eyebrow">YOUR SPACE ON CENTOMETER</p>
               <h1>A home for your next move.</h1>
@@ -2415,6 +2427,7 @@ export default function App() {
                 className="secondary profile-signout"
                 onClick={() => {
                   setSignedIn(false);
+                  setAccountRole("user");
                   openLogin("home");
                 }}
               >
