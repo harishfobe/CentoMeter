@@ -153,7 +153,7 @@ export default function SearchDiscovery({
   }, [term, city, cityListings, draftIntent]);
   return (
     <section
-      className="search-discovery refine-search-page refine-sheet"
+      className="search-discovery refine-search-page"
       aria-label={`Refine search in ${city}`}
     >
       <div className="search-discovery-top refine-search-top">

@@ -118,11 +118,8 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     "aria-selected",
     "true",
   );
-  await expect(
-    page
-      .getByRole("tablist", { name: "Property intent" })
-      .getByRole("tab", { name: "BUY", exact: true }),
-  ).toHaveAttribute("aria-selected", "true");
+  await expect(page.locator(".explore-heading")).toHaveCount(0);
+  await expect(page.locator(".bottom-nav")).toHaveCount(0);
   await intent.getByRole("tab", { name: "Buy" }).click();
   const typeHint = "Choose a property type to see bedrooms and more filters.";
   const typeGroup = searchPage.getByRole("group", {
