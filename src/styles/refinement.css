@@ -192,6 +192,11 @@
   color: white;
   border-color: var(--agent-accent);
 }
+.agent-profile-heading .action-row > .agent-reach {
+  flex: 1 1 calc(50% - 4px);
+  min-height: 48px;
+  font-size: 15px;
+}
 .agent-feature .agent-profile-tabs {
   margin: 0 0 12px;
   top: 52px;
