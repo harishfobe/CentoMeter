@@ -29,7 +29,7 @@ function ContactButton({ agent }) {
       onClick={() =>
         notifyAgent(
           number
-            ? "Demo contact number: " + number + " is a sample number."
+            ? number + " is not a working contact number."
             : "No contact number is listed for this agent.",
         )
       }
@@ -49,7 +49,7 @@ export default function AgentHeader({ agent: a, count, onShare }) {
           <p>
             @{a.handle}{" "}
             {a.verified && (
-              <abbr title="Sample verification flag, not an independent identity or RERA check">
+              <abbr title="Verification flag, not an independent identity or RERA check">
                 <ShieldCheck size={13} aria-hidden="true" /> Verified
               </abbr>
             )}

@@ -64,7 +64,7 @@ it("the back action saves a draft and stays in the editor if the write fails", a
     ).toBe(false),
   );
   fireEvent.click(
-    screen.getByRole("button", { name: "Fill with sample data" }),
+    screen.getByRole("button", { name: "Autofill details" }),
   );
   fireEvent.click(screen.getByRole("button", { name: "Back to exploring" }));
   await waitFor(() =>

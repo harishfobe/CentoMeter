@@ -84,7 +84,7 @@ export function LocationRequestForm({ p, profile, onSubmit }) {
         </p>
       )}
       <p className="fine-print">
-        Local demo only. Your request is stored on this device. The agent
+        Your request is stored on this device. The agent
         approves access per listing.
       </p>
       <button className="primary">Send location request</button>

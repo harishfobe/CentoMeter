@@ -243,7 +243,6 @@ export function LandSummary({
           Listed by {p.seller || "Owner"}
           {checked ? ` · Availability checked: ${checked}` : ""}
           {posted && !checked ? ` · Posted: ${posted}` : ""}
-          {" · Sample"}
         </span>
         {typeof onReport === "function" ? (
           <button type="button" className="text-button" onClick={onReport}>

@@ -451,7 +451,7 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
               ))}
             </ul>
           </article>
-          <p className="fine-print">Sample content · Local device counters only</p>
+          <p className="fine-print">Local device counters only</p>
         </div>
       )}
     </section>

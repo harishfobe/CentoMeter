@@ -220,7 +220,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
         <button onClick={() => onNavigate("home")}>← CentoMeter</button>
       </nav>
       <p className="fine-print agent-demo-note">
-        Demo: location gating is simulated
+        Location gating is simulated
       </p>
       <AgentHeader
         agent={a}
@@ -336,7 +336,7 @@ export default function AgentProfile({ route, onNavigate, Modal, Detail }) {
           Report agent
         </button>
         <p className="fine-print">
-          Demo: location gating is simulated · Sample agents and listings
+          Location gating is simulated
         </p>
       </footer>
       {reportAgent && (

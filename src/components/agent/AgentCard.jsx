@@ -27,7 +27,7 @@ function AgentCard({ agent: a, items, onNavigate }) {
               <ShieldCheck
                 size={17}
                 className="agent-verified-icon"
-                aria-label="Sample verified agent"
+                aria-label="Verified agent"
               />
             )}
           </h2>

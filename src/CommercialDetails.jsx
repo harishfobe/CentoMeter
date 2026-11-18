@@ -420,7 +420,6 @@ export function CommercialSummary({
           <span>
             Listed by {p.seller || "Owner"}
             {p.freshness ? ` · ${p.freshness}` : ""}
-            {" · Sample"}
           </span>
           <button type="button" className="text-button" onClick={onReport}>
             Report listing
