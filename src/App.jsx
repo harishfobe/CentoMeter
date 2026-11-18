@@ -766,12 +766,7 @@ export default function App() {
   );
   const chosen = filtered.find((p) => p.id === selected);
   const detail = allProperties.find((p) => route === "property/" + p.id);
-  const view =
-    route === "search"
-      ? ["home", "map", "results"].includes(searchReturn.current)
-        ? searchReturn.current
-        : "home"
-      : route;
+  const view = route;
   const browse = ["home", "map", "results"].includes(view);
   const similarProperties = useMemo(
     () =>
@@ -1078,38 +1073,28 @@ export default function App() {
           </h1>
         )}
         {route === "search" && (
-          <div
-            className="refine-sheet-scrim"
-            onClick={() => navigate(searchReturn.current || "home")}
-          >
-            <div
-              className="refine-sheet-frame"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <SearchDiscovery
-                city={city}
-                mode={mode}
-                query={query}
-                filters={filters}
-                items={candidates}
-                onBack={() => navigate(searchReturn.current || "home")}
-                onOpen={open}
-                onOpenAgents={() => navigate("agents")}
-                onCityChange={selectCity}
-                onApply={(nextFilters, area, intent) => {
-                  const nextMode = intent === "RENT" ? "RENT" : "BUY";
-                  intentFilters.current[nextMode] = nextFilters;
-                  setMode(nextMode);
-                  setFilters(nextFilters);
-                  setNearPlace(null);
-                  setQuery(area || "");
-                  setSelected(null);
-                  setAreaOnly(false);
-                  navigate("results");
-                }}
-              />
-            </div>
-          </div>
+          <SearchDiscovery
+            city={city}
+            mode={mode}
+            query={query}
+            filters={filters}
+            items={candidates}
+            onBack={() => navigate(searchReturn.current || "home")}
+            onOpen={open}
+            onOpenAgents={() => navigate("agents")}
+            onCityChange={selectCity}
+            onApply={(nextFilters, area, intent) => {
+              const nextMode = intent === "RENT" ? "RENT" : "BUY";
+              intentFilters.current[nextMode] = nextFilters;
+              setMode(nextMode);
+              setFilters(nextFilters);
+              setNearPlace(null);
+              setQuery(area || "");
+              setSelected(null);
+              setAreaOnly(false);
+              navigate("results");
+            }}
+          />
         )}
         {browse && (
           <>
