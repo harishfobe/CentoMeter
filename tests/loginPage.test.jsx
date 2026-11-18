@@ -6,13 +6,13 @@ import LoginPage from "../src/components/LoginPage";
 
 afterEach(cleanup);
 
-it("asks for a valid email and password before signing in", () => {
+it("asks for a valid email and password before logging in", () => {
   const onSignIn = vi.fn();
-  render(<LoginPage onBack={vi.fn()} onSignIn={onSignIn} onContinue={vi.fn()} />);
+  render(<LoginPage onSignIn={onSignIn} />);
   expect(screen.getByRole("img", { name: "CentoMeter" }).getAttribute("src")).toBe(
     "/centometer-login-logo.jpg",
   );
-  fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
+  fireEvent.click(screen.getByRole("button", { name: "Log in" }));
   expect(screen.getByRole("alert").textContent).toMatch(/valid email/i);
   fireEvent.change(screen.getByLabelText("Email"), {
     target: { value: "harish@example.com" },
@@ -20,12 +20,12 @@ it("asks for a valid email and password before signing in", () => {
   fireEvent.change(screen.getByLabelText("Password"), {
     target: { value: "short" },
   });
-  fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
+  fireEvent.click(screen.getByRole("button", { name: "Log in" }));
   expect(screen.getByRole("alert").textContent).toMatch(/8 characters/i);
   fireEvent.change(screen.getByLabelText("Password"), {
     target: { value: "centometer" },
   });
-  fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
+  fireEvent.click(screen.getByRole("button", { name: "Log in" }));
   expect(onSignIn).toHaveBeenCalledWith({
     name: "Harish",
     email: "harish@example.com",
@@ -33,19 +33,14 @@ it("asks for a valid email and password before signing in", () => {
   });
 });
 
-it("signs in with the sample account and can start a new profile", () => {
+it("keeps Google sign-in offline and can create a profile", () => {
   const onSignIn = vi.fn();
-  render(<LoginPage onBack={vi.fn()} onSignIn={onSignIn} onContinue={vi.fn()} />);
-  fireEvent.click(
-    screen.getByRole("button", { name: "Continue with the sample account" }),
-  );
-  expect(onSignIn).toHaveBeenCalledWith({
-    name: "Aarav Sharma",
-    email: "aarav@example.com",
-    phone: "",
-  });
-  fireEvent.click(screen.getByRole("button", { name: "Create an account" }));
-  expect(screen.getByRole("heading", { name: "Create your profile." })).toBeTruthy();
+  render(<LoginPage onSignIn={onSignIn} />);
+  fireEvent.click(screen.getByRole("button", { name: "Continue with Google" }));
+  expect(screen.getByText(/isn’t connected/i)).toBeTruthy();
+  expect(onSignIn).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByRole("button", { name: "Sign up" }));
+  expect(screen.getByRole("heading", { name: "Sign up" })).toBeTruthy();
   fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Meera Nair" } });
   fireEvent.change(screen.getByLabelText("Email"), {
     target: { value: "meera@example.com" },
@@ -56,12 +51,12 @@ it("signs in with the sample account and can start a new profile", () => {
   fireEvent.change(screen.getByLabelText("Confirm password"), {
     target: { value: "different" },
   });
-  fireEvent.click(screen.getByRole("button", { name: "Create account" }));
+  fireEvent.click(screen.getByRole("button", { name: "Sign up" }));
   expect(screen.getByRole("alert").textContent).toMatch(/don’t match/i);
   fireEvent.change(screen.getByLabelText("Confirm password"), {
     target: { value: "centometer" },
   });
-  fireEvent.click(screen.getByRole("button", { name: "Create account" }));
+  fireEvent.click(screen.getByRole("button", { name: "Sign up" }));
   expect(onSignIn).toHaveBeenLastCalledWith({
     name: "Meera Nair",
     email: "meera@example.com",

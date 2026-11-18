@@ -7,7 +7,7 @@
 }
 .view-login {
   padding-bottom: 0;
-  background: var(--canvas);
+  background: var(--paper);
 }
 .view-search > main,
 .view-login > main {

@@ -926,7 +926,7 @@ export default function App() {
       "agent-dashboard": "Agent dashboard",
       profile: "Profile",
       packages: "Package and Pricing",
-      login: "Sign in",
+      login: "Log in",
     }[route] ||
     "Page not found";
   useEffect(() => {
