@@ -1,10 +1,43 @@
 import WhatsAppLink from "../WhatsAppLink";
 import React from "react";
-import { MapPin, ShieldCheck, Share2 } from "lucide-react";
+import { MapPin, Phone, ShieldCheck, Share2 } from "lucide-react";
 import WhatsAppIcon from "../WhatsAppIcon";
+import { indianMobile } from "../../PropertyModel";
 import { responseLabel } from "../../lib/agents";
 import StatsRow from "./StatsRow";
-import { toggleStore, useAgentStore } from "../../lib/agentStore";
+import { notifyAgent, toggleStore, useAgentStore } from "../../lib/agentStore";
+
+function ContactButton({ agent }) {
+  const number = agent.phone || agent.whatsapp || "";
+  const digits = indianMobile(number);
+  const content = (
+    <>
+      <Phone size={17} aria-hidden="true" /> Contact
+    </>
+  );
+  if (digits) {
+    return (
+      <a className="secondary agent-reach" href={"tel:+91" + digits}>
+        {content}
+      </a>
+    );
+  }
+  return (
+    <button
+      type="button"
+      className="secondary agent-reach"
+      onClick={() =>
+        notifyAgent(
+          number
+            ? "Demo contact number: " + number + " is a sample number."
+            : "No contact number is listed for this agent.",
+        )
+      }
+    >
+      {content}
+    </button>
+  );
+}
 export default function AgentHeader({ agent: a, count, onShare }) {
   const s = useAgentStore();
   return (
@@ -35,14 +68,15 @@ export default function AgentHeader({ agent: a, count, onShare }) {
       )}
       <StatsRow agent={a} count={count} compact />
       <div className="action-row">
+        <ContactButton agent={a} />
         <WhatsAppLink
-          className="primary"
+          className="primary agent-reach"
           number={a.whatsapp}
           message={
             "Hello " + a.name + ", I am interested in your CentoMeter listings."
           }
         >
-          <WhatsAppIcon size={17} /> Message on WhatsApp
+          <WhatsAppIcon size={17} /> WhatsApp
         </WhatsAppLink>
         <a
           className="secondary"
