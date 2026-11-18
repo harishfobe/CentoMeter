@@ -1,10 +1,51 @@
 import WhatsAppLink from "../WhatsAppLink";
 import React from "react";
-import { MapPin, ShieldCheck, Share2 } from "lucide-react";
+import { MapPin, Phone, ShieldCheck, Share2 } from "lucide-react";
 import WhatsAppIcon from "../WhatsAppIcon";
+import { indianMobile } from "../../PropertyModel";
 import { responseLabel } from "../../lib/agents";
 import StatsRow from "./StatsRow";
-import { toggleStore, useAgentStore } from "../../lib/agentStore";
+import { notifyAgent, toggleStore, useAgentStore } from "../../lib/agentStore";
+
+function contactLabel(value) {
+  const digits = indianMobile(value);
+  if (!digits) return value;
+  return "+91 " + digits.slice(0, 5) + " " + digits.slice(5);
+}
+
+function AgentContactNumber({ agent }) {
+  const number = agent.phone || agent.whatsapp || "";
+  if (!number) return null;
+  const digits = indianMobile(number);
+  const label = contactLabel(number);
+  const content = (
+    <>
+      <Phone size={18} aria-hidden="true" />
+      <span>
+        <small>Contact number</small>
+        <strong>{label}</strong>
+      </span>
+    </>
+  );
+  if (!digits) {
+    return (
+      <button
+        type="button"
+        className="agent-contact-number"
+        onClick={() =>
+          notifyAgent("Demo contact number: " + number + " is a sample number.")
+        }
+      >
+        {content}
+      </button>
+    );
+  }
+  return (
+    <a className="agent-contact-number" href={"tel:+91" + digits}>
+      {content}
+    </a>
+  );
+}
 export default function AgentHeader({ agent: a, count, onShare }) {
   const s = useAgentStore();
   return (
@@ -34,6 +75,7 @@ export default function AgentHeader({ agent: a, count, onShare }) {
         </p>
       )}
       <StatsRow agent={a} count={count} compact />
+      <AgentContactNumber agent={a} />
       <details>
         <summary>About · Read more</summary>
         <p>{a.bio}</p>
