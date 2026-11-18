@@ -1,16 +1,13 @@
 import React, { memo } from "react";
-import { Heart, MapPin } from "lucide-react";
-import { money } from "../PropertyModel";
+import { Heart } from "lucide-react";
 import { typeLabel } from "../PropertyTypes";
 import {
-  typeTransactionLine,
-  priceWithBasis,
-  configAreaLine,
-  postedByLine,
-  availabilityLine,
-  depositLabel,
-  maintenanceLabel,
-  brokerageLabel,
+  landCardFooter,
+  listingCardArea,
+  listingCardFacts,
+  listingCardPrice,
+  listingCardRate,
+  listingCardTitle,
 } from "../listingPresentation";
 
 function PropertyCard({
@@ -21,15 +18,15 @@ function PropertyCard({
   compact = false,
   priceUnit = "total",
 }) {
-  const rentCosts = p.mode === "RENT";
+  void compact;
+  void priceUnit;
+  const price = listingCardPrice(p);
+  const rate = listingCardRate(p);
+  const area = listingCardArea(p);
+  const facts = listingCardFacts(p);
+  const footer = landCardFooter(p);
   return (
-    <article
-      className={
-        "property-card " +
-        (compact ? "compact compact-wrapper " : "") +
-        (rentCosts ? "property-card-rent " : "")
-      }
-    >
+    <article className="property-card listing-row">
       <button
         className="property-image"
         onClick={() => onOpen(p)}
@@ -51,7 +48,6 @@ function PropertyCard({
             e.currentTarget.parentElement.classList.add("photo-unavailable");
           }}
         />
-        {p.tag ? <span className="badge">{p.tag}</span> : null}
       </button>
       <button
         className={"save-button " + (saved ? "is-saved" : "")}
@@ -62,40 +58,23 @@ function PropertyCard({
         <Heart size={18} fill={saved ? "currentColor" : "none"} />
       </button>
       <button className="property-copy" onClick={() => onOpen(p)}>
-        <p className="property-card-type">{typeTransactionLine(p)}</p>
-        <div className="price">
-          {priceWithBasis(p, { unit: priceUnit, formatMoney: money })}
-        </div>
-        <h3>{p.title}</h3>
-        {configAreaLine(p) ? (
-          <p className="property-card-config">{configAreaLine(p)}</p>
-        ) : null}
-        <p className="muted location-line">
-          <MapPin size={13} aria-hidden="true" />
-          {[p.locality, p.city].filter(Boolean).join(", ")}
-        </p>
-        {rentCosts ? (
-          <dl className="property-card-costs" aria-label="Rental costs">
-            <div>
-              <dt>Deposit</dt>
-              <dd>{depositLabel(p, { formatMoney: money, missing: "—" })}</dd>
-            </div>
-            <div>
-              <dt>Maintenance</dt>
-              <dd>
-                {maintenanceLabel(p, { formatMoney: money, missing: "—" })}
-              </dd>
-            </div>
-            <div>
-              <dt>Brokerage</dt>
-              <dd>{brokerageLabel(p, { formatMoney: money })}</dd>
-            </div>
-          </dl>
-        ) : null}
-        <p className="property-card-poster">{postedByLine(p)}</p>
-        {availabilityLine(p) ? (
-          <p className="property-card-availability">{availabilityLine(p)}</p>
-        ) : null}
+        <h3>{listingCardTitle(p)}</h3>
+        {(price || rate) && (
+          <p className="listing-row-price price">
+            {price ? <strong>{price}</strong> : null}
+            {rate ? (
+              <span
+                className="listing-row-rate"
+                data-unit={rate.unit ? "true" : "false"}
+              >
+                {rate.text}
+              </span>
+            ) : null}
+          </p>
+        )}
+        {area ? <p className="listing-row-area">{area}</p> : null}
+        {facts ? <p className="listing-row-facts">{facts}</p> : null}
+        {footer ? <p className="listing-row-footer">{footer}</p> : null}
       </button>
     </article>
   );

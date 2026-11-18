@@ -12,6 +12,7 @@ import "./styles/interactions.css";
 import "./styles/home.css";
 import "./minimal.css";
 import "./styles/craft.css";
+import "./styles/land-listing.css";
 createRoot(document.getElementById("root")).render(
   <ErrorBoundary>
     <App />
