@@ -1503,6 +1503,102 @@ textarea {
 .packages-page {
   max-width: 680px;
 }
+.login-page {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: calc(8px + env(safe-area-inset-top)) 20px
+    calc(28px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+}
+.login-back {
+  width: 44px;
+  height: 44px;
+  margin: 0 0 4px -10px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+.login-brand {
+  margin: 4px 0 28px;
+}
+.login-page h1 {
+  margin: 8px 0 0;
+  font-size: 32px;
+  line-height: 1.15;
+}
+.login-lead {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.login-form {
+  margin-top: 24px;
+  gap: 16px;
+}
+.login-field {
+  display: block;
+}
+.login-password {
+  position: relative;
+  display: block;
+}
+.login-password input {
+  padding-right: 48px;
+}
+.login-reveal {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 44px;
+  min-width: 44px;
+  height: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+.login-actions {
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+}
+.login-actions .primary,
+.login-actions .secondary {
+  width: 100%;
+}
+.login-or {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.login-or::before,
+.login-or::after {
+  content: "";
+  height: 1px;
+  background: var(--line);
+}
+.login-switch {
+  margin: 20px 0 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+.login-switch button {
+  color: var(--brand);
+  font-weight: 700;
+  min-height: 44px;
+}
+.login-guest {
+  align-self: center;
+  min-height: 44px;
+}
 .packages-back {
   width: 44px;
   height: 44px;

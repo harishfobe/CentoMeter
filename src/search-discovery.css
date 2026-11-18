@@ -1,11 +1,13 @@
 .mobile-search-trigger {
   display: none;
 }
-.view-search {
+.view-search,
+.view-login {
   padding-bottom: 0;
   background: var(--paper);
 }
-.view-search > main {
+.view-search > main,
+.view-login > main {
   min-height: 100dvh;
   display: flex;
 }
