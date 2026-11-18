@@ -99,7 +99,6 @@ import {
 import SearchDiscovery from "./SearchDiscovery";
 import { developerFor } from "./SearchSuggestions";
 import WhatYouWillPay from "./components/WhatYouWillPay";
-import DetailSummaryStrip from "./components/DetailSummaryStrip";
 import {
   typeTransactionLine,
   configurationLabel,
@@ -1702,7 +1701,6 @@ export default function App() {
                   <MapPin size={17} />
                   {detail.locality}, {detail.city}
                 </p>
-                <DetailSummaryStrip p={detail} />
                 {detail.mode === "RENT" ? (
                   <WhatYouWillPay p={detail} formatMoney={money} />
                 ) : null}
