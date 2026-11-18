@@ -1499,8 +1499,68 @@ textarea {
   color: var(--muted);
   font-size: 14px;
 }
-.profile-page {
+.profile-page,
+.packages-page {
   max-width: 680px;
+}
+.packages-back {
+  width: 44px;
+  height: 44px;
+  margin: 0 0 8px -10px;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+}
+.packages-page .page-intro p:not(.eyebrow) {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 8px;
+}
+.package-list {
+  display: grid;
+  gap: 12px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.package-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+}
+.package-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.package-card h2 {
+  margin: 0;
+  font-size: 16px;
+}
+.package-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+.package-price strong {
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  color: var(--brand);
+}
+.package-price span,
+.package-card ul {
+  color: var(--muted);
+  font-size: 13px;
+}
+.package-card ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+.package-card li + li {
+  margin-top: 4px;
 }
 .profile-card {
   text-align: center;
