@@ -428,7 +428,7 @@ function AgentFinder({ onNavigate, Modal }) {
         />
       )}
       <p className="fine-print">
-        Demo: location gating is simulated · Sample agents and listings
+        Location gating is simulated
       </p>
     </section>
   );

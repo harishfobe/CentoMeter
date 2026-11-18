@@ -236,7 +236,7 @@ test("a sample listing can be posted, reopened, and edited without losing data",
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/#post");
-  await page.getByRole("button", { name: "Fill with sample data" }).click();
+  await page.getByRole("button", { name: "Autofill details" }).click();
   for (let step = 0; step < 3; step++)
     await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page.getByLabel("Contact name", { exact: true }).fill("Audit owner");
@@ -260,10 +260,10 @@ test("a sample listing can be posted, reopened, and edited without losing data",
     .locator(".bottom-nav")
     .getByRole("button", { name: "Profile", exact: true })
     .click();
-  await page.getByRole("button", { name: /Sample listings/ }).click();
-  const manager = page.getByRole("dialog", { name: "Your sample listings" });
+  await page.getByRole("button", { name: "My listings" }).click();
+  const manager = page.getByRole("dialog", { name: "Your listings" });
   await manager
-    .getByRole("button", { name: "Edit sample listing", exact: true })
+    .getByRole("button", { name: "Edit listing", exact: true })
     .click();
   await page
     .getByLabel("Listing title", { exact: true })
@@ -359,7 +359,7 @@ test("editing an agent sample replaces the existing card instead of creating a d
     .getByLabel("Listing title", { exact: true })
     .fill("Audit agent edit");
   await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByRole("button", { name: "Use sample location" }).click();
+  await page.getByRole("button", { name: "Use a central location" }).click();
   await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page.getByLabel("Contact name", { exact: true }).fill("Audit agent");
   await page.getByLabel("Phone number", { exact: true }).fill("9000000000");

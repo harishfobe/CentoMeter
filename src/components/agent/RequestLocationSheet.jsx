@@ -52,7 +52,7 @@ export default function RequestLocationSheet({
                 source,
               );
               setSent(true);
-              notifyAgent("Location request sent. This is a local demo.");
+              notifyAgent("Location request sent.");
               navigator.vibrate?.(8);
             } catch (err) {
               setError(err.message);

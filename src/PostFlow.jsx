@@ -367,8 +367,8 @@ export default function PostFlow({
       projectName:
         d.type === "Villa" ? "Lakeside Enclave" : d.projectName || "",
       community: d.type === "Villa" ? "Gated" : d.community,
-      reraNumber: d.type === "Villa" ? "TN/RERA/SAMPLE/0001" : d.reraNumber,
-      address: city + " — sample central location",
+      reraNumber: d.type === "Villa" ? "TN/RERA/0001" : d.reraNumber,
+      address: city + " — central location",
       description:
         d.type === "Land"
           ? "Residential plot with road access and open views."
@@ -659,7 +659,7 @@ export default function PostFlow({
         data.photos.length === 0)
     ) {
       setError(
-        "Add a title, a positive price and area, and at least one sample photo.",
+        "Add a title, a positive price and area, and at least one photo.",
       );
       return;
     }
@@ -684,7 +684,7 @@ export default function PostFlow({
         <h1>Your listing looks great.</h1>
         {error && <p role="status">{error}</p>}
         <p>
-          Your sample listing is ready to review on this device.
+          Your listing is ready to review on this device.
           <br />
           Nothing has been published.
         </p>
@@ -724,7 +724,7 @@ export default function PostFlow({
           Discard draft
         </button>
         <button type="button" className="text-button" onClick={fillSample}>
-          Fill with sample data
+          Autofill details
         </button>
       </div>
       {discardOpen && (
@@ -2058,7 +2058,7 @@ export default function PostFlow({
                       )
                     }
                   >
-                    Use sample photos
+                    Use placeholder photos
                   </button>
                   <small>
                     Draft details are saved on this device. Large photos may
@@ -2213,11 +2213,11 @@ export default function PostFlow({
                 className="secondary"
                 onClick={() => {
                   set("location", centers[city]);
-                  set("address", city + " — sample central location");
+                  set("address", city + " — central location");
                 }}
               >
                 <LocateFixed size={17} />
-                Use sample location
+                Use a central location
               </button>
               {data.location && (
                 <p className="positive">
@@ -2270,7 +2270,7 @@ export default function PostFlow({
                   width="600"
                   height="400"
                   decoding="async"
-                  alt="Your sample listing"
+                  alt="Your listing"
                 />
                 <span className="badge">
                   {data.intent === "SELL" ? "For sale" : "For rent"}
@@ -2405,7 +2405,7 @@ export default function PostFlow({
               <div className="note">
                 <Info size={18} />
                 <span>
-                  This is a design preview. Finishing saves a sample listing on
+                  This is a design preview. Finishing saves the listing on
                   this device only.
                 </span>
               </div>

@@ -319,7 +319,7 @@ export default function MapView({
       >
         {tileError && (
           <div className="map-warning">
-            Map tiles unavailable. Check your connection; sample markers still
+            Map tiles unavailable. Check your connection; markers still
             work.
           </div>
         )}

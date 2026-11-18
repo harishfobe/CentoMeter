@@ -5,10 +5,10 @@ const packages = [
   {
     name: "Free",
     price: "₹0",
-    period: "Sample listing",
+    period: "Listing",
     current: true,
     points: [
-      "1 sample listing kept on this device",
+      "1 listing kept on this device",
       "Shown in search and on the map",
       "Standard photo set",
     ],
@@ -18,7 +18,7 @@ const packages = [
     price: "₹1,499",
     period: "30 days",
     points: [
-      "Marked as a featured sample",
+      "Marked as featured",
       "Room for a larger photo set",
       "Listed with featured placement",
     ],
@@ -50,7 +50,7 @@ export default function PackagePricing({ onBack }) {
         <p className="eyebrow">PROFILE</p>
         <h1>Package and Pricing</h1>
         <p>
-          Sample packages for this prototype. Nothing is billed, and choosing a
+          Packages for this prototype. Nothing is billed, and choosing a
           package does not activate a plan.
         </p>
       </div>
@@ -59,7 +59,7 @@ export default function PackagePricing({ onBack }) {
           <li key={item.name} className="package-card">
             <div className="package-card-head">
               <h2>{item.name}</h2>
-              {item.current ? <span className="pill">Current sample</span> : null}
+              {item.current ? <span className="pill">Current</span> : null}
             </div>
             <p className="package-price">
               <strong>{item.price}</strong>

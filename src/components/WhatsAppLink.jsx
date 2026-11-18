@@ -20,7 +20,7 @@ export default function WhatsAppLink({
       onClick={(event) => {
         if (demo) {
           event.preventDefault();
-          notifyAgent("Demo WhatsApp: " + number + " is a fake number.");
+          notifyAgent(number + " is not a working WhatsApp number.");
         }
       }}
     >

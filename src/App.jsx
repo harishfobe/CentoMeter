@@ -371,7 +371,7 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
             </p>
           )}
           <p className="suggestion-note">
-            Sample landmarks linked to locality listings
+            Landmarks linked to locality listings
           </p>
         </div>
       )}
@@ -1113,7 +1113,7 @@ export default function App() {
               className="page empty"
               heading="h1"
               title="Page not found"
-              description="This link may be out of date. Return to explore the sample properties."
+              description="This link may be out of date. Return to explore properties."
               action="Back to exploring"
               onAction={() => navigate("home")}
             />
@@ -1528,7 +1528,7 @@ export default function App() {
                       <div>
                         <strong>Explore on map</strong>
                         <p>
-                          {filtered.length} sample{" "}
+                          {filtered.length}{" "}
                           {filtered.length === 1 ? "property" : "properties"}{" "}
                           around {city}
                         </p>
@@ -1669,8 +1669,6 @@ export default function App() {
                     />
                   )}
                   <div className="listing-disclaimer">
-                    Sample homes. Real possibilities.
-                    <br />
                     All listings and prices are illustrative.
                   </div>
                 </aside>
@@ -1851,7 +1849,7 @@ export default function App() {
                         : detail.type === "Commercial"
                           ? detail.mode === "RENT"
                             ? "Visible ground floor retail space with a wide frontage, suitable for shops, services or a compact showroom."
-                            : "A flexible commercial space with road access and a practical layout for a growing business. Sample specifications are shown for design review."
+                            : "A flexible commercial space with road access and a practical layout for a growing business. Specifications are shown for design review."
                           : usesPgDetailLayout(detail)
                             ? "Managed PG accommodation with furnished rooms, meals and essential services for a convenient stay."
                             : usesHomeDetailLayout(detail)
@@ -1927,7 +1925,7 @@ export default function App() {
                   !usesPgDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>
-                      Listed by {detail.seller} · {detail.freshness} · Sample
+                      Listed by {detail.seller} · {detail.freshness}
                     </span>
                     <button
                       className="text-button"
@@ -2388,13 +2386,12 @@ export default function App() {
               ) : (
                 <p className="profile-phone muted">No phone number yet</p>
               )}
-              <span className="pill">DEMO PROFILE</span>
               <div className="profile-stats">
                 <button onClick={() => navigate("saved")}>
                   <strong>{saved.length}</strong>Saved places
                 </button>
                 <button onClick={() => setModal("drafts")}>
-                  <strong>{drafts.length}</strong>Sample listings
+                  <strong>{drafts.length}</strong>Listings
                 </button>
               </div>
               <div className="profile-links">
@@ -2404,7 +2401,7 @@ export default function App() {
                   [IndianRupee, "Package and Pricing", "packages"],
                   [KeyRound, "Change password", "changePassword"],
                   [Bell, "Notification preferences", "preferences"],
-                  [House, "My sample listings", "drafts"],
+                  [House, "My listings", "drafts"],
                   [Search, "Saved searches", "savedSearches"],
                   [Info, "Help & support", "help"],
                   [Info, "About this prototype", "about"],
@@ -2519,7 +2516,7 @@ export default function App() {
                 ]);
                 setModal(null);
                 notify(
-                  "Location requested. The agent can reply in the demo inbox.",
+                  "Location requested. The agent can reply in the inbox.",
                 );
               }}
             />
@@ -2557,7 +2554,7 @@ export default function App() {
             <div>
               <h3>Welcome to your next chapter</h3>
               <p>
-                Explore sample homes, save your favourites and try posting a
+                Explore homes, save your favourites and try posting a
                 property.
               </p>
               <small>Design preview · Just now</small>
@@ -2581,7 +2578,7 @@ export default function App() {
               <CheckCircle2 size={40} />
               <h3>Visit request recorded</h3>
               <p>
-                This is a sample confirmation. No appointment was booked and no
+                No appointment was booked and no
                 message was sent.
               </p>
               <button className="primary" onClick={() => setModal(null)}>
@@ -2731,7 +2728,7 @@ export default function App() {
         </Modal>
       )}
       {modal === "editProfile" && (
-        <Modal title="Edit your demo profile" onClose={() => setModal(null)}>
+        <Modal title="Edit your profile" onClose={() => setModal(null)}>
           <form
             className="form-stack"
             onSubmit={(e) => {
@@ -2743,7 +2740,7 @@ export default function App() {
                 phone: f.get("phone"),
               });
               setModal(null);
-              notify("Demo profile updated for this session");
+              notify("Profile updated for this session");
             }}
           >
             <label>
@@ -2769,7 +2766,7 @@ export default function App() {
               <input name="phone" type="tel" defaultValue={profile.phone} />
             </label>
             <p className="fine-print">
-              Use sample details. No account is created.
+              No account is created.
             </p>
             <button className="primary">Save changes</button>
           </form>
@@ -2793,7 +2790,7 @@ export default function App() {
               <Bell size={20} />
               <span>
                 New places to explore
-                <small>Sample preference for this session</small>
+                <small>Preference for this session</small>
               </span>
             </span>
             <input
@@ -2814,7 +2811,7 @@ export default function App() {
         </Modal>
       )}
       {modal === "drafts" && (
-        <Modal title="Your sample listings" onClose={() => setModal(null)}>
+        <Modal title="Your listings" onClose={() => setModal(null)}>
           <button
             className="secondary full"
             onClick={() => {
@@ -2898,11 +2895,11 @@ export default function App() {
                       navigate("post");
                     }}
                   >
-                    Edit sample listing
+                    Edit listing
                   </button>
                 </div>
                 <IconButton
-                  label={"Remove sample " + d.title}
+                  label={"Remove " + d.title}
                   onClick={() =>
                     setDrafts((ds) =>
                       ds.filter((x) => String(x.id) !== String(d.id)),
@@ -2916,7 +2913,7 @@ export default function App() {
           ) : (
             <Empty
               title="Your next listing starts here"
-              description="Try the four-step posting experience with sample details."
+              description="Try the four-step posting experience."
               action="Post a property"
               onAction={() => navigate("post")}
             />
@@ -3083,7 +3080,7 @@ export default function App() {
       {modal === "share" && (
         <Modal title="Property summary" onClose={() => setModal(null)}>
           <label>
-            Copy this sample summary
+            Copy this summary
             <textarea
               readOnly
               value={shareText}
@@ -3150,7 +3147,7 @@ export default function App() {
             </label>
             <label>
               Additional details
-              <textarea rows="3" placeholder="Use sample information only" />
+              <textarea rows="3" placeholder="Optional details" />
             </label>
             <button className="primary">Preview report</button>
           </form>

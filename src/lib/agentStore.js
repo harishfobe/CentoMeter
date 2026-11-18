@@ -92,7 +92,7 @@ export function requestVisit(p, buyer, date) {
     createdAt: new Date().toISOString(),
   };
   updateStore((s) => ({ ...s, visits: [visit, ...s.visits] }));
-  notifyAgent("Site visit requested. This is a local demo.");
+  notifyAgent("Site visit requested.");
   return visit;
 }
 export function decideVisit(id, status) {

@@ -154,7 +154,7 @@ export default function HomeDiscovery({
       </section>
       {spotlight && (
         <section aria-label="Spotlight property">
-          {heading("Spotlight", "A closer look at a sample property", false)}
+          {heading("Spotlight", "A closer look at this property", false)}
           <article className="home-spotlight">
             <img
               src={photo(spotlight)}
@@ -197,7 +197,7 @@ export default function HomeDiscovery({
       )}
       {projects.length > 0 && (
         <section aria-label="Property projects">
-          {heading("Projects", "Sample developments from local builders")}
+          {heading("Projects", "Developments from local builders")}
           <div className="home-card-stack">
             {projects.map((p) => (
               <div className="home-project" key={p.id}>
@@ -215,7 +215,7 @@ export default function HomeDiscovery({
           "Most popular",
           hasActivity
             ? "Saved and viewed on this device"
-            : `Sample picks in ${city}`,
+            : `Picks in ${city}`,
         )}
         <ol className="home-popular-list">
           {popular.map((p, i) => (
