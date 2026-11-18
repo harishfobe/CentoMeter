@@ -4,6 +4,7 @@ import { savePostedListing } from "./lib/savePostedListing";
 import useListingStorage from "./useListingStorage";
 import { loadListingDetails } from "./lib/listingDetailsLoader";
 import PropertyCard from "./components/PropertyCard";
+import PackagePricing from "./components/PackagePricing";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
 export { Modal } from "./Modal";
@@ -51,6 +52,7 @@ import {
   Clock3,
   Eye,
   Share2,
+  IndianRupee,
 } from "lucide-react";
 import properties from "./data/properties.json";
 import agents from "./data/agents.json";
@@ -890,6 +892,7 @@ export default function App() {
       agents: "Agent Finder",
       "agent-dashboard": "Agent dashboard",
       profile: "Profile",
+      packages: "Package and Pricing",
     }[route] ||
     "Page not found";
   useEffect(() => {
@@ -1056,7 +1059,7 @@ export default function App() {
         {!browse &&
           !detail &&
           !agentRoute &&
-          !["post", "search", "saved", "profile"].includes(route) && (
+          !["post", "search", "saved", "profile", "packages"].includes(route) && (
             <Empty
               as="section"
               className="page empty"
@@ -2275,6 +2278,9 @@ export default function App() {
           />
         )}
 
+        {route === "packages" && (
+          <PackagePricing onBack={() => navigate("profile")} />
+        )}
         {route === "profile" && (
           <section className="page profile-page">
             <button
@@ -2318,6 +2324,7 @@ export default function App() {
                 {[
                   [UsersRound, "Agents", "agents"],
                   [User, "Edit profile", "editProfile"],
+                  [IndianRupee, "Package and Pricing", "packages"],
                   [KeyRound, "Change password", "changePassword"],
                   [Bell, "Notification preferences", "preferences"],
                   [House, "My sample listings", "drafts"],
@@ -2328,7 +2335,9 @@ export default function App() {
                   <button
                     key={key}
                     onClick={() =>
-                      key === "agents" ? navigate("agents") : setModal(key)
+                      key === "agents" || key === "packages"
+                        ? navigate(key)
+                        : setModal(key)
                     }
                   >
                     <Icon size={20} />
