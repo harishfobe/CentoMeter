@@ -15,9 +15,13 @@ import useOverlayBack from "./OverlayHistory";
 
 export function Wordmark() {
   return (
-    <span className="wordmark" aria-hidden="true">
-      Cent<span>o</span>Meter
-    </span>
+    <img
+      className="wordmark"
+      src="/centometer-header-logo.png"
+      alt=""
+      width="1093"
+      height="723"
+    />
   );
 }
 export function PriceCaption({ p, money }) {
