@@ -5,6 +5,7 @@ import useListingStorage from "./useListingStorage";
 import { loadListingDetails } from "./lib/listingDetailsLoader";
 import PropertyCard from "./components/PropertyCard";
 import PackagePricing from "./components/PackagePricing";
+import LoginPage from "./components/LoginPage";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
 export { Modal } from "./Modal";
@@ -480,6 +481,7 @@ export default function App() {
   const mapListToggle = useRef(null);
   const wasMapList = useRef(false);
   const searchReturn = useRef("home");
+  const loginReturn = useRef("home");
   const searchRef = useRef(null);
   const [focusSearch, setFocusSearch] = useState(false);
   const [route, setRoute] = useState(location.hash.slice(1) || "home");
@@ -503,11 +505,29 @@ export default function App() {
   const [visitDate, setVisitDate] = useState(() => visitDates()[0].value);
   const [sort, setSort] = useState("recommended");
   const [resetKey, setResetKey] = useState(0);
-  const [profile, setProfile] = useState({
-    name: "Aarav Sharma",
-    email: "aarav@example.com",
-    phone: "",
+  const [profile, setProfile] = useState(() => {
+    const saved = readLocal("centometer-session", null);
+    const stored = saved?.profile;
+    if (
+      stored &&
+      typeof stored.name === "string" &&
+      typeof stored.email === "string"
+    ) {
+      return {
+        name: stored.name,
+        email: stored.email,
+        phone: typeof stored.phone === "string" ? stored.phone : "",
+      };
+    }
+    return {
+      name: "Aarav Sharma",
+      email: "aarav@example.com",
+      phone: "",
+    };
   });
+  const [signedIn, setSignedIn] = useState(
+    () => readLocal("centometer-session", null)?.signedIn !== false,
+  );
   const [alerts, setAlerts] = useState(true);
   const [contactSent, setContactSent] = useState(false);
   const [contactError, setContactError] = useState("");
@@ -584,6 +604,14 @@ export default function App() {
   useEffect(() => {
     writeLocal("centometer-activity", activity);
   }, [activity]);
+  useEffect(() => {
+    writeLocal("centometer-session", { signedIn, profile });
+  }, [signedIn, profile]);
+  useEffect(() => {
+    if (route !== "profile" || signedIn) return;
+    loginReturn.current = "home";
+    if (location.hash !== "#login") location.hash = "login";
+  }, [route, signedIn]);
   const navigate = useCallback(
     (r) => {
       if (route === r) window.scrollTo(0, 0);
@@ -596,6 +624,11 @@ export default function App() {
   const openSearch = () => {
     searchReturn.current = route;
     navigate("search");
+  };
+  const openLogin = (returnTo) => {
+    const next = returnTo || (route === "login" ? "home" : route);
+    loginReturn.current = next === "login" || next === "profile" ? "home" : next;
+    navigate("login");
   };
   const showList = () => {
     // Map-area filtering stays on the map page only. Home / browse list
@@ -893,6 +926,7 @@ export default function App() {
       "agent-dashboard": "Agent dashboard",
       profile: "Profile",
       packages: "Package and Pricing",
+      login: "Log in",
     }[route] ||
     "Page not found";
   useEffect(() => {
@@ -1007,7 +1041,7 @@ export default function App() {
         (chosen && browse && route !== "results" ? " has-map-selection" : "")
       }
     >
-      {view !== "search" && !agentHandle && (
+      {view !== "search" && view !== "login" && !agentHandle && (
         <header className="header">
           <button
             className="brand"
@@ -1020,15 +1054,19 @@ export default function App() {
             <span className="prototype-tag">DESIGN PREVIEW</span>
             <button
               className="avatar small-avatar"
-              onClick={() => navigate("profile")}
-              aria-label="Open profile"
+              onClick={() => (signedIn ? navigate("profile") : openLogin())}
+              aria-label={signedIn ? "Open profile" : "Sign in"}
             >
-              {String(profile.name || "")
-                .split(/\s+/)
-                .filter(Boolean)
-                .map((n) => n[0])
-                .slice(0, 2)
-                .join("")}
+              {signedIn ? (
+                String(profile.name || "")
+                  .split(/\s+/)
+                  .filter(Boolean)
+                  .map((n) => n[0])
+                  .slice(0, 2)
+                  .join("")
+              ) : (
+                <User size={18} aria-hidden="true" />
+              )}
             </button>
             <button
               className="header-post"
@@ -1059,7 +1097,9 @@ export default function App() {
         {!browse &&
           !detail &&
           !agentRoute &&
-          !["post", "search", "saved", "profile", "packages"].includes(route) && (
+          !["post", "search", "saved", "profile", "packages", "login"].includes(
+            route,
+          ) && (
             <Empty
               as="section"
               className="page empty"
@@ -2281,7 +2321,31 @@ export default function App() {
         {route === "packages" && (
           <PackagePricing onBack={() => navigate("profile")} />
         )}
-        {route === "profile" && (
+        {route === "login" && (
+          <LoginPage
+            onBack={() => navigate(loginReturn.current || "home")}
+            onSignIn={(next) => {
+              setProfile({
+                name: next.name,
+                email: next.email,
+                phone: next.phone || "",
+              });
+              setSignedIn(true);
+              if (next.role === "agent") {
+                navigate("agent-dashboard");
+                notify("Signed in as an agent on this device");
+              } else {
+                navigate("profile");
+                notify("Signed in on this device");
+              }
+            }}
+            onContinue={() => {
+              setSignedIn(false);
+              navigate(loginReturn.current || "home");
+            }}
+          />
+        )}
+        {route === "profile" && signedIn && (
           <section className="page profile-page">
             <button
               className="secondary"
@@ -2309,7 +2373,7 @@ export default function App() {
                   {profile.phone}
                 </p>
               ) : (
-                <p className="profile-phone muted">No phone on demo profile</p>
+                <p className="profile-phone muted">No phone number yet</p>
               )}
               <span className="pill">DEMO PROFILE</span>
               <div className="profile-stats">
@@ -2349,8 +2413,8 @@ export default function App() {
               <button
                 className="secondary profile-signout"
                 onClick={() => {
-                  navigate("home");
-                  notify("This demo profile is not connected to an account.");
+                  setSignedIn(false);
+                  openLogin("home");
                 }}
               >
                 <LogOut size={18} />
@@ -2360,7 +2424,7 @@ export default function App() {
           </section>
         )}
       </main>
-      {view !== "search" && (
+      {view !== "search" && view !== "login" && (
         <nav className="bottom-nav" aria-label="Main navigation">
           {[
             [Home, "Home", "home"],
@@ -2378,6 +2442,7 @@ export default function App() {
               }
               onClick={() => {
                 if (r === "map") openMap();
+                else if (r === "profile" && !signedIn) openLogin();
                 else navigate(r);
               }}
             >
@@ -2699,9 +2764,8 @@ export default function App() {
       {modal === "changePassword" && (
         <Modal title="Change password" onClose={() => setModal(null)}>
           <p className="muted">
-            This demo profile isn’t connected to an account, so it doesn’t have
-            a password to change. Password management will be available when
-            account sign-in is added.
+            Passwords are not stored in this preview. Sign out and use the
+            login page to switch the profile on this device.
           </p>
           <button className="primary full" onClick={() => setModal(null)}>
             Got it
@@ -3147,8 +3211,8 @@ export default function App() {
           <p>
             Saved properties, searches, recently viewed homes and listing drafts
             stay on this device. Visit requests are saved on this device;
-            profile edits last for this session. There are no accounts, payments
-            or live listings.
+            sign-in and profile details stay on this device. There are no
+            payments or live listings.
           </p>
           <button
             className="secondary full"

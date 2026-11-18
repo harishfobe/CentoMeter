@@ -5,7 +5,12 @@
   padding-bottom: 0;
   background: var(--paper);
 }
-.view-search > main {
+.view-login {
+  padding-bottom: 0;
+  background: var(--paper);
+}
+.view-search > main,
+.view-login > main {
   min-height: 100dvh;
   display: flex;
 }
