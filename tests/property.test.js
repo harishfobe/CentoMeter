@@ -333,6 +333,23 @@ describe("matches", () => {
         { ...filterDefaults, feature: "Parking" },
       ),
     ).toBe(false));
+  it("matches pets allowed yes or no for rental homes", () => {
+    const rent = { ...p, mode: "RENT", type: "Apartment", pets: "Allowed" };
+    expect(matches(rent, { ...filterDefaults, pets: "Yes" })).toBe(true);
+    expect(matches(rent, { ...filterDefaults, pets: "No" })).toBe(false);
+    expect(
+      matches(
+        { ...rent, pets: "Not allowed" },
+        { ...filterDefaults, pets: "No" },
+      ),
+    ).toBe(true);
+    expect(
+      matches(
+        { ...rent, pets: "Not specified" },
+        { ...filterDefaults, pets: "Yes" },
+      ),
+    ).toBe(false);
+  });
 });
 
 describe("property ordering", () => {
@@ -772,8 +789,8 @@ describe("apartment property details", () => {
       "Car parking",
       "Available from",
       "Preferred tenant",
-      "Pets",
     ]);
+    expect(rows.find((row) => row.label === "Pets allowed")).toBeUndefined();
     expect(rows.find((row) => row.label === "Built-up area").value).toBe(
       "1,150 sqft",
     );
@@ -824,8 +841,11 @@ describe("rent villa property details", () => {
       "Community",
       "Available from",
       "Preferred tenant",
-      "Pets",
+      "Pets allowed",
     ]);
+    expect(rows.find((row) => row.label === "Pets allowed").value).toBe(
+      "Yes",
+    );
     expect(rows.find((row) => row.label === "Built-up area").value).toBe(
       "2,100 sqft",
     );
@@ -907,8 +927,11 @@ describe("rent independent house property details", () => {
       "Water",
       "Available from",
       "Preferred tenant",
-      "Pets",
+      "Pets allowed",
     ]);
+    expect(rows.find((row) => row.label === "Pets allowed").value).toBe(
+      "Yes",
+    );
     expect(rows.find((row) => row.label === "Plot area").value).toBe(
       "2,400 sqft",
     );

@@ -112,6 +112,7 @@ import {
   HouseVillaSummary,
   housePostedLabel,
   isRentHomeDetail,
+  petsAllowedAnswer,
   usesHomeDetailLayout,
 } from "./HouseVillaDetails";
 import {
@@ -1355,8 +1356,12 @@ export default function App() {
                                         item === "0" ? "Studio" : item + " BHK",
                                       )
                                       .join(", ")
-                                  : key === "brokerage"
-                                    ? "No brokerage"
+                                  : key === "pets"
+                                    ? petsAllowedAnswer(value) === "No"
+                                      ? "Pets not allowed"
+                                      : "Pets allowed"
+                                    : key === "brokerage"
+                                      ? "No brokerage"
                                     : key === "seller"
                                       ? value + " only"
                                       : String(value)}{" "}

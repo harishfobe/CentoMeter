@@ -173,9 +173,17 @@ export function preferredTenantLabel(p) {
   return String(p.preferredTenant).trim();
 }
 
+/** Yes, No, or unknown. Legacy "Allowed" / "Not allowed" map onto Yes / No. */
+export function petsAllowedAnswer(value) {
+  const text = String(value ?? "").trim().toLowerCase();
+  if (!text || /not\s*specified|unknown|n\/a|^any$/.test(text)) return null;
+  if (/not\s+allowed/.test(text) || text === "no") return "No";
+  if (text === "yes" || text === "allowed") return "Yes";
+  return null;
+}
+
 export function petsLabel(p) {
-  if (p?.pets == null || String(p.pets).trim() === "") return null;
-  return String(p.pets).trim();
+  return petsAllowedAnswer(p?.pets);
 }
 
 export function houseAgeLabel(p) {
@@ -269,7 +277,7 @@ export function buildRentIndependentHouseDetailRows(p) {
     { label: "Water", value: houseWaterLabel(p, pool) },
     { label: "Available from", value: rentAvailableFromLabel(p) },
     { label: "Preferred tenant", value: preferredTenantLabel(p) },
-    { label: "Pets", value: petsLabel(p) },
+    { label: "Pets allowed", value: petsLabel(p) },
   ];
 }
 
@@ -298,7 +306,7 @@ export function buildRentApartmentDetailRows(p) {
     { label: "Car parking", value: carParkingLabel(p) },
     { label: "Available from", value: rentAvailableFromLabel(p) },
     { label: "Preferred tenant", value: preferredTenantLabel(p) },
-    { label: "Pets", value: petsLabel(p) },
+    { label: "Pets allowed", value: petsLabel(p) },
   ];
 }
 
@@ -329,7 +337,7 @@ export function buildRentVillaDetailRows(p) {
     { label: "Community", value: villaCommunityLabel(p) },
     { label: "Available from", value: rentAvailableFromLabel(p) },
     { label: "Preferred tenant", value: preferredTenantLabel(p) },
-    { label: "Pets", value: petsLabel(p) },
+    { label: "Pets allowed", value: petsLabel(p) },
   ];
 }
 
