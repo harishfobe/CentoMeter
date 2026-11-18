@@ -33,7 +33,9 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   const budgets = page.getByRole("group", { name: "Budget" });
   await budgets.getByRole("button", { name: "Under ₹50L" }).click();
   const activeFilters = page.getByRole("region", { name: "Active filters" });
-  await expect(activeFilters.getByRole("button", { name: /Under ₹50L/ })).toBeVisible();
+  await expect(
+    activeFilters.getByRole("button", { name: /Under ₹50L/ }),
+  ).toBeVisible();
   await activeFilters.getByRole("button", { name: "Clear all" }).click();
   await expect(activeFilters).toHaveCount(0);
   await page.getByRole("button", { name: "Open search" }).click();
@@ -42,7 +44,10 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     name: /Refine search in /,
   });
   await expect(
-    searchPage.getByRole("heading", { name: "Refine your search", exact: true }),
+    searchPage.getByRole("heading", {
+      name: "Refine your search",
+      exact: true,
+    }),
   ).toBeVisible();
   await expect(
     searchPage.getByRole("heading", { name: "Suggested areas", exact: true }),
@@ -50,10 +55,18 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   const mainAreas = searchPage.getByRole("group", { name: "Main areas" });
   const nearby = searchPage.getByRole("group", { name: "Nearby" });
   const buyRent = searchPage.getByRole("tablist", { name: "Buy or rent" });
-  await expect(mainAreas.getByRole("button", { name: "RS Puram" })).toBeVisible();
-  await expect(nearby.getByRole("button", { name: "Property nearby" })).toBeVisible();
-  await expect(nearby.getByRole("button", { name: "Agents nearby" })).toBeVisible();
-  await expect(nearby.getByRole("button", { name: "Projects nearby" })).toBeVisible();
+  await expect(
+    mainAreas.getByRole("button", { name: "RS Puram" }),
+  ).toBeVisible();
+  await expect(
+    nearby.getByRole("button", { name: "Property nearby" }),
+  ).toBeVisible();
+  await expect(
+    nearby.getByRole("button", { name: "Agents nearby" }),
+  ).toBeVisible();
+  await expect(
+    nearby.getByRole("button", { name: "Projects nearby" }),
+  ).toBeVisible();
   const areaBox = await mainAreas.boundingBox();
   const tabBox = await buyRent.boundingBox();
   const nearbyBox = await nearby.boundingBox();
@@ -111,8 +124,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
       .getByRole("tab", { name: "BUY", exact: true }),
   ).toHaveAttribute("aria-selected", "true");
   await intent.getByRole("tab", { name: "Buy" }).click();
-  const typeHint =
-    "Choose a property type to see bedrooms and more filters.";
+  const typeHint = "Choose a property type to see bedrooms and more filters.";
   const typeGroup = searchPage.getByRole("group", {
     name: /Property types|Rental property types/,
   });
@@ -129,9 +141,7 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   ).toBeVisible();
   await apartment.click();
   await expect(searchPage.getByText(typeHint)).toHaveCount(0);
-  await expect(
-    typeGroup.getByRole("button", { pressed: true }),
-  ).toHaveCount(0);
+  await expect(typeGroup.getByRole("button", { pressed: true })).toHaveCount(0);
   await intent.getByRole("tab", { name: "Rent" }).click();
   await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await apartment.click();
@@ -142,7 +152,9 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await expect(searchPage.getByText(typeHint)).toHaveCount(0);
   await intent.getByRole("tab", { name: "Buy" }).click();
   await apartment.click();
-  await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
+  await searchPage
+    .getByLabel("Minimum price (₹)", { exact: true })
+    .fill("1000");
   const areaList = searchPage.getByRole("listbox", {
     name: /Area suggestions in /,
   });
@@ -154,18 +166,20 @@ test("browse, property filters, save, and Finder filters remain usable", async (
   await searchPage.getByRole("button", { name: "Reset all filters" }).click();
   await expect(searchBox).toHaveValue("");
   await expect(searchPage.getByText(typeHint)).toHaveCount(0);
-  await expect(
-    typeGroup.getByRole("button", { pressed: true }),
-  ).toHaveCount(0);
+  await expect(typeGroup.getByRole("button", { pressed: true })).toHaveCount(0);
   await expect(
     searchPage.getByRole("listbox", { name: /Area suggestions in / }),
   ).toBeVisible();
   await apartment.click();
-  await searchPage.getByLabel("Minimum price (₹)", { exact: true }).fill("1000");
+  await searchPage
+    .getByLabel("Minimum price (₹)", { exact: true })
+    .fill("1000");
   await searchPage.getByRole("button", { name: /Show \d+ propert/ }).click();
   await expect(page).toHaveURL(/#results/);
   const card = page.locator(".property-card").first();
-  const title = await card.locator("h3").innerText();
+  const title = (
+    await card.locator(".property-image").getAttribute("aria-label")
+  ).replace(/^View /, "");
   await card.locator(".save-button").click();
   await expect(card.locator(".save-button")).toHaveAttribute(
     "aria-pressed",
@@ -175,8 +189,10 @@ test("browse, property filters, save, and Finder filters remain usable", async (
     .locator(".bottom-nav")
     .getByRole("button", { name: "Activity", exact: true })
     .click();
+  const activity = page.locator(".activity-page");
+  await expect(activity).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: title, exact: true }).first(),
+    activity.getByRole("button", { name: "Unsave " + title }),
   ).toBeVisible();
   await shot(page, info, "saved");
   await page
@@ -350,11 +366,15 @@ test("the search pin fills the bar with the nearest listed area", async ({
   page,
 }) => {
   await page.context().grantPermissions(["geolocation"]);
-  await page.context().setGeolocation({ latitude: 11.01575, longitude: 76.97302 });
+  await page
+    .context()
+    .setGeolocation({ latitude: 11.01575, longitude: 76.97302 });
   await page.goto("/#home");
   await page.getByRole("button", { name: "Open search" }).click();
   const searchPage = page.getByRole("region", { name: /Refine search in / });
-  await searchPage.getByRole("button", { name: "Use current location" }).click();
+  await searchPage
+    .getByRole("button", { name: "Use current location" })
+    .click();
   await expect(
     searchPage.getByRole("combobox", {
       name: "Search by locality, landmark or project",
@@ -380,7 +400,9 @@ test("search sheet areas and nearby shortcuts open the right places", async ({
   await expect(searchBox).toHaveValue("RS Puram");
   await searchPage.getByRole("button", { name: "Property nearby" }).click();
   await expect(page).toHaveURL(/#results/);
-  await expect(page.getByRole("region", { name: "Active filters" })).toHaveCount(0);
+  await expect(
+    page.getByRole("region", { name: "Active filters" }),
+  ).toHaveCount(0);
   await page.getByRole("button", { name: "Open search" }).click();
   await page.getByRole("button", { name: "Projects nearby" }).click();
   await expect(page).toHaveURL(/#results/);

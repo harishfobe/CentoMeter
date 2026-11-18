@@ -16,6 +16,10 @@ import {
   landCardPrice,
   landCardRate,
   landCardTitle,
+  listingCardArea,
+  listingCardPrice,
+  listingCardRate,
+  listingCardTitle,
   mealsIncludedAffirmative,
   posterRole,
   priceWithBasis,
@@ -229,5 +233,83 @@ describe("land listing card", () => {
     expect(landCardFooter({ seller: "Agent" }, Date.parse("2026-11-18"))).toBe(
       "Agent",
     );
+  });
+});
+
+describe("listing row for every property type", () => {
+  it("uses locality, configuration and a per-square-foot rate for homes", () => {
+    const home = {
+      type: "Apartment",
+      mode: "BUY",
+      locality: "RS Puram",
+      beds: 3,
+      baths: 2,
+      price: 10880000,
+      builtUpArea: 1680,
+      area: 1680,
+    };
+    expect(listingCardTitle(home)).toBe("RS Puram • 3 BHK Apartment");
+    expect(listingCardPrice(home)).toBe("₹1.09Cr");
+    expect(listingCardRate(home)).toEqual({
+      text: "₹6,476/sq ft",
+      unit: false,
+    });
+    expect(listingCardArea(home)).toBe("1,680 sq ft built-up • 2 baths");
+  });
+
+  it("keeps rent and PG on a monthly basis", () => {
+    expect(
+      listingCardRate({
+        type: "Independent House",
+        mode: "RENT",
+        price: 28000,
+      }),
+    ).toEqual({ text: "/month", unit: true });
+    expect(
+      listingCardPrice({
+        type: "Independent House",
+        mode: "RENT",
+        price: 28000,
+      }),
+    ).toBe("₹28,000");
+    const pg = {
+      type: "PG",
+      mode: "RENT",
+      locality: "Hope College",
+      price: 9500,
+      occupancy: "Twin sharing",
+      area: 180,
+      meals: "Included",
+    };
+    expect(listingCardTitle(pg)).toBe("Hope College • PG");
+    expect(listingCardPrice(pg)).toBe("₹9,500");
+    expect(listingCardRate(pg)).toEqual({ text: "/bed/month", unit: true });
+    expect(listingCardArea(pg)).toBe(
+      "Twin sharing • 180 sq ft room area • Meals included",
+    );
+    expect(
+      listingCardRate({
+        type: "PG",
+        mode: "RENT",
+        occupancy: "Private room",
+        price: 12000,
+      }),
+    ).toEqual({ text: "/room/month", unit: true });
+  });
+
+  it("names a shop from its commercial subtype", () => {
+    const shop = {
+      type: "Commercial",
+      mode: "RENT",
+      locality: "Gandhipuram",
+      subtype: "Shop",
+      price: 35000,
+      area: 650,
+      carpetArea: 650,
+    };
+    expect(listingCardTitle(shop)).toBe("Gandhipuram • Shop");
+    expect(listingCardPrice(shop)).toBe("₹35,000");
+    expect(listingCardRate(shop).text).toBe("/month");
+    expect(listingCardArea(shop)).toBe("650 sq ft carpet area");
   });
 });

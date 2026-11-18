@@ -52,6 +52,41 @@ it("shows a land listing as a plot card and keeps the open name", () => {
   ).toBeTruthy();
 });
 
+it("uses the same short row for an apartment", () => {
+  render(
+    <PropertyCard
+      p={{
+        id: "home",
+        type: "Apartment",
+        mode: "BUY",
+        title: "Kovai Palm Residences",
+        locality: "RS Puram",
+        beds: 3,
+        baths: 2,
+        price: 10880000,
+        builtUpArea: 1680,
+        area: 1680,
+        seller: "Owner",
+        tag: "New arrival",
+        image: "apartment",
+      }}
+      saved={false}
+      onSave={vi.fn()}
+      onOpen={vi.fn()}
+    />,
+  );
+  expect(
+    screen.getByRole("heading", { name: "RS Puram • 3 BHK Apartment" }),
+  ).toBeTruthy();
+  expect(screen.getByText("₹1.09Cr")).toBeTruthy();
+  expect(screen.getByText("₹6,476/sq ft")).toBeTruthy();
+  expect(screen.getByText("1,680 sq ft built-up • 2 baths")).toBeTruthy();
+  expect(screen.queryByText("New arrival")).toBeNull();
+  expect(
+    screen.getByRole("button", { name: "View Kovai Palm Residences" }),
+  ).toBeTruthy();
+});
+
 it("leaves approval claims off the plot card", () => {
   render(
     <PropertyCard

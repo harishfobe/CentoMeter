@@ -400,3 +400,134 @@ export function landCardFooter(p, now = Date.now()) {
   const role = hasValue(p?.seller) ? String(p.seller).trim() : null;
   return [role, landCardUpdated(p, now)].filter(Boolean).join(" • ") || null;
 }
+
+function isLandListing(p) {
+  return canonicalizePropertyType(p?.type) === PROPERTY_TYPE.land;
+}
+
+function shortListingKind(p) {
+  const type = canonicalizePropertyType(p?.type);
+  if (type === PROPERTY_TYPE.apartment) return "Apartment";
+  if (type === PROPERTY_TYPE.villa) return "Gated Villa";
+  if (type === PROPERTY_TYPE.independent_house) return "Independent House";
+  if (type === PROPERTY_TYPE.pg) return "PG";
+  if (type === PROPERTY_TYPE.commercial) {
+    return cardTypeLabel(type, p) || "Commercial";
+  }
+  return cardTypeLabel(p?.type, p) || p?.type || "Property";
+}
+
+/** "RS Puram • 3 BHK Apartment". Land keeps the plot title. */
+export function listingCardTitle(p) {
+  if (isLandListing(p)) return landCardTitle(p);
+  const place = String(p?.locality || p?.city || "").trim();
+  const type = canonicalizePropertyType(p?.type);
+  const home = [
+    PROPERTY_TYPE.apartment,
+    PROPERTY_TYPE.villa,
+    PROPERTY_TYPE.independent_house,
+  ].includes(type);
+  const config = home ? configurationLabel(p) : null;
+  const kind = config
+    ? `${config} ${shortListingKind(p)}`
+    : shortListingKind(p);
+  return place ? `${place} • ${kind}` : kind;
+}
+
+function rentRupees(amount) {
+  const n = Number(amount);
+  if (!Number.isFinite(n)) return "";
+  return `₹${Math.round(n).toLocaleString("en-IN")}`;
+}
+
+export function listingCardPrice(p) {
+  if (!p || !Number.isFinite(Number(p.price))) return "";
+  if (p.mode === "RENT") return rentRupees(p.price);
+  if (Math.abs(Number(p.price)) >= 10000000) {
+    return `₹${trimDecimals(Number(p.price) / 10000000, 2)}Cr`;
+  }
+  return compactInr(p.price);
+}
+
+function trimDecimals(value, places) {
+  const factor = 10 ** places;
+  const rounded = Math.round(value * factor) / factor;
+  return Number.isInteger(rounded) ? String(rounded) : String(rounded);
+}
+
+function cardSqft(p) {
+  const type = canonicalizePropertyType(p?.type);
+  if (type === PROPERTY_TYPE.land) return null;
+  if (type === PROPERTY_TYPE.commercial && p.mode === "RENT") {
+    if (/land|plot/i.test(String(p.subtype || ""))) {
+      const plot = Number(p.area || p.builtUpArea);
+      return positive(plot) ? plot : null;
+    }
+    if (hasValue(p.carpetArea)) return Number(p.carpetArea);
+  }
+  if (hasValue(p.builtUpArea) || hasValue(p.area)) {
+    const n = Number(p.builtUpArea || p.area);
+    return positive(n) ? n : null;
+  }
+  if (hasValue(p.carpetArea)) return Number(p.carpetArea);
+  return null;
+}
+
+/** Money rates use a pipe. Rent units ("/month") sit beside the amount. */
+export function listingCardRate(p) {
+  if (!p) return null;
+  if (isLandListing(p) && p.mode !== "RENT") {
+    const text = landCardRate(p);
+    return text ? { text, unit: false } : null;
+  }
+  if (p.mode === "RENT") {
+    const type = canonicalizePropertyType(p.type);
+    const text =
+      type === PROPERTY_TYPE.pg
+        ? p.occupancy === "Private room"
+          ? "/room/month"
+          : "/bed/month"
+        : "/month";
+    return { text, unit: true };
+  }
+  const sqft = cardSqft(p);
+  const price = Number(p.price);
+  if (!positive(sqft) || !positive(price)) return null;
+  return {
+    text: `₹${Math.round(price / sqft).toLocaleString("en-IN")}/sq ft`,
+    unit: false,
+  };
+}
+
+export function listingCardArea(p) {
+  if (isLandListing(p)) return landCardArea(p);
+  const type = canonicalizePropertyType(p?.type);
+  const area = areaWithBasis(p);
+  if (type === PROPERTY_TYPE.pg) {
+    const meals = mealsLine(p.meals);
+    return [p.occupancy, area, meals].filter(Boolean).join(" • ") || null;
+  }
+  if (type === PROPERTY_TYPE.commercial) return area;
+  const baths = bathCount(p);
+  return [area, baths].filter(Boolean).join(" • ") || null;
+}
+
+function bathCount(p) {
+  const baths = Number(p?.baths);
+  if (!positive(baths)) return null;
+  const label = landNumber(baths);
+  return `${label} ${baths === 1 ? "bath" : "baths"}`;
+}
+
+function mealsLine(value) {
+  const meals = mealsDisplay(value);
+  if (!meals) return null;
+  if (/not\s+included/i.test(meals)) return "Meals not included";
+  if (meals === "Included") return "Meals included";
+  return meals;
+}
+
+export function listingCardFacts(p) {
+  if (isLandListing(p)) return landCardFacts(p);
+  return null;
+}

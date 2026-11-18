@@ -98,7 +98,9 @@ test("suggestions retain save persistence, original list navigation and property
     name: "Suggested properties",
   });
   const card = suggestions.locator(".property-card").first();
-  const title = await card.locator("h3").textContent();
+  const title = (
+    await card.locator(".property-image").getAttribute("aria-label")
+  ).replace(/^View /, "");
   await card.locator(".save-button").click();
   await expect(card.locator(".save-button")).toHaveAttribute(
     "aria-pressed",
@@ -110,8 +112,10 @@ test("suggestions retain save persistence, original list navigation and property
     "true",
   );
   await nav.getByRole("button", { name: "Activity", exact: true }).click();
+  const activity = page.locator(".activity-page");
+  await expect(activity).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: title, exact: true }).first(),
+    activity.getByRole("button", { name: "Unsave " + title }),
   ).toBeVisible();
   await nav.getByRole("button", { name: "Home", exact: true }).click();
   await card.locator(".property-copy").click();

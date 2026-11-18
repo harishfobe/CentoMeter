@@ -1,9 +1,9 @@
-/* Land listing cards: photo left, plot facts right. */
-.property-card.land-listing,
-.property-grid .property-card.land-listing,
-.home-card-stack .property-card.land-listing,
-.saved-grid .property-card.land-listing,
-.property-card-stack .property-card.land-listing {
+/* Compact listing row for every property type. */
+.property-card.listing-row,
+.property-grid .property-card.listing-row,
+.home-card-stack .property-card.listing-row,
+.saved-grid .property-card.listing-row,
+.property-card-stack .property-card.listing-row {
   display: grid;
   grid-template-columns: 104px minmax(0, 1fr);
   gap: 10px;
@@ -14,11 +14,11 @@
   background: var(--paper);
 }
 
-.property-card.land-listing .property-image,
-.property-grid .property-card.land-listing .property-image,
-.home-card-stack .property-card.land-listing .property-image,
-.saved-grid .property-card.land-listing .property-image,
-.property-card-stack .property-card.land-listing .property-image {
+.property-card.listing-row .property-image,
+.property-grid .property-card.listing-row .property-image,
+.home-card-stack .property-card.listing-row .property-image,
+.saved-grid .property-card.listing-row .property-image,
+.property-card-stack .property-card.listing-row .property-image {
   width: 100%;
   height: 100%;
   min-height: 0;
@@ -27,17 +27,17 @@
   align-self: stretch;
 }
 
-.property-card.land-listing .property-image img {
+.property-card.listing-row .property-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 12px;
 }
 
-.property-card.land-listing .save-button,
-.property-grid .property-card.land-listing .save-button,
-.home-card-stack .property-card.land-listing .save-button,
-.saved-grid .property-card.land-listing .save-button {
+.property-card.listing-row .save-button,
+.property-grid .property-card.listing-row .save-button,
+.home-card-stack .property-card.listing-row .save-button,
+.saved-grid .property-card.listing-row .save-button {
   top: 4px;
   right: 4px;
   width: 44px;
@@ -51,24 +51,24 @@
   color: var(--muted);
 }
 
-.property-card.land-listing .save-button.is-saved,
-.property-card.land-listing .save-button[aria-pressed="true"] {
+.property-card.listing-row .save-button.is-saved,
+.property-card.listing-row .save-button[aria-pressed="true"] {
   color: var(--brand);
   background: transparent;
   border: 0;
 }
 
-.property-card.land-listing .property-copy,
-.property-grid .property-card.land-listing .property-copy,
-.home-card-stack .property-card.land-listing .property-copy,
-.saved-grid .property-card.land-listing .property-copy {
+.property-card.listing-row .property-copy,
+.property-grid .property-card.listing-row .property-copy,
+.home-card-stack .property-card.listing-row .property-copy,
+.saved-grid .property-card.listing-row .property-copy {
   padding: 0;
   min-width: 0;
 }
 
-.property-card.land-listing .property-copy h3,
-.property-grid .property-card.land-listing .property-copy h3,
-.home-card-stack .property-card.land-listing .property-copy h3 {
+.property-card.listing-row .property-copy h3,
+.property-grid .property-card.listing-row .property-copy h3,
+.home-card-stack .property-card.listing-row .property-copy h3 {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
@@ -78,10 +78,10 @@
   padding-right: 28px;
 }
 
-.property-card.land-listing .land-listing-price,
-.property-grid .property-card.land-listing .property-copy .price,
-.home-card-stack .property-card.land-listing .property-copy .price,
-.saved-grid .property-card.land-listing .property-copy .price {
+.property-card.listing-row .listing-row-price,
+.property-grid .property-card.listing-row .property-copy .price,
+.home-card-stack .property-card.listing-row .property-copy .price,
+.saved-grid .property-card.listing-row .property-copy .price {
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
@@ -92,27 +92,32 @@
   white-space: nowrap;
 }
 
-.property-card.land-listing .land-listing-price strong {
+.property-card.listing-row .listing-row-price strong {
   color: var(--brand);
   font-weight: 800;
 }
 
-.property-card.land-listing .land-listing-rate {
+.property-card.listing-row .listing-row-rate {
   color: var(--muted);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 0;
 }
 
-.property-card.land-listing .land-listing-rate::before {
+.property-card.listing-row .listing-row-rate::before {
   content: "|";
   margin: 0 8px;
   color: var(--line);
   font-weight: 400;
 }
 
-.property-card.land-listing .land-listing-area,
-.property-card.land-listing .land-listing-facts {
+.property-card.listing-row .listing-row-rate[data-unit="true"]::before {
+  content: none;
+  margin: 0;
+}
+
+.property-card.listing-row .listing-row-area,
+.property-card.listing-row .listing-row-facts {
   margin: 1px 0 0;
   color: var(--ink);
   font-size: 12px;
@@ -120,7 +125,7 @@
   line-height: 1.25;
 }
 
-.property-card.land-listing .land-listing-footer {
+.property-card.listing-row .listing-row-footer {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 12px;

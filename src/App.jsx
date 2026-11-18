@@ -866,48 +866,17 @@ export default function App() {
     },
     [route, mapList],
   );
-  const renderCard = (p, compact = false) =>
-    compact || p.type === "Land" ? (
-      <PropertyCard
-        key={p.id}
-        p={p}
-        saved={saved.includes(p.id)}
-        onSave={save}
-        onOpen={open}
-        compact={compact}
-        priceUnit={priceUnit}
-      />
-    ) : (
-      <div key={p.id} className="card-wrapper">
-        <PropertyCard
-          p={p}
-          saved={saved.includes(p.id)}
-          onSave={save}
-          onOpen={open}
-          compact={compact}
-          priceUnit={priceUnit}
-        />
-        <div className="card-meta">
-          <span>
-            {p.seller} · {p.available}
-          </span>
-          <small>{p.freshness} · Sample</small>
-          {p.mode === "RENT" &&
-            (p.deposit != null || p.maintenance != null) && (
-              <small>
-                {[
-                  p.deposit != null ? "Deposit " + money(p.deposit) : null,
-                  p.maintenance != null
-                    ? "Maintenance " + money(p.maintenance) + "/mo"
-                    : null,
-                ]
-                  .filter(Boolean)
-                  .join(" · ")}
-              </small>
-            )}
-        </div>
-      </div>
-    );
+  const renderCard = (p, compact = false) => (
+    <PropertyCard
+      key={p.id}
+      p={p}
+      saved={saved.includes(p.id)}
+      onSave={save}
+      onOpen={open}
+      compact={compact}
+      priceUnit={priceUnit}
+    />
+  );
   const agentHandle = route.startsWith("agent/")
     ? parseAgentRoute(route).handle
     : null;
