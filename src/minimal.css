@@ -97,19 +97,16 @@ textarea:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 .wordmark {
-  display: inline-block;
-  color: var(--ink);
-  font: 800 28px/1.15 var(--font-body);
-  letter-spacing: -1.35px;
-  white-space: nowrap;
+  display: block;
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
 }
 .whatsapp-icon {
   display: block;
   flex-shrink: 0;
   object-fit: contain;
-}
-.wordmark > span {
-  color: var(--brand);
 }
 .brand {
   letter-spacing: normal;
@@ -691,8 +688,7 @@ textarea:focus-visible {
 
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   .header .wordmark {
-    font-size: 24px;
-    letter-spacing: -1.1px;
+    height: 48px;
   }
   .header {
     gap: 8px;
@@ -928,8 +924,7 @@ textarea:focus-visible {
     display: none;
   }
   .header .wordmark {
-    font-size: 21px;
-    letter-spacing: -1px;
+    height: 44px;
   }
   .header {
     gap: 4px;
