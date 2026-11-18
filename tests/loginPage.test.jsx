@@ -9,6 +9,9 @@ afterEach(cleanup);
 it("asks for a valid email and password before signing in", () => {
   const onSignIn = vi.fn();
   render(<LoginPage onBack={vi.fn()} onSignIn={onSignIn} onContinue={vi.fn()} />);
+  expect(screen.getByRole("img", { name: "CentoMeter" }).getAttribute("src")).toBe(
+    "/centometer-login-logo.jpg",
+  );
   fireEvent.click(screen.getByRole("button", { name: "Sign in" }));
   expect(screen.getByRole("alert").textContent).toMatch(/valid email/i);
   fireEvent.change(screen.getByLabelText("Email"), {

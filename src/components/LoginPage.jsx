@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
-import { Wordmark } from "../MinimalUI";
 
 export const SAMPLE_ACCOUNT = {
   name: "Aarav Sharma",
@@ -86,7 +85,13 @@ export default function LoginPage({ onBack, onSignIn, onContinue }) {
         <ArrowLeft size={22} aria-hidden="true" />
       </button>
       <div className="login-brand">
-        <Wordmark />
+        <img
+          className="login-logo"
+          src="/centometer-login-logo.jpg"
+          alt="CentoMeter"
+          width="1158"
+          height="762"
+        />
       </div>
       <p className="eyebrow">{creating ? "CREATE ACCOUNT" : "SIGN IN"}</p>
       <h1>{creating ? "Start with CentoMeter." : "Welcome back."}</h1>

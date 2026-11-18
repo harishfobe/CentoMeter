@@ -1522,7 +1522,13 @@ textarea {
   color: var(--ink);
 }
 .login-brand {
-  margin: 4px 0 28px;
+  margin: 0 0 20px;
+}
+.login-logo {
+  display: block;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
 }
 .login-page h1 {
   margin: 8px 0 0;
