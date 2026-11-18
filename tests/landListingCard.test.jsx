@@ -39,7 +39,8 @@ it("shows a land listing as a plot card and keeps the open name", () => {
   expect(screen.getByText("₹75.5L")).toBeTruthy();
   expect(screen.getByText("₹13.4L/cent")).toBeTruthy();
   expect(screen.getByText(/cents • 2,460 sq ft/)).toBeTruthy();
-  expect(screen.getByText("40 × 62 ft • South-East • 20 ft road")).toBeTruthy();
+  expect(screen.getByText("40 × 62 ft • South-East")).toBeTruthy();
+  expect(screen.getByText("20 ft road")).toBeTruthy();
   expect(screen.queryByText("DTCP claimed by seller")).toBeNull();
   expect(screen.queryByText("Approval evidence pending")).toBeNull();
   expect(screen.getByText(/^Owner • Updated /)).toBeTruthy();
