@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { ArrowUpRight, Heart, Square } from "lucide-react";
+import { Heart, MoveDiagonal, Square } from "lucide-react";
 import { typeLabel } from "../PropertyTypes";
 import {
   landCardFooter,
@@ -20,13 +20,7 @@ function RoadMark() {
       fill="none"
     >
       <path
-        d="M2.75 13.5 6.25 2.5M13.25 13.5 9.75 2.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-      />
-      <path
-        d="M8 12.25v-2.5M8 7.25V4.75"
+        d="M3 13.25 6.75 2.75M13 13.25 9.25 2.75M8 12.75V3.25"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -39,14 +33,19 @@ function FactMark({ kind }) {
   if (kind === "area")
     return <Square size={14} strokeWidth={1.75} aria-hidden="true" />;
   if (kind === "size")
-    return <ArrowUpRight size={14} strokeWidth={1.75} aria-hidden="true" />;
+    return <MoveDiagonal size={14} strokeWidth={1.75} aria-hidden="true" />;
   if (kind === "road") return <RoadMark />;
   return null;
 }
 
+function middot(text) {
+  return text ? String(text).replaceAll(" • ", " · ") : text;
+}
+
 /** Area, then dimensions and facing, then road — each on its own line. */
 function cardFactLines(area, facts) {
-  if (!facts) return area ? [{ key: "area", kind: null, text: area }] : [];
+  if (!facts)
+    return area ? [{ key: "area", kind: null, text: middot(area) }] : [];
   const parts = String(facts)
     .split(" • ")
     .map((part) => part.trim())
@@ -54,9 +53,9 @@ function cardFactLines(area, facts) {
   const road = parts.filter((part) => /road/i.test(part));
   const size = parts.filter((part) => !/road/i.test(part));
   const lines = [];
-  if (area) lines.push({ key: "area", kind: "area", text: area });
+  if (area) lines.push({ key: "area", kind: "area", text: middot(area) });
   if (size.length) {
-    lines.push({ key: "size", kind: "size", text: size.join(" • ") });
+    lines.push({ key: "size", kind: "size", text: middot(size.join(" • ")) });
   }
   road.forEach((text, index) => {
     lines.push({ key: "road-" + index, kind: "road", text });
@@ -113,7 +112,7 @@ function PropertyCard({
               className="listing-row-title"
               onClick={() => onOpen(p)}
             >
-              {listingCardTitle(p)}
+              {middot(listingCardTitle(p))}
             </button>
           </h3>
           <button
@@ -153,7 +152,9 @@ function PropertyCard({
               {line.text}
             </p>
           ))}
-          {footer ? <p className="listing-row-footer">{footer}</p> : null}
+          {footer ? (
+            <p className="listing-row-footer">{middot(footer)}</p>
+          ) : null}
         </button>
       </div>
     </article>
