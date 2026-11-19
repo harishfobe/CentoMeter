@@ -40,7 +40,7 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
     nav.getByRole("button", { name: "Home", exact: true }),
   ).toHaveAttribute("aria-current", "page");
   const tabs = page.getByRole("tablist", { name: "Property intent" });
-  await expect(tabs.getByRole("tab")).toHaveText(["BUY", "SELL", "RENT"]);
+  await expect(tabs.getByRole("tab")).toHaveText(["BUY", "POST", "RENT"]);
   await expect(page.locator(".home-section-heading h2")).toHaveText([
     "Suggested for you",
     "Spotlight",
@@ -53,7 +53,7 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
     page.getByRole("button", { name: "Explore full map" }),
   ).toHaveCount(0);
   await shot(page, info, "home");
-  await tabs.getByRole("tab", { name: "SELL", exact: true }).click();
+  await tabs.getByRole("tab", { name: "POST", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Post property", exact: true }),
   ).toBeVisible();

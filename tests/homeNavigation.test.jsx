@@ -83,8 +83,8 @@ it("adds SELL between BUY and RENT and opens the existing posting route", async 
     within(tabs)
       .getAllByRole("tab")
       .map((el) => el.textContent),
-  ).toEqual(["BUY", "SELL", "RENT"]);
-  fireEvent.click(within(tabs).getByRole("tab", { name: "SELL" }));
+  ).toEqual(["BUY", "POST", "RENT"]);
+  fireEvent.click(within(tabs).getByRole("tab", { name: "POST" }));
   expect(
     await screen.findByRole("heading", { name: "Post property" }),
   ).toBeTruthy();
