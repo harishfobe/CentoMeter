@@ -1236,7 +1236,7 @@ export default function App() {
                   ) : (
                     <KeyRound size={18} />
                   )}
-                  <span>{m}</span>
+                  <span>{m === "SELL" ? "POST" : m}</span>
                   {mode === m && <span className="tab-indicator" />}
                 </button>
               ))}
