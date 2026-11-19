@@ -11,6 +11,29 @@ import {
   listingCardTitle,
 } from "../listingPresentation";
 
+function keepUnitsTogether(text) {
+  return String(text)
+    .replace(/sq\s+ft/gi, "sq\u00A0ft")
+    .replace(/(\d)\s+(cents|baths?|built-up)/gi, "$1\u00A0$2");
+}
+
+function PriceLine({ price, rate }) {
+  if (!price && !rate) return null;
+  return (
+    <p className="listing-row-price price">
+      {price ? <strong>{price}</strong> : null}
+      {rate ? (
+        <span
+          className="listing-row-rate"
+          data-unit={rate.unit ? "true" : "false"}
+        >
+          {rate.text}
+        </span>
+      ) : null}
+    </p>
+  );
+}
+
 function PropertyCard({
   p,
   saved,
@@ -18,16 +41,28 @@ function PropertyCard({
   onOpen,
   compact = false,
   priceUnit = "total",
+  layout = "row",
 }) {
   void compact;
   void priceUnit;
+  const feature = layout === "feature";
   const price = listingCardPrice(p);
   const rate = listingCardRate(p);
   const area = listingCardArea(p);
   const facts = listingCardFacts(p);
   const footer = landCardFooter(p);
+  const factParts = facts
+    ? String(facts)
+        .split(" • ")
+        .map((part) => part.trim())
+        .filter(Boolean)
+    : [];
   return (
-    <article className="property-card listing-row">
+    <article
+      className={
+        "property-card listing-row" + (feature ? " listing-feature" : "")
+      }
+    >
       <button
         className="property-image"
         onClick={() => onOpen(p)}
@@ -62,21 +97,27 @@ function PropertyCard({
       </button>
       <button className="property-copy" onClick={() => onOpen(p)}>
         <h3>{listingCardTitle(p)}</h3>
-        {(price || rate) && (
-          <p className="listing-row-price price">
-            {price ? <strong>{price}</strong> : null}
-            {rate ? (
-              <span
-                className="listing-row-rate"
-                data-unit={rate.unit ? "true" : "false"}
-              >
-                {rate.text}
-              </span>
+        {feature ? (
+          <div className="listing-feature-metrics">
+            <PriceLine price={price} rate={rate} />
+            {area ? (
+              <p className="listing-row-area">{keepUnitsTogether(area)}</p>
             ) : null}
-          </p>
+          </div>
+        ) : (
+          <PriceLine price={price} rate={rate} />
         )}
-        {area ? <p className="listing-row-area">{area}</p> : null}
-        {facts ? <p className="listing-row-facts">{facts}</p> : null}
+        {feature && factParts.length ? (
+          <p className="listing-feature-facts">
+            {factParts.map((part) => (
+              <span key={part}>{part}</span>
+            ))}
+          </p>
+        ) : null}
+        {!feature && area ? <p className="listing-row-area">{area}</p> : null}
+        {!feature && facts ? (
+          <p className="listing-row-facts">{facts}</p>
+        ) : null}
         {footer ? <p className="listing-row-footer">{footer}</p> : null}
       </button>
     </article>
