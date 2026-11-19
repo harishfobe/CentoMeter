@@ -11,7 +11,7 @@ Images were resized from Unsplash image delivery URLs for this prototype. See th
 
 The map uses [OpenStreetMap](https://www.openstreetmap.org/copyright) tiles and retains visible contributor attribution. [Leaflet](https://leafletjs.com/reference.html) provides the browser map. [Lucide](https://lucide.dev/) provides interface icons. Inter provides locally bundled typography with system font fallbacks.
 
-`public/centometer-logo.png`: supplied by the user as `IMG_2103.PNG` on 31 October 2026. The PNG is copied unchanged. The current header uses the requested HTML wordmark with an orange lowercase o; `public/centometer-favicon.svg` frames its orange pin using the same embedded PNG. Neither asset redraws the supplied artwork.
+`public/centometer-header-logo.png`: the supplied CentoMeter lockup. Transparent padding is cropped so the header can show it; the artwork itself is not redrawn. `public/centometer-logo.png` places that same lockup on white for link previews. `public/centometer-favicon.svg` still frames the earlier pin.
 
 `public/fonts/InterVariable.woff2`: Inter variable font from the official rsms/inter repository (https://github.com/rsms/inter), downloaded 31 October 2026. Distributed under the SIL Open Font License; the bundled license is `public/fonts/Inter-LICENSE.txt`. No font-service request is needed at runtime.
 

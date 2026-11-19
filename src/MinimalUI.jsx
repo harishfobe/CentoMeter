@@ -19,8 +19,8 @@ export function Wordmark() {
       className="wordmark"
       src="/centometer-header-logo.png"
       alt=""
-      width="1093"
-      height="723"
+      width="1113"
+      height="605"
     />
   );
 }
