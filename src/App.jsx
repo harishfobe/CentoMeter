@@ -103,11 +103,7 @@ import {
 } from "./PropertyContact";
 import PropertyTypes, { typeLabel } from "./PropertyTypes";
 import { MobilePropertyPrice, StickyContactBar } from "./MobileUI";
-import {
-  Wordmark,
-  SelectedPropertySheet,
-  PriceCaption,
-} from "./MinimalUI";
+import { Wordmark, SelectedPropertySheet, PriceCaption } from "./MinimalUI";
 import SearchDiscovery from "./SearchDiscovery";
 import { developerFor } from "./SearchSuggestions";
 import WhatYouWillPay from "./components/WhatYouWillPay";
@@ -142,12 +138,7 @@ import {
   pgPostedLabel,
   usesPgDetailLayout,
 } from "./PgDetails";
-import {
-  nearText,
-  distanceKm,
-  SearchLibrary,
-  Visits,
-} from "./Journeys";
+import { nearText, distanceKm, SearchLibrary, Visits } from "./Journeys";
 import {
   supportsFacing,
   filterDefaults,
@@ -389,7 +380,9 @@ function PropertySearch({ city, value, onChange, onSearch, inputRef }) {
   );
 }
 function signedInAgentHandle(profile) {
-  const name = String(profile?.name || "").trim().toLowerCase();
+  const name = String(profile?.name || "")
+    .trim()
+    .toLowerCase();
   const local = String(profile?.email || "")
     .split("@")[0]
     .trim()
@@ -662,7 +655,8 @@ export default function App() {
   };
   const openLogin = (returnTo) => {
     const next = returnTo || (route === "login" ? "home" : route);
-    loginReturn.current = next === "login" || next === "profile" ? "home" : next;
+    loginReturn.current =
+      next === "login" || next === "profile" ? "home" : next;
     navigate("login");
   };
   const showList = () => {
@@ -828,8 +822,7 @@ export default function App() {
   );
   // Restrict to the visible map area only on the map page. Home, search
   // results, and filters always use the full city match set.
-  const resultItems =
-    route === "map" && areaOnly ? visible : filtered;
+  const resultItems = route === "map" && areaOnly ? visible : filtered;
   const sorted = useMemo(
     () => sortProperties(resultItems, sort, priceUnit),
     [resultItems, sort, priceUnit],
@@ -986,7 +979,7 @@ export default function App() {
     },
     [route, mapList],
   );
-  const renderCard = (p, compact = false) => (
+  const renderCard = (p, compact = false, layout = "row") => (
     <PropertyCard
       key={p.id}
       p={p}
@@ -995,6 +988,7 @@ export default function App() {
       onOpen={open}
       compact={compact}
       priceUnit={priceUnit}
+      layout={layout}
     />
   );
   const agentHandle = route.startsWith("agent/")
@@ -1456,9 +1450,9 @@ export default function App() {
                                       : "Pets allowed"
                                     : key === "brokerage"
                                       ? "No brokerage"
-                                    : key === "seller"
-                                      ? value + " only"
-                                      : String(value)}{" "}
+                                      : key === "seller"
+                                        ? value + " only"
+                                        : String(value)}{" "}
                       <X size={12} />
                     </button>
                   ))}
@@ -1496,8 +1490,7 @@ export default function App() {
                       scrollPreview={view === "home"}
                       viewport={mapViewport.current}
                       onViewport={(v) => {
-                        if (view !== "map" || !mapList)
-                          mapViewport.current = v;
+                        if (view !== "map" || !mapList) mapViewport.current = v;
                       }}
                       items={filtered}
                       requests={locationRequests}
@@ -1583,9 +1576,7 @@ export default function App() {
                               aria-hidden="true"
                             >
                               {visible.length}{" "}
-                              {visible.length === 1
-                                ? "property"
-                                : "properties"}{" "}
+                              {visible.length === 1 ? "property" : "properties"}{" "}
                               in this area
                             </span>
                           )}
@@ -1745,8 +1736,20 @@ export default function App() {
                       </select>
                     </label>
                   </div>
-                  <div className="property-grid">
-                    {sorted.map((p) => renderCard(p))}
+                  <div
+                    className={
+                      view === "results"
+                        ? "property-grid property-grid-feature"
+                        : "property-grid"
+                    }
+                  >
+                    {sorted.map((p) =>
+                      renderCard(
+                        p,
+                        false,
+                        view === "results" ? "feature" : "row",
+                      ),
+                    )}
                   </div>
                   {!sorted.length && (
                     <Empty
@@ -1818,8 +1821,7 @@ export default function App() {
                 usesPgDetailLayout(detail) ? (
                   <MobilePropertyPrice property={detail} money={money} />
                 ) : null}
-                {usesCommercialDetailLayout(detail) &&
-                detail.mode === "BUY" ? (
+                {usesCommercialDetailLayout(detail) && detail.mode === "BUY" ? (
                   <CommercialIncomeBadge p={detail} />
                 ) : null}
                 <h1>{detail.title}</h1>
@@ -1869,38 +1871,38 @@ export default function App() {
                   !usesHomeDetailLayout(detail) &&
                   !usesCommercialDetailLayout(detail) &&
                   !usesPgDetailLayout(detail) && (
-                  <div className="detail-specs">
-                    {!["Land", "Commercial", "PG"].includes(detail.type) &&
-                      configurationLabel(detail) && (
-                      <div>
-                        <BedDouble />
-                        <strong>{configurationLabel(detail)}</strong>
-                        <span>Configuration</span>
-                      </div>
-                    )}
-                    {detail.type === "PG" && (
-                      <div>
-                        <BedDouble />
-                        <strong>{detail.occupancy}</strong>
-                        <span>Occupancy</span>
-                      </div>
-                    )}
-                    {detail.baths > 0 && (
-                      <div>
-                        <Bath />
-                        <strong>{detail.baths}</strong>
-                        <span>Bathrooms</span>
-                      </div>
-                    )}
-                    {detail.type !== "Land" && furnishingLabel(detail) && (
-                      <div>
-                        <KeyRound />
-                        <strong>{furnishingLabel(detail)}</strong>
-                        <span>Furnishing</span>
-                      </div>
-                    )}
-                  </div>
-                )}
+                    <div className="detail-specs">
+                      {!["Land", "Commercial", "PG"].includes(detail.type) &&
+                        configurationLabel(detail) && (
+                          <div>
+                            <BedDouble />
+                            <strong>{configurationLabel(detail)}</strong>
+                            <span>Configuration</span>
+                          </div>
+                        )}
+                      {detail.type === "PG" && (
+                        <div>
+                          <BedDouble />
+                          <strong>{detail.occupancy}</strong>
+                          <span>Occupancy</span>
+                        </div>
+                      )}
+                      {detail.baths > 0 && (
+                        <div>
+                          <Bath />
+                          <strong>{detail.baths}</strong>
+                          <span>Bathrooms</span>
+                        </div>
+                      )}
+                      {detail.type !== "Land" && furnishingLabel(detail) && (
+                        <div>
+                          <KeyRound />
+                          <strong>{furnishingLabel(detail)}</strong>
+                          <span>Furnishing</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 {detail.type === "Land" ? (
                   <LandSummary
                     p={detail}
@@ -1908,20 +1910,11 @@ export default function App() {
                     onReport={() => openReport()}
                   />
                 ) : usesHomeDetailLayout(detail) ? (
-                  <HouseVillaSummary
-                    p={detail}
-                    onReport={() => openReport()}
-                  />
+                  <HouseVillaSummary p={detail} onReport={() => openReport()} />
                 ) : usesCommercialDetailLayout(detail) ? (
-                  <CommercialSummary
-                    p={detail}
-                    onReport={() => openReport()}
-                  />
+                  <CommercialSummary p={detail} onReport={() => openReport()} />
                 ) : usesPgDetailLayout(detail) ? (
-                  <PgSummary
-                    p={detail}
-                    onReport={() => openReport()}
-                  />
+                  <PgSummary p={detail} onReport={() => openReport()} />
                 ) : null}
                 {usesCommercialDetailLayout(detail) ? (
                   <CommercialHighlights p={detail} />
@@ -1952,9 +1945,7 @@ export default function App() {
                 {usesCommercialDetailLayout(detail) ? (
                   <CommercialFacilities p={detail} />
                 ) : null}
-                {usesPgDetailLayout(detail) ? (
-                  <PgServices p={detail} />
-                ) : null}
+                {usesPgDetailLayout(detail) ? <PgServices p={detail} /> : null}
                 {detail.type !== "Land" &&
                   !usesCommercialDetailLayout(detail) &&
                   !usesPgDetailLayout(detail) &&
@@ -2015,18 +2006,18 @@ export default function App() {
                   !usesHomeDetailLayout(detail) &&
                   !usesCommercialDetailLayout(detail) &&
                   !usesPgDetailLayout(detail) && (
-                  <div className="listing-trust">
-                    <span>
-                      Listed by {posterRole(detail)} · {detail.freshness}
-                    </span>
-                    <button
-                      className="text-button"
-                      onClick={() => openReport()}
-                    >
-                      Report listing
-                    </button>
-                  </div>
-                )}
+                    <div className="listing-trust">
+                      <span>
+                        Listed by {posterRole(detail)} · {detail.freshness}
+                      </span>
+                      <button
+                        className="text-button"
+                        onClick={() => openReport()}
+                      >
+                        Report listing
+                      </button>
+                    </div>
+                  )}
                 {!["Land", "PG"].includes(detail.type) && (
                   <button
                     className="secondary detail-floor-plan"
@@ -2048,41 +2039,42 @@ export default function App() {
                   !usesHomeDetailLayout(detail) &&
                   !usesCommercialDetailLayout(detail) &&
                   !usesPgDetailLayout(detail) && (
-                  <div className="property-facts">
-                    {supportsFacing(detail.type) && hasValue(detail.facing) && (
-                      <div>
-                        <small>Facing direction</small>
-                        <strong>{detail.facing || "Not specified"}</strong>
-                        <small>Main entrance, looking out</small>
-                      </div>
-                    )}
-                    {(detail.type === "Commercial"
-                      ? [
-                          ["Suitable use", detail.subtype],
-                          ["Fit-out", detail.furnishing],
-                          ["Floor", detail.floor],
-                        ]
-                      : [
-                          ["Pets", detail.pets],
-                          ["Floor", detail.floor],
-                          ["Carpet area", detail.carpetArea],
-                        ]
-                    )
-                      .filter(([, value]) => hasValue(value))
-                      .map(([label, value]) => (
-                        <div key={label}>
-                          <small>{label}</small>
-                          <strong>{value || "Not specified"}</strong>
-                        </div>
-                      ))}
-                  </div>
-                )}
+                    <div className="property-facts">
+                      {supportsFacing(detail.type) &&
+                        hasValue(detail.facing) && (
+                          <div>
+                            <small>Facing direction</small>
+                            <strong>{detail.facing || "Not specified"}</strong>
+                            <small>Main entrance, looking out</small>
+                          </div>
+                        )}
+                      {(detail.type === "Commercial"
+                        ? [
+                            ["Suitable use", detail.subtype],
+                            ["Fit-out", detail.furnishing],
+                            ["Floor", detail.floor],
+                          ]
+                        : [
+                            ["Pets", detail.pets],
+                            ["Floor", detail.floor],
+                            ["Carpet area", detail.carpetArea],
+                          ]
+                      )
+                        .filter(([, value]) => hasValue(value))
+                        .map(([label, value]) => (
+                          <div key={label}>
+                            <small>{label}</small>
+                            <strong>{value || "Not specified"}</strong>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 {detail.type !== "Land" &&
                   !usesHomeDetailLayout(detail) &&
                   !usesCommercialDetailLayout(detail) &&
                   !usesPgDetailLayout(detail) && (
-                  <OptionalPropertyDetails p={detail} />
-                )}
+                    <OptionalPropertyDetails p={detail} />
+                  )}
                 {showsEmi(detail) && (
                   <EmiCalculator key={detail.id} p={detail} />
                 )}
@@ -2638,9 +2630,7 @@ export default function App() {
                   ...xs.filter((r) => r.propertyId !== p.id),
                 ]);
                 setModal(null);
-                notify(
-                  "Location requested. The agent can reply in the inbox.",
-                );
+                notify("Location requested. The agent can reply in the inbox.");
               }}
             />
           </Modal>
@@ -2677,8 +2667,7 @@ export default function App() {
             <div>
               <h3>Welcome to your next chapter</h3>
               <p>
-                Explore homes, save your favourites and try posting a
-                property.
+                Explore homes, save your favourites and try posting a property.
               </p>
               <small>Design preview · Just now</small>
             </div>
@@ -2700,10 +2689,7 @@ export default function App() {
             <div className="empty">
               <CheckCircle2 size={40} />
               <h3>Visit request recorded</h3>
-              <p>
-                No appointment was booked and no
-                message was sent.
-              </p>
+              <p>No appointment was booked and no message was sent.</p>
               <button className="primary" onClick={() => setModal(null)}>
                 Done
               </button>
@@ -2846,7 +2832,11 @@ export default function App() {
                   {contactError}
                 </p>
               )}
-              <button className="primary" type="submit" disabled={contactSending}>
+              <button
+                className="primary"
+                type="submit"
+                disabled={contactSending}
+              >
                 {contactSending ? "Saving request…" : "Preview visit request"}
               </button>
             </form>
@@ -2892,9 +2882,7 @@ export default function App() {
               Phone number
               <input name="phone" type="tel" defaultValue={profile.phone} />
             </label>
-            <p className="fine-print">
-              No account is created.
-            </p>
+            <p className="fine-print">No account is created.</p>
             <button className="primary">Save changes</button>
             <button
               className="secondary full profile-delete"
@@ -2909,8 +2897,8 @@ export default function App() {
       {modal === "changePassword" && (
         <Modal title="Change password" onClose={() => setModal(null)}>
           <p className="muted">
-            Passwords are not stored in this preview. Sign out and use the
-            login page to switch the profile on this device.
+            Passwords are not stored in this preview. Sign out and use the login
+            page to switch the profile on this device.
           </p>
           <button className="primary full" onClick={() => setModal(null)}>
             Got it
@@ -3100,9 +3088,7 @@ export default function App() {
             </label>
             <p>
               {city} · {mode} ·{" "}
-              {route === "map" && areaOnly
-                ? "Current map area"
-                : "Entire city"}
+              {route === "map" && areaOnly ? "Current map area" : "Entire city"}
             </p>
             <button className="primary">Save search</button>
           </form>
@@ -3293,9 +3279,7 @@ export default function App() {
       )}
       {modal === "floorPlan" && (
         <Modal
-          title={
-            detail?.floorPlanUrl ? "Floor plan" : "Illustrative layout"
-          }
+          title={detail?.floorPlanUrl ? "Floor plan" : "Illustrative layout"}
           onClose={() => setModal(null)}
         >
           {detail?.floorPlanUrl ? (

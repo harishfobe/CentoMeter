@@ -138,12 +138,253 @@
   line-height: 1.25;
 }
 
+.property-card.listing-row .listing-row-main {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-width: 0;
+  min-height: 110px;
+}
+
+.property-card.listing-row .listing-row-main > .property-copy,
+.property-grid .property-card.listing-row .listing-row-main > .property-copy,
+.home-card-stack .property-card.listing-row .listing-row-main > .property-copy,
+.saved-grid .property-card.listing-row .listing-row-main > .property-copy,
+.property-card-stack
+  .property-card.listing-row
+  .listing-row-main
+  > .property-copy {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.property-card.listing-row .listing-card-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  min-width: 0;
+}
+
 .property-card.listing-row .listing-row-footer {
-  margin: auto 0 0;
-  padding-top: 4px;
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
   min-width: 0;
   color: var(--muted);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+}
+
+.listing-card-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.listing-card-whatsapp,
+.listing-card-call {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+}
+
+.listing-card-whatsapp {
+  background: transparent;
+}
+
+.listing-card-whatsapp img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.listing-card-call {
+  background: transparent;
+  color: #fff;
+}
+
+.listing-card-call::before {
+  content: "";
+  grid-area: 1 / 1;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.listing-card-call svg {
+  grid-area: 1 / 1;
+  width: 15px;
+  height: 15px;
+}
+
+/* Results list only. Photo on top, price and area beside each other.
+   Map, saved, and similar rows stay the compact size. */
+.property-grid .property-card.listing-row.listing-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: stretch;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.property-grid .property-card.listing-row.listing-feature .property-image {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: 16 / 9;
+  align-self: stretch;
+  border-radius: 0;
+}
+
+.property-grid .property-card.listing-row.listing-feature .property-image img {
+  border-radius: 0;
+}
+
+.property-grid .property-card.listing-row.listing-feature .save-button {
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  background: rgb(24 24 27 / 58%);
+  color: #fff;
+}
+
+.property-grid .property-card.listing-row.listing-feature .save-button.is-saved,
+.property-grid
+  .property-card.listing-row.listing-feature
+  .save-button[aria-pressed="true"] {
+  background: rgb(24 24 27 / 72%);
+  color: #fff;
+}
+
+.property-grid .property-card.listing-row.listing-feature .property-copy {
+  display: block;
+  min-height: 0;
+  padding: 12px 14px 0;
+}
+
+.property-grid .property-card.listing-feature .listing-card-bar {
+  margin-top: 12px;
+  padding: 0 14px 12px;
+}
+
+.property-grid .property-card.listing-row.listing-feature .property-copy h3 {
+  min-height: 0;
+  padding-right: 0;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.property-grid .property-card.listing-feature .listing-feature-metrics {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 12px;
+  align-items: start;
+  margin-top: 8px;
+}
+
+.property-grid
+  .property-card.listing-feature
+  .listing-feature-metrics:not(:has(.listing-row-area)) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.property-grid
+  .property-card.listing-feature
+  .listing-feature-metrics
+  .listing-row-price,
+.property-grid
+  .property-card.listing-feature
+  .listing-feature-metrics
+  .property-copy
+  .price,
+.property-grid .property-card.listing-feature .listing-row-price {
+  flex-wrap: wrap;
+  column-gap: 6px;
+  white-space: normal;
+  margin: 0;
+  padding-right: 12px;
+  border-right: 1px solid var(--line);
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.property-grid
+  .property-card.listing-feature
+  .listing-feature-metrics:not(:has(.listing-row-area))
+  .listing-row-price {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.property-grid .property-card.listing-feature .listing-row-price strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.property-grid .property-card.listing-feature .listing-row-rate {
+  margin-left: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.property-grid .property-card.listing-feature .listing-row-rate::before {
+  content: none;
+  margin: 0;
+}
+
+.property-grid
+  .property-card.listing-feature
+  .listing-feature-metrics
+  .listing-row-area {
+  margin: 0;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.property-grid .property-card.listing-feature .listing-feature-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+
+.property-grid .property-card.listing-feature .listing-feature-facts span {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ink) 6%, var(--paper));
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.property-grid .property-card.listing-feature .listing-row-footer {
+  margin: 0;
+  padding-top: 0;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

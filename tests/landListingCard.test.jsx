@@ -42,7 +42,13 @@ it("shows a land listing as a plot card and keeps the open name", () => {
   expect(screen.getByText("40 × 62 ft • South-East • 20 ft road")).toBeTruthy();
   expect(screen.queryByText("DTCP claimed by seller")).toBeNull();
   expect(screen.queryByText("Approval evidence pending")).toBeNull();
-  expect(screen.getByText(/^Owner • Updated /)).toBeTruthy();
+  expect(screen.getByText(/^Owner • Posted /)).toBeTruthy();
+  expect(
+    screen.getByRole("button", { name: "WhatsApp Kovai Plot 3" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("button", { name: "Call Kovai Plot 3" }),
+  ).toBeTruthy();
   expect(screen.queryByText("Corner plot")).toBeNull();
   expect(
     screen.getByRole("button", { name: "View Kovai Plot 3" }),
