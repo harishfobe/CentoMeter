@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FadeSwap, TapButton, SlidingIndicator } from "./lib/motionUi";
 import PropertyTypes, { matchesPropertyType, typeLabel } from "./PropertyTypes";
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import PhotoSwipeDots from "./components/PhotoSwipeDots";
@@ -177,10 +178,7 @@ export function matches(p, f) {
     (f.subtype === "Any" || p.subtype === f.subtype) &&
     (f.occupancy === "Any" || p.occupancy === f.occupancy) &&
     (f.meals === "Any" || p.meals === f.meals) &&
-    matchesPossessionFilter(
-      p,
-      f.available === "Any" ? "Any" : f.available,
-    ) &&
+    matchesPossessionFilter(p, f.available === "Any" ? "Any" : f.available) &&
     (f.seller === "Any" || listedByRole(p) === f.seller) &&
     matchesPetsFilter(p, f.pets) &&
     ["bathroom", "ac", "facing"].every(
@@ -276,43 +274,53 @@ export function RefineSearchPanel({
       <button className="text-button" type="button" onClick={reset}>
         Reset all
       </button>
-      <button
+      <TapButton
         className="primary"
         type="button"
         disabled={invalid}
         onClick={apply}
       >
         Show {count} {count === 1 ? "property" : "properties"}
-      </button>
+      </TapButton>
     </div>
   );
   const body = (
     <>
       <div className="form-stack">
         <div className="refine-intent-block">
-          {typeof beforeTabs === "function" ? beforeTabs({ f, intent }) : beforeTabs}
-        <div
-          className="segment refine-intent-tabs"
-          role="tablist"
-          aria-label="Buy or rent"
-        >
-          {[
-            ["BUY", "Buy"],
-            ["RENT", "Rent"],
-          ].map(([value, label]) => (
-            <button
-              key={value}
-              type="button"
-              role="tab"
-              aria-selected={intent === value}
-              className={intent === value ? "active" : ""}
-              onClick={() => selectIntent(value)}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-          {typeof afterTabs === "function" ? afterTabs({ f, intent }) : afterTabs}
+          {typeof beforeTabs === "function"
+            ? beforeTabs({ f, intent })
+            : beforeTabs}
+          <div
+            className="segment refine-intent-tabs"
+            role="tablist"
+            aria-label="Buy or rent"
+          >
+            {[
+              ["BUY", "Buy"],
+              ["RENT", "Rent"],
+            ].map(([value, label]) => (
+              <TapButton
+                key={value}
+                type="button"
+                role="tab"
+                aria-selected={intent === value}
+                className={intent === value ? "active" : ""}
+                onClick={() => selectIntent(value)}
+              >
+                {intent === value && (
+                  <SlidingIndicator
+                    id="refine-intent"
+                    className="refine-intent-pill"
+                  />
+                )}
+                <span className="refine-intent-label">{label}</span>
+              </TapButton>
+            ))}
+          </div>
+          {typeof afterTabs === "function"
+            ? afterTabs({ f, intent })
+            : afterTabs}
         </div>
         <div className="form-columns">
           <label>
@@ -352,7 +360,11 @@ export function RefineSearchPanel({
           value={f.type}
           compact
           deselectable
-          onChange={(type) => setF((current) => retainFilters(current, type === current.type ? "All" : type))}
+          onChange={(type) =>
+            setF((current) =>
+              retainFilters(current, type === current.type ? "All" : type),
+            )
+          }
         />
         {f.type !== "All" && (
           <>
@@ -361,7 +373,7 @@ export function RefineSearchPanel({
                 <legend>Exact bedrooms — choose one or more</legend>
                 <div className="chips">
                   {["0", "1", "2", "3", "4", "5"].map((n) => (
-                    <button
+                    <TapButton
                       type="button"
                       key={n}
                       className={
@@ -379,7 +391,7 @@ export function RefineSearchPanel({
                       }}
                     >
                       {n === "0" ? "Studio / 1 RK" : n + " BHK"}
-                    </button>
+                    </TapButton>
                   ))}
                 </div>
               </fieldset>
@@ -413,17 +425,19 @@ export function RefineSearchPanel({
               </label>
               <label>
                 Area unit
-                <select
-                  value={f.unit}
-                  onChange={(e) => set("unit", e.target.value)}
-                >
-                  {(f.type === "Land"
-                    ? ["sq ft", "cent", "sq yd", "acre"]
-                    : ["sq ft", "sq yd", "acre"]
-                  ).map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
-                </select>
+                <FadeSwap swapKey={f.unit} className="unit-swap">
+                  <select
+                    value={f.unit}
+                    onChange={(e) => set("unit", e.target.value)}
+                  >
+                    {(f.type === "Land"
+                      ? ["sq ft", "cent", "sq yd", "acre"]
+                      : ["sq ft", "sq yd", "acre"]
+                    ).map((x) => (
+                      <option key={x}>{x}</option>
+                    ))}
+                  </select>
+                </FadeSwap>
               </label>
             </div>
             {f.type === "Land" ? (
@@ -437,11 +451,7 @@ export function RefineSearchPanel({
               </>
             ) : f.type === "Commercial" ? (
               <>
-                {select(
-                  "subtype",
-                  "Space type",
-                  commercialSubtypesFor(intent),
-                )}
+                {select("subtype", "Space type", commercialSubtypesFor(intent))}
                 {select(
                   "feature",
                   intent === "RENT" ? "Amenities & facilities" : "Facilities",
@@ -528,9 +538,15 @@ export function SmartFilters({
   onClose,
   onModeChange,
   Modal,
+  exiting = false,
 }) {
   return (
-    <Modal title="Refine your search" onClose={onClose}>
+    <Modal
+      title="Refine your search"
+      onClose={onClose}
+      motionKind="filter"
+      exiting={exiting}
+    >
       <RefineSearchPanel
         filters={filters}
         mode={mode}
@@ -587,9 +603,7 @@ export function Costs({ p, money, title }) {
                 : money(p.brokerage)
               : "Not provided",
           ],
-          ...(moveIn != null
-            ? [["Known move-in amount", money(moveIn)]]
-            : []),
+          ...(moveIn != null ? [["Known move-in amount", money(moveIn)]] : []),
         ]
       : [
           ["Asking price", money(p.price)],

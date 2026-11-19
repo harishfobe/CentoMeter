@@ -731,3 +731,86 @@
     animation: none;
   }
 }
+
+/* motion/react owns these overlays. CSS keyframes would double-play. */
+.modal-scrim[data-motion-lib="true"],
+.modal-scrim[data-motion-lib="true"]::before,
+.modal-scrim[data-motion-lib="true"] > .modal {
+  animation: none !important;
+}
+.modal-scrim[data-motion-lib="true"] {
+  background: transparent;
+  backdrop-filter: none;
+}
+.modal-scrim[data-motion-lib="true"]::before {
+  opacity: 0 !important;
+}
+.modal-scrim[data-motion-lib="true"][data-exiting="true"] {
+  pointer-events: none;
+}
+.motion-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: color-mix(in srgb, var(--ink) 44%, transparent);
+  pointer-events: none;
+}
+.modal-scrim[data-motion-lib="true"] > .modal {
+  z-index: 1;
+}
+
+.fade-swap {
+  display: inline-grid;
+  vertical-align: middle;
+}
+.fade-swap-item {
+  grid-area: 1 / 1;
+}
+.unit-swap,
+.price > .fade-swap,
+.property-copy > .fade-swap {
+  display: grid;
+}
+.unit-swap select {
+  width: 100%;
+}
+.save-heart {
+  display: grid;
+}
+.listing-price-stack {
+  display: block;
+}
+
+.refine-intent-tabs button {
+  position: relative;
+  overflow: hidden;
+}
+.refine-intent-pill {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 7px;
+  background: var(--brand);
+  pointer-events: none;
+}
+.refine-intent-label {
+  position: relative;
+  z-index: 1;
+}
+
+.bottom-nav button > span {
+  position: relative;
+}
+.nav-active-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: var(--canvas);
+  pointer-events: none;
+}
+.bottom-nav button > span > svg,
+.bottom-nav .agent-reply-badge {
+  position: relative;
+  z-index: 1;
+}

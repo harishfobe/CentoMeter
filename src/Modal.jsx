@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import { motion } from "motion/react";
 import useOverlayBack from "./OverlayHistory";
+import { fadeTransition, sheetSpring } from "./lib/motionUi";
 import { X } from "lucide-react";
 export function IconButton({ label, children, ...props }) {
   return (
@@ -55,10 +57,14 @@ export function Modal({
       if (before?.isConnected) before.focus({ preventScroll: true });
     };
   }, []);
+  const spring = ["listing", "filter", "location"].includes(motionKind);
+  const Scrim = spring ? motion.div : "div";
+  const Panel = spring ? motion.section : "section";
   return (
-    <div
+    <Scrim
       className="modal-scrim"
       data-motion-kind={motionKind}
+      data-motion-lib={spring ? "true" : undefined}
       data-exiting={exiting}
       onChangeCapture={(e) => {
         if (e.target.closest("form")) dirtyForm.current = true;
@@ -71,13 +77,28 @@ export function Modal({
           close.current();
       }}
     >
-      <section
+      {spring ? (
+        <motion.div
+          className="motion-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: exiting ? 0 : 1 }}
+          transition={fadeTransition}
+        />
+      ) : null}
+      <Panel
         className="modal"
         role="dialog"
         aria-modal="true"
         aria-label={title}
         ref={ref}
         tabIndex={-1}
+        {...(spring
+          ? {
+              initial: { y: "100%" },
+              animate: { y: exiting ? "100%" : 0 },
+              transition: sheetSpring,
+            }
+          : {})}
       >
         <div className="modal-heading">
           <h2>{title}</h2>
@@ -86,7 +107,7 @@ export function Modal({
           </IconButton>
         </div>
         {children}
-      </section>
-    </div>
+      </Panel>
+    </Scrim>
   );
 }

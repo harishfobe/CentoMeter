@@ -8,6 +8,7 @@ import {
   BedDouble,
   LayoutGrid,
 } from "lucide-react";
+import { TapButton } from "./lib/motionUi";
 import {
   PROPERTY_TYPE,
   canonicalizePropertyType,
@@ -142,7 +143,7 @@ export default function PropertyTypes({
         }
       >
         {allowAll && (
-          <button
+          <TapButton
             type="button"
             className={
               "property-type-option" + (value === "All" ? " selected" : "")
@@ -153,14 +154,14 @@ export default function PropertyTypes({
           >
             <LayoutGrid size={16} />
             <span>All</span>
-          </button>
+          </TapButton>
         )}
         {(types || typesFor(mode)).map((type) => {
           const { label, mobileLabel, Icon, description } =
             propertyTypeDetails[type];
           const selected = selectedType === type;
           return (
-            <button
+            <TapButton
               type="button"
               className={"property-type-option" + (selected ? " selected" : "")}
               aria-label={description ? `${label}. ${description}` : label}
@@ -176,7 +177,7 @@ export default function PropertyTypes({
               <span className="mobile-type-label" aria-hidden="true">
                 {mobileLabel || label}
               </span>
-            </button>
+            </TapButton>
           );
         })}
       </div>

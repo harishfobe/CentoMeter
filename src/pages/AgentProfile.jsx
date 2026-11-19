@@ -40,6 +40,7 @@ import {
 import AgentHeader from "../components/agent/AgentHeader";
 import FilterBar from "../components/agent/FilterBar";
 import FilterSheet from "../components/agent/FilterSheet";
+import { ExitGate } from "../lib/motionUi";
 import ListingCard from "../components/agent/ListingCard";
 import { shareAgentLink } from "../lib/agentShare";
 export { shareAgentLink } from "../lib/agentShare";
@@ -226,9 +227,7 @@ export default function AgentProfile({
       <nav className="agent-slim-bar">
         <button onClick={() => onNavigate("home")}>← CentoMeter</button>
       </nav>
-      <p className="fine-print agent-demo-note">
-        Location gating is simulated
-      </p>
+      <p className="fine-print agent-demo-note">Location gating is simulated</p>
       <AgentHeader
         agent={a}
         count={activeListings(items, a.id).length}
@@ -311,7 +310,7 @@ export default function AgentProfile({
           }}
         />
       )}
-      {more && (
+      <ExitGate open={more}>
         <FilterSheet
           Modal={Modal}
           f={f}
@@ -319,7 +318,7 @@ export default function AgentProfile({
           count={rows.length}
           onClose={() => setMore(false)}
         />
-      )}
+      </ExitGate>
       <footer
         className="agent-profile-footer"
         aria-label="More profile actions"
@@ -342,9 +341,7 @@ export default function AgentProfile({
           <Flag size={15} aria-hidden="true" />
           Report agent
         </button>
-        <p className="fine-print">
-          Location gating is simulated
-        </p>
+        <p className="fine-print">Location gating is simulated</p>
       </footer>
       {reportAgent && (
         <Modal title="Report agent" onClose={() => setReportAgent(false)}>

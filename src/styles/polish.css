@@ -167,8 +167,32 @@
   border-radius: 16px;
 }
 
+/* motion whileTap owns the press scale so CSS :active does not compound it. */
+.motion-tap,
+button.motion-tap,
+.property-card.motion-tap {
+  transition: none;
+}
+button.motion-tap:enabled:active,
+a.motion-tap:active,
+.motion-tap:active,
+.motion-tap :is(button, a):active,
+.agent-listing.motion-tap:has(.property-copy:active) {
+  scale: 1;
+}
+.segment.refine-intent-tabs button.active {
+  background: transparent;
+  box-shadow: none;
+}
+.bottom-nav button.active:not(.agent-nav) > span {
+  background: transparent;
+}
+
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
-  .app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  .app-shell
+    input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not(
+      [type="file"]
+    ),
   .app-shell select,
   .app-shell textarea {
     font-size: 16px;

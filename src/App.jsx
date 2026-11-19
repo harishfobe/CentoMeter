@@ -9,6 +9,7 @@ import LoginPage from "./components/LoginPage";
 import LegalNotice from "./LegalNotice";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
+import { ExitGate, SlidingIndicator, TapButton } from "./lib/motionUi";
 export { Modal } from "./Modal";
 import LoadingSkeleton from "./components/LoadingSkeleton";
 import AgentToasts from "./components/agent/AgentToasts";
@@ -498,6 +499,7 @@ export default function App() {
   const searchReturn = useRef("home");
   const loginReturn = useRef("home");
   const searchRef = useRef(null);
+  const feedEntered = useRef(false);
   const [focusSearch, setFocusSearch] = useState(false);
   const [route, setRoute] = useState(location.hash.slice(1) || "home");
   const [city, setCity] = useState(() => {
@@ -830,6 +832,9 @@ export default function App() {
   const chosen = filtered.find((p) => p.id === selected);
   const detail = allProperties.find((p) => route === "property/" + p.id);
   const view = route;
+  useEffect(() => {
+    if (view === "results") feedEntered.current = true;
+  }, [view]);
   const browse = ["home", "map", "results"].includes(view);
   const similarProperties = useMemo(
     () =>
@@ -979,7 +984,7 @@ export default function App() {
     },
     [route, mapList],
   );
-  const renderCard = (p, compact = false, layout = "row") => (
+  const renderCard = (p, compact = false, layout = "row", entrance = null) => (
     <PropertyCard
       key={p.id}
       p={p}
@@ -989,6 +994,7 @@ export default function App() {
       compact={compact}
       priceUnit={priceUnit}
       layout={layout}
+      entrance={entrance}
     />
   );
   const agentHandle = route.startsWith("agent/")
@@ -1281,7 +1287,7 @@ export default function App() {
                 ? ["BUY", "SELL", "RENT"]
                 : ["BUY", "RENT"]
               ).map((m) => (
-                <button
+                <TapButton
                   key={m}
                   role="tab"
                   aria-selected={mode === m}
@@ -1306,8 +1312,13 @@ export default function App() {
                     <KeyRound size={18} />
                   )}
                   <span>{m === "SELL" ? "POST" : m}</span>
-                  {mode === m && <span className="tab-indicator" />}
-                </button>
+                  {mode === m && (
+                    <SlidingIndicator
+                      id="browse-intent"
+                      className="tab-indicator"
+                    />
+                  )}
+                </TapButton>
               ))}
             </div>
             <div className="explore-toolbar property-type-toolbar">
@@ -1332,7 +1343,7 @@ export default function App() {
             {(view === "home" || view === "results") && (
               <div className="budget-chips" role="group" aria-label="Budget">
                 {budgetBandsFor(mode, filters.type).map((band) => (
-                  <button
+                  <TapButton
                     type="button"
                     key={band.id}
                     aria-pressed={activeBudget(filters, mode)?.id === band.id}
@@ -1341,7 +1352,7 @@ export default function App() {
                     }
                   >
                     {band.label}
-                  </button>
+                  </TapButton>
                 ))}
               </div>
             )}
@@ -1352,7 +1363,7 @@ export default function App() {
                 aria-label="Quick filters"
               >
                 {quickFiltersFor({ mode, type: filters.type }).map((chip) => (
-                  <button
+                  <TapButton
                     type="button"
                     key={chip.id}
                     aria-pressed={filters[chip.key] === chip.value}
@@ -1367,7 +1378,7 @@ export default function App() {
                     }
                   >
                     {chip.label}
-                  </button>
+                  </TapButton>
                 ))}
               </div>
             )}
@@ -1743,11 +1754,14 @@ export default function App() {
                         : "property-grid"
                     }
                   >
-                    {sorted.map((p) =>
+                    {sorted.map((p, index) =>
                       renderCard(
                         p,
                         false,
                         view === "results" ? "feature" : "row",
+                        view === "results" && !feedEntered.current && index < 6
+                          ? index
+                          : null,
                       ),
                     )}
                   </div>
@@ -2559,7 +2573,7 @@ export default function App() {
             [Clock3, "Activity", "saved"],
             [User, "Profile", "profile"],
           ].map(([Icon, label, r]) => (
-            <button
+            <TapButton
               key={r}
               aria-current={activeNav === r ? "page" : undefined}
               className={
@@ -2573,6 +2587,9 @@ export default function App() {
               }}
             >
               <span>
+                {activeNav === r && (
+                  <SlidingIndicator id="mobile-nav" className="nav-active-bg" />
+                )}
                 <Icon size={21} />
                 {r === "agents" && pendingReplies > 0 && (
                   <b
@@ -2584,7 +2601,7 @@ export default function App() {
                 )}
               </span>
               <small>{label}</small>
-            </button>
+            </TapButton>
           ))}
         </nav>
       )}
@@ -2606,36 +2623,44 @@ export default function App() {
           )}
         </div>
       )}
-      {modal === "locationRequest" &&
-        allProperties.find((p) => p.id === locationTarget) && (
-          <Modal title="Request exact location" onClose={() => setModal(null)}>
-            <LocationRequestForm
-              p={allProperties.find((p) => p.id === locationTarget)}
-              profile={profile}
-              onSubmit={(contact) => {
-                const p = allProperties.find((p) => p.id === locationTarget);
-                const entry = {
-                  id: crypto.randomUUID(),
-                  propertyId: p.id,
-                  agentId: p.agentId,
-                  viewerId,
-                  ...contact,
-                  status: "requested",
-                  createdAt: new Date().toISOString(),
-                  expiresAt: null,
-                  source: leadSource.current,
-                };
-                setLocationRequests((xs) => [
-                  entry,
-                  ...xs.filter((r) => r.propertyId !== p.id),
-                ]);
-                setModal(null);
-                notify("Location requested. The agent can reply in the inbox.");
-              }}
-            />
-          </Modal>
-        )}
-      {modal === "filters" && (
+      <ExitGate
+        open={
+          modal === "locationRequest" &&
+          allProperties.some((p) => p.id === locationTarget)
+        }
+      >
+        <Modal
+          title="Request exact location"
+          motionKind="location"
+          onClose={() => setModal(null)}
+        >
+          <LocationRequestForm
+            p={allProperties.find((p) => p.id === locationTarget)}
+            profile={profile}
+            onSubmit={(contact) => {
+              const p = allProperties.find((p) => p.id === locationTarget);
+              const entry = {
+                id: crypto.randomUUID(),
+                propertyId: p.id,
+                agentId: p.agentId,
+                viewerId,
+                ...contact,
+                status: "requested",
+                createdAt: new Date().toISOString(),
+                expiresAt: null,
+                source: leadSource.current,
+              };
+              setLocationRequests((xs) => [
+                entry,
+                ...xs.filter((r) => r.propertyId !== p.id),
+              ]);
+              setModal(null);
+              notify("Location requested. The agent can reply in the inbox.");
+            }}
+          />
+        </Modal>
+      </ExitGate>
+      <ExitGate open={modal === "filters"}>
         <SmartFilters
           Modal={Modal}
           items={candidates.filter((p) => {
@@ -2657,7 +2682,7 @@ export default function App() {
             }
           }}
         />
-      )}
+      </ExitGate>
       {modal === "notifications" && (
         <Modal title="A little update" onClose={() => setModal(null)}>
           <div className="notification-card">

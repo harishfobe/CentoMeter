@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import FinderChips from "./FinderChips";
+import { TapButton } from "../../lib/motionUi";
 import { cityNames } from "../../data/cities";
 export const cities = cityNames;
 export const sorts = [
@@ -31,6 +32,7 @@ export default function FinderFilterSheet({
   reset,
   count,
   close,
+  exiting = false,
   areas,
   languages,
   specialties,
@@ -57,6 +59,8 @@ export default function FinderFilterSheet({
           kind === "city" ? "City" : kind === "sort" ? "Sort agents" : "Filters"
         }
         onClose={close}
+        motionKind="filter"
+        exiting={exiting}
       >
         <div
           className="finder-drag-handle"
@@ -165,11 +169,11 @@ export default function FinderFilterSheet({
           )}
         </div>
         <footer>
-          <button className="primary" disabled={!count} onClick={close}>
+          <TapButton className="primary" disabled={!count} onClick={close}>
             {count
               ? `Show ${count} ${count === 1 ? "agent" : "agents"}`
               : "No agents match"}
-          </button>
+          </TapButton>
           <button onClick={reset}>Reset</button>
         </footer>
       </Modal>

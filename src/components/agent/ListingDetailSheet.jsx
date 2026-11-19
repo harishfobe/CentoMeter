@@ -1,6 +1,7 @@
 import { ArrowUpRight, Copy, FileImage, MapPin, Play } from "lucide-react";
 import CopyButton from "../CopyButton";
 import { StickyContactBar } from "../../MobileUI";
+import { ExitGate } from "../../lib/motionUi";
 import useSheetDrag from "../../lib/useSheetDrag";
 import { reducedMotion, revealGalleryImage } from "../../lib/agentMotion";
 import useExpiryTick from "../../lib/useExpiryTick";
@@ -147,10 +148,7 @@ export default function ListingDetailSheet({
               ? p.area + " sq ft"
               : null,
         ],
-        [
-          "Dimensions",
-          p.type === "Land" ? landDimensions(p) : null,
-        ],
+        ["Dimensions", p.type === "Land" ? landDimensions(p) : null],
         ...[
           ["carpetArea", "Carpet area", " sq ft"],
           ["superArea", "Super built-up area", " sq ft"],
@@ -435,10 +433,7 @@ export default function ListingDetailSheet({
           />
         ) : homeDetail ? (
           <>
-            <HouseVillaSummary
-              p={p}
-              onReport={() => setReport(true)}
-            />
+            <HouseVillaSummary p={p} onReport={() => setReport(true)} />
             <section
               className="agent-detail-section agent-trust-card"
               aria-label="Legal and trust details"
@@ -520,10 +515,7 @@ export default function ListingDetailSheet({
           </>
         ) : commercialDetail ? (
           <>
-            <CommercialSummary
-              p={p}
-              onReport={() => setReport(true)}
-            />
+            <CommercialSummary p={p} onReport={() => setReport(true)} />
             <CommercialHighlights p={p} />
           </>
         ) : pgDetail ? (
@@ -750,10 +742,7 @@ export default function ListingDetailSheet({
             </button>
           </div>
         </div>
-        <section
-          className="agent-detail-related"
-          aria-label="Related listings"
-        >
+        <section className="agent-detail-related" aria-label="Related listings">
           <div className="agent-detail-related-group">
             <h3>Similar from this agent</h3>
             <div className="agent-detail-related-list">
@@ -807,7 +796,7 @@ export default function ListingDetailSheet({
         )}
       </article>
       <StickyContactBar property={p} agent={a} />
-      {request && (
+      <ExitGate open={request}>
         <RequestLocationSheet
           p={p}
           agent={a}
@@ -815,7 +804,7 @@ export default function ListingDetailSheet({
           Modal={Modal}
           onClose={() => setRequest(false)}
         />
-      )}{" "}
+      </ExitGate>{" "}
       {report && (
         <Modal title="Report listing" onClose={() => setReport(false)}>
           <form

@@ -1,5 +1,6 @@
 import React from "react";
 import { defaults } from "../../lib/agents";
+import { FadeSwap, TapButton } from "../../lib/motionUi";
 import PropertyTypes from "../../PropertyTypes";
 import {
   commercialSubtypesFor,
@@ -7,12 +8,24 @@ import {
   POSSESSION_OPTIONS,
   RENT_AVAILABLE_OPTIONS,
 } from "../../listingFit";
-export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
+export default function FilterSheet({
+  Modal,
+  f,
+  onChange,
+  count,
+  onClose,
+  exiting = false,
+}) {
   const set = (k, v) => onChange({ ...f, [k]: v });
   const commercial = f.type === "Commercial";
   const home = !["Land", "Commercial", "PG"].includes(f.type);
   return (
-    <Modal title="Listing filters" onClose={onClose}>
+    <Modal
+      title="Listing filters"
+      onClose={onClose}
+      motionKind="filter"
+      exiting={exiting}
+    >
       <div className="form-stack">
         <PropertyTypes
           mode={f.mode}
@@ -88,13 +101,25 @@ export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
         ].map(([k, l, opts]) => (
           <label key={k}>
             {l}
-            <select value={f[k]} onChange={(e) => set(k, e.target.value)}>
-              {opts.map((x) => (
-                <option key={x} value={x}>
-                  {x || "Any"}
-                </option>
-              ))}
-            </select>
+            {k === "unit" ? (
+              <FadeSwap swapKey={String(f[k])} className="unit-swap">
+                <select value={f[k]} onChange={(e) => set(k, e.target.value)}>
+                  {opts.map((x) => (
+                    <option key={x} value={x}>
+                      {x || "Any"}
+                    </option>
+                  ))}
+                </select>
+              </FadeSwap>
+            ) : (
+              <select value={f[k]} onChange={(e) => set(k, e.target.value)}>
+                {opts.map((x) => (
+                  <option key={x} value={x}>
+                    {x || "Any"}
+                  </option>
+                ))}
+              </select>
+            )}
           </label>
         ))}
         <label>
@@ -119,9 +144,9 @@ export default function FilterSheet({ Modal, f, onChange, count, onClose }) {
         >
           Reset filters
         </button>
-        <button className="primary" onClick={onClose}>
+        <TapButton className="primary" onClick={onClose}>
           Show {count} {count === 1 ? "property" : "properties"}
-        </button>
+        </TapButton>
         <p aria-live="polite">
           {count} {count === 1 ? "property" : "properties"}
         </p>

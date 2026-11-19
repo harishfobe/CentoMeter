@@ -1,6 +1,8 @@
 import { preloadListingDetails } from "../../lib/listingDetailsLoader";
 import { useCardEntrance, revealGalleryImage } from "../../lib/agentMotion";
 import React, { useRef, useState, useEffect, memo } from "react";
+import { motion } from "motion/react";
+import { FadeSwap, tapTransition } from "../../lib/motionUi";
 import { Heart } from "lucide-react";
 import { money } from "../../PropertyModel";
 import { statusLabel } from "../../lib/agents";
@@ -41,13 +43,16 @@ function ListingCard({
   const [index, setIndex] = useState(0);
   const rentCosts = p.mode === "RENT";
   const recent = recentlyConfirmedSafe(p);
+  const priceText = priceWithBasis(p, { unit, formatMoney: money });
   return (
-    <article
+    <motion.article
       ref={entrance}
+      whileTap={{ scale: 0.97 }}
+      transition={tapTransition}
       data-listing-id={p.id}
       data-below-fold={entranceIndex >= 3}
       className={
-        "property-card agent-listing " +
+        "property-card agent-listing motion-tap " +
         (rentCosts ? "property-card-rent " : "") +
         (["sold", "rented"].includes(p.status) ? "listing-inactive" : "")
       }
@@ -115,7 +120,9 @@ function ListingCard({
         onClick={() => onSave(p.id)}
       >
         <span className="agent-heart-burst" aria-hidden="true" />
-        <Heart size={20} fill={saved ? "currentColor" : "none"} />
+        <FadeSwap swapKey={saved ? "saved" : "open"} className="save-heart">
+          <Heart size={20} fill={saved ? "currentColor" : "none"} />
+        </FadeSwap>
       </button>
       <button
         className="property-copy"
@@ -125,7 +132,7 @@ function ListingCard({
       >
         <p className="property-card-type">{typeTransactionLine(p)}</p>
         <div className="price">
-          {priceWithBasis(p, { unit, formatMoney: money })}
+          <FadeSwap swapKey={unit + "|" + priceText}>{priceText}</FadeSwap>
         </div>
         <h3>{p.title}</h3>
         {configAreaLine(p) ? (
@@ -177,7 +184,7 @@ function ListingCard({
           </label>
         )}
       </div>
-    </article>
+    </motion.article>
   );
 }
 

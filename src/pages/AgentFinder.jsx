@@ -22,6 +22,7 @@ import { agents, listings, findAgents } from "../lib/agents";
 import { readLocal } from "../Discovery";
 import { cityForLocation } from "../PropertyModel";
 import AgentCard from "../components/agent/AgentCard";
+import { ExitGate } from "../lib/motionUi";
 import FinderFilterSheet, {
   cities,
   sorts,
@@ -388,7 +389,7 @@ function AgentFinder({ onNavigate, Modal }) {
           <ChevronDown size={14} />
         </button>
       </div>
-      {sheet && (
+      <ExitGate open={Boolean(sheet)}>
         <FinderFilterSheet
           Modal={Modal}
           kind={sheet}
@@ -401,7 +402,7 @@ function AgentFinder({ onNavigate, Modal }) {
           languages={languages}
           specialties={specialties}
         />
-      )}
+      </ExitGate>
       {toast && (
         <div className="finder-toast" role="status">
           {toast}

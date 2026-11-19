@@ -1,5 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
+import { motion } from "motion/react";
 import { ArrowRight, Heart, MapPin, Sparkles } from "lucide-react";
+import { FadeSwap, TapButton, tapTransition } from "../lib/motionUi";
 import AgentCard from "./agent/AgentCard";
 import PropertyCard from "./PropertyCard";
 import Empty from "./Empty";
@@ -74,6 +76,10 @@ export default function HomeDiscovery({
         .slice(0, 3),
     [agents, city],
   );
+  const feedOnce = useRef(true);
+  useEffect(() => {
+    feedOnce.current = false;
+  }, []);
   const topAgents = localAgents.length > 0 && (
     <section
       className="home-top-agents agent-finder"
@@ -152,12 +158,28 @@ export default function HomeDiscovery({
     <div className="home-discovery">
       <section aria-label="Suggested properties">
         {heading("Suggested for you", `Homes to explore in ${city}`)}
-        <div className="home-card-stack">{suggested.map(card)}</div>
+        <div className="home-card-stack">
+          {suggested.map((p, index) => (
+            <PropertyCard
+              key={p.id}
+              p={p}
+              saved={saved.includes(p.id)}
+              onSave={onSave}
+              onOpen={onOpen}
+              priceUnit={priceUnit}
+              entrance={feedOnce.current && index < 6 ? index : null}
+            />
+          ))}
+        </div>
       </section>
       {spotlight && (
         <section aria-label="Spotlight property">
           {heading("Spotlight", "A closer look at this property", false)}
-          <article className="home-spotlight">
+          <motion.article
+            className="home-spotlight motion-tap"
+            whileTap={{ scale: 0.97 }}
+            transition={tapTransition}
+          >
             <img
               src={photo(spotlight)}
               alt=""
@@ -177,10 +199,15 @@ export default function HomeDiscovery({
               aria-pressed={saved.includes(spotlight.id)}
               onClick={() => onSave(spotlight.id)}
             >
-              <Heart
-                size={18}
-                fill={saved.includes(spotlight.id) ? "currentColor" : "none"}
-              />
+              <FadeSwap
+                swapKey={saved.includes(spotlight.id) ? "saved" : "open"}
+                className="save-heart"
+              >
+                <Heart
+                  size={18}
+                  fill={saved.includes(spotlight.id) ? "currentColor" : "none"}
+                />
+              </FadeSwap>
             </button>
             <div className="home-spotlight-copy">
               <strong>{price(spotlight)}</strong>
@@ -190,11 +217,11 @@ export default function HomeDiscovery({
                 {spotlight.locality}, {spotlight.city} ·{" "}
                 {spotlight.area.toLocaleString("en-IN")} sq ft
               </p>
-              <button className="primary" onClick={() => onOpen(spotlight)}>
+              <TapButton className="primary" onClick={() => onOpen(spotlight)}>
                 View property <ArrowRight size={14} aria-hidden="true" />
-              </button>
+              </TapButton>
             </div>
-          </article>
+          </motion.article>
         </section>
       )}
       {projects.length > 0 && (
@@ -220,7 +247,10 @@ export default function HomeDiscovery({
         <ol className="home-popular-list">
           {popular.map((p, i) => (
             <li key={p.id}>
-              <button className="home-popular-open" onClick={() => onOpen(p)}>
+              <TapButton
+                className="home-popular-open"
+                onClick={() => onOpen(p)}
+              >
                 <span className="home-popular-rank" aria-hidden="true">
                   {i + 1}
                 </span>
@@ -238,7 +268,7 @@ export default function HomeDiscovery({
                     {p.locality}, {p.city}
                   </small>
                 </span>
-              </button>
+              </TapButton>
               <button
                 className="home-popular-save"
                 aria-label={
@@ -247,10 +277,15 @@ export default function HomeDiscovery({
                 aria-pressed={saved.includes(p.id)}
                 onClick={() => onSave(p.id)}
               >
-                <Heart
-                  size={18}
-                  fill={saved.includes(p.id) ? "currentColor" : "none"}
-                />
+                <FadeSwap
+                  swapKey={saved.includes(p.id) ? "saved" : "open"}
+                  className="save-heart"
+                >
+                  <Heart
+                    size={18}
+                    fill={saved.includes(p.id) ? "currentColor" : "none"}
+                  />
+                </FadeSwap>
               </button>
             </li>
           ))}
