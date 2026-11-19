@@ -14,6 +14,7 @@ import "./minimal.css";
 import "./styles/craft.css";
 import "./styles/land-listing.css";
 import "./styles/agent-dashboard.css";
+import "./styles/polish.css";
 createRoot(document.getElementById("root")).render(
   <ErrorBoundary>
     <App />

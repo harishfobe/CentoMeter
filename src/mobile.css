@@ -2193,9 +2193,11 @@ a:focus-visible {
   white-space: nowrap;
   box-shadow: 0 2px 8px color-mix(in srgb, var(--brand) 7%, transparent);
 }
-.app-shell .header-end .header-post:hover {
-  background: #ffe6d5;
-  border-color: var(--brand-hover);
+@media (hover: hover) and (pointer: fine) {
+  .app-shell .header-end .header-post:hover {
+    background: #ffe6d5;
+    border-color: var(--brand-hover);
+  }
 }
 .app-shell .header-end .header-post strong {
   background: var(--paper);
@@ -2315,10 +2317,12 @@ a:focus-visible {
   box-shadow: 0 3px 10px color-mix(in srgb, var(--ink) 9%, transparent);
   min-height: 44px;
 }
-.app-shell .header-end .header-post:hover {
-  background: #29292e;
-  border-color: var(--brand);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--brand) 15%, transparent);
+@media (hover: hover) and (pointer: fine) {
+  .app-shell .header-end .header-post:hover {
+    background: #29292e;
+    border-color: var(--brand);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--brand) 15%, transparent);
+  }
 }
 .app-shell .header-post .header-post-icon {
   display: grid;
