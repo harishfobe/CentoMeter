@@ -171,7 +171,7 @@ function PropertyCard({
           ) : (
             <span className="listing-row-footer" />
           )}
-          <CardContact p={p} />
+          {feature ? <CardContact p={p} /> : null}
         </div>
       </div>
     </article>

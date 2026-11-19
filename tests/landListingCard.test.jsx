@@ -44,17 +44,35 @@ it("shows a land listing as a plot card and keeps the open name", () => {
   expect(screen.queryByText("Approval evidence pending")).toBeNull();
   expect(screen.getByText(/^Owner • Posted /)).toBeTruthy();
   expect(
-    screen.getByRole("button", { name: "WhatsApp Kovai Plot 3" }),
-  ).toBeTruthy();
+    screen.queryByRole("button", { name: "WhatsApp Kovai Plot 3" }),
+  ).toBeNull();
   expect(
-    screen.getByRole("button", { name: "Call Kovai Plot 3" }),
-  ).toBeTruthy();
+    screen.queryByRole("button", { name: "Call Kovai Plot 3" }),
+  ).toBeNull();
   expect(screen.queryByText("Corner plot")).toBeNull();
   expect(
     screen.getByRole("button", { name: "View Kovai Plot 3" }),
   ).toBeTruthy();
   expect(
     screen.getByRole("button", { name: "Save Kovai Plot 3" }),
+  ).toBeTruthy();
+});
+
+it("shows WhatsApp and call only on the larger card", () => {
+  render(
+    <PropertyCard
+      p={plot}
+      saved={false}
+      onSave={vi.fn()}
+      onOpen={vi.fn()}
+      layout="feature"
+    />,
+  );
+  expect(
+    screen.getByRole("button", { name: "WhatsApp Kovai Plot 3" }),
+  ).toBeTruthy();
+  expect(
+    screen.getByRole("button", { name: "Call Kovai Plot 3" }),
   ).toBeTruthy();
 });
 
