@@ -28,8 +28,10 @@ import {
 } from "../src/listingPresentation.js";
 import { houseFloorsLabel } from "../src/HouseVillaDetails.jsx";
 import { commercialFacilities } from "../src/CommercialDetails.jsx";
-import { matchesPossessionFilter } from "../src/listingFit.js";
+import { builderMayList, matchesPossessionFilter } from "../src/listingFit.js";
 import { normalizePostedListing } from "../src/PropertyModel.js";
+import properties from "../src/data/properties.json";
+import agentListings from "../src/data/agentListings.json";
 import { pgHighlightPills, pgSnapshotItems } from "../src/PgDetails.jsx";
 
 describe("listing presentation accuracy", () => {
@@ -167,7 +169,7 @@ describe("listing presentation accuracy", () => {
     ).toBe("Owner");
   });
 
-  it("does not save a builder on land or a rental", () => {
+  it("does not save a builder on land, commercial, PG, or a rental", () => {
     const land = normalizePostedListing({
       id: "land-builder",
       title: "A plot",
@@ -181,6 +183,32 @@ describe("listing presentation accuracy", () => {
     });
     expect(land.seller).toBe("Owner");
     expect(land.posterRole).toBe("Owner");
+    const commercial = normalizePostedListing({
+      id: "commercial-builder",
+      title: "A shop",
+      price: 4500000,
+      area: 900,
+      location: [10.9993, 76.9348],
+      type: "Commercial",
+      intent: "SELL",
+      seller: "Builder",
+      posterRole: "Builder",
+    });
+    expect(commercial.seller).toBe("Owner");
+    expect(commercial.posterRole).toBe("Owner");
+    const pg = normalizePostedListing({
+      id: "pg-builder",
+      title: "A PG room",
+      price: 8000,
+      area: 200,
+      location: [10.9993, 76.9348],
+      type: "PG",
+      intent: "RENT",
+      seller: "Builder",
+      posterRole: "Builder",
+    });
+    expect(pg.seller).toBe("Owner");
+    expect(pg.posterRole).toBe("Owner");
     const rent = normalizePostedListing({
       id: "rent-builder",
       title: "A rental villa",
@@ -193,6 +221,7 @@ describe("listing presentation accuracy", () => {
     });
     expect(rent.mode).toBe("RENT");
     expect(rent.seller).toBe("Owner");
+    expect(rent.posterRole).toBe("Owner");
     const sale = normalizePostedListing({
       id: "sale-builder",
       title: "A builder apartment",
@@ -205,6 +234,17 @@ describe("listing presentation accuracy", () => {
     });
     expect(sale.seller).toBe("Builder");
     expect(sale.posterRole).toBe("Builder");
+  });
+
+  it("keeps sample Builder rows on sale houses, villas, and apartments", () => {
+    const invalid = [...properties, ...agentListings]
+      .filter(
+        (p) =>
+          (p.seller === "Builder" || p.posterRole === "Builder") &&
+          !builderMayList(p),
+      )
+      .map((p) => p.id);
+    expect(invalid).toEqual([]);
   });
 
   it("guards missing and future confirmedAt", () => {
