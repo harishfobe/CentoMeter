@@ -1,10 +1,12 @@
 import properties from "./data/properties.json";
+import agentListings from "./data/agentListings.json";
 import { featuredAreas, sampleBuilders } from "./data/cities";
 
+const catalog = [...properties, ...agentListings];
 const buildersById = new Map();
-for (const city of new Set(properties.map((property) => property.city))) {
+for (const city of new Set(catalog.map((property) => property.city))) {
   const names = sampleBuilders[city] || ["Square Homes"];
-  properties
+  catalog
     .filter(
       (property) => property.city === city && property.seller === "Builder",
     )
