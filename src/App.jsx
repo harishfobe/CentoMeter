@@ -2554,12 +2554,6 @@ export default function App() {
                 <LogOut size={18} />
                 Sign out
               </button>
-              <button
-                className="secondary profile-signout"
-                onClick={() => setModal("deleteAccount")}
-              >
-                Delete account
-              </button>
             </div>
           </section>
         )}
@@ -2902,6 +2896,13 @@ export default function App() {
               No account is created.
             </p>
             <button className="primary">Save changes</button>
+            <button
+              className="secondary full profile-delete"
+              type="button"
+              onClick={() => setModal("deleteAccount")}
+            >
+              Delete account
+            </button>
           </form>
         </Modal>
       )}
@@ -3324,7 +3325,7 @@ export default function App() {
         <Modal
           title="Delete account?"
           onClose={() => {
-            if (!deletingAccount) setModal(null);
+            if (!deletingAccount) setModal("editProfile");
           }}
         >
           <p>
@@ -3335,7 +3336,7 @@ export default function App() {
             <button
               className="secondary"
               disabled={deletingAccount}
-              onClick={() => setModal(null)}
+              onClick={() => setModal("editProfile")}
             >
               Keep account
             </button>
