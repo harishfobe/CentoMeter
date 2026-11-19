@@ -1,5 +1,7 @@
-import React, { memo } from "react";
+import React, { memo, useRef } from "react";
+import { motion } from "motion/react";
 import { Heart, Phone } from "lucide-react";
+import { FadeSwap, tapTransition } from "../lib/motionUi";
 import { typeLabel } from "../PropertyTypes";
 import { publicAsset } from "../lib/publicAsset";
 import { notifyAgent } from "../lib/agentStore";
@@ -35,6 +37,29 @@ function PriceLine({ price, rate }) {
         </span>
       ) : null}
     </p>
+  );
+}
+
+function PriceBlock({ price, rate, area, feature }) {
+  const text = [price, rate?.text, area].filter(Boolean).join("|");
+  return (
+    <FadeSwap swapKey={text || "price"}>
+      <span className="listing-price-stack">
+        {feature ? (
+          <div className="listing-feature-metrics">
+            <PriceLine price={price} rate={rate} />
+            {area ? (
+              <p className="listing-row-area">{keepUnitsTogether(area)}</p>
+            ) : null}
+          </div>
+        ) : (
+          <>
+            <PriceLine price={price} rate={rate} />
+            {area ? <p className="listing-row-area">{area}</p> : null}
+          </>
+        )}
+      </span>
+    </FadeSwap>
   );
 }
 
@@ -81,9 +106,13 @@ function PropertyCard({
   compact = false,
   priceUnit = "total",
   layout = "row",
+  entrance = null,
 }) {
   void compact;
   void priceUnit;
+  const enterAt = useRef(entrance);
+  const slot = enterAt.current;
+  const play = typeof slot === "number";
   const feature = layout === "feature";
   const price = listingCardPrice(p);
   const rate = listingCardRate(p);
@@ -97,10 +126,23 @@ function PropertyCard({
         .filter(Boolean)
     : [];
   return (
-    <article
+    <motion.article
       className={
-        "property-card listing-row" + (feature ? " listing-feature" : "")
+        "property-card listing-row motion-tap" +
+        (feature ? " listing-feature" : "")
       }
+      initial={play ? { opacity: 0, y: 10 } : false}
+      animate={{ opacity: 1, y: 0 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{
+        opacity: play
+          ? { duration: 0.22, delay: slot * 0.03, ease: [0.23, 1, 0.32, 1] }
+          : { duration: 0 },
+        y: play
+          ? { duration: 0.22, delay: slot * 0.03, ease: [0.23, 1, 0.32, 1] }
+          : { duration: 0 },
+        scale: tapTransition,
+      }}
     >
       <button
         className="property-image"
@@ -132,21 +174,14 @@ function PropertyCard({
         aria-pressed={saved}
         onClick={() => onSave(p.id)}
       >
-        <Heart size={18} fill={saved ? "currentColor" : "none"} />
+        <FadeSwap swapKey={saved ? "saved" : "open"} className="save-heart">
+          <Heart size={18} fill={saved ? "currentColor" : "none"} />
+        </FadeSwap>
       </button>
       <div className="listing-row-main">
         <button className="property-copy" onClick={() => onOpen(p)}>
           <h3>{listingCardTitle(p)}</h3>
-          {feature ? (
-            <div className="listing-feature-metrics">
-              <PriceLine price={price} rate={rate} />
-              {area ? (
-                <p className="listing-row-area">{keepUnitsTogether(area)}</p>
-              ) : null}
-            </div>
-          ) : (
-            <PriceLine price={price} rate={rate} />
-          )}
+          <PriceBlock price={price} rate={rate} area={area} feature={feature} />
           {feature && factParts.length ? (
             <p className="listing-feature-facts">
               {factParts.map((part) => (
@@ -154,7 +189,6 @@ function PropertyCard({
               ))}
             </p>
           ) : null}
-          {!feature && area ? <p className="listing-row-area">{area}</p> : null}
           {!feature && facts ? (
             <p className="listing-row-facts">{facts}</p>
           ) : null}
@@ -174,7 +208,7 @@ function PropertyCard({
           {feature ? <CardContact p={p} /> : null}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

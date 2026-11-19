@@ -7,11 +7,17 @@ export default function RequestLocationSheet({
   source,
   Modal,
   onClose,
+  exiting = false,
 }) {
   const [error, setError] = useState(""),
     [sent, setSent] = useState(false);
   return (
-    <Modal title="Request location" onClose={onClose}>
+    <Modal
+      title="Request location"
+      onClose={onClose}
+      motionKind="location"
+      exiting={exiting}
+    >
       {sent ? (
         <div role="status" className="agent-request-success">
           <svg
