@@ -26,7 +26,7 @@ export const pinPrice = (p, money) => {
   const perCent = p.mode === "BUY" && pricePerCent(p);
   const amount = money(perCent || p.price).replace(/\s/g, "");
   return perCent
-    ? amount + "/c"
+    ? amount + "/cent"
     : amount +
         (p.mode === "RENT"
           ? p.type === "PG"

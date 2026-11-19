@@ -4,6 +4,7 @@ import WhatsAppIcon from "./components/WhatsAppIcon";
 import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
+import { notifyAgent } from "./lib/agentStore";
 import { publicAsset } from "./lib/publicAsset";
 import { pricePerCent } from "./PlotUI";
 import {
@@ -256,6 +257,7 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
               className="sticky-contact-call"
               href={contact.callHref}
               aria-label="Call now"
+              onClick={() => notifyAgent("Calling")}
             >
               <Phone size={18} aria-hidden="true" />
             </a>

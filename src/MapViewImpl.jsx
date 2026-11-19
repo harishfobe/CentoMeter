@@ -311,6 +311,7 @@ export default function MapView({
     <>
       <div
         className={"map-canvas" + (staticView ? " static-property-map" : "")}
+        data-map-layer="street"
         ref={host}
         role={staticView ? "region" : undefined}
         aria-label={

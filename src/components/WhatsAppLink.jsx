@@ -41,6 +41,7 @@ export default function WhatsAppLink({
           notifyAgent(number + " is not a working WhatsApp number.");
           return;
         }
+        notifyAgent("Opening WhatsApp");
         openExternal(event);
       }}
     >

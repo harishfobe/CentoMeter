@@ -119,10 +119,10 @@ a[href],
   }
   /* Bottom nav icon hit area */
   .bottom-nav button > span {
-    min-width: 44px;
-    min-height: 32px;
-    width: 44px;
-    height: 32px;
+    min-width: 42px;
+    min-height: 30px;
+    width: 42px;
+    height: 30px;
     display: grid;
     place-items: center;
   }

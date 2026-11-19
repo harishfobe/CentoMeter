@@ -6,7 +6,8 @@ import Empty from "./Empty";
 import { money } from "../PropertyModel";
 import { landPrice } from "../JourneyUX";
 import { priceBasis } from "../Journeys";
-import { pinPrice } from "../PlotUI";
+import { approvalLabels, pinPrice, pricePerCent } from "../PlotUI";
+import { landCardFacts } from "../listingPresentation";
 import { developerFor } from "../SearchSuggestions";
 import { builderMayList } from "../listingFit";
 import { publicAsset } from "../lib/publicAsset";
@@ -185,12 +186,36 @@ export default function HomeDiscovery({
             </button>
             <div className="home-spotlight-copy">
               <strong>{price(spotlight)}</strong>
+              {spotlight.type === "Land" &&
+              spotlight.mode === "BUY" &&
+              priceUnit === "total" &&
+              pricePerCent(spotlight) ? (
+                <span className="home-spotlight-cent">
+                  {money(pricePerCent(spotlight))} / cent
+                </span>
+              ) : null}
               <h3>{spotlight.title}</h3>
               <p>
                 <MapPin size={12} aria-hidden="true" />
                 {spotlight.locality}, {spotlight.city} ·{" "}
                 {spotlight.area.toLocaleString("en-IN")} sq ft
               </p>
+              {spotlight.type === "Land" && landCardFacts(spotlight) ? (
+                <p className="home-spotlight-facts">
+                  {landCardFacts(spotlight)}
+                </p>
+              ) : null}
+              {(approvalLabels(spotlight)[0] || "").replace(
+                /\s+Approved$/i,
+                "",
+              ) ? (
+                <p className="home-spotlight-facts">
+                  {(approvalLabels(spotlight)[0] || "").replace(
+                    /\s+Approved$/i,
+                    "",
+                  )}
+                </p>
+              ) : null}
               <button className="primary" onClick={() => onOpen(spotlight)}>
                 View property <ArrowRight size={14} aria-hidden="true" />
               </button>

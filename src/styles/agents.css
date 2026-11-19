@@ -20,7 +20,7 @@
 .agent-feature .primary,
 .agent-detail .primary {
   background: var(--brand);
-  color: white;
+  color: var(--brand-on);
 }
 .agent-feature :focus-visible,
 .agent-detail :focus-visible {
@@ -295,7 +295,7 @@
 }
 .agent-compare {
   position: sticky;
-  bottom: 82px;
+  bottom: calc(var(--mobile-nav-height, 72px) + 12px + env(safe-area-inset-bottom));
   z-index: 500;
   background: var(--ink);
   color: white;
@@ -812,7 +812,7 @@
 }
 .finder-active button:last-child {
   border: 0;
-  color: var(--brand) !important;
+  color: var(--brand-deep) !important;
 }
 .finder-results {
   display: flex;
@@ -1200,8 +1200,9 @@
 }
 .agent-detail .agent-land-price-equivalent {
   margin: 2px 0 0;
-  color: var(--placeholder, #a1a1aa);
-  font-size: 12px;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
   line-height: 1.45;
 }
 .agent-detail .land-highlights {

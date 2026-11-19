@@ -5,10 +5,12 @@ import { Heart } from "lucide-react";
 import { money } from "../../PropertyModel";
 import { statusLabel } from "../../lib/agents";
 import { accessStatus } from "../../lib/locationAccess";
+import { approvalLabels } from "../../PlotUI";
 import {
   typeTransactionLine,
   priceWithBasis,
   configAreaLine,
+  landCardFacts,
   postedByLine,
   availabilityLine,
   depositLabel,
@@ -41,6 +43,8 @@ function ListingCard({
   const [index, setIndex] = useState(0);
   const rentCosts = p.mode === "RENT";
   const recent = recentlyConfirmedSafe(p);
+  const landFacts = p.type === "Land" ? landCardFacts(p) : null;
+  const approval = (approvalLabels(p)[0] || "").replace(/\s+Approved$/i, "");
   return (
     <article
       ref={entrance}
@@ -131,6 +135,7 @@ function ListingCard({
         {configAreaLine(p) ? (
           <p className="property-card-config">{configAreaLine(p)}</p>
         ) : null}
+        {landFacts ? <p className="listing-row-facts">{landFacts}</p> : null}
         <p className="muted location-line">
           {[p.locality, p.city].filter(Boolean).join(", ")}
         </p>
@@ -161,9 +166,8 @@ function ListingCard({
         <span className="pill">{statusLabel(p.status)}</span>
         {recent ? (
           <span className="pill agent-confirmed">Recently confirmed</span>
-        ) : (
-          <small>Not recently confirmed</small>
-        )}
+        ) : null}
+        {approval ? <span className="pill">{approval}</span> : null}
         <LocationPrivacyChip p={p} unlocked={unlocked} />
         {request && <small role="status">{accessStatus(request)}</small>}
         {onCompare && (

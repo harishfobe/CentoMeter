@@ -4,6 +4,7 @@ import { exactLocation } from "./lib/locationAccess";
 import { listedByRole } from "./listingFit";
 import { indianMobile } from "./PropertyModel";
 import { Phone, UserRound } from "lucide-react";
+import { notifyAgent } from "./lib/agentStore";
 import WhatsAppIcon from "./components/WhatsAppIcon";
 function contactNumber(value) {
   const digits = indianMobile(value);
@@ -112,7 +113,11 @@ export function ContactButtons({ p }) {
     <div className="direct-contact">
       <div className="direct-contact-buttons">
         {links.call ? (
-          <a className="contact-call" href={links.call}>
+          <a
+            className="contact-call"
+            href={links.call}
+            onClick={() => notifyAgent("Calling")}
+          >
             <Phone size={17} />
             Call Now
           </a>

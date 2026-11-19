@@ -2094,12 +2094,6 @@ export default function App() {
                     <div className="nearby-grid property-hotspots">
                       {detailHotspots.map((spot) => (
                         <div key={spot.id}>
-                          <span
-                            className="hotspot-grid-icon"
-                            aria-hidden="true"
-                          >
-                            {spot.glyph}
-                          </span>
                           <strong>{spot.label}</strong>
                           <small>{spot.distance}</small>
                         </div>

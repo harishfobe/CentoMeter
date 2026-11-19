@@ -3,6 +3,7 @@ import { LockKeyhole } from "lucide-react";
 import { indianMobile } from "./PropertyModel";
 import {
   accessStatus,
+  accessStatusLabel,
   isLocationLocked,
   requestFor,
 } from "./lib/locationAccess";
@@ -20,7 +21,7 @@ export function LocationGate({ p, requests, onRequest }) {
         Request the location from the agent.
       </p>
       <span className={"request-status status-" + status}>
-        {status === "unrequested" ? "Location locked" : status}
+        {accessStatusLabel(status)}
       </span>
       <button
         className="primary"
@@ -87,8 +88,8 @@ export function LocationRequestForm({ p, profile, onSubmit }) {
         </p>
       )}
       <p className="fine-print">
-        Your request is stored on this device. The agent
-        approves access per listing.
+        Your request is stored on this device. The agent approves access per
+        listing.
       </p>
       <button className="primary" type="submit" disabled={sending}>
         {sending ? "Sending request…" : "Send location request"}

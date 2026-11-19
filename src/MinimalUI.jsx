@@ -5,14 +5,19 @@ import {
   ChevronRight,
   Heart,
   MapPin,
+  Phone,
   X,
 } from "lucide-react";
 import { landNumber, toCents } from "./LandDetails";
 import { priceBasis } from "./Journeys";
-import { plotStatus, pricePerCent, pinPrice } from "./PlotUI";
+import { approvalLabels, plotStatus, pricePerCent, pinPrice } from "./PlotUI";
 import { landPrice } from "./JourneyUX";
 import useOverlayBack from "./OverlayHistory";
 import { publicAsset } from "./lib/publicAsset";
+import { listingContactLinks } from "./PropertyContact";
+import { notifyAgent } from "./lib/agentStore";
+import WhatsAppIcon from "./components/WhatsAppIcon";
+import WhatsAppLink from "./components/WhatsAppLink";
 
 export function Wordmark() {
   return (
@@ -77,7 +82,20 @@ export function SelectedPropertySheet({
     ...(land && Number(p.area) > 0
       ? [landNumber(toCents(p.area)) + " cents"]
       : []),
+    ...(land && p.facing ? [String(p.facing)] : []),
+    ...(land && p.roadWidth
+      ? [
+          /ft|road/i.test(String(p.roadWidth))
+            ? String(p.roadWidth)
+            : String(p.roadWidth) + " ft road",
+        ]
+      : []),
+    ...((approvalLabels(p)[0] || "").replace(/\s+Approved$/i, "")
+      ? [(approvalLabels(p)[0] || "").replace(/\s+Approved$/i, "")]
+      : []),
   ];
+  const perCent = land && p.mode === "BUY" ? pricePerCent(p) : null;
+  const links = listingContactLinks(p);
   return (
     <div className="selected-property selection-card">
       <section
@@ -175,20 +193,26 @@ export function SelectedPropertySheet({
         <div className="selection-scroll">
           <div className="selection-price">
             <strong>
-              {land && p.mode !== "BUY"
-                ? pinPrice(p, money)
-                : money(price.amount)}
+              {perCent
+                ? money(perCent)
+                : land && p.mode !== "BUY"
+                  ? pinPrice(p, money)
+                  : money(price.amount)}
             </strong>
             <span>
-              {land && p.mode === "BUY" && priceUnit !== "total"
-                ? price.suffix.trim()
-                : p.mode === "RENT"
-                  ? priceBasis(p).trim()
-                  : "Total price"}
+              {perCent
+                ? "/ cent"
+                : land && p.mode === "BUY" && priceUnit !== "total"
+                  ? price.suffix.trim()
+                  : p.mode === "RENT"
+                    ? priceBasis(p).trim()
+                    : "Total price"}
             </span>
           </div>
           <div className="selection-price-caption">
-            {land && p.mode === "BUY" && priceUnit !== "total" ? (
+            {perCent ? (
+              money(p.price) + " total"
+            ) : land && p.mode === "BUY" && priceUnit !== "total" ? (
               money(p.price) + " total"
             ) : (
               <PriceCaption p={p} money={money} />
@@ -210,24 +234,6 @@ export function SelectedPropertySheet({
             <span>{[p.locality, p.city].filter(Boolean).join(", ")}</span>
           </p>
         </div>
-        <div className="selection-actions">
-          {onVisit && (
-            <button type="button" className="primary" onClick={onVisit}>
-              Book site visit
-            </button>
-          )}
-          <button
-            type="button"
-            className={onVisit ? "secondary" : "primary"}
-            onClick={onOpen}
-          >
-            View details
-            <ArrowUpRight size={15} />
-          </button>
-          <button type="button" className="secondary" onClick={onSimilar}>
-            See similar
-          </button>
-        </div>
         {locked && (
           <div className="selection-location-gate">
             <span>Exact location private</span>
@@ -236,6 +242,57 @@ export function SelectedPropertySheet({
             </button>
           </div>
         )}
+        <div className="selection-actions">
+          <div className="selection-actions-primary">
+            <WhatsAppLink
+              className="primary selection-whatsapp"
+              href={links.whatsapp || undefined}
+              aria-label={"WhatsApp " + p.title}
+            >
+              <WhatsAppIcon size={16} />
+              WhatsApp
+            </WhatsAppLink>
+            {links.call ? (
+              <a
+                className="secondary selection-call"
+                href={links.call}
+                aria-label={"Call " + p.title}
+                onClick={() => notifyAgent("Calling")}
+              >
+                <Phone size={16} aria-hidden="true" />
+                Call
+              </a>
+            ) : (
+              <button
+                type="button"
+                className="secondary selection-call"
+                aria-label={"Call " + p.title}
+                onClick={() => notifyAgent("Contact number not provided")}
+              >
+                <Phone size={16} aria-hidden="true" />
+                Call
+              </button>
+            )}
+          </div>
+          <div className="selection-actions-secondary">
+            {onVisit && (
+              <button type="button" className="secondary" onClick={onVisit}>
+                Book site visit
+              </button>
+            )}
+            <button type="button" className="secondary" onClick={onOpen}>
+              View details
+              <ArrowUpRight size={15} />
+            </button>
+          </div>
+          <button
+            type="button"
+            className="text-button selection-similar"
+            onClick={onSimilar}
+          >
+            See similar
+          </button>
+        </div>
         {multiple && (
           <div className="selection-pager" aria-label="Nearby properties">
             <button

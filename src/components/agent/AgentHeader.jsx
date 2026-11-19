@@ -19,7 +19,11 @@ function ContactButton({ agent }) {
   );
   if (digits) {
     return (
-      <a className="secondary agent-reach" href={"tel:+91" + digits}>
+      <a
+        className="secondary agent-reach"
+        href={"tel:+91" + digits}
+        onClick={() => notifyAgent("Calling")}
+      >
         {content}
       </a>
     );
@@ -104,6 +108,18 @@ export default function AgentHeader({ agent: a, count, onShare }) {
         >
           {s.followed.includes(a.id) ? "Following" : "Follow"}
         </button>
+      </div>
+      <div className="agent-profile-dock">
+        <ContactButton agent={a} />
+        <WhatsAppLink
+          className="primary agent-reach"
+          number={a.whatsapp}
+          message={
+            "Hello " + a.name + ", I am interested in your CentoMeter listings."
+          }
+        >
+          <WhatsAppIcon size={17} /> WhatsApp
+        </WhatsAppLink>
       </div>
     </header>
   );

@@ -9,7 +9,7 @@
   --brand: #f96b13;
   --brand-hover: #dc5605;
   --brand-soft: #fff3eb;
-  --brand-on: #ffffff;
+  --brand-on: #18181b;
   --orange: var(--brand);
   --orange-hover: var(--brand-hover);
   --brand-action: var(--brand);
@@ -368,7 +368,7 @@ textarea:focus-visible {
   white-space: nowrap;
 }
 .price-marker.selected > span {
-  color: var(--paper);
+  color: var(--brand-on);
   background: var(--brand);
   border: 2px solid var(--paper);
   transform: translateX(-50%);

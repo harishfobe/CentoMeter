@@ -11,6 +11,11 @@
 .listing-row-rate,
 .listing-row-area,
 .listing-row-facts,
+.mobile-property-price strong,
+.agent-detail > h2,
+.land-price-equivalent,
+.agent-land-price-equivalent,
+.home-spotlight-cent,
 .desk-price,
 .desk-metrics strong,
 .desk-funnel strong,
@@ -167,6 +172,10 @@
   border-radius: 16px;
 }
 
+.agent-profile-dock {
+  display: none;
+}
+
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
   .app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
   .app-shell select,
@@ -187,4 +196,56 @@
   .toast {
     bottom: calc(92px + env(safe-area-inset-bottom));
   }
+  .modal-scrim[data-motion-kind="listing"] > .modal {
+    inset: auto 0 0 0;
+    height: auto;
+    max-height: calc(100dvh - env(safe-area-inset-top));
+    border-radius: 24px 24px 0 0;
+  }
+  .modal-scrim[data-motion-kind="listing"] .agent-drag-handle {
+    order: -1;
+  }
+  .agent-profile-dock {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1040;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 16px;
+    bottom: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom));
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .agent-profile-dock > * {
+    flex: 1;
+    min-height: 44px;
+    justify-content: center;
+  }
+  .agent-public {
+    padding-bottom: calc(72px + var(--mobile-nav-height) + env(safe-area-inset-bottom));
+  }
+  .agent-profile-heading .action-row > .agent-reach {
+    display: none;
+  }
+  .agent-profile-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0 8px;
+  }
+  .land-snapshot {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.agent-toast button {
+  min-height: 44px;
+}
+.location-gate h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

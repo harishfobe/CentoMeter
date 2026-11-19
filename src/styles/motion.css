@@ -176,8 +176,8 @@
 }
 .agent-feature:where(:not(.agent-public))[data-scroll-down="true"]
   .agent-filter-bar {
-  translate: 0 -110%;
-  pointer-events: none;
+  translate: none;
+  pointer-events: auto;
 }
 .agent-back-top {
   position: fixed;

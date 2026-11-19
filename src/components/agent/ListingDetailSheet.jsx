@@ -1,4 +1,12 @@
-import { ArrowUpRight, Copy, FileImage, MapPin, Play } from "lucide-react";
+import {
+  ArrowUpRight,
+  Copy,
+  FileImage,
+  LockKeyhole,
+  LockKeyholeOpen,
+  MapPin,
+  Play,
+} from "lucide-react";
 import CopyButton from "../CopyButton";
 import { StickyContactBar } from "../../MobileUI";
 import useSheetDrag from "../../lib/useSheetDrag";
@@ -46,7 +54,11 @@ import {
 import { approvalLabels, pricePerCent } from "../../PlotUI";
 import { EmiCalculator, showsEmi } from "../../PropertyExtras";
 import { visitDates } from "../../JourneyUX";
-import { getExactLocation, accessStatus } from "../../lib/locationAccess";
+import {
+  getExactLocation,
+  accessStatus,
+  accessStatusLabel,
+} from "../../lib/locationAccess";
 import {
   useAgentStore,
   viewerId,
@@ -147,10 +159,7 @@ export default function ListingDetailSheet({
               ? p.area + " sq ft"
               : null,
         ],
-        [
-          "Dimensions",
-          p.type === "Land" ? landDimensions(p) : null,
-        ],
+        ["Dimensions", p.type === "Land" ? landDimensions(p) : null],
         ...[
           ["carpetArea", "Carpet area", " sq ft"],
           ["superArea", "Super built-up area", " sq ft"],
@@ -435,10 +444,7 @@ export default function ListingDetailSheet({
           />
         ) : homeDetail ? (
           <>
-            <HouseVillaSummary
-              p={p}
-              onReport={() => setReport(true)}
-            />
+            <HouseVillaSummary p={p} onReport={() => setReport(true)} />
             <section
               className="agent-detail-section agent-trust-card"
               aria-label="Legal and trust details"
@@ -520,10 +526,7 @@ export default function ListingDetailSheet({
           </>
         ) : commercialDetail ? (
           <>
-            <CommercialSummary
-              p={p}
-              onReport={() => setReport(true)}
-            />
+            <CommercialSummary p={p} onReport={() => setReport(true)} />
             <CommercialHighlights p={p} />
           </>
         ) : pgDetail ? (
@@ -687,11 +690,18 @@ export default function ListingDetailSheet({
           </div>
         ) : null}
         <section className={"location-gate " + (point ? "is-unlocked" : "")}>
-          <h3>{point ? "🔓 Location unlocked" : "🔒 Location on request"}</h3>
+          <h3>
+            {point ? (
+              <LockKeyholeOpen size={18} aria-hidden="true" />
+            ) : (
+              <LockKeyhole size={18} aria-hidden="true" />
+            )}{" "}
+            {point ? "Location unlocked" : "Location on request"}
+          </h3>
           <p role="status">
             {state === "unrequested"
               ? "Request the exact location"
-              : statusLabel(state)}
+              : accessStatusLabel(state)}
           </p>
           <div className="agent-map-reveal" data-open={!!point}>
             {point && <UnlockedMap point={point} />}
@@ -750,10 +760,7 @@ export default function ListingDetailSheet({
             </button>
           </div>
         </div>
-        <section
-          className="agent-detail-related"
-          aria-label="Related listings"
-        >
+        <section className="agent-detail-related" aria-label="Related listings">
           <div className="agent-detail-related-group">
             <h3>Similar from this agent</h3>
             <div className="agent-detail-related-list">

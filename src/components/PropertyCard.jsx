@@ -6,6 +6,7 @@ import { notifyAgent } from "../lib/agentStore";
 import { listingContactLinks } from "../PropertyContact";
 import WhatsAppIcon from "./WhatsAppIcon";
 import WhatsAppLink from "./WhatsAppLink";
+import { approvalLabels } from "../PlotUI";
 import {
   landCardFooter,
   listingCardArea,
@@ -56,13 +57,14 @@ function CardContact({ p }) {
           className="listing-card-call"
           href={links.call}
           aria-label={callLabel}
+          onClick={() => notifyAgent("Calling")}
         >
           <Phone size={15} aria-hidden="true" />
         </a>
       ) : (
         <button
           type="button"
-          className="listing-card-call"
+          className="listing-card-call is-unavailable"
           aria-label={callLabel}
           onClick={() => notifyAgent("Contact number not provided")}
         >
@@ -90,6 +92,7 @@ function PropertyCard({
   const area = listingCardArea(p);
   const facts = listingCardFacts(p);
   const footer = landCardFooter(p);
+  const approval = (approvalLabels(p)[0] || "").replace(/\s+Approved$/i, "");
   const factParts = facts
     ? String(facts)
         .split(" • ")
@@ -147,16 +150,20 @@ function PropertyCard({
           ) : (
             <PriceLine price={price} rate={rate} />
           )}
-          {feature && factParts.length ? (
+          {feature && (factParts.length || approval) ? (
             <p className="listing-feature-facts">
               {factParts.map((part) => (
                 <span key={part}>{part}</span>
               ))}
+              {approval ? <span>{approval}</span> : null}
             </p>
           ) : null}
           {!feature && area ? <p className="listing-row-area">{area}</p> : null}
           {!feature && facts ? (
             <p className="listing-row-facts">{facts}</p>
+          ) : null}
+          {!feature && approval ? (
+            <p className="listing-approval">{approval}</p>
           ) : null}
         </button>
         <div className="listing-card-bar">

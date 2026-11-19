@@ -191,7 +191,7 @@
 .agent-profile-heading .action-row > .primary {
   flex-basis: 100%;
   background: var(--agent-accent);
-  color: white;
+  color: var(--brand-on);
   border-color: var(--agent-accent);
 }
 .agent-profile-heading .action-row > .agent-reach {
@@ -351,6 +351,10 @@
   line-height: 1.45;
   margin-bottom: 5px;
   color: var(--agent-ink);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 .agent-listing .property-copy p {
   font-size: 11px;
@@ -364,21 +368,23 @@
   align-items: center;
 }
 .agent-listing-chips .pill {
-  font-size: 11px;
-  padding: 4px 7px;
-  border: 0;
-  background: #f1f4f2;
-  border-radius: 5px;
-  color: #627067;
-  line-height: 1.5;
+  font-size: 12px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  background: var(--canvas);
+  border-radius: 999px;
+  color: var(--ink);
+  line-height: 1.4;
 }
 .agent-listing-chips .agent-confirmed {
-  background: #edf6f0;
-  color: #337552;
+  background: var(--canvas);
+  color: var(--ink);
+  border-color: var(--line);
 }
 .agent-listing-chips .agent-privacy {
-  background: #fff4e9;
-  color: #9f5423;
+  background: var(--brand-soft);
+  color: var(--brand-deep);
+  border-color: color-mix(in srgb, var(--brand) 28%, var(--line));
 }
 .agent-listing-chips label {
   font-size: 11px;

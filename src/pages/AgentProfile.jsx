@@ -1,4 +1,4 @@
-import { ArrowUpRight, Compass, Flag } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Compass, Flag } from "lucide-react";
 import Empty from "../components/Empty";
 import { mergeListings } from "../lib/agents";
 import useExpiryTick from "../lib/useExpiryTick";
@@ -224,11 +224,16 @@ export default function AgentProfile({
   return (
     <section ref={host} className="page agent-feature agent-public">
       <nav className="agent-slim-bar">
-        <button onClick={() => onNavigate("home")}>← CentoMeter</button>
+        <button
+          type="button"
+          className="agent-profile-back"
+          onClick={() => onNavigate("agents")}
+        >
+          <ArrowLeft size={18} aria-hidden="true" />
+          Agents
+        </button>
       </nav>
-      <p className="fine-print agent-demo-note">
-        Location gating is simulated
-      </p>
+      <p className="fine-print agent-demo-note">Location gating is simulated</p>
       <AgentHeader
         agent={a}
         count={activeListings(items, a.id).length}
@@ -342,9 +347,7 @@ export default function AgentProfile({
           <Flag size={15} aria-hidden="true" />
           Report agent
         </button>
-        <p className="fine-print">
-          Location gating is simulated
-        </p>
+        <p className="fine-print">Location gating is simulated</p>
       </footer>
       {reportAgent && (
         <Modal title="Report agent" onClose={() => setReportAgent(false)}>

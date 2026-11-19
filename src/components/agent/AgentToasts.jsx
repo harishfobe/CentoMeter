@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { X } from "lucide-react";
 function Toast({ item, onRemove }) {
   const [paused, setPaused] = useState(false),
     [leaving, setLeaving] = useState(false);
@@ -38,7 +39,7 @@ function Toast({ item, onRemove }) {
         aria-label="Dismiss notification"
         onClick={() => setLeaving(true)}
       >
-        ×
+        <X size={18} aria-hidden="true" />
       </button>
     </div>
   );
@@ -59,11 +60,7 @@ export default function AgentToasts() {
     return () => window.removeEventListener("centometer-toast", add);
   }, []);
   return (
-    <div
-      className="agent-toast-stack"
-      role="region"
-      aria-label="Notifications"
-    >
+    <div className="agent-toast-stack" role="region" aria-label="Notifications">
       {items.map((item) => (
         <Toast key={item.id} item={item} onRemove={remove} />
       ))}

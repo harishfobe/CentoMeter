@@ -105,7 +105,7 @@
 }
 
 .property-card.listing-row .listing-row-price strong {
-  color: var(--brand);
+  color: var(--brand-deep);
   font-weight: 800;
 }
 
@@ -133,9 +133,9 @@
   margin: 1px 0 0;
   min-width: 0;
   color: var(--ink);
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.25;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.3;
 }
 
 .property-card.listing-row .listing-row-main {
@@ -166,6 +166,14 @@
   min-width: 0;
 }
 
+.listing-approval {
+  margin: 4px 0 0;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
 .property-card.listing-row .listing-row-footer {
   flex: 1 1 auto;
   margin: 0;
@@ -212,7 +220,14 @@
 
 .listing-card-call {
   background: transparent;
-  color: #fff;
+  color: var(--brand-on);
+}
+.listing-card-call.is-unavailable {
+  color: var(--muted);
+}
+.listing-card-call.is-unavailable::before {
+  background: var(--canvas);
+  border: 1px solid var(--line);
 }
 
 .listing-card-call::before {

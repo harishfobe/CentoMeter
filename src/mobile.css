@@ -927,7 +927,7 @@
     min-width: 0;
     overflow-wrap: anywhere;
     flex: 1;
-    max-width: 65%;
+    max-width: none;
     padding: 12px;
   }
   .upload-zone {
@@ -2037,7 +2037,11 @@ a:focus-visible {
   font-weight: 700;
   margin: 0;
   color: var(--ink);
-  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: break-word;
 }
 .app-shell .selection-card .selection-location {
   display: flex;
@@ -2053,13 +2057,24 @@ a:focus-visible {
   margin-top: 2px;
 }
 .app-shell .selection-card .selection-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 14px calc(12px + env(safe-area-inset-bottom));
+  flex: none;
+}
+.app-shell .selection-card .selection-actions-primary,
+.app-shell .selection-card .selection-actions-secondary {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
-  padding: 6px 14px 12px;
-  flex: none;
 }
-.app-shell .selection-card .selection-actions button {
+.app-shell .selection-card .selection-actions-primary:has(> :only-child),
+.app-shell .selection-card .selection-actions-secondary:has(> :only-child) {
+  grid-template-columns: 1fr;
+}
+.app-shell .selection-card .selection-actions button,
+.app-shell .selection-card .selection-actions a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2069,6 +2084,11 @@ a:focus-visible {
   padding: 8px;
   font-size: 13px;
   font-weight: 700;
+}
+.app-shell .selection-card .selection-similar {
+  min-height: 44px;
+  background: transparent;
+  color: var(--ink);
 }
 .app-shell .selection-card .selection-pager {
   display: flex;
@@ -2375,12 +2395,12 @@ a:focus-visible {
 }
 
 .app-shell .selection-card .selection-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 .app-shell .selection-card .selection-actions > .primary {
-  grid-column: 1 / -1;
+  width: 100%;
 }
 
 /* Agent profiles and per-listing location access */
@@ -2685,7 +2705,13 @@ a:focus-visible {
     height: 112px;
   }
   .activity-page .activity-tabs {
-    grid-template-columns: repeat(4, minmax(78px, 1fr));
+    display: flex;
+    overflow-x: auto;
+    grid-template-columns: none;
+    gap: 8px;
+  }
+  .activity-page .activity-tabs button {
+    flex: 1 0 88px;
   }
   .activity-page .activity-tab-label {
     font-size: 11px;

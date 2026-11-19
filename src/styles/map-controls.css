@@ -63,4 +63,9 @@
   .map-stage .recenter {
     bottom: calc(88px + env(safe-area-inset-bottom));
   }
+  .has-map-selection .map-stage .recenter {
+    top: 64px;
+    right: 12px;
+    bottom: auto;
+  }
 }

@@ -16,6 +16,22 @@ export function approximatePoint(point, radiusM = 500) {
         (111320 * Math.cos((point[0] * Math.PI) / 180)),
   ];
 }
+export function accessStatusLabel(status) {
+  switch (status) {
+    case "requested":
+      return "Request pending";
+    case "approved":
+      return "Location unlocked";
+    case "declined":
+      return "Request declined";
+    case "expired":
+      return "Access expired";
+    case "revoked":
+      return "Access revoked";
+    default:
+      return "Location locked";
+  }
+}
 export function accessStatus(request, now = Date.now()) {
   if (!request) return "unrequested";
   if (
