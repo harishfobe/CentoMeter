@@ -1,7 +1,11 @@
 import React, { memo } from "react";
-import { Heart } from "lucide-react";
+import { Heart, Phone } from "lucide-react";
 import { typeLabel } from "../PropertyTypes";
 import { publicAsset } from "../lib/publicAsset";
+import { notifyAgent } from "../lib/agentStore";
+import { listingContactLinks } from "../PropertyContact";
+import WhatsAppIcon from "./WhatsAppIcon";
+import WhatsAppLink from "./WhatsAppLink";
 import {
   landCardFooter,
   listingCardArea,
@@ -31,6 +35,41 @@ function PriceLine({ price, rate }) {
         </span>
       ) : null}
     </p>
+  );
+}
+
+function CardContact({ p }) {
+  const links = listingContactLinks(p);
+  const callLabel = "Call " + p.title;
+  const whatsappLabel = "WhatsApp " + p.title;
+  return (
+    <div className="listing-card-actions">
+      <WhatsAppLink
+        className="listing-card-whatsapp"
+        href={links.whatsapp || undefined}
+        aria-label={whatsappLabel}
+      >
+        <WhatsAppIcon size={32} />
+      </WhatsAppLink>
+      {links.call ? (
+        <a
+          className="listing-card-call"
+          href={links.call}
+          aria-label={callLabel}
+        >
+          <Phone size={18} aria-hidden="true" />
+        </a>
+      ) : (
+        <button
+          type="button"
+          className="listing-card-call"
+          aria-label={callLabel}
+          onClick={() => notifyAgent("Contact number not provided")}
+        >
+          <Phone size={18} aria-hidden="true" />
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -95,31 +134,46 @@ function PropertyCard({
       >
         <Heart size={18} fill={saved ? "currentColor" : "none"} />
       </button>
-      <button className="property-copy" onClick={() => onOpen(p)}>
-        <h3>{listingCardTitle(p)}</h3>
-        {feature ? (
-          <div className="listing-feature-metrics">
+      <div className="listing-row-main">
+        <button className="property-copy" onClick={() => onOpen(p)}>
+          <h3>{listingCardTitle(p)}</h3>
+          {feature ? (
+            <div className="listing-feature-metrics">
+              <PriceLine price={price} rate={rate} />
+              {area ? (
+                <p className="listing-row-area">{keepUnitsTogether(area)}</p>
+              ) : null}
+            </div>
+          ) : (
             <PriceLine price={price} rate={rate} />
-            {area ? (
-              <p className="listing-row-area">{keepUnitsTogether(area)}</p>
-            ) : null}
-          </div>
-        ) : (
-          <PriceLine price={price} rate={rate} />
-        )}
-        {feature && factParts.length ? (
-          <p className="listing-feature-facts">
-            {factParts.map((part) => (
-              <span key={part}>{part}</span>
-            ))}
-          </p>
-        ) : null}
-        {!feature && area ? <p className="listing-row-area">{area}</p> : null}
-        {!feature && facts ? (
-          <p className="listing-row-facts">{facts}</p>
-        ) : null}
-        {footer ? <p className="listing-row-footer">{footer}</p> : null}
-      </button>
+          )}
+          {feature && factParts.length ? (
+            <p className="listing-feature-facts">
+              {factParts.map((part) => (
+                <span key={part}>{part}</span>
+              ))}
+            </p>
+          ) : null}
+          {!feature && area ? <p className="listing-row-area">{area}</p> : null}
+          {!feature && facts ? (
+            <p className="listing-row-facts">{facts}</p>
+          ) : null}
+        </button>
+        <div className="listing-card-bar">
+          {footer ? (
+            <button
+              type="button"
+              className="listing-row-footer"
+              onClick={() => onOpen(p)}
+            >
+              {footer}
+            </button>
+          ) : (
+            <span className="listing-row-footer" />
+          )}
+          <CardContact p={p} />
+        </div>
+      </div>
     </article>
   );
 }

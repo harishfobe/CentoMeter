@@ -44,11 +44,7 @@ export function resolveListingContact(p, agent = null) {
     indianMobile(p.whatsapp || p.contactPhone || p.phone) ||
     null;
   const whatsappMessage = isAgent
-    ? "Hello, I am interested in " +
-      p.title +
-      " (" +
-      p.id +
-      ") on CentoMeter."
+    ? "Hello, I am interested in " + p.title + " (" + p.id + ") on CentoMeter."
     : "Hi, I saw your property on CentoMeter — " +
       p.title +
       " in " +
@@ -56,7 +52,9 @@ export function resolveListingContact(p, agent = null) {
       ". Please share more details.";
   const replyMins = agent?.responseTimeMins;
   const hasReplyEstimate =
-    replyMins != null && Number.isFinite(Number(replyMins)) && Number(replyMins) > 0;
+    replyMins != null &&
+    Number.isFinite(Number(replyMins)) &&
+    Number(replyMins) > 0;
   return {
     isAgent,
     name,
@@ -74,7 +72,7 @@ export function resolveListingContact(p, agent = null) {
       : null,
   };
 }
-function contactLinks(p) {
+export function listingContactLinks(p) {
   const phone = contactNumber(p.contactPhone || p.phone);
   const whatsapp = contactNumber(p.whatsapp || p.contactPhone || p.phone);
   return {
@@ -109,7 +107,7 @@ export function SellerProfile({ p }) {
   );
 }
 export function ContactButtons({ p }) {
-  const links = contactLinks(p);
+  const links = listingContactLinks(p);
   return (
     <div className="direct-contact">
       <div className="direct-contact-buttons">

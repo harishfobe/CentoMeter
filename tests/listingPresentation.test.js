@@ -146,9 +146,9 @@ describe("listing presentation accuracy", () => {
     expect(
       posterRole({ seller: "Builder", mode: "BUY", type: "Apartment" }),
     ).toBe("Builder");
-    expect(
-      posterRole({ seller: "Builder", mode: "BUY", type: "Villa" }),
-    ).toBe("Builder");
+    expect(posterRole({ seller: "Builder", mode: "BUY", type: "Villa" })).toBe(
+      "Builder",
+    );
     expect(
       posterRole({
         seller: "Builder",
@@ -270,7 +270,7 @@ describe("land listing card", () => {
       label: "DTCP claimed by seller",
     });
     expect(landCardFooter(plot, Date.parse("2026-11-18T12:00:00+05:30"))).toBe(
-      "Owner • Updated 2 days ago",
+      "Owner • Posted 2 days ago",
     );
   });
 

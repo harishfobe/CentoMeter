@@ -376,9 +376,9 @@ export function landCardUpdated(p, now = Date.now()) {
   if (!Number.isFinite(t) || t <= 0) return null;
   const days = Math.floor((now - t) / 86400000);
   if (days < 0) return null;
-  if (days === 0) return "Updated today";
-  if (days === 1) return "Updated 1 day ago";
-  return `Updated ${days} days ago`;
+  if (days === 0) return "Posted today";
+  if (days === 1) return "Posted 1 day ago";
+  return `Posted ${days} days ago`;
 }
 
 export function landCardFooter(p, now = Date.now()) {

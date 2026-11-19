@@ -22,7 +22,7 @@ export default function WhatsAppLink({
     return (
       <button
         type="button"
-        className={props.className}
+        {...props}
         onClick={() => notifyAgent("No WhatsApp number is listed.")}
       >
         {children}

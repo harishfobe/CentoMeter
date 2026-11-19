@@ -138,14 +138,75 @@
   line-height: 1.25;
 }
 
+.property-card.listing-row .listing-row-main {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-width: 0;
+  min-height: 110px;
+}
+
+.property-card.listing-row .listing-row-main > .property-copy,
+.property-grid .property-card.listing-row .listing-row-main > .property-copy,
+.home-card-stack .property-card.listing-row .listing-row-main > .property-copy,
+.saved-grid .property-card.listing-row .listing-row-main > .property-copy,
+.property-card-stack
+  .property-card.listing-row
+  .listing-row-main
+  > .property-copy {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.property-card.listing-row .listing-card-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  min-width: 0;
+}
+
 .property-card.listing-row .listing-row-footer {
-  margin: auto 0 0;
-  padding-top: 4px;
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
   min-width: 0;
   color: var(--muted);
   font-size: 12px;
   font-weight: 500;
   line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+}
+
+.listing-card-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.listing-card-whatsapp,
+.listing-card-call {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+}
+
+.listing-card-whatsapp {
+  background: transparent;
+}
+
+.listing-card-call {
+  background: #1c6feb;
+  color: #fff;
 }
 
 /* Results list only. Photo on top, price and area beside each other.
@@ -194,7 +255,12 @@
 .property-grid .property-card.listing-row.listing-feature .property-copy {
   display: block;
   min-height: 0;
-  padding: 12px 14px 14px;
+  padding: 12px 14px 0;
+}
+
+.property-grid .property-card.listing-feature .listing-card-bar {
+  margin-top: 12px;
+  padding: 0 14px 12px;
 }
 
 .property-grid .property-card.listing-row.listing-feature .property-copy h3 {
@@ -292,9 +358,12 @@
 }
 
 .property-grid .property-card.listing-feature .listing-row-footer {
-  margin: 12px 0 0;
+  margin: 0;
   padding-top: 0;
+  overflow: hidden;
   color: var(--muted);
   font-size: 13px;
   font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
