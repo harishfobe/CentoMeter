@@ -207,12 +207,9 @@ function WhatsAppGlyph() {
 }
 
 function contactStatus(contact) {
-  if (contact.isAgent) {
-    return contact.hasReplyEstimate
-      ? `Partner agent • Replies in ${contact.replyLabel}`
-      : "Partner agent";
-  }
-  return contact.role;
+  if (contact.isAgent) return "agent";
+  if (contact.role === "Builder") return "builder";
+  return "owner";
 }
 
 /** Fixed dual-action contact bar for property and agent listing details. */
@@ -242,12 +239,12 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
               message={contact.whatsappMessage}
             >
               <WhatsAppGlyph />
-              <span>Chat on WhatsApp</span>
+              <span>WhatsApp</span>
             </WhatsAppLink>
           ) : (
             <button type="button" className="sticky-contact-whatsapp" disabled>
               <WhatsAppGlyph />
-              <span>Chat on WhatsApp</span>
+              <span>WhatsApp</span>
             </button>
           )}
           {contact.callHref ? (

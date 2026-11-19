@@ -2787,10 +2787,11 @@ a:focus-visible {
 .sticky-contact-status {
   display: block;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 11px;
   line-height: 1.3;
   color: var(--muted);
-  white-space: normal;
 }
 .sticky-contact-online,
 .sticky-contact-reply,
@@ -2829,23 +2830,18 @@ a:focus-visible {
   justify-content: center;
   gap: 6px;
   flex: 0 0 auto;
-  max-width: 148px;
   min-height: 44px;
   min-width: 44px;
-  padding: 7px 12px;
+  padding: 10px 14px;
   border: 0;
   border-radius: 16px;
   background: var(--brand);
   color: var(--brand-on);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
-  line-height: 1.15;
-  text-align: left;
-  white-space: normal;
+  line-height: 1.2;
+  white-space: nowrap;
   text-decoration: none;
-}
-.sticky-contact-whatsapp span {
-  max-width: 8.6ch;
 }
 .sticky-contact-whatsapp svg {
   width: 18px;
