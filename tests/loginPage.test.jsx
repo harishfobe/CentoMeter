@@ -10,7 +10,7 @@ it("asks for a valid email and password before logging in", () => {
   const onSignIn = vi.fn();
   render(<LoginPage onSignIn={onSignIn} />);
   expect(screen.getByRole("img", { name: "CentoMeter" }).getAttribute("src")).toBe(
-    "/centometer-login-logo.jpg",
+    "/centometer-header-logo.png",
   );
   fireEvent.click(screen.getByRole("button", { name: "Log in" }));
   expect(screen.getByRole("alert").textContent).toMatch(/valid email/i);

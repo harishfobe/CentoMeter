@@ -199,10 +199,10 @@ export default function LoginPage({ onSignIn }) {
       </h1>
       <img
         className="login-logo"
-        src="/centometer-login-logo.jpg"
+        src="/centometer-header-logo.png"
         alt="CentoMeter"
-        width="1126"
-        height="730"
+        width="1113"
+        height="605"
       />
       {step === "otp" ? (
         <form className="login-form" onSubmit={verify} noValidate>
