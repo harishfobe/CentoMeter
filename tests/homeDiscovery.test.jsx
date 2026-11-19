@@ -156,8 +156,9 @@ it("ends Home with local agents, without a full-list footer or invented ratings"
   ).toBeTruthy();
   expect(screen.queryByText("Other City")).toBeNull();
   expect(
-    within(footer).getByText(/Customer ratings aren't available yet/),
-  ).toBeTruthy();
+    within(footer).queryByText(/Customer ratings aren't available yet/),
+  ).toBeNull();
+  expect(within(footer).queryByText(/Local experts near you/)).toBeNull();
   expect(
     screen.queryByRole("button", { name: "Browse all properties" }),
   ).toBeNull();

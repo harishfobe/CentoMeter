@@ -82,7 +82,6 @@ export default function HomeDiscovery({
       <div className="home-section-heading">
         <div>
           <h2>Featured local agents</h2>
-          <p>Local experts near you · Customer ratings aren't available yet</p>
         </div>
         <button className="text-button" onClick={() => onNavigate("agents")}>
           See all agents <ArrowRight size={14} aria-hidden="true" />
