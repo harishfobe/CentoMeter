@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { ArrowLeft, Check, MapPin, Plus } from "lucide-react";
+import { ArrowLeft, MapPin } from "lucide-react";
 import properties from "./data/properties.json";
 import { featuredAreas, landmarkSuggestions } from "./data/cities";
 import {
@@ -418,13 +418,6 @@ export default function SearchDiscovery({
                             <strong>{item.name}</strong>
                             <small>{localityDetail(item)}</small>
                           </span>
-                        </span>
-                        <span className="add-circle">
-                          {text === item.name ? (
-                            <Check size={15} />
-                          ) : (
-                            <Plus size={15} />
-                          )}
                         </span>
                       </button>
                     ))}
