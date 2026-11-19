@@ -2527,7 +2527,7 @@ export default function App() {
                   [Info, "Help & support", "help"],
                   [Shield, "Privacy Policy", "privacy"],
                   [ScrollText, "Terms of use", "terms"],
-                  [Info, "About this prototype", "about"],
+                  [Info, "About CentoMeter", "about"],
                 ].map(([Icon, label, key]) => (
                   <button
                     key={key}
