@@ -106,11 +106,40 @@ describe("land rent display and visits", () => {
   });
   it("shows sticky contact actions and keeps visit on the map card", () => {
     const bar = renderToStaticMarkup(<StickyContactBar property={p} />);
-    expect(bar).toContain("Chat on WhatsApp");
-    expect(bar).toContain("Property Owner");
-    expect(bar).toContain("Direct contact");
+    expect(bar).toContain(">WhatsApp<");
+    expect(bar).not.toContain("Chat on WhatsApp");
+    expect(bar).toContain('class="sticky-contact-status">owner<');
+    expect(bar).not.toContain("Property Owner");
+    expect(bar).not.toContain("Direct contact");
     expect(bar).not.toContain("Online");
-    expect(bar).not.toContain("Replies in 10 mins");
+    expect(bar).not.toContain("Replies in");
+    const agentBar = renderToStaticMarkup(
+      <StickyContactBar
+        property={{ ...p, seller: "Agent", agentId: "a1" }}
+        agent={{
+          name: "Ananya Rao",
+          responseTimeMins: 15,
+          avatar: "/agent-ananya.svg",
+        }}
+      />,
+    );
+    expect(agentBar).toContain("Ananya Rao");
+    expect(agentBar).toContain('class="sticky-contact-status">agent<');
+    expect(agentBar).not.toContain("Partner agent");
+    expect(agentBar).not.toContain("Replies in");
+    expect(agentBar).toContain(">WhatsApp<");
+    const builderBar = renderToStaticMarkup(
+      <StickyContactBar
+        property={{
+          ...p,
+          seller: "Builder",
+          type: "Apartment",
+          mode: "BUY",
+          intent: "BUY",
+        }}
+      />,
+    );
+    expect(builderBar).toContain('class="sticky-contact-status">builder<');
     const card = renderToStaticMarkup(
       <SelectedPropertySheet
         p={p}
@@ -275,9 +304,8 @@ describe("draft and photo writes", () => {
 });
 describe("clean sample data", () => {
   it("has consistent category fields, unique city titles and prices, dates and photos", async () => {
-    const { auditSampleData, formatAuditReport } = await import(
-      "../tools/sampleDataInvariants.mjs"
-    );
+    const { auditSampleData, formatAuditReport } =
+      await import("../tools/sampleDataInvariants.mjs");
     const report = auditSampleData({ properties });
     if (!report.ok) {
       throw new Error(formatAuditReport(report));
