@@ -8,6 +8,7 @@ import { landPrice } from "../JourneyUX";
 import { priceBasis } from "../Journeys";
 import { pinPrice } from "../PlotUI";
 import { developerFor } from "../SearchSuggestions";
+import { builderMayList } from "../listingFit";
 import { publicAsset } from "../lib/publicAsset";
 
 const photo = (p) =>
@@ -43,7 +44,7 @@ export default function HomeDiscovery({
         items.find((p) => ["Villa", "Independent House"].includes(p.type)) ||
         items[0];
       const projects = items
-        .filter((p) => p.mode === "BUY" && p.seller === "Builder")
+        .filter((p) => p.seller === "Builder" && builderMayList(p))
         .slice(0, 3);
       const popular = [...items]
         .sort(

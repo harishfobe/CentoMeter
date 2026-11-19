@@ -11,7 +11,14 @@ import {
 import HomeDiscovery from "../src/components/HomeDiscovery";
 import properties from "../src/data/properties.json";
 const home = properties[0];
-const builder = { ...properties[2], seller: "Builder", mode: "BUY" };
+const builder = {
+  ...properties[0],
+  id: "builder-apt",
+  seller: "Builder",
+  mode: "BUY",
+  type: "Apartment",
+  title: "Builder Palm Residences",
+};
 const defaults = {
   items: [home, builder],
   city: "Coimbatore",

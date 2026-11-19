@@ -307,7 +307,20 @@ export default function SearchDiscovery({
               onClick={() => {
                 const area = text.trim();
                 rememberArea(area);
-                onApply({ ...f, seller: "Builder" }, area, intent);
+                const housing = [
+                  "Independent House",
+                  "Villa",
+                  "Apartment",
+                ].includes(f.type);
+                onApply(
+                  {
+                    ...f,
+                    seller: "Builder",
+                    ...(housing ? {} : { type: "All", subtype: "Any" }),
+                  },
+                  area,
+                  "BUY",
+                );
               }}
             >
               Projects nearby

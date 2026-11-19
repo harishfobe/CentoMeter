@@ -1,6 +1,7 @@
 import React from "react";
 import { landNumber, positive, toCents } from "./LandMeasurements";
 import { hasValue, money } from "./PropertyModel";
+import { listedByRole } from "./listingFit";
 import { statusLabel } from "./lib/agents";
 import {
   WATER_SOURCES,
@@ -598,7 +599,7 @@ export function HouseVillaSummary({
       {typeof onReport === "function" ? (
         <div className="land-listing-meta">
           <span>
-            Listed by {p.seller || "Owner"}
+            Listed by {listedByRole(p)}
             {p.freshness ? ` · ${p.freshness}` : ""}
           </span>
           <button type="button" className="text-button" onClick={onReport}>

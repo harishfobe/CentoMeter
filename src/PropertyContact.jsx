@@ -1,6 +1,7 @@
 import WhatsAppLink from "./components/WhatsAppLink";
 import React from "react";
 import { exactLocation } from "./lib/locationAccess";
+import { listedByRole } from "./listingFit";
 import { indianMobile } from "./PropertyModel";
 import { Phone, UserRound } from "lucide-react";
 import WhatsAppIcon from "./components/WhatsAppIcon";
@@ -25,13 +26,14 @@ export function resolveListingContact(p, agent = null) {
   const isAgent = Boolean(
     agent || p.agentId || p.seller === "Agent" || p.contactType === "agent",
   );
+  const listed = listedByRole(p);
   const name =
     agent?.name ||
     p.contactName ||
-    (isAgent ? "Agent" : p.seller === "Builder" ? "Builder" : "Property owner");
+    (isAgent ? "Agent" : listed === "Builder" ? "Builder" : "Property owner");
   const role = isAgent
     ? "Partner"
-    : p.seller === "Builder"
+    : listed === "Builder"
       ? "Builder"
       : "Property Owner";
   const callDigits = contactNumber(
@@ -101,7 +103,7 @@ export function SellerProfile({ p }) {
       </span>
       <div>
         <strong>{p.contactName || "Property owner"}</strong>
-        <small>{p.seller || "Owner"}</small>
+        <small>{listedByRole(p)}</small>
       </div>
     </div>
   );

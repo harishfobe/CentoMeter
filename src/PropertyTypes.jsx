@@ -104,6 +104,7 @@ export default function PropertyTypes({
   compact = false,
   deselectable = false,
   expanded,
+  types,
 }) {
   // Browse pages start collapsed until Buy or Rent is tapped. The parent owns
   // that toggle so each tab is handled in its own click, before mode changes.
@@ -154,7 +155,7 @@ export default function PropertyTypes({
             <span>All</span>
           </button>
         )}
-        {typesFor(mode).map((type) => {
+        {(types || typesFor(mode)).map((type) => {
           const { label, mobileLabel, Icon, description } =
             propertyTypeDetails[type];
           const selected = selectedType === type;

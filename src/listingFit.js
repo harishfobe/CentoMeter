@@ -182,6 +182,38 @@ export function matchesCommercialFacility(pool, feature) {
   return false;
 }
 
+const BUILDER_PROPERTY_TYPES = new Set([
+  "Independent House",
+  "Villa",
+  "Apartment",
+]);
+
+/** Builders list only houses, villas, and apartments, and only for sale. */
+export function builderMayList(p) {
+  if (!p) return false;
+  const rent = p.intent === "RENT" || p.mode === "RENT";
+  return !rent && BUILDER_PROPERTY_TYPES.has(p.type);
+}
+
+/** Owner / Agent / Builder shown on cards. Builder is dropped when it is not allowed. */
+export function listedByRole(p) {
+  if (!p) return "Owner";
+  if (
+    p.agentId ||
+    p.seller === "Agent" ||
+    p.contactType === "agent" ||
+    /^agent$/i.test(String(p.posterRole || ""))
+  ) {
+    return "Agent";
+  }
+  const builder =
+    p.seller === "Builder" ||
+    p.contactType === "builder" ||
+    /^builder$/i.test(String(p.posterRole || ""));
+  if (builder && builderMayList(p)) return "Builder";
+  return "Owner";
+}
+
 /** Match floor filter bands (Ground / 1–3 / 4+) to numeric or labelled floors. */
 export function matchesFloorFilter(floor, filterValue) {
   if (!filterValue || filterValue === "Any") return true;

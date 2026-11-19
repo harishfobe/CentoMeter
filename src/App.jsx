@@ -115,6 +115,7 @@ import {
   typeTransactionLine,
   configurationLabel,
   furnishingLabel,
+  posterRole,
 } from "./listingPresentation";
 
 import { mobileQuery } from "./MapInteractions";
@@ -2016,7 +2017,7 @@ export default function App() {
                   !usesPgDetailLayout(detail) && (
                   <div className="listing-trust">
                     <span>
-                      Listed by {detail.seller} · {detail.freshness}
+                      Listed by {posterRole(detail)} · {detail.freshness}
                     </span>
                     <button
                       className="text-button"

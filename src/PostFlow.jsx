@@ -100,7 +100,35 @@ import {
   LAND_ROAD_ACCESS_OPTIONS,
   DECLARATION_YES_NO_UNSURE,
   DECLARATION_YES_NO_NA_UNSURE,
+  builderMayList,
 } from "./listingFit";
+function dropBuilderIfNeeded(next, isAgent) {
+  if (
+    (next.seller === "Builder" || next.posterRole === "Builder") &&
+    !builderMayList(next)
+  ) {
+    const role = isAgent ? "Agent" : "Owner";
+    next.seller = role;
+    next.posterRole = role;
+  }
+  return next;
+}
+function PosterRoleSelect({ value, options, onChange, agent }) {
+  const selected = options.includes(value) ? value : options[0];
+  return (
+    <label>
+      Poster role
+      <select value={selected} onChange={(e) => onChange(e.target.value)}>
+        {options.map((option) => (
+          <option key={option}>{option}</option>
+        ))}
+      </select>
+      {agent ? (
+        <small>Inherited from your agent profile when blank.</small>
+      ) : null}
+    </label>
+  );
+}
 export default function PostFlow({
   onExit,
   onComplete,
@@ -131,6 +159,14 @@ export default function PostFlow({
     ...emptyData,
     ...(initialDraft || readLocal("centometer-draft", null)?.data || {}),
   }));
+  useEffect(() => {
+    if (
+      (data.seller === "Builder" || data.posterRole === "Builder") &&
+      !builderMayList(data)
+    ) {
+      setData((current) => dropBuilderIfNeeded({ ...current }, agent));
+    }
+  }, [data, agent]);
   const [photosReady, setPhotosReady] = useState(false);
   const [discardOpen, setDiscardOpen] = useState(false);
   const [finishing, setFinishing] = useState(false);
@@ -267,7 +303,7 @@ export default function PostFlow({
         );
         next.beds = "";
       }
-      return next;
+      return dropBuilderIfNeeded(next, agent);
     });
     setError("");
   };
@@ -300,7 +336,7 @@ export default function PostFlow({
           next.carParking = intent === "RENT" ? "" : next.carParking;
         }
       }
-      return next;
+      return dropBuilderIfNeeded(next, agent);
     });
     setError("");
   };
@@ -796,7 +832,11 @@ export default function PostFlow({
                 role="group"
                 aria-label="Listing purpose"
               >
-                {["SELL", "RENT"].map((i) => (
+                {(
+                  data.posterRole === "Builder" || data.seller === "Builder"
+                    ? ["SELL"]
+                    : ["SELL", "RENT"]
+                ).map((i) => (
                   <button
                     type="button"
                     key={i}
@@ -811,6 +851,11 @@ export default function PostFlow({
               <PropertyTypes
                 mode={data.intent}
                 value={data.type}
+                types={
+                  data.posterRole === "Builder" || data.seller === "Builder"
+                    ? ["Independent House", "Villa", "Apartment"]
+                    : undefined
+                }
                 onChange={(t) => {
                   if (t !== data.type) chooseType(t);
                 }}
@@ -824,6 +869,21 @@ export default function PostFlow({
                   ? "Land details"
                   : "Tell the story of your property."}
               </h2>
+              {builderMayList(data) && (
+                <PosterRoleSelect
+                  value={
+                    data.posterRole ||
+                    data.seller ||
+                    (agent ? "Agent" : "Owner")
+                  }
+                  options={["Owner", "Agent", "Builder"]}
+                  agent={agent}
+                  onChange={(role) => {
+                    set("posterRole", role);
+                    set("seller", role);
+                  }}
+                />
+              )}
               <label>
                 Listing title
                 <input
@@ -1462,26 +1522,18 @@ export default function PostFlow({
               )}
               {data.type === "Land" && (
                 <div className="land-post-progressive">
-                  <label>
-                    Poster role
-                    <select
-                      value={
-                        data.posterRole ||
-                        (agent ? "Agent" : data.seller || "Owner")
-                      }
-                      onChange={(e) => {
-                        set("posterRole", e.target.value);
-                        set("seller", e.target.value);
-                      }}
-                    >
-                      <option>Owner</option>
-                      <option>Agent</option>
-                      <option>Builder</option>
-                    </select>
-                    {agent ? (
-                      <small>Inherited from your agent profile when blank.</small>
-                    ) : null}
-                  </label>
+                  <PosterRoleSelect
+                    value={
+                      data.posterRole ||
+                      (agent ? "Agent" : data.seller || "Owner")
+                    }
+                    options={["Owner", "Agent"]}
+                    agent={agent}
+                    onChange={(role) => {
+                      set("posterRole", role);
+                      set("seller", role);
+                    }}
+                  />
                   <LandFields data={data} set={set} />
                   <section
                     className="land-declarations"
@@ -2479,12 +2531,16 @@ export default function PostFlow({
                   }
                   setFinishing(true);
                   try {
-                    await onComplete({
-                      ...data,
-                      id: draftId.current,
-                      createdAt: data.createdAt || new Date().toISOString(),
-                      postedAt: data.postedAt || new Date().toISOString(),
-                    });
+                    const posted = dropBuilderIfNeeded(
+                      {
+                        ...data,
+                        id: draftId.current,
+                        createdAt: data.createdAt || new Date().toISOString(),
+                        postedAt: data.postedAt || new Date().toISOString(),
+                      },
+                      agent,
+                    );
+                    await onComplete(posted);
                     await stopDraft();
                     const removed = await removeDraft(draftId.current);
                     if (mounted.current && !removed)

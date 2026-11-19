@@ -3,6 +3,7 @@ import { CheckCircle2 } from "lucide-react";
 import { hasValue, money } from "./PropertyModel";
 import { rentAvailableFromLabel } from "./HouseVillaDetails";
 import { isAffirmativeAvailability } from "./listingPresentation";
+import { listedByRole } from "./listingFit";
 
 export const isCommercial = (type) => type === "Commercial";
 
@@ -418,7 +419,7 @@ export function CommercialSummary({
       {typeof onReport === "function" ? (
         <div className="land-listing-meta">
           <span>
-            Listed by {p.seller || "Owner"}
+            Listed by {listedByRole(p)}
             {p.freshness ? ` · ${p.freshness}` : ""}
           </span>
           <button type="button" className="text-button" onClick={onReport}>

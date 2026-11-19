@@ -9,6 +9,7 @@ import { landNumber, positive, toCents } from "./LandMeasurements";
 import { approvalLabels } from "./PlotUI";
 import { landPrice } from "./JourneyUX";
 import { canonicalizePropertyType, PROPERTY_TYPE } from "./propertyTypeIds";
+import { listedByRole } from "./listingFit";
 
 export function transactionLabel(mode) {
   return mode === "RENT" ? "For rent" : "For sale";
@@ -168,23 +169,7 @@ export function maintenanceLabel(
 
 /** Poster role for cards/detail: Owner / Agent / Builder. */
 export function posterRole(p) {
-  if (!p) return "Owner";
-  if (
-    p.agentId ||
-    p.seller === "Agent" ||
-    p.contactType === "agent" ||
-    /^agent$/i.test(String(p.posterRole || ""))
-  ) {
-    return "Agent";
-  }
-  if (
-    p.seller === "Builder" ||
-    p.contactType === "builder" ||
-    /^builder$/i.test(String(p.posterRole || ""))
-  ) {
-    return "Builder";
-  }
-  return "Owner";
+  return listedByRole(p);
 }
 
 export function postedByLine(p) {
@@ -397,7 +382,7 @@ export function landCardUpdated(p, now = Date.now()) {
 }
 
 export function landCardFooter(p, now = Date.now()) {
-  const role = hasValue(p?.seller) ? String(p.seller).trim() : null;
+  const role = posterRole(p);
   return [role, landCardUpdated(p, now)].filter(Boolean).join(" • ") || null;
 }
 

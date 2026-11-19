@@ -451,7 +451,7 @@
     "area": 2620,
     "image": "land",
     "tag": "Corner plot",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Road access",
@@ -563,7 +563,7 @@
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -699,7 +699,7 @@
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -1155,7 +1155,7 @@
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -1282,7 +1282,7 @@
     "image": "villa",
     "tag": "Premium home",
     "furnishing": "Unfurnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
@@ -1418,7 +1418,7 @@
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -1681,7 +1681,7 @@
     "area": 2460,
     "image": "land",
     "tag": "Corner plot",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Road access",
@@ -2022,7 +2022,7 @@
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -2148,7 +2148,7 @@
     "image": "villa",
     "tag": "Premium home",
     "furnishing": "Unfurnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
@@ -2515,7 +2515,7 @@
     "area": 2540,
     "image": "land",
     "tag": "Corner plot",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Road access",
@@ -2641,7 +2641,7 @@
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -2967,7 +2967,7 @@
     "area": 2460,
     "image": "land",
     "tag": "Corner plot",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Road access",
@@ -3187,7 +3187,7 @@
     "image": "villa",
     "tag": "Premium home",
     "furnishing": "Unfurnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
@@ -3317,7 +3317,7 @@
     "image": "apartment",
     "tag": "New arrival",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -3580,7 +3580,7 @@
     "area": 2460,
     "image": "land",
     "tag": "Corner plot",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Road access",
@@ -3918,7 +3918,7 @@
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
@@ -4038,7 +4038,7 @@
     "image": "villa",
     "tag": "Premium home",
     "furnishing": "Unfurnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Parking",
@@ -4405,7 +4405,7 @@
     "area": 2540,
     "image": "land",
     "tag": "Corner plot",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Within 30 days",
     "features": [
       "Road access",
@@ -4531,7 +4531,7 @@
     "image": "villa",
     "tag": "Owner listed",
     "furnishing": "Semi-furnished",
-    "seller": "Builder",
+    "seller": "Owner",
     "available": "Ready now",
     "features": [
       "Parking",
