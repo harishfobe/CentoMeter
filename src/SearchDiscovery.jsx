@@ -15,9 +15,9 @@ import { priceWithBasis } from "./listingPresentation";
 import { typeLabel } from "./PropertyTypes";
 import { localityPrice, orderedLocalities } from "./SearchSuggestions";
 
-function nearestListedArea(point) {
+function nearestListedArea(point, source) {
   const foundCity = cityForLocation(point);
-  const pool = properties.filter(
+  const pool = source.filter(
     (property) =>
       property.locality &&
       Number.isFinite(property.lat) &&
@@ -43,6 +43,7 @@ export default function SearchDiscovery({
   mode,
   filters,
   items,
+  catalog,
   onBack,
   onApply,
   onOpen,
@@ -61,9 +62,10 @@ export default function SearchDiscovery({
   const [history, setHistory] = useState(() =>
     readLocal("centometer-search-history", []),
   );
+  const source = catalog || properties;
   const cityListings = useMemo(
-    () => properties.filter((property) => property.city === city),
-    [city],
+    () => source.filter((property) => property.city === city),
+    [source, city],
   );
   const rememberArea = (name) => {
     const term = (name || "").trim();
@@ -85,7 +87,7 @@ export default function SearchDiscovery({
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const point = [position.coords.latitude, position.coords.longitude];
-        const place = nearestListedArea(point);
+        const place = nearestListedArea(point, source);
         setLocating(false);
         if (!place.label) {
           setLocated(false);
