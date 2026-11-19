@@ -204,9 +204,30 @@
   background: transparent;
 }
 
+.listing-card-whatsapp img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
 .listing-card-call {
-  background: #1c6feb;
+  background: transparent;
   color: #fff;
+}
+
+.listing-card-call::before {
+  content: "";
+  grid-area: 1 / 1;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.listing-card-call svg {
+  grid-area: 1 / 1;
+  width: 18px;
+  height: 18px;
 }
 
 /* Results list only. Photo on top, price and area beside each other.
