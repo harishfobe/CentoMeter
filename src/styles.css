@@ -1864,8 +1864,10 @@ textarea {
 .profile-links button > span {
   flex: 1;
 }
-.profile-links button:hover {
-  color: var(--brand-active);
+@media (hover: hover) and (pointer: fine) {
+  .profile-links button:hover {
+    color: var(--brand-active);
+  }
 }
 .profile-card > .primary {
   width: 100%;
@@ -2718,8 +2720,10 @@ textarea {
   letter-spacing: 0.06em;
   border-radius: 4px;
 }
-.header-post:hover {
-  background: var(--brand-active);
+@media (hover: hover) and (pointer: fine) {
+  .header-post:hover {
+    background: var(--brand-active);
+  }
 }
 .explore-layout {
   height: calc(100dvh - 396px);
@@ -2773,9 +2777,11 @@ textarea {
   width: 15px;
   height: 15px;
 }
-.list-map-button:hover {
-  background: var(--canvas);
-  border-color: var(--line);
+@media (hover: hover) and (pointer: fine) {
+  .list-map-button:hover {
+    background: var(--canvas);
+    border-color: var(--line);
+  }
 }
 @media (max-width: 420px) {
   .results-layout .results-heading h2 {
@@ -2898,9 +2904,13 @@ textarea {
   min-height: 60px;
   border-radius: 9px;
 }
-.suggestion-option:hover,
 .suggestion-option[aria-selected="true"] {
   background: var(--brand-soft);
+}
+@media (hover: hover) and (pointer: fine) {
+  .suggestion-option:hover {
+    background: var(--brand-soft);
+  }
 }
 .suggestion-icon {
   display: grid;
@@ -3758,9 +3768,11 @@ textarea {
   box-shadow: 0 3px 14px color-mix(in srgb, var(--ink) 3%, transparent);
   transition: none;
 }
-.activity-tabs button:hover {
-  color: var(--brand-active);
-  border-color: var(--line);
+@media (hover: hover) and (pointer: fine) {
+  .activity-tabs button:hover {
+    color: var(--brand-active);
+    border-color: var(--line);
+  }
 }
 .activity-tabs button.active {
   color: var(--brand-active);

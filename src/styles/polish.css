@@ -1,0 +1,190 @@
+/* Mobile craft polish. Presentation only: type, press, motion, surfaces, and placeholders.
+   Loaded last so it wins the cascade without changing layout structure. */
+
+:root {
+  --hairline: color-mix(in srgb, var(--ink) 8%, transparent);
+  --caption: #52525b;
+}
+
+.price,
+.listing-row-price,
+.listing-row-rate,
+.listing-row-area,
+.listing-row-facts,
+.desk-price,
+.desk-metrics strong,
+.desk-funnel strong,
+.agent-rental-costs dd,
+.profile-stats strong,
+.agent-reply-badge,
+.price-marker,
+.price-marker span,
+.selection-price,
+.selection-price strong,
+.agent-result-count,
+.home-map-footer,
+.land-summary dd,
+.compare-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+.page-intro h1,
+.legal-page h1,
+.search-discovery-top h1,
+.explore-heading h1,
+.empty :is(h1, h2, h3),
+.modal h2,
+.login-otp-copy {
+  text-wrap: balance;
+}
+
+.empty p,
+.legal-copy p,
+.page-intro p,
+.fine-print,
+.muted,
+.login-note,
+.login-otp-phone {
+  text-wrap: pretty;
+}
+
+.location-line,
+.selection-location,
+.agent-land-location {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.listing-row-footer,
+.location-line,
+.selection-location,
+.card-meta,
+.fine-print,
+.empty p {
+  color: var(--caption);
+}
+
+.property-card,
+.profile-card,
+.activity-tabs button,
+.request-card,
+.agent-card,
+.draft-card {
+  border-color: var(--hairline);
+}
+
+.property-card.listing-row {
+  box-shadow: none;
+}
+
+.property-card .badge,
+.property-card .pill,
+.agent-card .pill {
+  border-radius: 8px;
+}
+
+.empty {
+  gap: 12px;
+}
+.empty > svg {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.empty :is(h1, h2, h3) {
+  color: var(--ink);
+}
+.empty .primary,
+.empty .secondary {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.property-image,
+.agent-photo-strip,
+.agent-card img {
+  background: color-mix(in srgb, var(--muted) 10%, var(--canvas));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .property-image img,
+  .agent-photo-strip img,
+  .agent-card img {
+    animation: polish-photo-in 180ms var(--ease-out) both;
+  }
+  @keyframes polish-photo-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .toast,
+  .agent-toast {
+    animation-duration: 180ms;
+    animation-timing-function: var(--ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .property-image img,
+  .agent-photo-strip img,
+  .agent-card img,
+  .toast,
+  .agent-toast {
+    animation: none;
+  }
+}
+
+.loading-fields {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: 12px;
+  background: transparent;
+}
+.loading-fields .loading-line {
+  height: 48px;
+  margin: 0;
+  border-radius: 12px;
+}
+.loading-form .loading-card.loading-fields {
+  min-height: 0;
+}
+.loading-detail .loading-card {
+  min-height: 0;
+}
+.loading-detail .loading-photo {
+  height: 220px;
+  border-radius: 16px;
+}
+
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+  .app-shell input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  .app-shell select,
+  .app-shell textarea {
+    font-size: 16px;
+  }
+  .app-shell .agent-filter-bar .chips > *,
+  .app-shell .agent-public .agent-filter-bar > .chips > * {
+    min-height: 44px;
+  }
+  .modal-scrim {
+    padding-top: max(24px, env(safe-area-inset-top));
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+  .modal {
+    padding-bottom: calc(26px + env(safe-area-inset-bottom));
+  }
+  .toast {
+    bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+}

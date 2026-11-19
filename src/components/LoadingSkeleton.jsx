@@ -1,5 +1,14 @@
 import React from "react";
-function CardPlaceholder({ agent }) {
+function CardPlaceholder({ agent, fields }) {
+  if (fields) {
+    return (
+      <div className="loading-card loading-fields">
+        {Array.from({ length: 4 }, (_, i) => (
+          <div key={i} className="loading-line" />
+        ))}
+      </div>
+    );
+  }
   return (
     <div className="loading-card">
       {agent && (
@@ -33,7 +42,7 @@ export default function LoadingSkeleton({ kind = "finder" }) {
         {Array.from(
           { length: ["finder", "profile"].includes(kind) ? 3 : 1 },
           (_, i) => (
-            <CardPlaceholder key={i} agent={agent} />
+            <CardPlaceholder key={i} agent={agent} fields={kind === "form"} />
           ),
         )}
       </div>
