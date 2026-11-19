@@ -3696,6 +3696,9 @@ textarea {
   margin-top: 12px;
   color: var(--sold);
 }
+.modal .profile-delete {
+  color: var(--sold);
+}
 /* Shared interactive states; the current palette is defined in minimal.css. */
 .primary {
   background: var(--brand);

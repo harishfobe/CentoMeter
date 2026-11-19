@@ -30,8 +30,8 @@ export default function LegalNotice({ kind, onBack }) {
           </p>
           <p>
             Sign out keeps that information on the device. Delete account, in
-            Profile, removes the account, saved homes, drafts, and requests from
-            this device. Clearing the browser’s site data does the same.
+            Edit profile, removes the account, saved homes, drafts, and requests
+            from this device. Clearing the browser’s site data does the same.
           </p>
         </div>
       ) : (
