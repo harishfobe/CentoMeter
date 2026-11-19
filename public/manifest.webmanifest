@@ -2,14 +2,14 @@
   "name": "CentoMeter",
   "short_name": "CentoMeter",
   "description": "An illustrative real estate marketplace",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF",
   "icons": [
     {
-      "src": "/centometer-favicon.svg",
+      "src": "centometer-favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

@@ -16,19 +16,23 @@
     <title>CentoMeter — Find your place</title>
     <link
       rel="preload"
-      href="/fonts/InterVariable.woff2"
+      href="%BASE_URL%fonts/InterVariable.woff2"
       as="font"
       type="font/woff2"
       crossorigin
     />
-    <link rel="icon" type="image/svg+xml" href="/centometer-favicon.svg?v=3" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="%BASE_URL%centometer-favicon.svg?v=3"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="CentoMeter — Find your place" />
     <meta
       property="og:description"
       content="Explore illustrative homes, plots and local property agents with CentoMeter."
     />
-    <meta property="og:image" content="/centometer-logo.png" />
+    <meta property="og:image" content="%BASE_URL%centometer-logo.png" />
     <meta property="og:image:alt" content="CentoMeter logo" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="CentoMeter — Find your place" />
@@ -36,8 +40,8 @@
       name="twitter:description"
       content="Explore illustrative homes, plots and local property agents with CentoMeter."
     />
-    <meta name="twitter:image" content="/centometer-logo.png" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="twitter:image" content="%BASE_URL%centometer-logo.png" />
+    <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
   </head>
   <body>
     <script>
@@ -47,7 +51,7 @@
           window.innerWidth > 480)
       ) {
         window.location.replace(
-          "/mobile-preview.html" + (window.location.hash || "#home"),
+          "%BASE_URL%mobile-preview.html" + (window.location.hash || "#home"),
         );
       }
     </script>

@@ -66,6 +66,8 @@ import properties from "./data/properties.json";
 import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
 import { resetStore, useAgentStore, viewerId } from "./lib/agentStore";
+import { openExternal } from "./lib/externalLink";
+import { publicAsset } from "./lib/publicAsset";
 import { AgentRequests, AgentSaved } from "./components/agent/AgentActivity";
 import { parseAgentRoute, mergeListings } from "./lib/agents";
 import { LocationGate, LocationRequestForm, LocationRequests } from "./AgentUI";
@@ -555,6 +557,8 @@ export default function App() {
   const [contactSending, setContactSending] = useState(false);
   const contactLock = useRef(false);
   const reportLock = useRef(false);
+  const accountDeleteLock = useRef(false);
+  const [deletingAccount, setDeletingAccount] = useState(false);
   const [contactError, setContactError] = useState("");
   const [contactTarget, setContactTarget] = useState(null);
   useEffect(() => {
@@ -873,46 +877,54 @@ export default function App() {
     setModal("report");
   };
   const deleteAccount = async () => {
-    const emptyProfile = { name: "", email: "", phone: "", photo: "" };
-    setSaved([]);
-    setSavedSearches([]);
-    setRecent([]);
-    setNotes({});
-    setCollections({});
-    setActivity([]);
-    setLocationRequests([]);
-    setDrafts([]);
-    setProfile(emptyProfile);
-    setAccountRole("user");
-    setSignedIn(false);
-    resetStore();
-    const drop = [];
-    for (let i = 0; i < localStorage.length; i += 1) {
-      const key = localStorage.key(i);
-      if (!key || key === "centometer-city") continue;
-      if (
-        key.startsWith("centometer-") ||
-        key.startsWith("agent-filters:") ||
-        key.startsWith("agent-compare:")
-      )
-        drop.push(key);
+    if (accountDeleteLock.current) return;
+    accountDeleteLock.current = true;
+    setDeletingAccount(true);
+    try {
+      const emptyProfile = { name: "", email: "", phone: "", photo: "" };
+      setSaved([]);
+      setSavedSearches([]);
+      setRecent([]);
+      setNotes({});
+      setCollections({});
+      setActivity([]);
+      setLocationRequests([]);
+      setDrafts([]);
+      setProfile(emptyProfile);
+      setAccountRole("user");
+      setSignedIn(false);
+      resetStore();
+      const drop = [];
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const key = localStorage.key(i);
+        if (!key || key === "centometer-city") continue;
+        if (
+          key.startsWith("centometer-") ||
+          key.startsWith("agent-filters:") ||
+          key.startsWith("agent-compare:")
+        )
+          drop.push(key);
+      }
+      drop.forEach((key) => localStorage.removeItem(key));
+      await Promise.all(
+        ["centometer-photos", "centometer-location-vault"].map(
+          (name) =>
+            new Promise((resolve) => {
+              const request = indexedDB.deleteDatabase(name);
+              request.onsuccess =
+                request.onerror =
+                request.onblocked =
+                  () => resolve();
+            }),
+        ),
+      );
+      setModal(null);
+      navigate("home");
+      notify("Account deleted from this device");
+    } finally {
+      accountDeleteLock.current = false;
+      setDeletingAccount(false);
     }
-    drop.forEach((key) => localStorage.removeItem(key));
-    await Promise.all(
-      ["centometer-photos", "centometer-location-vault"].map(
-        (name) =>
-          new Promise((resolve) => {
-            const request = indexedDB.deleteDatabase(name);
-            request.onsuccess =
-              request.onerror =
-              request.onblocked =
-                () => resolve();
-          }),
-      ),
-    );
-    setModal(null);
-    navigate("home");
-    notify("Account deleted from this device");
   };
   const clear = () => {
     mapViewport.current = null;
@@ -1139,7 +1151,7 @@ export default function App() {
             >
               {signedIn ? (
                 profile.photo ? (
-                  <img src={profile.photo} alt="" />
+                  <img src={publicAsset(profile.photo)} alt="" />
                 ) : (
                   profileInitials(profile.name)
                 )
@@ -2116,6 +2128,7 @@ export default function App() {
                       href={`https://www.google.com/maps/dir/?api=1&destination=${detailPoint[0]},${detailPoint[1]}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={openExternal}
                     >
                       Get directions in Google Maps
                     </a>
@@ -3286,7 +3299,7 @@ export default function App() {
           {detail?.floorPlanUrl ? (
             <img
               className="detail-floor-plan-image"
-              src={detail.floorPlanUrl}
+              src={publicAsset(detail.floorPlanUrl)}
               alt={"Floor plan for " + (detail.title || "property")}
             />
           ) : (
@@ -3307,17 +3320,30 @@ export default function App() {
         </Modal>
       )}
       {modal === "deleteAccount" && (
-        <Modal title="Delete account?" onClose={() => setModal(null)}>
+        <Modal
+          title="Delete account?"
+          onClose={() => {
+            if (!deletingAccount) setModal(null);
+          }}
+        >
           <p>
             This removes your profile, saved homes, drafts, and requests from
             this device. The example listings stay available.
           </p>
           <div className="modal-actions">
-            <button className="secondary" onClick={() => setModal(null)}>
+            <button
+              className="secondary"
+              disabled={deletingAccount}
+              onClick={() => setModal(null)}
+            >
               Keep account
             </button>
-            <button className="primary" onClick={() => void deleteAccount()}>
-              Delete account
+            <button
+              className="primary"
+              disabled={deletingAccount}
+              onClick={() => void deleteAccount()}
+            >
+              {deletingAccount ? "Deleting…" : "Delete account"}
             </button>
           </div>
         </Modal>

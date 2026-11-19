@@ -8,8 +8,10 @@ import { landPrice } from "../JourneyUX";
 import { priceBasis } from "../Journeys";
 import { pinPrice } from "../PlotUI";
 import { developerFor } from "../SearchSuggestions";
+import { publicAsset } from "../lib/publicAsset";
 
-const photo = (p) => p.photos?.[0] || `/${p.image || "apartment"}.jpg`;
+const photo = (p) =>
+  publicAsset(p.photos?.[0] || `/${p.image || "apartment"}.jpg`);
 
 export default function HomeDiscovery({
   items,
@@ -213,9 +215,7 @@ export default function HomeDiscovery({
       <section aria-label="Popular properties">
         {heading(
           "Most popular",
-          hasActivity
-            ? "Saved and viewed on this device"
-            : `Picks in ${city}`,
+          hasActivity ? "Saved and viewed on this device" : `Picks in ${city}`,
         )}
         <ol className="home-popular-list">
           {popular.map((p, i) => (

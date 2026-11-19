@@ -78,9 +78,10 @@ export function notifyAgent(message) {
     );
 }
 export function requestVisit(p, buyer, date) {
-  const phone = indianMobile(buyer.phone);
-  if (!buyer.name?.trim() || !phone || !/^\d{4}-\d{2}-\d{2}$/.test(date || ""))
+  const phone = indianMobile(buyer?.phone);
+  if (!buyer?.name?.trim() || !phone || !/^\d{4}-\d{2}-\d{2}$/.test(date || ""))
     throw Error("Enter your name, a valid Indian mobile and a visit date.");
+  if (!p?.id) throw Error("Choose a listing before requesting a visit.");
   const visit = {
     id: crypto.randomUUID(),
     propertyId: p.id,
@@ -169,11 +170,12 @@ export function canRequest(requests, id, buyer = viewerId, now = Date.now()) {
   return "";
 }
 export function requestLocation(p, buyer, source = "direct") {
-  const error = canRequest(state.requests, p.id);
-  const phone = indianMobile(buyer.phone);
+  const error = canRequest(state.requests, p?.id);
+  const phone = indianMobile(buyer?.phone);
   if (error) throw Error(error);
-  if (!buyer.name?.trim() || !phone || !buyer.consent)
+  if (!buyer?.name?.trim() || !phone || !buyer?.consent)
     throw Error("Enter your name, a valid Indian mobile and consent.");
+  if (!p?.id) throw Error("Choose a listing before requesting its location.");
   const request = {
     id: crypto.randomUUID(),
     propertyId: p.id,

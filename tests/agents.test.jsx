@@ -12,7 +12,7 @@ import {
 } from "../src/lib/agents";
 import { getExactLocation, setAccessRequests } from "../src/lib/locationAccess";
 import { indianMobile } from "../src/PropertyModel";
-import { canRequest, LIMITS } from "../src/lib/agentStore";
+import { canRequest, LIMITS, requestVisit } from "../src/lib/agentStore";
 describe("agent foundation", () => {
   it("provides eight agents and public listings", () => {
     expect(agents).toHaveLength(8);
@@ -89,5 +89,24 @@ describe("agent foundation", () => {
         now,
       ),
     ).toContain("Daily");
+  });
+  it("searches agents whose list fields are null", () => {
+    const found = findAgents([
+      {
+        id: "bare",
+        name: "Bare Agent",
+        handle: "bare",
+        city: "Chennai",
+        serviceAreas: null,
+        languages: null,
+        specialties: null,
+      },
+    ]);
+    expect(found.map((agent) => agent.id)).toEqual(["bare"]);
+  });
+  it("rejects a visit when the buyer details are missing", () => {
+    expect(() =>
+      requestVisit({ id: "p", agentId: "a" }, null, "2026-01-01"),
+    ).toThrow(/name/i);
   });
 });

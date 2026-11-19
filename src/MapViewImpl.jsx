@@ -13,6 +13,7 @@ import {
   publicBoundary,
 } from "./lib/locationAccess";
 import { centers, money } from "./PropertyModel";
+import { publicAsset } from "./lib/publicAsset";
 import { landPrice } from "./JourneyUX";
 import { pinPrice, plotBoundary, plotStyle } from "./PlotUI";
 import { mobileQuery, bindMapInteractions } from "./MapInteractions";
@@ -132,11 +133,14 @@ export default function MapView({
     if (!m) return;
     tileLayer.current?.remove();
     setTileError(false);
-    const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(m);
+    const tiles = L.tileLayer(
+      "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+      {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      },
+    ).addTo(m);
     tiles.on("tileerror", () => setTileError(true));
     tiles.on("tileload", () => setTileError(false));
     tileLayer.current = tiles;
@@ -218,7 +222,7 @@ export default function MapView({
             (p.id === selected ? "selected" : ""),
           html: locked
             ? '<span><img alt="" src="' +
-              (agent?.avatar || "/agent-ananya.svg") +
+              publicAsset(agent?.avatar || "/agent-ananya.svg") +
               '"/></span>'
             : "<span>" + label + "</span>",
           iconSize: [94, 38],
@@ -319,8 +323,7 @@ export default function MapView({
       >
         {tileError && (
           <div className="map-warning">
-            Map tiles unavailable. Check your connection; markers still
-            work.
+            Map tiles unavailable. Check your connection; markers still work.
           </div>
         )}
       </div>

@@ -28,6 +28,7 @@ import {
   cityForLocation,
 } from "./PropertyModel";
 import { compressPhotos } from "./JourneyUX";
+import { publicAsset } from "./lib/publicAsset";
 import PropertyTypes, {
   typeLabel,
   WATER_SOURCES,
@@ -212,7 +213,12 @@ export default function PostFlow({
               highlights: d.highlights || [],
             }
           : {}),
-        photos: (type === "Land") !== (d.type === "Land") ? [] : d.photos,
+        photos:
+          (type === "Land") !== (d.type === "Land")
+            ? []
+            : Array.isArray(d.photos)
+              ? d.photos
+              : [],
         ...Object.fromEntries(
           ["title", "description", "price"]
             .filter((key) => !dirty.current.has(key))
@@ -2069,7 +2075,7 @@ export default function PostFlow({
                   {data.photos.map((url, i) => (
                     <div key={i}>
                       <img
-                        src={url}
+                        src={publicAsset(url)}
                         width="160"
                         height="120"
                         decoding="async"
@@ -2266,7 +2272,7 @@ export default function PostFlow({
               />
               <div className="review-image">
                 <img
-                  src={data.photos[0]}
+                  src={publicAsset(data.photos?.[0])}
                   width="600"
                   height="400"
                   decoding="async"
