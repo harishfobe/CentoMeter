@@ -310,11 +310,18 @@
   pointer-events: auto;
   width: 100%;
 }
+.modal-scrim[data-motion-kind="listing"] .sticky-contact-bar {
+  width: auto;
+  margin-right: -16px;
+  margin-left: -16px;
+  padding-right: 0;
+  padding-left: 0;
+}
 .modal-scrim[data-motion-kind="listing"] .sticky-contact-bar-inner {
   max-width: none;
-  margin: 0;
-  border-radius: 0;
-  padding-bottom: max(12px, env(safe-area-inset-bottom));
+  width: auto;
+  margin: 0 12px max(12px, env(safe-area-inset-bottom));
+  border-radius: 999px;
 }
 .agent-map-reveal {
   display: none;
@@ -482,18 +489,20 @@
     animation: agent-burst 220ms var(--ease-out);
   }
   .modal-scrim[data-motion-kind="listing"]::before {
-    animation: agent-backdrop-in var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out));
+    animation: agent-backdrop-in var(--t-sheet, 240ms)
+      var(--ease-drawer, var(--ease-out));
   }
   .modal-scrim[data-motion-kind="listing"] > .modal {
-    animation: agent-sheet-in var(--t-sheet, 240ms) var(--ease-drawer, var(--ease-out));
+    animation: agent-sheet-in var(--t-sheet, 240ms)
+      var(--ease-drawer, var(--ease-out));
   }
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"]::before {
     animation: agent-backdrop-out var(--t-exit, 160ms) var(--ease-out) both;
     pointer-events: none;
   }
   .modal-scrim[data-motion-kind="listing"][data-exiting="true"] > .modal {
-    animation: agent-sheet-out var(--t-exit, 160ms) var(--ease-drawer, var(--ease-out))
-      both;
+    animation: agent-sheet-out var(--t-exit, 160ms)
+      var(--ease-drawer, var(--ease-out)) both;
   }
   .modal[data-dragging="true"] {
     animation: none !important;

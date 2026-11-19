@@ -108,9 +108,22 @@ describe("land rent display and visits", () => {
     const bar = renderToStaticMarkup(<StickyContactBar property={p} />);
     expect(bar).toContain("Chat on WhatsApp");
     expect(bar).toContain("Property Owner");
-    expect(bar).toContain("Direct contact");
+    expect(bar).not.toContain("Direct contact");
     expect(bar).not.toContain("Online");
     expect(bar).not.toContain("Replies in 10 mins");
+    const agentBar = renderToStaticMarkup(
+      <StickyContactBar
+        property={{ ...p, seller: "Agent", agentId: "a1" }}
+        agent={{
+          name: "Ananya Rao",
+          responseTimeMins: 15,
+          avatar: "/agent-ananya.svg",
+        }}
+      />,
+    );
+    expect(agentBar).toContain("Ananya Rao");
+    expect(agentBar).toContain("Partner agent • Replies in 15 mins");
+    expect(agentBar).toContain("Chat on WhatsApp");
     const card = renderToStaticMarkup(
       <SelectedPropertySheet
         p={p}
@@ -275,9 +288,8 @@ describe("draft and photo writes", () => {
 });
 describe("clean sample data", () => {
   it("has consistent category fields, unique city titles and prices, dates and photos", async () => {
-    const { auditSampleData, formatAuditReport } = await import(
-      "../tools/sampleDataInvariants.mjs"
-    );
+    const { auditSampleData, formatAuditReport } =
+      await import("../tools/sampleDataInvariants.mjs");
     const report = auditSampleData({ properties });
     if (!report.ok) {
       throw new Error(formatAuditReport(report));
