@@ -814,3 +814,6 @@
   position: relative;
   z-index: 1;
 }
+.bottom-nav button.agent-nav .nav-active-bg {
+  display: none;
+}

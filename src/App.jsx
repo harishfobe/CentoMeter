@@ -2587,7 +2587,7 @@ export default function App() {
               }}
             >
               <span>
-                {activeNav === r && (
+                {activeNav === r && r !== "agents" && (
                   <SlidingIndicator id="mobile-nav" className="nav-active-bg" />
                 )}
                 <Icon size={21} />
