@@ -57,7 +57,7 @@ function CardContact({ p }) {
           href={links.call}
           aria-label={callLabel}
         >
-          <Phone size={18} aria-hidden="true" />
+          <Phone size={15} aria-hidden="true" />
         </a>
       ) : (
         <button
@@ -66,7 +66,7 @@ function CardContact({ p }) {
           aria-label={callLabel}
           onClick={() => notifyAgent("Contact number not provided")}
         >
-          <Phone size={18} aria-hidden="true" />
+          <Phone size={15} aria-hidden="true" />
         </button>
       )}
     </div>
