@@ -14,6 +14,8 @@ import {
   matchesCommercialFacility,
   matchesFloorFilter,
   matchesPossessionFilter,
+  builderMayList,
+  listedByRole,
 } from "./listingFit";
 import { petsAllowedAnswer } from "./HouseVillaDetails";
 
@@ -68,6 +70,13 @@ export function retainFilters(current, nextType) {
     next.pricePer = "";
   }
   const home = !["Land", "Commercial", "PG"].includes(nextType);
+  if (
+    next.seller === "Builder" &&
+    nextType !== "All" &&
+    !builderMayList({ type: nextType, mode: "BUY" })
+  ) {
+    next.seller = "Any";
+  }
   if (home) {
     next.beds = current.beds || "Any";
     next.pets = current.pets || "Any";
@@ -172,7 +181,7 @@ export function matches(p, f) {
       p,
       f.available === "Any" ? "Any" : f.available,
     ) &&
-    (f.seller === "Any" || p.seller === f.seller) &&
+    (f.seller === "Any" || listedByRole(p) === f.seller) &&
     matchesPetsFilter(p, f.pets) &&
     ["bathroom", "ac", "facing"].every(
       (k) => !f[k] || f[k] === "Any" || p[k] === f[k],
@@ -225,8 +234,13 @@ export function RefineSearchPanel({
         next === "RENT" && current.type === "Land"
           ? retainFilters(current, "All")
           : current;
-      if (next !== "RENT") return { ...base, pets: "Any" };
-      return base;
+      if (next === "RENT") {
+        return {
+          ...base,
+          seller: base.seller === "Builder" ? "Any" : base.seller,
+        };
+      }
+      return { ...base, pets: "Any" };
     });
     if (!deferMode) onModeChange?.(next);
   };
@@ -478,7 +492,15 @@ export function RefineSearchPanel({
                 ? AVAILABILITY_FILTER_OPTIONS
                 : ["Ready to move", "Within 30 days", "Under construction"],
             )}
-            {select("seller", "Listed by", ["Owner", "Agent", "Builder"])}
+            {select(
+              "seller",
+              "Listed by",
+              intent !== "RENT" &&
+                (f.type === "All" ||
+                  builderMayList({ type: f.type, mode: "BUY" }))
+                ? ["Owner", "Agent", "Builder"]
+                : ["Owner", "Agent"],
+            )}
           </>
         )}
         {showActions && typeof renderActions !== "function" ? actions : null}

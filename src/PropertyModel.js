@@ -1,6 +1,7 @@
 import { SQFT_PER_CENT } from "./LandMeasurements";
 import { centers as cityCenters, cityListLabel } from "./data/cities";
 import { canonicalizePropertyType } from "./propertyTypeIds";
+import { listedByRole } from "./listingFit";
 export const centers = cityCenters;
 export { cityListLabel };
 export {
@@ -110,6 +111,12 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     d.possessionStatus,
     text(d.available, type === "Land" ? "Ready now" : "Ready to move"),
   );
+  const sellerRole = listedByRole({
+    ...d,
+    type,
+    mode: d.intent === "RENT" ? "RENT" : "BUY",
+    seller: text(d.seller, "Owner"),
+  });
   const facilities = Array.isArray(d.facilities)
     ? d.facilities.filter((x) => typeof x === "string")
     : type === "Commercial" && Array.isArray(d.features)
@@ -193,7 +200,8 @@ export function normalizePostedListing(d, profileName = "Property owner") {
     reraNo: rera || undefined,
     image:
       type === "Land" ? "land" : type === "Apartment" ? "apartment" : "villa",
-    seller: text(d.seller, "Owner"),
+    seller: sellerRole,
+    posterRole: sellerRole,
     contactName: text(d.contactName, profileName),
     tag: "Just posted",
     furnishing: text(d.furnishing, ""),

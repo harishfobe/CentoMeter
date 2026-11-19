@@ -143,7 +143,68 @@ describe("listing presentation accuracy", () => {
   it("preserves owner/agent/builder poster role", () => {
     expect(posterRole({ seller: "Owner" })).toBe("Owner");
     expect(posterRole({ agentId: "a1" })).toBe("Agent");
-    expect(posterRole({ seller: "Builder" })).toBe("Builder");
+    expect(
+      posterRole({ seller: "Builder", mode: "BUY", type: "Apartment" }),
+    ).toBe("Builder");
+    expect(
+      posterRole({ seller: "Builder", mode: "BUY", type: "Villa" }),
+    ).toBe("Builder");
+    expect(
+      posterRole({
+        seller: "Builder",
+        mode: "BUY",
+        type: "Independent House",
+      }),
+    ).toBe("Builder");
+    expect(posterRole({ seller: "Builder", mode: "BUY", type: "Land" })).toBe(
+      "Owner",
+    );
+    expect(
+      posterRole({ seller: "Builder", mode: "RENT", type: "Apartment" }),
+    ).toBe("Owner");
+    expect(
+      posterRole({ seller: "Builder", mode: "BUY", type: "Commercial" }),
+    ).toBe("Owner");
+  });
+
+  it("does not save a builder on land or a rental", () => {
+    const land = normalizePostedListing({
+      id: "land-builder",
+      title: "A plot",
+      price: 1000000,
+      area: 2000,
+      location: [10.9993, 76.9348],
+      type: "Land",
+      intent: "SELL",
+      seller: "Builder",
+      posterRole: "Builder",
+    });
+    expect(land.seller).toBe("Owner");
+    expect(land.posterRole).toBe("Owner");
+    const rent = normalizePostedListing({
+      id: "rent-builder",
+      title: "A rental villa",
+      price: 25000,
+      area: 1800,
+      location: [10.9993, 76.9348],
+      type: "Villa",
+      intent: "RENT",
+      seller: "Builder",
+    });
+    expect(rent.mode).toBe("RENT");
+    expect(rent.seller).toBe("Owner");
+    const sale = normalizePostedListing({
+      id: "sale-builder",
+      title: "A builder apartment",
+      price: 7200000,
+      area: 1200,
+      location: [10.9993, 76.9348],
+      type: "Apartment",
+      intent: "SELL",
+      seller: "Builder",
+    });
+    expect(sale.seller).toBe("Builder");
+    expect(sale.posterRole).toBe("Builder");
   });
 
   it("guards missing and future confirmedAt", () => {

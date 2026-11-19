@@ -9,6 +9,7 @@ import {
 } from "./LandMeasurements";
 import { approvalLabels, plotStatus } from "./PlotUI";
 import { hasValue } from "./PropertyModel";
+import { listedByRole } from "./listingFit";
 export { toCents, landNumber, landArea } from "./LandMeasurements";
 
 function featurePool(p) {
@@ -240,7 +241,7 @@ export function LandSummary({
       )}
       <div className="land-listing-meta">
         <span>
-          Listed by {p.seller || "Owner"}
+          Listed by {listedByRole(p)}
           {checked ? ` · Availability checked: ${checked}` : ""}
           {posted && !checked ? ` · Posted: ${posted}` : ""}
         </span>

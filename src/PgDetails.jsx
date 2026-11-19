@@ -1,6 +1,7 @@
 import React from "react";
 import { CheckCircle2 } from "lucide-react";
 import { hasValue, money } from "./PropertyModel";
+import { listedByRole } from "./listingFit";
 import {
   preferredTenantLabel,
   rentAvailableFromLabel,
@@ -276,7 +277,7 @@ export function PgSummary({
       {typeof onReport === "function" ? (
         <div className="land-listing-meta">
           <span>
-            Listed by {p.seller || "Owner"}
+            Listed by {listedByRole(p)}
             {p.freshness ? ` · ${p.freshness}` : ""}
           </span>
           <button type="button" className="text-button" onClick={onReport}>

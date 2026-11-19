@@ -1,6 +1,7 @@
 import properties from "./data/properties.json";
 import agentListings from "./data/agentListings.json";
 import { featuredAreas, sampleBuilders } from "./data/cities";
+import { builderMayList } from "./listingFit";
 
 const catalog = [...properties, ...agentListings];
 const buildersById = new Map();
@@ -8,7 +9,10 @@ for (const city of new Set(catalog.map((property) => property.city))) {
   const names = sampleBuilders[city] || ["Square Homes"];
   catalog
     .filter(
-      (property) => property.city === city && property.seller === "Builder",
+      (property) =>
+        property.city === city &&
+        property.seller === "Builder" &&
+        builderMayList(property),
     )
     .forEach((property, index) =>
       buildersById.set(property.id, names[index % names.length]),
