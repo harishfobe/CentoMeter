@@ -215,7 +215,7 @@ test("Home ends with local agent cards and preserves follow and profile navigati
   ).toBe("Featured local agents");
   await expect(
     agents.getByText(/Customer ratings aren't available yet/),
-  ).toBeVisible();
+  ).toHaveCount(0);
   const card = agents.locator(".agent-card").first();
   await card.getByRole("button", { name: "Follow", exact: true }).click();
   await expect(
