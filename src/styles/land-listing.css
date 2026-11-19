@@ -147,3 +147,63 @@
   font-weight: 500;
   line-height: 1.35;
 }
+
+/* Results list only. Map, saved, and similar rows stay the compact size. */
+.property-grid.property-grid-feature .property-card.listing-row {
+  grid-template-columns: clamp(120px, 34%, 140px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  min-height: 164px;
+  padding: 12px;
+}
+
+.property-grid.property-grid-feature
+  .property-card.listing-row
+  .property-image {
+  width: 100%;
+  height: auto;
+  min-height: 140px;
+  max-height: none;
+  align-self: stretch;
+}
+
+.property-grid.property-grid-feature .property-card.listing-row .property-copy {
+  min-height: 140px;
+}
+
+.property-grid.property-grid-feature
+  .property-card.listing-row
+  .property-copy
+  h3 {
+  min-height: 0;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.property-grid.property-grid-feature
+  .property-card.listing-row
+  .listing-row-price,
+.property-grid.property-grid-feature
+  .property-card.listing-row
+  .property-copy
+  .price {
+  flex-wrap: wrap;
+  white-space: normal;
+  row-gap: 0;
+  font-size: 20px;
+}
+
+.property-grid.property-grid-feature .property-card.listing-row .listing-row-rate {
+  font-size: 14px;
+}
+
+.property-grid.property-grid-feature .property-card.listing-row .listing-row-area,
+.property-grid.property-grid-feature
+  .property-card.listing-row
+  .listing-row-facts,
+.property-grid.property-grid-feature
+  .property-card.listing-row
+  .listing-row-footer {
+  font-size: 13px;
+  line-height: 1.35;
+}

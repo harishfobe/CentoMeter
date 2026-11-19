@@ -1745,7 +1745,13 @@ export default function App() {
                       </select>
                     </label>
                   </div>
-                  <div className="property-grid">
+                  <div
+                    className={
+                      view === "results"
+                        ? "property-grid property-grid-feature"
+                        : "property-grid"
+                    }
+                  >
                     {sorted.map((p) => renderCard(p))}
                   </div>
                   {!sorted.length && (
