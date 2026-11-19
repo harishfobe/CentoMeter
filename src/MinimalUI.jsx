@@ -12,12 +12,13 @@ import { priceBasis } from "./Journeys";
 import { plotStatus, pricePerCent, pinPrice } from "./PlotUI";
 import { landPrice } from "./JourneyUX";
 import useOverlayBack from "./OverlayHistory";
+import { publicAsset } from "./lib/publicAsset";
 
 export function Wordmark() {
   return (
     <img
       className="wordmark"
-      src="/centometer-header-logo.png"
+      src={publicAsset("/centometer-header-logo.png")}
       alt=""
       width="1113"
       height="605"
@@ -133,10 +134,12 @@ export function SelectedPropertySheet({
               height="400"
               decoding="async"
               draggable={false}
-              src={image}
+              src={publicAsset(image)}
               alt={p.title}
               onError={(e) => {
-                const fallback = land ? "/land.jpg" : "/apartment.jpg";
+                const fallback = publicAsset(
+                  land ? "/land.jpg" : "/apartment.jpg",
+                );
                 if (e.currentTarget.getAttribute("src") !== fallback)
                   e.currentTarget.src = fallback;
               }}

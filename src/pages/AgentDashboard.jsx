@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Link2, MapPin, Plus } from "lucide-react";
 import CopyButton from "../components/CopyButton";
 import QRCode from "../components/agent/QRCode";
@@ -11,6 +11,7 @@ import {
 import { accessStatus } from "../lib/locationAccess";
 import { agents, listings, mergeListings, responseLabel } from "../lib/agents";
 import { money } from "../PropertyModel";
+import { publicAsset } from "../lib/publicAsset";
 
 const TABS = ["Requests", "Listings", "Link & insights"];
 const REQUEST_STATUSES = [
@@ -36,6 +37,11 @@ function sourceLabel(source) {
   return source || "Direct";
 }
 
+function buyerText(buyer, key) {
+  const value = buyer?.[key];
+  return typeof value === "string" ? value : "";
+}
+
 function agentForProfile(profile) {
   const name = String(profile?.name || "").trim().toLowerCase();
   const local = String(profile?.email || "")
@@ -58,6 +64,34 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
   const [query, setQuery] = useState("");
   const [expiry, setExpiry] = useState(24);
   const [copyStatus, setCopyStatus] = useState(null);
+  const [pendingIds, setPendingIds] = useState(() => new Set());
+  const pendingRef = useRef(pendingIds);
+  const alive = useRef(true);
+  const timers = useRef([]);
+  useEffect(
+    () => () => {
+      alive.current = false;
+      timers.current.forEach((timer) => clearTimeout(timer));
+    },
+    [],
+  );
+  const hold = (id, action) => {
+    if (pendingRef.current.has(id)) return;
+    const next = new Set(pendingRef.current);
+    next.add(id);
+    pendingRef.current = next;
+    setPendingIds(next);
+    action();
+    timers.current.push(
+      window.setTimeout(() => {
+        if (!alive.current) return;
+        const cleared = new Set(pendingRef.current);
+        cleared.delete(id);
+        pendingRef.current = cleared;
+        setPendingIds(cleared);
+      }, 400),
+    );
+  };
   const own = mergeListings(listings, s.customListings || []).filter(
     (p) => p.agentId === id,
   );
@@ -90,12 +124,14 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
   const reply = responseLabel(a);
   const needle = query.toLowerCase();
   const shownVisits = visits.filter(
-    (v) => v.status === filter && v.buyer.name.toLowerCase().includes(needle),
+    (v) =>
+      v.status === filter &&
+      buyerText(v.buyer, "name").toLowerCase().includes(needle),
   );
   const shownRequests = requests.filter(
     (r) =>
       accessStatus(r) === filter &&
-      r.buyer.name.toLowerCase().includes(needle),
+      buyerText(r.buyer, "name").toLowerCase().includes(needle),
   );
   const alter = (p, patch) =>
     updateStore((store) => ({
@@ -117,7 +153,12 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
           <ArrowLeft size={18} aria-hidden="true" /> Back to profile
         </button>
         <div className="desk-id">
-          <img src={profile?.photo || a.avatar} alt="" width="52" height="52" />
+          <img
+            src={publicAsset(profile?.photo || a.avatar)}
+            alt=""
+            width="52"
+            height="52"
+          />
           <div>
             <p>Agent dashboard</p>
             <h1>{a.name}</h1>
@@ -217,7 +258,8 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
                 </span>
               </div>
               <p>
-                {v.buyer.name} · {v.buyer.phone}
+                {buyerText(v.buyer, "name") || "Buyer"} ·{" "}
+                {buyerText(v.buyer, "phone") || "No phone"}
               </p>
               <p className="desk-quiet">
                 {v.date} · {v.status}
@@ -225,13 +267,19 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
               <div className="action-row">
                 <button
                   className="primary"
-                  onClick={() => decideVisit(v.id, "accepted")}
+                  disabled={pendingIds.has(v.id)}
+                  onClick={() =>
+                    hold(v.id, () => decideVisit(v.id, "accepted"))
+                  }
                 >
                   Accept
                 </button>
                 <button
                   className="secondary"
-                  onClick={() => decideVisit(v.id, "declined")}
+                  disabled={pendingIds.has(v.id)}
+                  onClick={() =>
+                    hold(v.id, () => decideVisit(v.id, "declined"))
+                  }
                 >
                   Decline
                 </button>
@@ -252,36 +300,47 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
                   </span>
                 </div>
                 <p>
-                  {r.buyer.name} ·{" "}
+                  {buyerText(r.buyer, "name") || "Buyer"} ·{" "}
                   {status === "approved"
-                    ? r.buyer.phone
-                    : "••••••" + r.buyer.phone.slice(-4)}
+                    ? buyerText(r.buyer, "phone") || "No phone"
+                    : "••••••" + buyerText(r.buyer, "phone").slice(-4)}
                 </p>
                 <p className="desk-quiet">
-                  Budget: {r.buyer.budget || "Not specified"} · {r.buyer.timeline}
+                  Budget: {buyerText(r.buyer, "budget") || "Not specified"} ·{" "}
+                  {buyerText(r.buyer, "timeline") || "Not specified"}
                 </p>
                 <p className="desk-quiet">Source: {sourceLabel(r.source)}</p>
                 <div className="action-row">
                   <button
                     className="primary"
-                    onClick={() => decideRequest(r.id, "approved", expiry)}
+                    disabled={pendingIds.has(r.id)}
+                    onClick={() =>
+                      hold(r.id, () => decideRequest(r.id, "approved", expiry))
+                    }
                   >
                     Approve
                   </button>
                   <button
                     className="secondary"
-                    onClick={() => decideRequest(r.id, "declined", 0)}
+                    disabled={pendingIds.has(r.id)}
+                    onClick={() =>
+                      hold(r.id, () => decideRequest(r.id, "declined", 0))
+                    }
                   >
                     Decline
                   </button>
                   <button
                     className="secondary"
-                    onClick={() => decideRequest(r.id, "revoked", 0)}
+                    disabled={pendingIds.has(r.id)}
+                    onClick={() =>
+                      hold(r.id, () => decideRequest(r.id, "revoked", 0))
+                    }
                   >
                     Revoke
                   </button>
                   <button
                     className="secondary"
+                    disabled={pendingIds.has(r.id)}
                     onClick={() =>
                       requests
                         .filter(
@@ -289,7 +348,11 @@ export default function AgentDashboard({ onPost, onNavigate, profile }) {
                             x.viewerId === r.viewerId &&
                             accessStatus(x) === "requested",
                         )
-                        .forEach((x) => decideRequest(x.id, "approved", expiry))
+                        .forEach((x) =>
+                          hold(x.id, () =>
+                            decideRequest(x.id, "approved", expiry),
+                          ),
+                        )
                     }
                   >
                     Approve all from buyer

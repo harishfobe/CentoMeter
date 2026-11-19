@@ -19,6 +19,7 @@ import {
 
 import PhotoSwipeDots from "../PhotoSwipeDots";
 import LocationPrivacyChip from "./LocationPrivacyChip";
+import { publicAsset } from "../../lib/publicAsset";
 
 function ListingCard({
   p,
@@ -96,7 +97,7 @@ function ListingCard({
               decoding="async"
               width="600"
               height="400"
-              src={url}
+              src={publicAsset(url)}
               onLoad={(e) => {
                 e.currentTarget.dataset.loaded = "true";
                 imageStops.current.push(revealGalleryImage(e.currentTarget));

@@ -21,6 +21,7 @@ import {
   decideRequest,
 } from "../src/lib/agentStore";
 import ListingCard from "../src/components/agent/ListingCard";
+import LocationPrivacyChip from "../src/components/agent/LocationPrivacyChip";
 afterEach(() => vi.unstubAllGlobals());
 it("renders every locked listing without precise coordinate payloads", () => {
   for (const p of listings) {
@@ -89,4 +90,9 @@ it("runs the typed request, approval and revocation workflow", () => {
   expect(getExactLocation(p.id, viewerId)).toHaveLength(2);
   decideRequest(r.id, "revoked");
   expect(getExactLocation(p.id, viewerId)).toBeNull();
+});
+it("renders a location chip when the listing has no privacy row", () => {
+  const html = renderToStaticMarkup(<LocationPrivacyChip p={{ id: "x" }} />);
+  expect(html).toContain("Location on request");
+  expect(html).not.toContain("undefined");
 });

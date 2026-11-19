@@ -4,6 +4,7 @@ import WhatsAppIcon from "./components/WhatsAppIcon";
 import { PriceCaption } from "./MinimalUI";
 import WhatsAppLink from "./components/WhatsAppLink";
 import { resolveListingContact } from "./PropertyContact";
+import { publicAsset } from "./lib/publicAsset";
 import { pricePerCent } from "./PlotUI";
 import {
   houseBuyPriceMeta,
@@ -156,9 +157,7 @@ export function MobilePropertyPrice({ property: p, money }) {
             <span className="pg-price-period"> / month</span>
           </strong>
           {meals ? <span className="rent-pg-meals">{meals}</span> : null}
-          {deposit ? (
-            <span className="rent-pg-deposit">{deposit}</span>
-          ) : null}
+          {deposit ? <span className="rent-pg-deposit">{deposit}</span> : null}
         </div>
       </div>
     );
@@ -180,7 +179,7 @@ function ContactAvatar({ contact }) {
     return (
       <img
         className="sticky-contact-avatar"
-        src={contact.avatar}
+        src={publicAsset(contact.avatar)}
         alt=""
         width="40"
         height="40"
@@ -224,10 +223,14 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
                     Usually replies in {contact.replyLabel}
                   </span>
                 ) : (
-                  <span className="sticky-contact-owner-perk">Partner agent</span>
+                  <span className="sticky-contact-owner-perk">
+                    Partner agent
+                  </span>
                 )
               ) : (
-                <span className="sticky-contact-owner-perk">Direct contact</span>
+                <span className="sticky-contact-owner-perk">
+                  Direct contact
+                </span>
               )}
             </span>
           </div>

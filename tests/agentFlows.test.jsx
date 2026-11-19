@@ -111,6 +111,30 @@ it("submits a validated visit, delivers it to dashboard, and shows the decision 
   expect(screen.getByRole("status").textContent).toBe("accepted");
   window.removeEventListener("centometer-toast", toast);
 });
+it("shows a visit that has no buyer and accepts it once", () => {
+  updateStore((s) => ({
+    ...s,
+    visits: [
+      {
+        id: "missing-buyer",
+        agentId: agent.id,
+        propertyId: property.id,
+        status: "requested",
+        buyer: null,
+        date: "2026-04-01",
+      },
+    ],
+    requests: [],
+  }));
+  render(<AgentDashboard onNavigate={() => {}} onPost={() => {}} />);
+  expect(screen.getByText(/Buyer · No phone/)).toBeTruthy();
+  const accept = screen.getByRole("button", { name: "Accept" });
+  fireEvent.click(accept);
+  fireEvent.click(accept);
+  expect(
+    snapshot().visits.find((visit) => visit.id === "missing-buyer").status,
+  ).toBe("accepted");
+});
 it("counts a view once per agent session and renders custom listings immediately", () => {
   updateStore((s) => ({ ...s, events: [] }));
   recordEvent("views", "unique-test");

@@ -5,6 +5,7 @@ import PhotoSwipeDots from "./components/PhotoSwipeDots";
 import { landPrice } from "./JourneyUX";
 import { nearText } from "./Journeys";
 import { landmarkSuggestions } from "./data/cities";
+import { publicAsset } from "./lib/publicAsset";
 import {
   AVAILABILITY_FILTER_OPTIONS,
   commercialFacilitiesFor,
@@ -606,11 +607,17 @@ export function Costs({ p, money, title }) {
 export function Gallery({ p }) {
   const [index, setIndex] = useState(0);
   const strip = useRef(null);
-  const images = p.photos?.length
-    ? p.photos
-    : p.type === "Land"
-      ? ["/land.jpg"]
-      : ["/" + p.image + ".jpg", "/interior.jpg", "/apartment.jpg"];
+  const images = (
+    p.photos?.length
+      ? p.photos
+      : p.type === "Land"
+        ? ["/land.jpg"]
+        : [
+            "/" + (p.image || "apartment") + ".jpg",
+            "/interior.jpg",
+            "/apartment.jpg",
+          ]
+  ).map((src) => publicAsset(src));
   return (
     <div className="gallery-wrap">
       <div

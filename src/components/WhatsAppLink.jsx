@@ -1,5 +1,6 @@
 import React from "react";
 import { notifyAgent } from "../lib/agentStore";
+import { openExternal } from "../lib/externalLink";
 export default function WhatsAppLink({
   number,
   message,
@@ -7,10 +8,27 @@ export default function WhatsAppLink({
   children,
   ...props
 }) {
-  const demo = number != null && !/^\d{10}$/.test(number);
+  const hasNumber = number != null && number !== "";
+  const demo = hasNumber && !/^\d{10}$/.test(String(number));
   const url =
     href ||
-    "https://wa.me/91" + number + "?text=" + encodeURIComponent(message || "");
+    (hasNumber
+      ? "https://wa.me/91" +
+        number +
+        "?text=" +
+        encodeURIComponent(message || "")
+      : "");
+  if (!url) {
+    return (
+      <button
+        type="button"
+        className={props.className}
+        onClick={() => notifyAgent("No WhatsApp number is listed.")}
+      >
+        {children}
+      </button>
+    );
+  }
   return (
     <a
       {...props}
@@ -21,7 +39,9 @@ export default function WhatsAppLink({
         if (demo) {
           event.preventDefault();
           notifyAgent(number + " is not a working WhatsApp number.");
+          return;
         }
+        openExternal(event);
       }}
     >
       {children}

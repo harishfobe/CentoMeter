@@ -7,6 +7,8 @@ import useExpiryTick from "../../lib/useExpiryTick";
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useRef } from "react";
 import { money, hasValue, emiPayment } from "../../PropertyModel";
+import { openExternal } from "../../lib/externalLink";
+import { publicAsset } from "../../lib/publicAsset";
 import { landArea, landDimensions } from "../../LandMeasurements";
 import { LandSummary } from "../../LandDetails";
 import {
@@ -235,7 +237,7 @@ export default function ListingDetailSheet({
             {photos.map((url, i) => (
               <img
                 key={url + i}
-                src={url}
+                src={publicAsset(url)}
                 width="800"
                 height="500"
                 onLoad={(e) => {
@@ -655,6 +657,7 @@ export default function ListingDetailSheet({
                 href={p.floorPlanUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={openExternal}
               >
                 <FileImage size={18} aria-hidden="true" /> Floor plan
                 <ArrowUpRight size={16} aria-hidden="true" />
@@ -666,6 +669,7 @@ export default function ListingDetailSheet({
                 href={p.videoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={openExternal}
               >
                 <Play size={18} aria-hidden="true" /> Watch video
                 <ArrowUpRight size={16} aria-hidden="true" />
@@ -714,6 +718,7 @@ export default function ListingDetailSheet({
                 }
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={openExternal}
               >
                 Get directions
               </a>

@@ -3,6 +3,7 @@ import { ShieldCheck, MapPin, ArrowUpRight } from "lucide-react";
 import React, { memo, useMemo, useCallback } from "react";
 import { responseLabel, activeListings } from "../../lib/agents";
 import { toggleStore, useAgentSelector } from "../../lib/agentStore";
+import { publicAsset } from "../../lib/publicAsset";
 function AgentCard({ agent: a, items, onNavigate }) {
   const entrance = useCardEntrance();
   const selectFollowed = useCallback((s) => s.followed.includes(a.id), [a.id]);
@@ -19,7 +20,7 @@ function AgentCard({ agent: a, items, onNavigate }) {
   return (
     <article ref={entrance} className="agent-card" data-agent-id={a.id}>
       <div className="agent-card-identity">
-        <img width="52" height="52" src={a.avatar} alt="" />
+        <img width="52" height="52" src={publicAsset(a.avatar)} alt="" />
         <div>
           <h2>
             {a.name}
@@ -42,11 +43,13 @@ function AgentCard({ agent: a, items, onNavigate }) {
         {responseLabel(a)}
       </p>
       <div className="chips">
-        {a.specialties.slice(0, 3).map((x) => (
-          <span className="pill" key={x}>
-            {x}
-          </span>
-        ))}
+        {(Array.isArray(a.specialties) ? a.specialties : [])
+          .slice(0, 3)
+          .map((x) => (
+            <span className="pill" key={x}>
+              {x}
+            </span>
+          ))}
       </div>
       <p className="agent-card-meta">
         {count} {count === 1 ? "active listing" : "active listings"} ·{" "}
@@ -60,7 +63,7 @@ function AgentCard({ agent: a, items, onNavigate }) {
             height="60"
             loading="lazy"
             decoding="async"
-            src={p.photos[0]}
+            src={publicAsset(p.photos?.[0])}
             alt={p.type}
           />
         ))}

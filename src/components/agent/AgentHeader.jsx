@@ -6,6 +6,8 @@ import { indianMobile } from "../../PropertyModel";
 import { responseLabel } from "../../lib/agents";
 import StatsRow from "./StatsRow";
 import { notifyAgent, toggleStore, useAgentStore } from "../../lib/agentStore";
+import { openExternal } from "../../lib/externalLink";
+import { publicAsset } from "../../lib/publicAsset";
 
 function ContactButton({ agent }) {
   const number = agent.phone || agent.whatsapp || "";
@@ -43,7 +45,7 @@ export default function AgentHeader({ agent: a, count, onShare }) {
   return (
     <header className="agent-profile-heading">
       <div className="agent-identity">
-        <img src={a.avatar} alt="" width="64" height="64" />
+        <img src={publicAsset(a.avatar)} alt="" width="64" height="64" />
         <div>
           <h1>{a.name}</h1>
           <p>
@@ -56,7 +58,10 @@ export default function AgentHeader({ agent: a, count, onShare }) {
           </p>
           <p>
             <MapPin size={13} aria-hidden="true" />
-            {a.city} · {a.languages.join(", ")}
+            {a.city}
+            {Array.isArray(a.languages) && a.languages.length
+              ? " · " + a.languages.join(", ")
+              : ""}
           </p>
         </div>
       </div>
@@ -78,14 +83,17 @@ export default function AgentHeader({ agent: a, count, onShare }) {
         >
           <WhatsAppIcon size={17} /> WhatsApp
         </WhatsAppLink>
-        <a
-          className="secondary"
-          href={a.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Instagram
-        </a>
+        {a.instagramUrl ? (
+          <a
+            className="secondary"
+            href={a.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={openExternal}
+          >
+            Instagram
+          </a>
+        ) : null}
         <button className="secondary" onClick={onShare}>
           <Share2 size={15} aria-hidden="true" /> Share
         </button>

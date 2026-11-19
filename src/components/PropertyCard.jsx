@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import { Heart } from "lucide-react";
 import { typeLabel } from "../PropertyTypes";
+import { publicAsset } from "../lib/publicAsset";
 import {
   landCardFooter,
   listingCardArea,
@@ -36,7 +37,9 @@ function PropertyCard({
           width="600"
           height="400"
           decoding="async"
-          src={p.photos?.[0] || "/" + p.image + ".jpg"}
+          src={publicAsset(
+            p.photos?.[0] || "/" + (p.image || "apartment") + ".jpg",
+          )}
           alt={
             p.type === "Land"
               ? "Illustrative green residential land"

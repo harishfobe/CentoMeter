@@ -99,7 +99,9 @@ function AgentFinder({ onNavigate, Modal }) {
     return findAgents(agents, base, eligible).filter(
       (a) =>
         (!f.locality?.length ||
-          f.locality.some((v) => a.serviceAreas.includes(v))) &&
+          f.locality.some((v) =>
+            (Array.isArray(a.serviceAreas) ? a.serviceAreas : []).includes(v),
+          )) &&
         (!f.budget || eligible.some((p) => p.agentId === a.id)),
     );
   }, [f]);
@@ -427,9 +429,7 @@ function AgentFinder({ onNavigate, Modal }) {
           onAction={reset}
         />
       )}
-      <p className="fine-print">
-        Location gating is simulated
-      </p>
+      <p className="fine-print">Location gating is simulated</p>
     </section>
   );
 }

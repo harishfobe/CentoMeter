@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, Lock, Mail, Smartphone, User } from "lucide-react";
 import { indianMobile } from "../PropertyModel";
+import { publicAsset } from "../lib/publicAsset";
 
 export const SAMPLE_ACCOUNT = {
   name: "Aarav Sharma",
@@ -204,7 +205,7 @@ export default function LoginPage({ onSignIn }) {
       </h1>
       <img
         className="login-logo"
-        src="/centometer-header-logo.png"
+        src={publicAsset("/centometer-header-logo.png")}
         alt="CentoMeter"
         width="1113"
         height="605"

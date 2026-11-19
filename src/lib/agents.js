@@ -100,29 +100,33 @@ export function filterListings(items, f, now = Date.now()) {
       (f.sort === "area" ? b.area - a.area : 0),
   );
 }
+const asList = (value) => (Array.isArray(value) ? value : []);
 export function findAgents(items, f = {}, allListings = listings) {
   const q = (f.query || "").toLowerCase();
   return items
-    .filter(
-      (a) =>
+    .filter((a) => {
+      const areas = asList(a.serviceAreas);
+      const languages = asList(a.languages);
+      const specialties = asList(a.specialties);
+      return (
         (!f.city || a.city === f.city) &&
         (!q ||
-          [a.name, a.handle, ...a.serviceAreas, ...a.languages]
+          [a.name, a.handle, ...areas, ...languages]
             .join(" ")
             .toLowerCase()
             .includes(q)) &&
-        (!f.locality || a.serviceAreas.includes(f.locality)) &&
+        (!f.locality || areas.includes(f.locality)) &&
         (!f.verified || a.verified) &&
         (!f.language ||
           !f.language.length ||
           (Array.isArray(f.language)
-            ? f.language.some((x) => a.languages.includes(x))
-            : a.languages.includes(f.language))) &&
+            ? f.language.some((x) => languages.includes(x))
+            : languages.includes(f.language))) &&
         (!f.specialty ||
           !f.specialty.length ||
           (Array.isArray(f.specialty)
-            ? f.specialty.some((x) => a.specialties.includes(x))
-            : a.specialties.includes(f.specialty))) &&
+            ? f.specialty.some((x) => specialties.includes(x))
+            : specialties.includes(f.specialty))) &&
         (!f.response ||
           (a.responseTimeMins != null &&
             a.responseTimeMins <= Number(f.response))) &&
@@ -132,8 +136,9 @@ export function findAgents(items, f = {}, allListings = listings) {
         (!f.budget ||
           activeListings(allListings, a.id).some(
             (p) => p.price <= Number(f.budget),
-          )),
-    )
+          ))
+      );
+    })
     .sort((a, b) =>
       f.sort === "fast"
         ? (a.responseTimeMins ?? Infinity) - (b.responseTimeMins ?? Infinity)

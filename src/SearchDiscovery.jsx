@@ -13,6 +13,7 @@ import { nearText } from "./Journeys";
 import { cityForLocation, distanceKm, money } from "./PropertyModel";
 import { priceWithBasis } from "./listingPresentation";
 import { typeLabel } from "./PropertyTypes";
+import { publicAsset } from "./lib/publicAsset";
 import { localityPrice, orderedLocalities } from "./SearchSuggestions";
 
 function nearestListedArea(point, source) {
@@ -36,7 +37,8 @@ function nearestListedArea(point, source) {
   return { city: foundCity, label: nearest?.locality || foundCity || "" };
 }
 
-const photo = (p) => p.photos?.[0] || `/${p.image || "apartment"}.jpg`;
+const photo = (p) =>
+  publicAsset(p.photos?.[0] || `/${p.image || "apartment"}.jpg`);
 
 export default function SearchDiscovery({
   city,
@@ -183,7 +185,12 @@ export default function SearchDiscovery({
               disabled={locating}
               onClick={useCurrentLocation}
             >
-              <img src="/centometer-pin.png" alt="" width="18" height="22" />
+              <img
+                src={publicAsset("/centometer-pin.png")}
+                alt=""
+                width="18"
+                height="22"
+              />
             </button>
             <input
               role="combobox"
