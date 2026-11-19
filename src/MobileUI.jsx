@@ -180,8 +180,8 @@ function ContactAvatar({ contact }) {
         className="sticky-contact-avatar"
         src={publicAsset(contact.avatar)}
         alt=""
-        width="40"
-        height="40"
+        width="46"
+        height="46"
       />
     );
   }
@@ -253,7 +253,7 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
               href={contact.callHref}
               aria-label="Call now"
             >
-              <Phone size={18} aria-hidden="true" />
+              <Phone size={20} aria-hidden="true" />
             </a>
           ) : (
             <button
@@ -263,7 +263,7 @@ export function StickyContactBar({ property, agent = null, className = "" }) {
               aria-label="Contact number not provided"
               title="Contact number not provided"
             >
-              <Phone size={18} aria-hidden="true" />
+              <Phone size={20} aria-hidden="true" />
             </button>
           )}
         </div>

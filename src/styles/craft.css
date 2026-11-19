@@ -50,15 +50,15 @@ a[href],
 
 /* Sticky contact CTAs: minimum 44×44 interactive targets */
 .sticky-contact-whatsapp {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 10px 14px;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0 14px;
 }
 .sticky-contact-call {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
 }
 
 .sticky-contact-bar-inner {
