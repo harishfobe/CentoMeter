@@ -40,16 +40,19 @@ export function LocationRequestForm({ p, profile, onSubmit }) {
   const [name, setName] = useState(profile.name || "");
   const [phone, setPhone] = useState(profile.phone || "");
   const [error, setError] = useState("");
+  const [sending, setSending] = useState(false);
   return (
     <form
       className="form-stack location-request-form"
       onSubmit={(e) => {
         e.preventDefault();
+        if (sending) return;
         const mobile = indianMobile(phone);
         if (!name.trim() || !mobile) {
           setError("Enter your name and a valid Indian mobile number.");
           return;
         }
+        setSending(true);
         onSubmit({ name: name.trim(), phone: mobile });
       }}
     >
@@ -87,7 +90,9 @@ export function LocationRequestForm({ p, profile, onSubmit }) {
         Your request is stored on this device. The agent
         approves access per listing.
       </p>
-      <button className="primary">Send location request</button>
+      <button className="primary" type="submit" disabled={sending}>
+        {sending ? "Sending request…" : "Send location request"}
+      </button>
     </form>
   );
 }

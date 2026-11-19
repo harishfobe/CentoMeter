@@ -1700,6 +1700,23 @@ textarea {
   font-weight: 700;
   min-height: 44px;
 }
+.login-legal {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px 0 0;
+}
+.login-legal a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+.legal-copy p + p {
+  margin-top: 12px;
+}
 .packages-back {
   width: 44px;
   height: 44px;

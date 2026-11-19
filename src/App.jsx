@@ -6,6 +6,7 @@ import { loadListingDetails } from "./lib/listingDetailsLoader";
 import PropertyCard from "./components/PropertyCard";
 import PackagePricing from "./components/PackagePricing";
 import LoginPage from "./components/LoginPage";
+import LegalNotice from "./LegalNotice";
 import MapView from "./MapView";
 import { Modal, IconButton } from "./Modal";
 export { Modal } from "./Modal";
@@ -50,6 +51,8 @@ import {
   Phone,
   LogOut,
   Info,
+  Shield,
+  ScrollText,
   Clock3,
   Eye,
   Share2,
@@ -62,7 +65,7 @@ import ProfilePhoto, {
 import properties from "./data/properties.json";
 import agents from "./data/agents.json";
 import agentListings from "./data/agentListings.json";
-import { useAgentStore, viewerId } from "./lib/agentStore";
+import { resetStore, useAgentStore, viewerId } from "./lib/agentStore";
 import { AgentRequests, AgentSaved } from "./components/agent/AgentActivity";
 import { parseAgentRoute, mergeListings } from "./lib/agents";
 import { LocationGate, LocationRequestForm, LocationRequests } from "./AgentUI";
@@ -522,8 +525,8 @@ export default function App() {
   const [sort, setSort] = useState("recommended");
   const [resetKey, setResetKey] = useState(0);
   const [profile, setProfile] = useState(() => {
-    const saved = readLocal("centometer-session", null);
-    const stored = saved?.profile;
+    const session = readLocal("centometer-session", null);
+    const stored = session?.signedIn === true ? session.profile : null;
     if (
       stored &&
       typeof stored.name === "string" &&
@@ -536,21 +539,22 @@ export default function App() {
         photo: typeof stored.photo === "string" ? stored.photo : "",
       };
     }
-    return {
-      name: "Aarav Sharma",
-      email: "aarav@example.com",
-      phone: "",
-      photo: "",
-    };
+    return { name: "", email: "", phone: "", photo: "" };
   });
   const [signedIn, setSignedIn] = useState(
-    () => readLocal("centometer-session", null)?.signedIn !== false,
+    () => readLocal("centometer-session", null)?.signedIn === true,
   );
   const [accountRole, setAccountRole] = useState(() =>
-    readLocal("centometer-session", null)?.role === "agent" ? "agent" : "user",
+    readLocal("centometer-session", null)?.signedIn === true &&
+    readLocal("centometer-session", null)?.role === "agent"
+      ? "agent"
+      : "user",
   );
   const [alerts, setAlerts] = useState(true);
   const [contactSent, setContactSent] = useState(false);
+  const [contactSending, setContactSending] = useState(false);
+  const contactLock = useRef(false);
+  const reportLock = useRef(false);
   const [contactError, setContactError] = useState("");
   const [contactTarget, setContactTarget] = useState(null);
   useEffect(() => {
@@ -858,9 +862,57 @@ export default function App() {
     setContactTarget(p.id);
     setSelected(null);
     setContactSent(false);
+    setContactSending(false);
+    contactLock.current = false;
     setContactError("");
     setVisitDate(visitDates()[0].value);
     setModal("contact");
+  };
+  const openReport = () => {
+    reportLock.current = false;
+    setModal("report");
+  };
+  const deleteAccount = async () => {
+    const emptyProfile = { name: "", email: "", phone: "", photo: "" };
+    setSaved([]);
+    setSavedSearches([]);
+    setRecent([]);
+    setNotes({});
+    setCollections({});
+    setActivity([]);
+    setLocationRequests([]);
+    setDrafts([]);
+    setProfile(emptyProfile);
+    setAccountRole("user");
+    setSignedIn(false);
+    resetStore();
+    const drop = [];
+    for (let i = 0; i < localStorage.length; i += 1) {
+      const key = localStorage.key(i);
+      if (!key || key === "centometer-city") continue;
+      if (
+        key.startsWith("centometer-") ||
+        key.startsWith("agent-filters:") ||
+        key.startsWith("agent-compare:")
+      )
+        drop.push(key);
+    }
+    drop.forEach((key) => localStorage.removeItem(key));
+    await Promise.all(
+      ["centometer-photos", "centometer-location-vault"].map(
+        (name) =>
+          new Promise((resolve) => {
+            const request = indexedDB.deleteDatabase(name);
+            request.onsuccess =
+              request.onerror =
+              request.onblocked =
+                () => resolve();
+          }),
+      ),
+    );
+    setModal(null);
+    navigate("home");
+    notify("Account deleted from this device");
   };
   const clear = () => {
     mapViewport.current = null;
@@ -953,6 +1005,8 @@ export default function App() {
       profile: "Profile",
       packages: "Package and Pricing",
       login: "Log in",
+      privacy: "Privacy Policy",
+      terms: "Terms of use",
     }[route] ||
     "Page not found";
   useEffect(() => {
@@ -1122,9 +1176,16 @@ export default function App() {
         {!browse &&
           !detail &&
           !agentRoute &&
-          !["post", "search", "saved", "profile", "packages", "login"].includes(
-            route,
-          ) && (
+          ![
+            "post",
+            "search",
+            "saved",
+            "profile",
+            "packages",
+            "login",
+            "privacy",
+            "terms",
+          ].includes(route) && (
             <Empty
               as="section"
               className="page empty"
@@ -1831,22 +1892,22 @@ export default function App() {
                   <LandSummary
                     p={detail}
                     showDescription={false}
-                    onReport={() => setModal("report")}
+                    onReport={() => openReport()}
                   />
                 ) : usesHomeDetailLayout(detail) ? (
                   <HouseVillaSummary
                     p={detail}
-                    onReport={() => setModal("report")}
+                    onReport={() => openReport()}
                   />
                 ) : usesCommercialDetailLayout(detail) ? (
                   <CommercialSummary
                     p={detail}
-                    onReport={() => setModal("report")}
+                    onReport={() => openReport()}
                   />
                 ) : usesPgDetailLayout(detail) ? (
                   <PgSummary
                     p={detail}
-                    onReport={() => setModal("report")}
+                    onReport={() => openReport()}
                   />
                 ) : null}
                 {usesCommercialDetailLayout(detail) ? (
@@ -1947,7 +2008,7 @@ export default function App() {
                     </span>
                     <button
                       className="text-button"
-                      onClick={() => setModal("report")}
+                      onClick={() => openReport()}
                     >
                       Report listing
                     </button>
@@ -2354,6 +2415,12 @@ export default function App() {
         {route === "packages" && (
           <PackagePricing onBack={() => navigate("profile")} />
         )}
+        {(route === "privacy" || route === "terms") && (
+          <LegalNotice
+            kind={route}
+            onBack={() => navigate(signedIn ? "profile" : "login")}
+          />
+        )}
         {route === "login" && (
           <LoginPage
             onBack={() => navigate(loginReturn.current || "home")}
@@ -2444,12 +2511,14 @@ export default function App() {
                   [House, "My listings", "drafts"],
                   [Search, "Saved searches", "savedSearches"],
                   [Info, "Help & support", "help"],
+                  [Shield, "Privacy Policy", "privacy"],
+                  [ScrollText, "Terms of use", "terms"],
                   [Info, "About this prototype", "about"],
                 ].map(([Icon, label, key]) => (
                   <button
                     key={key}
                     onClick={() =>
-                      key === "agents" || key === "packages"
+                      ["agents", "packages", "privacy", "terms"].includes(key)
                         ? navigate(key)
                         : setModal(key)
                     }
@@ -2470,6 +2539,12 @@ export default function App() {
               >
                 <LogOut size={18} />
                 Sign out
+              </button>
+              <button
+                className="secondary profile-signout"
+                onClick={() => setModal("deleteAccount")}
+              >
+                Delete account
               </button>
             </div>
           </section>
@@ -2630,6 +2705,7 @@ export default function App() {
               className="form-stack"
               onSubmit={(e) => {
                 e.preventDefault();
+                if (contactLock.current) return;
                 const f = new FormData(e.currentTarget);
                 if (String(f.get("date") || "") < visitDates()[0].value) {
                   setContactError("Choose a future date for your visit.");
@@ -2641,6 +2717,8 @@ export default function App() {
                   );
                   return;
                 }
+                contactLock.current = true;
+                setContactSending(true);
                 setContactError("");
                 setContactSent(true);
                 setActivity((a) => [
@@ -2760,8 +2838,8 @@ export default function App() {
                   {contactError}
                 </p>
               )}
-              <button className="primary" type="submit">
-                Preview visit request
+              <button className="primary" type="submit" disabled={contactSending}>
+                {contactSending ? "Saving request…" : "Preview visit request"}
               </button>
             </form>
           )}
@@ -3173,6 +3251,8 @@ export default function App() {
             className="form-stack"
             onSubmit={(e) => {
               e.preventDefault();
+              if (reportLock.current) return;
+              reportLock.current = true;
               setModal(null);
               notify("Report preview recorded. Nothing was sent.");
             }}
@@ -3190,7 +3270,9 @@ export default function App() {
               Additional details
               <textarea rows="3" placeholder="Optional details" />
             </label>
-            <button className="primary">Preview report</button>
+            <button className="primary" type="submit">
+              Preview report
+            </button>
           </form>
         </Modal>
       )}
@@ -3222,6 +3304,22 @@ export default function App() {
               ? "Floor plan provided by the seller; not independently verified by CentoMeter."
               : "Illustrative layout — not this property's actual plan. Not to scale."}
           </p>
+        </Modal>
+      )}
+      {modal === "deleteAccount" && (
+        <Modal title="Delete account?" onClose={() => setModal(null)}>
+          <p>
+            This removes your profile, saved homes, drafts, and requests from
+            this device. The example listings stay available.
+          </p>
+          <div className="modal-actions">
+            <button className="secondary" onClick={() => setModal(null)}>
+              Keep account
+            </button>
+            <button className="primary" onClick={() => void deleteAccount()}>
+              Delete account
+            </button>
+          </div>
         </Modal>
       )}
       {modal === "clearSaved" && (

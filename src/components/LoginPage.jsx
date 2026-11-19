@@ -79,6 +79,7 @@ export default function LoginPage({ onSignIn }) {
   const [step, setStep] = useState("details");
   const [code, setCode] = useState("");
   const [otp, setOtp] = useState("");
+  const [busy, setBusy] = useState(false);
   const creating = mode === "create";
   const phoneSignIn = !creating && signInWith === "phone";
 
@@ -108,6 +109,7 @@ export default function LoginPage({ onSignIn }) {
 
   const submit = (event) => {
     event.preventDefault();
+    if (busy) return;
     const trimmedEmail = email.trim();
     const mobile = indianMobile(phone);
     if (creating && name.trim().length < 2) {
@@ -136,6 +138,7 @@ export default function LoginPage({ onSignIn }) {
       sendCode();
       return;
     }
+    setBusy(true);
     onSignIn({
       name: phoneSignIn ? "CentoMeter member" : nameFromEmail(trimmedEmail),
       email: phoneSignIn ? "" : trimmedEmail,
@@ -146,6 +149,7 @@ export default function LoginPage({ onSignIn }) {
 
   const verify = (event) => {
     event.preventDefault();
+    if (busy) return;
     if (!/^\d{6}$/.test(otp)) {
       setError("Enter the 6-digit code.");
       return;
@@ -155,6 +159,7 @@ export default function LoginPage({ onSignIn }) {
       return;
     }
     setError("");
+    setBusy(true);
     onSignIn({
       name: name.trim(),
       email: email.trim(),
@@ -222,8 +227,8 @@ export default function LoginPage({ onSignIn }) {
               {error}
             </p>
           ) : null}
-          <button className="primary login-submit" type="submit">
-            Verify
+          <button className="primary login-submit" type="submit" disabled={busy}>
+            {busy ? "Verifying…" : "Verify"}
           </button>
           <div className="login-forgot-row">
             <button type="button" className="login-alt" onClick={() => setStep("details")}>
@@ -328,8 +333,8 @@ export default function LoginPage({ onSignIn }) {
               {error}
             </p>
           ) : null}
-          <button className="primary login-submit" type="submit">
-            {creating ? "Sign up" : "Log in"}
+          <button className="primary login-submit" type="submit" disabled={busy}>
+            {busy ? "Signing in…" : creating ? "Sign up" : "Log in"}
           </button>
         </form>
       )}
@@ -361,6 +366,10 @@ export default function LoginPage({ onSignIn }) {
           </button>
         </p>
       )}
+      <p className="login-legal">
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of use</a>
+      </p>
     </section>
   );
 }

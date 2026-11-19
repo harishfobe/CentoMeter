@@ -2914,3 +2914,23 @@ a:focus-visible {
     font-size: 13px;
   }
 }
+@media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
+  .app-shell .form-stack input:not([type="checkbox"]):not([type="file"]),
+  .app-shell .form-stack select,
+  .app-shell .form-stack textarea,
+  .app-shell .search-box input,
+  .app-shell .search-discovery-form input,
+  .app-shell .sort-row select,
+  .app-shell .header-location select,
+  .app-shell .explore-heading .header-location select,
+  .app-shell .agent-filter-bar select,
+  .app-shell .agent-finder > .agent-filter-bar > input,
+  .app-shell .agent-finder > .agent-filter-bar > select {
+    font-size: 16px;
+  }
+  .app-shell .list-map-button,
+  .app-shell .header-post,
+  .app-shell .advanced-filters summary {
+    min-height: 44px;
+  }
+}

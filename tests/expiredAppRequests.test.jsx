@@ -60,7 +60,7 @@ it("does not continuously rerender for an already expired agent approval", async
       removeEventListener: vi.fn(),
     })),
   );
-  history.replaceState(null, "", "#profile");
+  history.replaceState(null, "", "#home");
   const commits = vi.fn();
   render(
     <Profiler id="app" onRender={commits}>

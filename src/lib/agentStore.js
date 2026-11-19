@@ -102,6 +102,22 @@ export function decideVisit(id, status) {
   }));
 }
 const viewedAgents = new Set();
+export function resetStore() {
+  clearTimeout(writeTimer);
+  state = {
+    followed: [],
+    saved: [],
+    requests: [],
+    visits: [],
+    overrides: {},
+    reports: [],
+    events: [],
+  };
+  pendingToggles.clear();
+  setAccessRequests(state.requests);
+  writeLocal(key, state);
+  listeners.forEach((fn) => fn());
+}
 export function updateStore(fn) {
   state = fn(state);
   setAccessRequests(state.requests);
