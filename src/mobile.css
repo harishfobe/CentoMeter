@@ -2738,7 +2738,7 @@ a:focus-visible {
   max-width: 430px;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 8px 8px 8px 10px;
+  padding: 10px;
   background: var(--paper);
   border: 0;
   border-radius: 999px;
@@ -2753,8 +2753,8 @@ a:focus-visible {
   flex: 1 1 auto;
 }
 .sticky-contact-avatar {
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   border-radius: 9999px;
   flex-shrink: 0;
   object-fit: cover;
@@ -2764,7 +2764,7 @@ a:focus-visible {
 .sticky-contact-initials {
   display: grid;
   place-items: center;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
@@ -2779,7 +2779,7 @@ a:focus-visible {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.25;
   color: var(--ink);
@@ -2789,7 +2789,7 @@ a:focus-visible {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.3;
   color: var(--muted);
 }
@@ -2830,22 +2830,27 @@ a:focus-visible {
   justify-content: center;
   gap: 6px;
   flex: 0 0 auto;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 10px 14px;
+  min-height: 48px;
+  height: 48px;
+  min-width: 48px;
+  padding: 0 14px;
   border: 0;
-  border-radius: 16px;
+  border-radius: 18px;
   background: var(--brand);
   color: var(--brand-on);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
 }
+.app-shell .sticky-contact-whatsapp {
+  min-height: 48px;
+  height: 48px;
+}
 .sticky-contact-whatsapp svg {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 .sticky-contact-whatsapp:active {
@@ -2868,10 +2873,10 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   padding: 0;
   border: 1.5px solid var(--brand);
   border-radius: 50%;
@@ -2919,11 +2924,6 @@ a:focus-visible {
     position: relative;
     inset: auto;
     display: block;
-  }
-}
-@media (min-width: 400px) {
-  .sticky-contact-whatsapp {
-    font-size: 13px;
   }
 }
 @media (max-width: 760px), (max-width: 1024px) and (pointer: coarse) {
