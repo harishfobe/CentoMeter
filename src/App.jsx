@@ -1147,6 +1147,7 @@ export default function App() {
             query={query}
             filters={filters}
             items={candidates}
+            catalog={allProperties}
             onBack={() => navigate(searchReturn.current || "home")}
             onOpen={open}
             onOpenAgents={() => navigate("agents")}
