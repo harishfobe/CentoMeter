@@ -34,7 +34,6 @@ export function canonicalizePropertyType(type) {
 }
 
 export const WATER_SOURCES = [
-  "Siruvani",
   "Corporation",
   "Borewell",
   "Borewell + Corporation",

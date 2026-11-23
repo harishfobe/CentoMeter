@@ -345,7 +345,7 @@ export function buildRentVillaDetailRows(p) {
 export function houseWaterLabel(p, pool = featurePool(p)) {
   if (hasValue(p.water)) return String(p.water).trim();
   const hit = pool.find((value) =>
-    /borewell|corporation|siruvani|water/i.test(value),
+    /borewell|corporation|water/i.test(value),
   );
   return hit || null;
 }

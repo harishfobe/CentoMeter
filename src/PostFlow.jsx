@@ -403,7 +403,7 @@ export default function PostFlow({
         d.type === "Independent House"
           ? d.intent === "RENT"
             ? "Borewell + Corporation"
-            : "Siruvani"
+            : "Corporation"
           : d.water,
       roadWidth: d.type === "Independent House" ? "30" : d.roadWidth,
       projectName:
@@ -666,7 +666,7 @@ export default function PostFlow({
       }
       if (!WATER_SOURCES.includes(data.water)) {
         setError(
-          "Select a water source (Siruvani, Corporation, Borewell, or Borewell + Corporation).",
+          "Select a water source (Corporation, Borewell, or Borewell + Corporation).",
         );
         return;
       }
