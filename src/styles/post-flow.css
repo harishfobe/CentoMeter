@@ -52,7 +52,8 @@
   margin: 0 auto;
   background: white;
   min-height: 100dvh;
-  padding-bottom: 110px;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 .post-flow header {
@@ -432,22 +433,30 @@
   color: var(--ink);
 }
 .post-flow footer {
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: 100%;
-  max-width: 480px;
+  margin-top: auto;
   display: flex;
+  align-items: center;
   gap: 12px;
-  background: #fffffffa;
-  border-top: 1px solid #e4e4e7;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
   padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-  z-index: 1100;
+  z-index: 20;
+  box-shadow: 0 -8px 20px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.post-flow footer .primary,
+.post-flow footer .secondary {
+  min-width: 0;
+  white-space: nowrap;
 }
 .post-flow footer .primary {
-  flex: 1;
+  flex: 1 1 auto;
 }
 .post-flow footer .secondary {
-  flex: 0.65;
+  flex: 0 0 auto;
+  min-width: 112px;
 }
 .post-flow .try-example {
   display: block;
@@ -723,13 +732,8 @@
     margin: 28px auto;
     border: 1px solid #e4e4e7;
     border-radius: 20px;
-    overflow: hidden;
+    overflow: clip;
     min-height: calc(100dvh - 56px);
-  }
-  .post-flow footer {
-    border-left: 1px solid #e4e4e7;
-    border-right: 1px solid #e4e4e7;
-    border-radius: 0 0 16px 16px;
   }
   .post-flow .content {
     padding: 28px;
@@ -877,7 +881,6 @@
   width: 100%;
   color: var(--ink);
   background: var(--canvas);
-  padding: 16px 0 100px;
 }
 .post-flow .shell {
   margin: auto;
@@ -910,15 +913,8 @@
   border-radius: 8px;
   margin-block: 16px;
 }
-.post-flow footer {
-  z-index: 600;
-  bottom: calc(76px + env(safe-area-inset-bottom));
-  left: 50%;
-  translate: -50% 0;
-  padding-bottom: 16px;
-}
 .post-flow .content {
-  padding-bottom: 130px;
+  flex: 1 1 auto;
 }
 .post-flow .map-actions {
   margin-top: 12px;
@@ -927,9 +923,4 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
-}
-@media (min-width: 761px) {
-  .post-flow footer {
-    bottom: 0;
-  }
 }
