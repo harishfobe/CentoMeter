@@ -55,7 +55,9 @@ test("approved Home sections, SELL posting and full Map tab retain search and li
   await shot(page, info, "home");
   await tabs.getByRole("tab", { name: "POST", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "Post property", exact: true }),
+    page
+      .locator(".post-flow header")
+      .getByText("Post property", { exact: true }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "Back to exploring", exact: true })

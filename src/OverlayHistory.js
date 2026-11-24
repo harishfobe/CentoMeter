@@ -1,5 +1,9 @@
 import { useEffect, useRef } from "react";
 let pendingBack = Promise.resolve();
+// A parent listing must wait for a closing child dialog to remove its entry.
+export function settledOverlayHistory() {
+  return pendingBack;
+}
 function reportHistoryFailure() {
   window.dispatchEvent(
     new CustomEvent("centometer-toast", {

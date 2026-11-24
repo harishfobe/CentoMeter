@@ -11,7 +11,9 @@ test("rental detail costs and site visit stay within page width", async ({
 }) => {
   await page.goto("/#property/" + rentApartmentId);
   await expect(page.locator(".detail-page")).toBeVisible({ timeout: 15000 });
-  await expect(page.locator(".property-card-type, .detail-eyebrow").first()).toBeVisible();
+  await expect(
+    page.locator(".property-card-type, .detail-eyebrow").first(),
+  ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "What you will pay" }),
   ).toBeVisible();
@@ -50,11 +52,15 @@ test("rental results cards expose type, price basis and costs", async ({
 
 test("residential land post details expose declarations", async ({ page }) => {
   await page.goto("/#post");
-  await page.getByRole("button", { name: /For sale/i }).click();
+  await page.getByRole("button", { name: "Sell", exact: true }).click();
   await page.getByRole("button", { name: /Plot \/ Land|^Land$/i }).click();
+  await page
+    .getByRole("button", { name: "Autofill details", exact: true })
+    .click();
   await page.getByRole("button", { name: /^Continue$|^Next$/i }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await expect(
-    page.getByRole("heading", { name: "Land details" }),
+    page.getByRole("heading", { name: "Describe the land" }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "Land declarations" }),

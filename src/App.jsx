@@ -549,6 +549,18 @@ export default function App() {
       : "user",
   );
   const [alerts, setAlerts] = useState(true);
+  const activePostingAgent =
+    postingAgent ||
+    (editing?.agentId ? agents.find((a) => a.id === editing.agentId) : null) ||
+    (signedIn && accountRole === "agent"
+      ? agents.find(
+          (a) =>
+            a.name.toLowerCase() === profile.name.trim().toLowerCase() ||
+            a.handle.toLowerCase() ===
+              profile.email.split("@")[0].toLowerCase(),
+        )
+      : null) ||
+    null;
   const [contactSent, setContactSent] = useState(false);
   const [contactSending, setContactSending] = useState(false);
   const contactLock = useRef(false);
@@ -2194,16 +2206,22 @@ export default function App() {
         {route === "post" && listingsReady && (
           <PostFlow
             initialDraft={editing}
-            agent={postingAgent}
+            agent={activePostingAgent}
+            profile={signedIn ? profile : undefined}
+            accountRole={signedIn ? accountRole : "user"}
             city={city}
             onExit={() => {
               setEditing(null);
               navigate("home");
             }}
             onComplete={async (d) => {
+              if (d.seller === "Agent" && !activePostingAgent)
+                throw new Error(
+                  "Choose your agent profile from the agent dashboard before saving an agent listing.",
+                );
               const { next, result } = await savePostedListing({
                 data: d,
-                agent: postingAgent,
+                agent: d.seller === "Agent" ? activePostingAgent : null,
                 editing,
                 drafts,
                 saveListings,

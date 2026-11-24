@@ -43,7 +43,7 @@ export async function savePostedListing({
       highlights: d.highlights || [],
       approx,
       seller: "Agent",
-      contactName: agent.name,
+      contactName: normalized.contactName || agent.name,
     };
     delete listing.lat;
     delete listing.lng;

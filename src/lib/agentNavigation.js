@@ -1,4 +1,5 @@
 import { reducedMotion } from "./agentMotion";
+import { settledOverlayHistory } from "../OverlayHistory";
 import {
   startTransition,
   useEffect,
@@ -68,13 +69,15 @@ export function useAgentNavigation(route) {
     [replace],
   );
   const close = useCallback(() => {
-    if (history.state?.centometerListing) {
-      history.back();
-      return;
-    }
-    const q = new URLSearchParams(searchRef.current);
-    q.delete("l");
-    replace(q);
+    void settledOverlayHistory().then(() => {
+      if (history.state?.centometerListing) {
+        history.back();
+        return;
+      }
+      const q = new URLSearchParams(searchRef.current);
+      q.delete("l");
+      replace(q);
+    });
   }, [replace]);
   useEffect(() => {
     const key = (e) => {

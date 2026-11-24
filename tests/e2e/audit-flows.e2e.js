@@ -3,7 +3,9 @@ import fs from "node:fs/promises";
 const shots = "artifacts/repo-audit";
 async function openAgentDashboard(page) {
   await page.evaluate(() => {
-    const saved = JSON.parse(localStorage.getItem("centometer-session") || "{}");
+    const saved = JSON.parse(
+      localStorage.getItem("centometer-session") || "{}",
+    );
     localStorage.setItem(
       "centometer-session",
       JSON.stringify({
@@ -17,17 +19,21 @@ async function openAgentDashboard(page) {
       }),
     );
   });
-  await page.goto("/#agent-dashboard");
+  // Reload the app so the newly seeded login is reflected in React state.
+  await page.goto("/?agent-test=1#agent-dashboard");
 }
 async function shot(page, info, name) {
   // Finish finite entrance animations before recording the settled interface.
   await page.evaluate(async () => {
-    const finite = document
-      .getAnimations()
-      .filter(
-        (animation) =>
-          animation.effect?.getComputedTiming().iterations !== Infinity,
-      );
+    const finite = document.getAnimations().filter(
+      (animation) =>
+        animation.effect?.getComputedTiming().iterations !== Infinity &&
+        animation.playState !== "paused" &&
+        (!(animation.effect?.target instanceof Element) ||
+          animation.effect.target.checkVisibility({
+            contentVisibilityAuto: true,
+          })),
+    );
     await Promise.allSettled(finite.map((animation) => animation.finished));
   });
   await fs.mkdir(shots, { recursive: true });
@@ -235,14 +241,32 @@ test("a sample listing can be posted, reopened, and edited without losing data",
 }, info) => {
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
+  await page.addInitScript(() => {
+    if (!localStorage.getItem("centometer-session"))
+      localStorage.setItem(
+        "centometer-session",
+        JSON.stringify({
+          signedIn: true,
+          role: "user",
+          profile: {
+            name: "Audit owner",
+            email: "owner@example.com",
+            phone: "9000000000",
+          },
+        }),
+      );
+  });
   await page.goto("/#post");
   await page.getByRole("button", { name: "Autofill details" }).click();
-  for (let step = 0; step < 3; step++)
+  for (let step = 0; step < 4; step++)
     await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page
+    .getByRole("button", { name: "Review listing", exact: true })
+    .click();
   await page.getByLabel("Contact name", { exact: true }).fill("Audit owner");
   await page.getByLabel("Phone number", { exact: true }).fill("9000000000");
   await shot(page, info, "post-review");
-  await page.getByRole("button", { name: "Finish preview" }).click();
+  await page.getByRole("button", { name: "Save listing", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Your listing looks great." }),
   ).toBeVisible();
@@ -265,12 +289,16 @@ test("a sample listing can be posted, reopened, and edited without losing data",
   await manager
     .getByRole("button", { name: "Edit listing", exact: true })
     .click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page
     .getByLabel("Listing title", { exact: true })
     .fill("Audited edited home");
   await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByRole("button", { name: "Finish preview" }).click();
+  await page
+    .getByRole("button", { name: "Review listing", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Save listing", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Your listing looks great." }),
   ).toBeVisible();
@@ -308,13 +336,17 @@ test("location request, approval, buyer activity and site-visit decision reach b
     request.getByRole("heading", { name: "Request sent" }),
   ).toBeVisible();
   await request.getByRole("button", { name: "Done" }).click();
+  await expect(request).toHaveCount(0);
   await page.getByRole("button", { name: "Site visit", exact: true }).click();
   const visit = page.getByRole("dialog", { name: "Request site visit" });
   await visit.getByLabel("Name", { exact: true }).fill("Audit buyer");
   await visit.getByLabel("Indian mobile", { exact: true }).fill("9000000000");
   await visit.getByRole("button", { name: "Save visit request" }).click();
   await expect(visit).toHaveCount(0);
-  await page.getByRole("button", { name: "Close dialog", exact: true }).click();
+  await page
+    .getByRole("dialog", { name: "Kovai Palm Residences", exact: true })
+    .getByRole("button", { name: "Close dialog", exact: true })
+    .click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await openAgentDashboard(page);
   await page.getByRole("button", { name: "Approve", exact: true }).click();
@@ -355,15 +387,29 @@ test("editing an agent sample replaces the existing card instead of creating a d
   await listing
     .getByRole("button", { name: "Edit listing · place pin again" })
     .click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await page
     .getByLabel("Listing title", { exact: true })
     .fill("Audit agent edit");
   await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await page.getByRole("button", { name: "Use a central location" }).click();
   await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page.route(/nominatim.*\/reverse/, (r) =>
+    r.fulfill({
+      json: { address: { village: "Kovilpalayam", city: "Coimbatore" } },
+    }),
+  );
+  await page
+    .getByRole("button", { name: "Place pin at map centre", exact: true })
+    .click();
+  await expect(
+    page.getByLabel("Locality / village", { exact: true }),
+  ).toHaveValue("Kovilpalayam");
+  await page
+    .getByRole("button", { name: "Review listing", exact: true })
+    .click();
   await page.getByLabel("Contact name", { exact: true }).fill("Audit agent");
   await page.getByLabel("Phone number", { exact: true }).fill("9000000000");
-  await page.getByRole("button", { name: "Finish preview" }).click();
+  await page.getByRole("button", { name: "Save listing", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "Your listing looks great." }),
   ).toBeVisible();

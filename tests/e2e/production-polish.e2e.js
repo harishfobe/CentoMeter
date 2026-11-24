@@ -8,7 +8,9 @@ test("deferred map and posting routes load and navigation stays usable", async (
   await expect(page.locator(".leaflet-container").first()).toBeVisible();
   await page.goto("/#post");
   await expect(
-    page.getByRole("heading", { name: "Post property", exact: true }),
+    page
+      .locator(".post-flow header")
+      .getByText("Post property", { exact: true }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "What would you like to list?" }),

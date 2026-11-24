@@ -22,7 +22,7 @@ export function Modal({
   const close = useRef(onClose);
   const dirtyForm = useRef(false);
   close.current = onClose;
-  useOverlayBack(!historyManaged, () => close.current());
+  useOverlayBack(!historyManaged && !exiting, () => close.current());
   useEffect(() => {
     const before = document.activeElement;
     const prev = document.body.style.overflow;

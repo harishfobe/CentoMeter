@@ -69,3 +69,13 @@ it("keeps the identity of an edited agent listing instead of prefixing it again"
   expect(next).toHaveLength(1);
   expect(next[0].id).toBe("al-post-3");
 });
+it("keeps the contact name supplied by the signed-in profile on an agent listing", async () => {
+  const { next } = await savePostedListing({
+    data: { ...draft, contactName: "Profile contact" },
+    agent: { id: "a1", name: "Directory agent" },
+    drafts: [],
+    saveListings: vi.fn().mockResolvedValue({ ok: true, photosSaved: true }),
+  });
+  expect(next[0].contactName).toBe("Profile contact");
+  expect(next[0]).not.toHaveProperty("contactPhone");
+});

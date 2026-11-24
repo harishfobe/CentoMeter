@@ -1,7 +1,10 @@
 // @vitest-environment jsdom
 import { it, expect, vi, afterEach } from "vitest";
-import { renderHook, act, cleanup } from "@testing-library/react";
+import React from "react";
+import { render, renderHook, act, cleanup } from "@testing-library/react";
+import { Modal } from "../src/Modal";
 import useOverlayBack from "../src/OverlayHistory";
+import { useAgentNavigation } from "../src/lib/agentNavigation";
 const backFinished = async () => {
   await act(async () => {
     history.replaceState({ sentinel: 42 }, "");
@@ -11,6 +14,51 @@ const backFinished = async () => {
     await Promise.resolve();
   });
 };
+it("waits for a child dialog's pending Back before closing its parent listing", async () => {
+  history.replaceState(
+    { sentinel: 42, centometerListing: true },
+    "",
+    "#agent/test?l=al1",
+  );
+  const back = vi.spyOn(history, "back").mockImplementation(() => {});
+  const listing = renderHook(() => useAgentNavigation("agent/test?l=al1"));
+  const child = renderHook(() => useOverlayBack(true, vi.fn()));
+  await act(async () => {});
+  child.unmount();
+  expect(back).toHaveBeenCalledTimes(1);
+  await act(async () => listing.result.current.close());
+  expect(back).toHaveBeenCalledTimes(1);
+  await act(async () => {
+    history.replaceState({ sentinel: 42, centometerListing: true }, "");
+    window.dispatchEvent(
+      new PopStateEvent("popstate", { state: history.state }),
+    );
+    await Promise.resolve();
+  });
+  expect(back).toHaveBeenCalledTimes(2);
+  listing.unmount();
+});
+it("releases a dialog's history entry when exit starts, before its animation unmounts", async () => {
+  history.replaceState({ sentinel: 42 }, "");
+  const back = vi.spyOn(history, "back").mockImplementation(() => {});
+  const view = render(
+    <Modal title="Posting dialog" onClose={() => {}}>
+      Draft
+    </Modal>,
+  );
+  await act(async () => {});
+  expect(history.state.centometerOverlay).toBeTruthy();
+  view.rerender(
+    <Modal title="Posting dialog" onClose={() => {}} exiting>
+      Draft
+    </Modal>,
+  );
+  expect(back).toHaveBeenCalledTimes(1);
+  expect(view.getByRole("dialog")).toBeTruthy();
+  await backFinished();
+  view.unmount();
+  expect(back).toHaveBeenCalledTimes(1);
+});
 afterEach(async () => {
   cleanup();
   await backFinished();

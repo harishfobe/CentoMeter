@@ -26,7 +26,9 @@ beforeEach(() => {
 afterEach(() => cleanup());
 it("releases draft loading after restore rejection and shows the failure", async () => {
   io.restorePhotos.mockRejectedValueOnce(Error("blocked"));
-  render(<PostFlow city="Coimbatore" onExit={() => {}} onComplete={() => {}} />);
+  render(
+    <PostFlow city="Coimbatore" onExit={() => {}} onComplete={() => {}} />,
+  );
   await waitFor(() =>
     expect(screen.getByRole("alert").textContent).toMatch(
       /could not be restored/,
@@ -37,22 +39,32 @@ it("releases draft loading after restore rejection and shows the failure", async
   ).toBe(false);
 });
 it("jumps back to an earlier posting step from the stepper", async () => {
-  render(<PostFlow city="Coimbatore" onExit={() => {}} onComplete={() => {}} />);
+  render(
+    <PostFlow city="Coimbatore" onExit={() => {}} onComplete={() => {}} />,
+  );
   const continueButton = await screen.findByRole("button", {
     name: "Continue",
   });
   await waitFor(() => expect(continueButton.disabled).toBe(false));
   fireEvent.click(continueButton);
   expect(
-    screen.getByRole("heading", { name: "Tell the story of your property." }),
+    screen.getByRole("heading", { name: "Set your price and property size" }),
   ).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: "Type" }));
+  fireEvent.change(screen.getByLabelText("Total asking price (₹)"), {
+    target: { value: "4500000" },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "Basics", exact: true }));
   expect(
     screen.getByRole("heading", { name: "What would you like to list?" }),
   ).toBeTruthy();
   expect(
-    screen.getByRole("button", { name: "Details" }).disabled,
+    screen.getByRole("button", { name: "Property details", exact: true })
+      .disabled,
   ).toBe(true);
+  fireEvent.click(
+    screen.getByRole("button", { name: "Continue", exact: true }),
+  );
+  expect(screen.getByLabelText("Total asking price (₹)").value).toBe("4500000");
 });
 it("the back action saves a draft and stays in the editor if the write fails", async () => {
   io.persistDraft.mockRejectedValueOnce(Error("blocked"));
@@ -63,9 +75,7 @@ it("the back action saves a draft and stays in the editor if the write fails", a
       screen.getByRole("button", { name: "Back to exploring" }).disabled,
     ).toBe(false),
   );
-  fireEvent.click(
-    screen.getByRole("button", { name: "Autofill details" }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: "Autofill details" }));
   fireEvent.click(screen.getByRole("button", { name: "Back to exploring" }));
   await waitFor(() =>
     expect(screen.getByRole("alert").textContent).toMatch(/before leaving/),
